@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>二分搜尋｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="每次都把範圍砍半的搜尋技巧，猜數字遊戲的圖解教學">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>二分搜尋</h1>
+    <div class="course-tag"><span>M3-00 二分搜尋入門暖身</span></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是二分搜尋</h2>
+  <p class="lead">
+    你玩過「猜數字」遊戲嗎？對方心裡想一個1到100的數字，你每猜一次，對方告訴你「太大」或「太小」。如果你每次都亂猜，運氣不好可能要猜99次才猜到；但如果你每次都猜「目前範圍的中間值」，最多只要猜7次左右就一定找得到——這就是二分搜尋的核心想法：<strong>每一次都把可能的範圍砍半，而不是一個一個慢慢找</strong>。
+    <br><br>
+    這是你第一次真正體會到「同一個問題，方法不一樣，效率差很多」——之前你在清單裡找一個數字，都是從頭到尾一個一個看過去（叫「線性搜尋」），資料越多、要花的時間就跟著等比例變長。二分搜尋只有在資料<strong>已經排好順序</strong>的前提下才能用，但只要能用，資料再多也只需要一次次砍半，速度快非常多。這也是為什麼你在M1-07/M1-08已經先學過排序法。
+  </p>
+
+  <div class="diagram">
+    <p style="margin:0 0 10px;font-size:13px;color:var(--sub);text-align:center;">猜 1～100 之間的數字 73，每次猜中間值</p>
+    <div class="cellrow">
+      <div class="cell faded">1</div><div class="cell faded">…</div><div class="cell active">50</div><div class="cell faded">…</div><div class="cell faded">100</div>
+    </div>
+    <div class="pointer">猜 50 → 太小 → 丟掉左半邊，只留右半邊</div>
+    <div class="arrow-down">↓</div>
+    <div class="cellrow">
+      <div class="cell faded">51</div><div class="cell active">75</div><div class="cell faded">…</div><div class="cell faded">100</div>
+    </div>
+    <div class="pointer">猜 75 → 太大 → 丟掉右半邊，範圍再砍半</div>
+    <div class="arrow-down">↓</div>
+    <div class="cellrow">
+      <div class="cell faded">51</div><div class="cell max">73</div><div class="cell faded">74</div>
+    </div>
+    <div class="pointer">猜 73 → 命中！只花 3 次，而不是逐一從 1 猜到 100</div>
+    <div class="caption">🆕 補充圖解：每猜一次，可能範圍就砍半，找起來快很多<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>判斷目標在不在清單裡</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給一個已經由小到大排序的清單，判斷某個目標數字在不在裡面。用二分搜尋的做法：先看清單正中間的數字，如果剛好是目標就找到了；如果目標比中間值小，代表目標只可能在左半邊，直接把右半邊丟掉，只在左半邊繼續找；如果目標比中間值大，同樣道理丟掉左半邊。每比較一次，可能的範圍就砍半，直到找到，或範圍縮到沒東西為止。</div>
+    <p><span class="problem-chip">神祕數字找找看（<b>M3-00-01</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>清單沒有排序就用二分搜尋——二分搜尋能「砍半丟掉一邊」的前提，是清單已經照順序排好，如果清單是亂的，砍掉的那一半可能剛好藏著答案。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>找出目標在清單中的位置</h3></div>
+    <div class="todo-box">跟概念1幾乎一樣，差別是找到之後不是輸出「有/沒有」，而是輸出<strong>目標所在的位置</strong>（從第1個算起）；如果清單裡沒有，輸出0。</div>
+    <p><span class="problem-chip">神祕數字在第幾個（<b>M3-00-02</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>體會「猜的策略」如何影響次數——猜數字裁判</h3></div>
+    <div class="todo-box">這一題讓你從「玩家」的視角切換到「裁判」的視角：給定正確答案跟一串依序猜測的數字，判斷玩家是第幾次才猜中。寫這支程式本身只需要依序比對每一次猜測，但<strong>做這一題的用意</strong>是讓你觀察：如果輸入的猜測序列本身就是照「二分搜尋策略」在猜（每次猜目前範圍的中間值），猜中所需的次數會遠比亂猜少很多——這是幫助你建立「為什麼要學二分搜尋」的直覺。</div>
+    <p><span class="problem-chip">猜數字裁判（<b>M3-00-03</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>找插入位置——即使沒有完全命中，也要能定位</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>書架上的書已經照編號排好，決定一本新書該插入第幾個位置，插入後仍要保持排序。這一題比概念1、2更進一步：<strong>目標不一定會剛好等於清單裡的某個數字</strong>，二分搜尋這時候要做的是「持續砍半，直到範圍剩下一個位置，那個位置就是答案」，而不是「找不到就放棄」。</div>
+    <p><span class="problem-chip">新書該插第幾格（<b>M3-00-04</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>直接照搬概念1「找到相等就停」的寫法，遇到清單裡沒有完全相同的數字時就不知道該怎麼辦——插入位置類的二分搜尋，重點是持續縮小範圍直到只剩一個可能位置，不是在等一個「相等」的時刻。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>一次查詢多筆——同一招重複套用</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>同一份已排序清單，要查詢很多筆不同的目標值是否存在。這一題沒有新概念——把概念1的做法，對每一筆查詢<strong>各自獨立跑一次二分搜尋</strong>，重複套用即可。</div>
+    <p><span class="problem-chip">訂單一次查（<b>M3-00-05</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>找門檻落點——找「小於等於目標的最大值」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>門檻清單由小到大排序，判斷某筆消費金額達到第幾個門檻（即金額大於等於的<strong>最大</strong>門檻編號；如果沒有達到任何門檻，輸出0）。這是二分搜尋的另一種變化型——你要找的不是「完全相等」，也不是「插入位置」，而是「符合某個條件的最後一個/最大的那個」。</div>
+    <p><span class="problem-chip">打折門檻落點（<b>M3-00-06</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>把概念4（插入位置）跟概念6（門檻落點）的方向搞混——插入位置找的是「第一個比目標大的位置」，門檻落點找的是「最後一個小於等於目標的位置」，兩者的比較方向相反，寫之前先確認題目到底要哪一種。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>存在性判斷</td><td>神祕數字找找看（M3-00-01）</td><td>M3-00</td></tr>
+      <tr><td class="center">2</td><td>找出位置</td><td>神祕數字在第幾個（M3-00-02）</td><td>M3-00</td></tr>
+      <tr><td class="center">3</td><td>建立策略直覺</td><td>猜數字裁判（M3-00-03）</td><td>M3-00</td></tr>
+      <tr><td class="center">4</td><td>找插入位置</td><td>新書該插第幾格（M3-00-04）</td><td>M3-00</td></tr>
+      <tr><td class="center">5</td><td>多筆查詢</td><td>訂單一次查（M3-00-05）</td><td>M3-00</td></tr>
+      <tr><td class="center">6</td><td>找門檻落點</td><td>打折門檻落點（M3-00-06）</td><td>M3-00</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 猜數字砍半過程的格子圖（1~100猜73為範例）。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M3-00-BinarySearchWarmup.js</code></div>
+  </div>
+</main>
+</body>
+</html>

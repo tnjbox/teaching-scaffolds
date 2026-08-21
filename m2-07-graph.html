@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>圖論基礎與進階｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="節點與連線、度數、連通群組、樹狀結構的圖解教學">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>圖論基礎與進階</h1>
+    <div class="course-tag">
+      <span>M2-07 圖論基礎</span>
+      <span>M2-08 圖論進階</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是圖論</h2>
+  <p class="lead">
+    生活中有很多東西不是「一條線排下去」的，而是「彼此互相連接」的關係：朋友之間的社交網路、捷運站之間的路線、電腦之間的網路連線、城市之間的道路。這種「一堆東西＋它們之間的連接關係」，在資訊科學裡就叫做<strong>圖（Graph）</strong>。
+    <br><br>
+    圖由兩種東西組成：<strong>節點（Node／頂點）</strong>——圖裡的每一個「東西」本身，例如一台裝置、一個人、一個路口；<strong>邊（Edge／連線）</strong>——兩個節點之間的一條連接關係，例如「裝置A跟裝置B有連線」。
+    <br><br>
+    圖論是你目前為止學過最貼近「真實世界關係」的資料結構主題——之前的清單是「一串排好順序的資料」，圖是「資料之間彼此的連接關係」，兩者要問的問題完全不同：清單問「第幾個是什麼」，圖問「這個東西跟那個東西連不連得起來、要繞幾步才到得了」。
+  </p>
+
+  <div class="diagram">
+    <svg class="diagram-svg" viewBox="0 0 360 220" width="360" height="220">
+      <line x1="80" y1="60" x2="220" y2="40" stroke="#c7cbe0" stroke-width="3"/>
+      <line x1="80" y1="60" x2="90" y2="170" stroke="#c7cbe0" stroke-width="3"/>
+      <line x1="220" y1="40" x2="290" y2="130" stroke="#c7cbe0" stroke-width="3"/>
+      <line x1="90" y1="170" x2="290" y2="130" stroke="#c7cbe0" stroke-width="3"/>
+      <line x1="220" y1="40" x2="90" y2="170" stroke="#c7cbe0" stroke-width="3"/>
+      <circle cx="80" cy="60" r="22" fill="#5b6fee"/>
+      <text x="80" y="66" text-anchor="middle" fill="#fff" font-weight="700" font-size="16">A</text>
+      <circle cx="220" cy="40" r="22" fill="#5b6fee"/>
+      <text x="220" y="46" text-anchor="middle" fill="#fff" font-weight="700" font-size="16">B</text>
+      <circle cx="290" cy="130" r="22" fill="#5b6fee"/>
+      <text x="290" y="136" text-anchor="middle" fill="#fff" font-weight="700" font-size="16">C</text>
+      <circle cx="90" cy="170" r="22" fill="#5b6fee"/>
+      <text x="90" y="176" text-anchor="middle" fill="#fff" font-weight="700" font-size="16">D</text>
+      <circle cx="330" cy="200" r="22" fill="#e8536b"/>
+      <text x="330" y="206" text-anchor="middle" fill="#fff" font-weight="700" font-size="16">E</text>
+    </svg>
+    <div class="caption">🆕 補充圖解：4個節點A、B、C、D兩兩之間有連線（度數都是3），E是孤立節點（度數0，紅色）<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>圖的基本組成——節點與連線</h3></div>
+    <div class="todo-box">一個網路有 N 個設備（節點）與 M 條連線（邊）。這是整個單元最基本的資料格式：先確定「有幾個節點」，再確定「哪些節點之間有連線」。</div>
+    <p><span class="problem-chip">網路連線數（<b>GRAPH01-001</b>）——單純讀懂輸入格式、輸出連線數 M</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>節點的「連線數」（degree，度數）</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定一個節點 X，計算 X 連到了幾個其他節點。這是圖論裡最基本的統計量，叫做「度數」——你不用知道這個英文名詞，但一定要理解「算某個節點連了幾條線」這個動作，因為後面「找連線最多的設備」「孤立設備」都是從這個概念延伸出來的。</div>
+    <p><span class="problem-chip">指定設備連線數（<b>GRAPH01-002</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>漏算——每一條連線會同時牽涉兩個節點，檢查連線清單時，要記得同一個節點可能出現在「起點欄位」也可能出現在「終點欄位」，兩邊都要算進去。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>判斷兩個節點是否直接相連</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定兩個節點 X、Y，判斷它們之間有沒有一條連線直接連著。這是「圖的查詢」最基礎的一種——之後「兩段路可到達」會在這個基礎上多繞一步。</div>
+    <p><span class="problem-chip">是否直接相連（<b>GRAPH01-003</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>完整網路——所有節點兩兩都相連</h3></div>
+    <div class="todo-box">若 N 個節點中，<strong>每兩個不同節點都直接相連</strong>，稱為完整網路。你可以推導出：N 個節點兩兩配對的組合數，就是完整網路需要的連線數（例如3個節點兩兩配對，共有3種配對方式）。這一題要你算的是「距離完整網路還缺幾條線」——先算出完整網路需要的連線數，再減掉目前已有的 M。</div>
+    <p><span class="problem-chip">完整網路缺幾條線（<b>GRAPH01-007</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>綜合分類——把前面的概念組合起來判斷</h3></div>
+    <div class="todo-box">若連線數 M 為 0，代表所有節點都沒連線（EMPTY）；若 M 剛好等於完整網路需要的連線數，代表所有節點兩兩都連了（FULL）；其他情況輸出 NORMAL。這一題沒有新概念，重點是練習把「概念4的完整網路連線數計算」拿來跟目前的 M 比較，寫出正確的判斷順序。</div>
+    <p><span class="problem-chip">網路狀態分類（<b>GRAPH01-008</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>找出連線數最多／最少（0條）的節點</h3></div>
+    <div class="todo-box">
+      <b class="tag">你要做的事：</b>
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>找連線數最多的設備（若有多個並列，輸出編號最小者）——概念2套用在「每一個節點」身上，再從中找最大值，跟你在M0/M1學過的「找最大值＋記錄位置」是同一個套路</li>
+        <li>孤立設備（沒有任何連線的節點，也就是連線數=0的節點）——統計有幾個節點的連線數是0</li>
+      </ul>
+    </div>
+    <p><span class="problem-chip">找連線最多的設備（<b>GRAPH01-004</b>）</span><span class="problem-chip">孤立設備數量（<b>GRAPH01-005</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">7</div><h3>兩段路可到達——圖論真正的核心，「走路徑」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>判斷 X 能不能透過<strong>一個中繼節點</strong>走兩段路到達 Y（如果 X 和 Y 直接相連，不算兩段路）。這是這個單元第一次真正要你「沿著連線走」，而不只是統計連線數量——你需要檢查：是否存在某個節點 Z，同時跟 X 相連、也跟 Y 相連。</div>
+
+    <div class="diagram">
+      <svg class="diagram-svg" viewBox="0 0 320 120" width="320" height="120">
+        <line x1="40" y1="60" x2="160" y2="30" stroke="#5b6fee" stroke-width="3"/>
+        <line x1="160" y1="30" x2="280" y2="60" stroke="#5b6fee" stroke-width="3"/>
+        <circle cx="40" cy="60" r="20" fill="#5b6fee"/><text x="40" y="66" text-anchor="middle" fill="#fff" font-weight="700">X</text>
+        <circle cx="160" cy="30" r="20" fill="#2c9a6b"/><text x="160" y="36" text-anchor="middle" fill="#fff" font-weight="700">Z</text>
+        <circle cx="280" cy="60" r="20" fill="#5b6fee"/><text x="280" y="66" text-anchor="middle" fill="#fff" font-weight="700">Y</text>
+        <text x="160" y="100" text-anchor="middle" fill="#5b6272" font-size="13">X 透過中繼節點 Z 走兩段路到達 Y</text>
+      </svg>
+      <div class="caption">🆕 補充圖解<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">兩段路可到達（<b>GRAPH01-006</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>忘記排除「X和Y直接相連」的情況——題目明確說直接相連不算兩段路，這是容易漏掉的邊界條件。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">8</div><h3>連通群組——把整張圖分成好幾群</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>計算整個網路總共分成幾個「連通群組」——同一群組內的裝置都能透過連線（可能要繞好幾步）互相到達；不同群組之間完全沒有連線路徑，就算繞再多步也到不了。這是圖論進階最重要的新概念：不再只看「一步」或「兩步」，而是「不管繞多少步，到得了就算同一群」。</div>
+    <p><span class="problem-chip">訊號網路的連通群組數（<b>JSG01-009</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>只看有沒有「直接」連線，忘記兩個節點即使沒有直接連線，只要能透過中間的節點（不管幾個）繞過去，就算同一個連通群組。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">9</div><h3>樹狀結構——上下游關係與到根節點的距離</h3></div>
+    <div class="todo-box">有一類題目給的不是「任意連線」，而是每個節點指定「上游接收站編號」（例如「量子訊號的接力傳輸」「訊號站到主機的轉傳距離查詢」）——這種「每個節點只有一個上游」的圖，叫做<strong>樹（Tree）</strong>，是圖的一種特殊型態。這一類題目常問的是「從某個節點沿著上游關係一路往上走，要走幾步才會到主機／根節點」。做法是<strong>沿著上游指標一直往上跳，同時計算跳了幾步</strong>，直到跳到「上游編號為0」（代表已經到主機）為止。</div>
+    <p><span class="problem-chip">量子訊號的接力傳輸（<b>W0-03</b>）</span><span class="problem-chip">訊號站到主機的轉傳距離查詢（<b>JSG01-010</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">10</div><h3>更多進階應用（可依需要挑戰）</h3></div>
+    <div class="todo-box">圖論進階還有幾題結合了其他情境包裝相同的核心技巧——「山區備援工程」（樹狀結構＋連線長度）、「基地台訊號覆蓋」（二維地圖上的圖論）、「社團聯絡網(6-4)」（連通群組的應用）。這些題目沒有新概念，是概念8、9的實戰演練，建議前面的概念都熟悉之後再挑戰。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>圖的基本組成</td><td>網路連線數（GRAPH01-001）</td><td>M2-07</td></tr>
+      <tr><td class="center">2</td><td>節點連線數（度數）</td><td>指定設備連線數（GRAPH01-002）</td><td>M2-07</td></tr>
+      <tr><td class="center">3</td><td>直接相連判斷</td><td>是否直接相連（GRAPH01-003）</td><td>M2-07</td></tr>
+      <tr><td class="center">4</td><td>完整網路</td><td>完整網路缺幾條線（GRAPH01-007）</td><td>M2-07</td></tr>
+      <tr><td class="center">5</td><td>綜合分類</td><td>網路狀態分類（GRAPH01-008）</td><td>M2-07</td></tr>
+      <tr><td class="center">6</td><td>找最多/最少連線</td><td>找連線最多的設備／孤立設備數量</td><td>M2-07</td></tr>
+      <tr><td class="center">7</td><td>兩段路徑</td><td>兩段路可到達（GRAPH01-006）</td><td>M2-07</td></tr>
+      <tr><td class="center">8</td><td>連通群組</td><td>訊號網路的連通群組數（JSG01-009）</td><td>M2-08</td></tr>
+      <tr><td class="center">9</td><td>樹狀結構與到根距離</td><td>量子訊號的接力傳輸／訊號站到主機的轉傳距離查詢</td><td>M2-08</td></tr>
+      <tr><td class="center">10</td><td>進階應用</td><td>山區備援工程／基地台訊號覆蓋／社團聯絡網</td><td>M2-08</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 節點連線SVG示意圖（含孤立節點）② 兩段路徑SVG示意圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M2-07-GraphBasics.js</code>、<code class="inline">courses/M2-08-GraphAdvanced.js</code></div>
+  </div>
+</main>
+</body>
+</html>

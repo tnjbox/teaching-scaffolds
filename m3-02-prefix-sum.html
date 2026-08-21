@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>前綴和（Prefix Sum）｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="先準備好累積總額陣列，之後每次查詢區間總和都只要一次減法">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>前綴和（Prefix Sum）</h1>
+    <div class="course-tag"><span>M3-02 前綴和(prefix sum)</span></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是前綴和</h2>
+  <p class="lead">
+    假設你有一份「每天募款金額」的紀錄，老師常常問你：「第5天到第20天總共募了多少錢？」如果你每次都乖乖從第5天加到第20天，資料一多、問的次數一多，會算到手軟——而且明明第一次問「第5~20天」跟第二次問「第5~25天」，你其實有一大段（第5~20天）是重複算過的。
+    <br><br>
+    前綴和的想法是：<strong>先花一次功夫，把「從第1天累加到第i天」的結果，通通事先算好存起來</strong>，之後不管問哪一段區間的總和，都可以直接用兩個事先算好的數字相減得到，不用重新掃描那一整段。這是資訊科學裡「用一次額外的準備工作，換取後面每一次查詢都變快」的經典例子——你會發現前面M2-05「模擬與狀態」的部分題目就已經悄悄埋了「要查詢很多次區間總和」的情境，前綴和正是用來解決那類問題的正式工具。
+  </p>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>建立前綴和陣列——每天結束時的累積總額</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定N天的每日金額，輸出「第1天到第i天為止」的累積總額，對每一個i都輸出一次。這一步其實就是你在M0-04學過的「累加」技巧——差別是這次要把<strong>每一步的累加結果都存下來</strong>（不是只要最後的總和），因為後面的查詢會需要用到中間任何一步的累積值。</div>
+
+    <div class="diagram">
+      <p style="margin:0 0 6px;font-size:13px;color:var(--sub);">每日金額：</p>
+      <div class="cellrow">
+        <div class="cell idx" data-idx="第1天">3</div>
+        <div class="cell idx" data-idx="第2天">5</div>
+        <div class="cell idx" data-idx="第3天">2</div>
+        <div class="cell idx" data-idx="第4天">7</div>
+        <div class="cell idx" data-idx="第5天">4</div>
+      </div>
+      <div class="arrow-down">↓ 累加</div>
+      <p style="margin:0 0 6px;font-size:13px;color:var(--sub);">前綴和陣列（累積到第 i 天為止）：</p>
+      <div class="cellrow">
+        <div class="cell done">3</div>
+        <div class="cell done">8</div>
+        <div class="cell done">10</div>
+        <div class="cell done">17</div>
+        <div class="cell done">21</div>
+      </div>
+      <div class="caption">🆕 補充圖解：前綴和陣列把每一步的累加結果都存下來，不只存最後結果<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">募款進度累積表（<b>M3-02-01</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>用前綴和回答「一段區間」的總和查詢</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>查詢「第L天到第R天」（含頭尾）總共募了多少錢。有了概念1的前綴和陣列後，答案就是：<strong>「到第R天為止的累積總額」減掉「到第L-1天為止的累積總額」</strong>。</div>
+
+    <div class="diagram">
+      <div class="pointer">查詢第2天到第4天（L=2, R=4）：前綴和[4] − 前綴和[1] = 17 − 3 = 14</div>
+      <div class="cellrow">
+        <div class="cell faded">3</div>
+        <div class="cell active">8</div>
+        <div class="cell active">10</div>
+        <div class="cell active">17</div>
+        <div class="cell faded">21</div>
+      </div>
+      <div class="caption">🆕 補充圖解：一次減法就能算出任何一段區間的總和，不用重新掃描<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">區間募款查詢（<b>M3-02-02</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區（這是這個單元最容易出錯、也是最重要的一個觀念）</div>一定要減掉「第L-1天」而不是「第L天」——如果你不小心減成「到第L天為止」的累積總額，你會把第L天本身也扣掉，結果少算了一天。自己動手驗證一次：如果L=1（要查第1天開始），前綴和陣列裡沒有「第0天」這個東西，這時候要把它當作0（一天都還沒開始，累積總額當然是0）。很多同學會在這裡卡住，建議自己明確定義清楚：「到第0天為止的累積總額＝0」，讓公式在L=1的邊界情況也能套用，不用另外寫特殊判斷。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>重複套用同一招——一次處理多筆查詢</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>同一份募款紀錄，這次要一次查詢很多組不同的區間。這一題沒有新概念——前綴和陣列只要<strong>建立一次</strong>，之後每一組查詢都直接套用概念2的公式，不用每組查詢都重新掃描資料。這正是前綴和最大的優勢所在：準備工作只做一次，後面的查詢不管做幾次都很快。</div>
+    <p><span class="problem-chip">募款多筆區間查詢（<b>M3-02-03</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>用前綴和算平均值，判斷是否達標</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>判斷第L天到第R天（含頭尾）的平均氣溫，是否達到某個門檻。這一題結合了概念2（用前綴和算出區間總和）跟你在M1-03學過的「整數平均」技巧——先用前綴和算出區間總和，再除以天數（R-L+1），拿去跟門檻比較。</div>
+    <p><span class="problem-chip">區間平均氣溫是否達標（<b>M3-02-04</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>從區間總和中「扣除」某一天</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定L到R的募款範圍，但其中有一天要扣掉不列入計算，求扣除後的區間總額。做法是：先用概念2算出「L到R的區間總和」，再直接減掉「那一天單獨的金額」（不是用前綴和相減，是直接減掉那一天的原始數值）。</div>
+    <p><span class="problem-chip">扣除單日的區間總和（<b>M3-02-05</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>反過來找出「總和剛好等於目標值」的區間</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>找出一組連續區間（第L天到第R天），使這段區間的點數總和剛好等於目標值。這一題是前面的「反向應用」——前面都是「給你L、R，算總和」，這一題是「給你總和，找出對應的L、R」。做法是：對每一組可能的L、R組合，用概念2的公式快速算出區間總和（因為前綴和已經事先算好，每組只要一次減法，不用重新掃描），去比對是否等於目標值。</div>
+    <p><span class="problem-chip">找出總和等於目標值的區間（<b>M3-02-06</b>）</span></p>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>建立前綴和陣列</td><td>募款進度累積表（M3-02-01）</td><td>M3-02</td></tr>
+      <tr><td class="center">2</td><td>區間總和查詢</td><td>區間募款查詢（M3-02-02）</td><td>M3-02</td></tr>
+      <tr><td class="center">3</td><td>多筆查詢</td><td>募款多筆區間查詢（M3-02-03）</td><td>M3-02</td></tr>
+      <tr><td class="center">4</td><td>區間平均值判斷</td><td>區間平均氣溫是否達標（M3-02-04）</td><td>M3-02</td></tr>
+      <tr><td class="center">5</td><td>扣除單日</td><td>扣除單日的區間總和（M3-02-05）</td><td>M3-02</td></tr>
+      <tr><td class="center">6</td><td>反向找區間</td><td>找出總和等於目標值的區間（M3-02-06）</td><td>M3-02</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 原始資料→前綴和陣列的建立圖解 ② 區間查詢的減法圖解。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M3-02-PrefixSum.js</code></div>
+  </div>
+</main>
+</body>
+</html>

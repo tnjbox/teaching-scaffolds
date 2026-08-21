@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>堆疊與佇列｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="LIFO與FIFO的圖解教學，括號配對、瀏覽器上一頁、排隊叫號的應用">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>堆疊與佇列</h1>
+    <div class="course-tag"><span>M1-11 堆疊與佇列</span></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是堆疊與佇列</h2>
+  <p class="lead">
+    到目前為止，你操作清單的方式都是「用位置（索引）存取任何一個地方」——你可以直接跳到第5個、第10個位置去讀或改。但堆疊（Stack）和佇列（Queue）刻意<strong>限制</strong>你只能從固定的一端進出資料，換來的好處是：很多真實世界的行為，本來就是「有嚴格先後順序限制」的，用限制過的結構去模擬，反而比用任意存取的清單更直覺、更不容易寫錯。
+  </p>
+
+  <div class="diagram">
+    <div style="display:flex;gap:40px;flex-wrap:wrap;justify-content:center;">
+      <div style="text-align:center;">
+        <p style="font-weight:800;color:var(--brand-dark);margin-bottom:10px;">堆疊 Stack＝LIFO<br><span style="font-weight:400;font-size:13px;color:var(--sub);">後進先出，像一疊盤子</span></p>
+        <div class="stack-col">
+          <div class="cell">10</div>
+          <div class="cell">20</div>
+          <div class="cell active">30 ← 最後放的最先拿走</div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <p style="font-weight:800;color:var(--brand-dark);margin-bottom:10px;">佇列 Queue＝FIFO<br><span style="font-weight:400;font-size:13px;color:var(--sub);">先進先出，像排隊結帳</span></p>
+        <div class="queue-row">
+          <div class="cell active">10 ← 最先進的最先出</div>
+          <div class="cell">20</div>
+          <div class="cell">30</div>
+        </div>
+      </div>
+    </div>
+    <div class="caption">🆕 補充圖解：兩種結構「放入」的一端相同，但「取出」的一端剛好相反<span class="new-badge">新增</span></div>
+  </div>
+
+  <p class="lead" style="margin-top:20px;">
+    這是你在資訊科學裡第一次接觸「限制存取方式」反而更有用的資料結構。之後你會發現：瀏覽器上一頁、程式的函式呼叫、括號配對、排隊叫號系統……很多系統背後都是堆疊或佇列在運作。學會辨認「這個情境該用堆疊還是佇列」，是這個單元最重要的能力。
+  </p>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>堆疊——PUSH（放入頂端）與POP（移除頂端）</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>維護一個清單當作堆疊。收到「PUSH」指令，就把新數字加到清單<strong>最後面</strong>（當作頂端）；收到「POP」指令，就把清單<strong>最後面</strong>的數字拿掉（如果清單是空的，這個指令直接跳過，不會出錯）。全部指令做完後，堆疊裡剩下的內容，由最底部到最頂部依序輸出。</div>
+    <p><span class="problem-chip">堆疊操作模擬（<b>M1-11-01</b>）——指令代碼1=PUSH、2=POP</span></p>
+
+    <div class="diagram">
+      <p style="margin:0 0 8px;font-size:13px;color:var(--sub);">自己動手跑一次（指令 1 1 2 1 2，數字 10 20 0 30 0）</p>
+      <table class="pretty compare-table" style="font-size:13.5px;">
+        <tr><th>動作</th><th>堆疊狀態（由底到頂）</th></tr>
+        <tr><td>PUSH 10</td><td>[10]</td></tr>
+        <tr><td>PUSH 20</td><td>[10, 20]</td></tr>
+        <tr><td>POP（移除頂端的20）</td><td>[10]</td></tr>
+        <tr><td>PUSH 30</td><td>[10, 30]</td></tr>
+        <tr><td>POP（移除頂端的30）</td><td><b>[10]</b> ← 最後結果</td></tr>
+      </table>
+    </div>
+
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>POP時忘記先判斷「堆疊是不是空的」——如果堆疊已經空了還硬要移除，程式會出錯或算出錯誤結果。堆疊操作永遠要先檢查「還有沒有東西可以拿」。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>佇列——ENQUEUE（加到尾端）與DEQUEUE（從前端移除）</h3></div>
+    <div class="todo-box">佇列跟堆疊唯一的差別，就是<strong>移除的那一端不一樣</strong>：堆疊從「跟放入同一端」移除（後進先出），佇列從「放入的另一端」移除（先進先出）。</div>
+    <p><span class="problem-chip">佇列操作模擬（<b>M1-11-02</b>）——指令代碼1=ENQUEUE、2=DEQUEUE</span></p>
+
+    <div class="diagram">
+      <p style="margin:0 0 8px;font-size:13px;color:var(--sub);">自己動手跑一次（同一組指令 1 1 2 1 2，數字 10 20 0 30 0，跟堆疊版比較差異）</p>
+      <table class="pretty compare-table" style="font-size:13.5px;">
+        <tr><th>動作</th><th>佇列狀態（前→後）</th></tr>
+        <tr><td>ENQUEUE 10</td><td>[10]</td></tr>
+        <tr><td>ENQUEUE 20</td><td>[10, 20]</td></tr>
+        <tr><td>DEQUEUE（移除最前面的10，不是20！）</td><td>[20]</td></tr>
+        <tr><td>ENQUEUE 30</td><td>[20, 30]</td></tr>
+        <tr><td>DEQUEUE（移除最前面的20）</td><td><b>[30]</b> ← 最後結果</td></tr>
+      </table>
+    </div>
+
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>跟堆疊搞混，DEQUEUE時錯拿了清單最後面的值而不是最前面的值。同樣一組指令、同樣的數字，堆疊版本最後剩 <code class="inline">10</code>，佇列版本最後剩 <code class="inline">30</code>——這個差異就是LIFO跟FIFO最直接的證明，遇到題目時先問自己：「這題是後進先出還是先進先出？」</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>堆疊的經典應用——括號配對</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>判斷一串括號字串是否「完全合法配對」（每個左括號都對應到一個右括號，順序也正確）。這是堆疊最經典的應用之一：不用真的維護一個清單堆疊，可以簡化成<strong>一個「深度」計數器</strong>——遇到左括號就+1（相當於PUSH），遇到右括號就-1（相當於POP）。如果過程中深度變成負的（代表右括號在對應的左括號之前出現），或是最後深度不是0（代表有左括號沒被配對），就是不合法。</div>
+    <p><span class="problem-chip">括號配對是否合法（<b>M1-11-03</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>只檢查「左右括號數量相不相等」，忽略了<strong>順序</strong>。例如 <code class="inline">)(</code> 左右括號數量相等，但明顯不合法（右括號先出現）——一定要用「深度計數器不能變負數」這個規則，數量相等不代表順序正確。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>堆疊的經典應用——瀏覽器上一頁</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>模擬瀏覽器的「造訪新頁面」與「按上一頁」——造訪新頁面時把頁面代碼PUSH進瀏覽紀錄；按上一頁時POP掉目前頁面，回到堆疊裡的上一個。這是堆疊在真實軟體裡最常被提到的例子：<strong>你永遠只能回到「最近造訪的上一頁」，不能跳著回去</strong>，這正是LIFO的行為模式。</div>
+    <p><span class="problem-chip">瀏覽器上一頁模擬（<b>M1-11-04</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>跟概念1一樣，忘記處理「已經沒有上一頁可以回」的情況（堆疊是空的時候按上一頁，指令要跳過，不能讓程式出錯）。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>佇列的經典應用——排隊叫號系統</h3></div>
+    <div class="todo-box">「排隊叫號系統模擬」（<b>M1-11-05</b>）是佇列在生活中最直接的對應：先來的先被叫號、先被服務，這正是FIFO。做這一題時，先確認你能分辨「這是佇列情境」，再套用概念2的ENQUEUE/DEQUEUE操作。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>綜合應用——奇偶分流交錯重組</h3></div>
+    <div class="todo-box">「奇偶分流交錯重組」（<b>M1-11-06</b>）是這個單元最後的綜合題，把資料依某個規則分流（例如奇數位置一群、偶數位置一群），再依照特定順序重新組合輸出。做這一題前，建議先想清楚：這個題目裡「分流」跟「重組」各自比較適合用堆疊還是佇列的邏輯處理，再動手寫。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>堆疊：PUSH/POP</td><td>堆疊操作模擬（M1-11-01）</td><td>M1-11</td></tr>
+      <tr><td class="center">2</td><td>佇列：ENQUEUE/DEQUEUE</td><td>佇列操作模擬（M1-11-02）</td><td>M1-11</td></tr>
+      <tr><td class="center">3</td><td>堆疊應用：括號配對</td><td>括號配對是否合法（M1-11-03）</td><td>M1-11</td></tr>
+      <tr><td class="center">4</td><td>堆疊應用：瀏覽紀錄</td><td>瀏覽器上一頁模擬（M1-11-04）</td><td>M1-11</td></tr>
+      <tr><td class="center">5</td><td>佇列應用：排隊叫號</td><td>排隊叫號系統模擬（M1-11-05）</td><td>M1-11</td></tr>
+      <tr><td class="center">6</td><td>綜合應用</td><td>奇偶分流交錯重組（M1-11-06）</td><td>M1-11</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 堆疊/佇列並排對照圖解。原MD文字版「自己動手跑一次」步驟已改繪成本頁表格（數值內容相同，僅呈現方式改變）。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M1-11-StackQueue.js</code></div>
+  </div>
+</main>
+</body>
+</html>

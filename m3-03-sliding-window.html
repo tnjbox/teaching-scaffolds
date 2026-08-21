@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>滑動視窗（Sliding Window）｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="固定與浮動視窗的移動圖解，減一個加一個的效率技巧">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>滑動視窗（Sliding Window）</h1>
+    <div class="course-tag"><span>M3-03 滑動視窗(sliding window)</span></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是滑動視窗</h2>
+  <p class="lead">
+    想像你拿一個固定大小的「窗框」，從一排資料的最左邊開始框住一段，然後每次往右移動一格。滑動視窗要解決的問題通常長這樣：「連續K天的營收總和，最多/最少是多少？」如果每次移動窗框都把窗框裡的資料整個重新加一次，會做很多重複的工作——比如「第1~5天」跟「第2~6天」，中間第2~5天其實是重複算過的。
+    <br><br>
+    滑動視窗的關鍵技巧是：<strong>窗框往右移動一格時，不要整個重算，只要「減掉離開窗框的那一個」、「加上新進入窗框的那一個」</strong>。這是繼M3-02前綴和之後，第二個「用一次巧妙的更新方式換取效率」的技巧——前綴和是「先全部準備好，之後查詢用減法」，滑動視窗是「移動時只做局部加減」，兩者都是同一種精神：不要每次都從頭重算。
+  </p>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>固定大小視窗——移動時只做局部加減</h3></div>
+    <div class="todo-box">
+      <b class="tag">你要做的事：</b>算出所有「連續K天」區間的營收總和，依開始日期順序輸出。做法：
+      <ol style="margin:8px 0 0;padding-left:20px;">
+        <li>先算出第一個窗框（第1天到第K天）的總和</li>
+        <li>窗框往右移動一格時：新總和 = 舊總和 − 離開窗框的那一天金額 + 新進入窗框的那一天金額</li>
+        <li>重複移動直到窗框到達資料尾端</li>
+      </ol>
+    </div>
+
+    <div class="diagram">
+      <div class="cellrow">
+        <div class="cell window">3</div><div class="cell window">5</div><div class="cell window">2</div><div class="cell">7</div><div class="cell">4</div>
+      </div>
+      <div class="pointer">窗框K=3：3+5+2 = 10</div>
+      <div class="arrow-down">↓ 往右移一格：−3（離開），+7（新進入）</div>
+      <div class="cellrow">
+        <div class="cell faded">3</div><div class="cell window">5</div><div class="cell window">2</div><div class="cell window">7</div><div class="cell">4</div>
+      </div>
+      <div class="pointer">新總和 = 10 − 3 + 7 = 14（不用重新加5+2+7）</div>
+      <div class="caption">🆕 補充圖解：黃色格子＝目前視窗範圍，移動時只調整頭尾兩個數字<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">連續K天營收總和一覽（<b>M3-03-01</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>每次移動窗框都整段重新加總一次——這樣寫出來的答案不會錯，但失去了滑動視窗真正的意義（效率），資料量一大會明顯變慢。務必養成習慣：移動視窗只做「減一個、加一個」這兩個動作。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>在所有視窗裡找最大值／最小值</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>在概念1「算出每個窗框的總和」的基礎上，不是全部輸出，而是找出所有窗框總和中的最大值/最小值。這一題把滑動視窗（概念1）跟你在M0-04/M0-06學過的「找最大最小值」技巧結合起來——邊移動窗框、邊比較目前總和是不是比記錄到的最大/最小值更好。</div>
+    <p><span class="problem-chip">連續K天最大總營收（<b>M3-03-02</b>）</span><span class="problem-chip">連續K天最小總營收（<b>M3-03-03</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>判斷「是否曾經」有某個視窗達標</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>判斷是否存在某一段連續K天，平均營收達到門檻以上。做法：跟概念1、2一樣移動窗框、算總和，每次算出總和後順便算平均、跟門檻比較，只要<strong>有一個</strong>窗框達標就可以直接輸出「有」，不用等全部窗框都算完。</div>
+    <p><span class="problem-chip">連續K天平均是否曾經達標（<b>M3-03-04</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>視窗大小不再固定——找最長的連續達標區間</h3></div>
+    <div class="todo-box">前面三題的窗框大小K都是題目給定的固定值。這一題不一樣：<strong>要找的區間長度本身就是答案的一部分</strong>——只要每天的數值都大於等於門檻，就算連續達標，求最長能連續達標幾天。做法變成：用一個計數器記錄「目前連續達標了幾天」，遇到達標的一天就+1，遇到沒達標的一天就把計數器重設為0，過程中隨時記錄出現過的最大計數值。</div>
+    <p><span class="problem-chip">最長連續達標天數（<b>M3-03-05</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>還是想用概念1「固定大小K」的邏輯去解這一題——但這一題的視窗大小是浮動的（不知道最長會連續幾天），要改用「計數器遇到中斷就歸零」的做法，而不是「移動固定大小的窗框」。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>視窗大小浮動——找最短的達標區間</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>找出最短的一段連續天數，讓這段天數的總和達到（大於等於）目標值。這是滑動視窗最進階的用法，視窗的左右邊界都會浮動：<strong>視窗右邊界持續往右擴張、累加總和；一旦總和達到目標，就嘗試把左邊界往右收縮（同時扣掉左邊界離開的值），在維持總和仍然達標的前提下，盡量把視窗縮到最短</strong>，過程中記錄出現過的最短長度。</div>
+    <p><span class="problem-chip">最少連續幾天達到目標總量（<b>M3-03-06</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>只讓視窗往右擴張，忘記在總和達標之後要嘗試往內收縮左邊界——如果沒有收縮這一步，你只會找到「第一次達標時」的視窗長度，不一定是最短的。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>固定視窗：算總和</td><td>連續K天營收總和一覽（M3-03-01）</td><td>M3-03</td></tr>
+      <tr><td class="center">2</td><td>固定視窗：找最大/最小</td><td>連續K天最大總營收／最小總營收</td><td>M3-03</td></tr>
+      <tr><td class="center">3</td><td>固定視窗：是否曾經達標</td><td>連續K天平均是否曾經達標（M3-03-04）</td><td>M3-03</td></tr>
+      <tr><td class="center">4</td><td>浮動視窗：最長達標</td><td>最長連續達標天數（M3-03-05）</td><td>M3-03</td></tr>
+      <tr><td class="center">5</td><td>浮動視窗：最短達標</td><td>最少連續幾天達到目標總量（M3-03-06）</td><td>M3-03</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 固定視窗移動的格子圖（減頭加尾）。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M3-03-SlidingWindow.js</code></div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>清單走訪與搜尋基礎｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="用圖解理解清單走訪、找最大值、記錄位置等基礎操作">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🟢 Tier B・延伸組合技巧</div>
+    <h1>清單走訪與搜尋基礎</h1>
+    <div class="course-tag">
+      <span>M0-05 清單走訪與讀取</span>
+      <span>M0-06 找最大值/最小值延伸</span>
+      <span>M1-01 清單搜尋與篩選進階</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是清單走訪與搜尋</h2>
+  <p class="lead">
+    清單（List）是把很多筆資料依序放在一起的容器——一串成績、一排金幣數量、一列溫度紀錄。<strong>走訪（Traverse）</strong>指的是「依序把清單裡每一筆資料都看過一遍」，這是操作清單最基本的動作：不管你最後要做加總、找最大值、還是找符合條件的資料，第一步幾乎都是「用迴圈把清單從頭到尾走一遍」。
+    <br><br>
+    這個單元把你在 M0-04 學過的「迴圈＋累加器」正式套用到「清單」這種資料型態上——差別在於，之前的累加器多半是處理你自己算出來的數字（例如 1 到 N），現在開始要處理的是<strong>一整批外部給的資料</strong>，而且常常要邊走訪、邊記錄「走到哪裡了」「目前看到最好的是什麼」。這是你之後幾乎所有清單相關題目（排序、統計、索引查詢）共同的基礎動作。
+  </p>
+
+  <div class="diagram">
+    <div class="cellrow">
+      <div class="cell idx active" data-idx="1">7</div>
+      <div class="cell idx" data-idx="2">3</div>
+      <div class="cell idx" data-idx="3">9</div>
+      <div class="cell idx" data-idx="4">2</div>
+      <div class="cell idx" data-idx="5">5</div>
+    </div>
+    <div class="pointer">👆 走訪指標從第 1 個位置開始，每輪迴圈往右移動一格</div>
+    <div class="caption">🆕 補充圖解：走訪就是讓「目前看的位置」像手指一樣，一格一格由左往右滑過整份清單<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>最基本的走訪——依序讀取、依序輸出</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>讀入 N 個整數，依照原本順序逐一輸出每個數字。這一步還沒有任何運算，純粹練習「一輪迴圈處理清單裡的一筆資料」這個動作本身。</div>
+    <p><span class="problem-chip">清單逐一讀取（<b>JSA01-D01</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>不是讀清單，是自己生成一串序列</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>不一定要先讀進一份清單才能走訪——你也可以用迴圈<strong>自己產生</strong>一串規律的數字序列再輸出，例如：從 1 數到 N（暖身運動）、從 S 倒數到 0（火箭發射倒數）、把 1 到 N 的每個數字都乘以 10（魔法金幣倍增術）。這些題目讓你練習「迴圈變數本身的規律變化」跟「清單裡讀進來的資料」是兩種不同的資料來源，但走訪、輸出的動作是一樣的。</div>
+    <p><span class="problem-chip">暖身運動-基礎計數（<b>count-001</b>）</span><span class="problem-chip">火箭發射倒數（<b>count-003</b>）</span><span class="problem-chip">魔法金幣倍增術（<b>count-004</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>走訪＋累加——延續 M0-04 的累加器技巧</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>讀入 N 個整數，計算這些數字的總和（甚至同時算出整數平均）。這是把 M0-04 學過的累加器套在「讀進來的清單」上：一輪一輪走訪，每看到一個數字就加進累加器。</div>
+    <p><span class="problem-chip">清單加總與平均示範（<b>JSA01-D03</b>）</span><span class="problem-chip">戰利品清點（<b>count-014</b>）</span></p>
+    <div class="example-box"><span class="tag">延伸練習——累加前先判斷條件</span>「偶數日的存款」（<b>count-009</b>）只在「偶數日」才累加，是概念3結合條件判斷的應用；「能量水晶融合」（<b>count-010</b>）是把「加總」換成「累乘」（1×2×3×...×N）。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>走訪＋找最大值/最小值——用比較取代累加</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>讀入 N 個整數，找出其中的最大值（甚至同時找最小值）。做法是 M0-04「找最大值」技巧的正式清單版：先準備一個變數記錄「目前看過的最好結果」，每走訪到一筆新資料就跟它比較，比較好就更新。</div>
+
+    <div class="diagram">
+      <div class="cellrow">
+        <div class="cell idx" data-idx="1">7</div>
+        <div class="cell idx active" data-idx="2">3</div>
+        <div class="cell idx" data-idx="3">9</div>
+        <div class="cell idx" data-idx="4">2</div>
+        <div class="cell idx" data-idx="5">5</div>
+      </div>
+      <div class="pointer">目前記錄的最大值：<b>7</b>（3 沒有比 7 大，不更新）</div>
+      <div class="caption">🆕 補充圖解：走訪每一格時都跟「目前記錄的最大值」比較一次<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">清單最大最小值示範（<b>JSA01-D03</b>）</span><span class="problem-chip">找最大值（<b>EXT01-001</b>）</span><span class="problem-chip">找最小值（<b>EXT01-002</b>）</span><span class="problem-chip">尋找戰鬥力最高的魔王（<b>count-012</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>找最大值的延伸——不只要值，還要更多資訊</h3></div>
+    <div class="todo-box">
+      <b class="tag">你要做的事：</b>
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>「最大最小差距」（<b>EXT01-003</b>）：分別找出最大值與最小值後，計算兩者差距——概念4的直接延伸</li>
+        <li>「第二高分」（<b>EXT01-006</b>）：不只要記錄最高分，還要同時追蹤「第二高分」</li>
+        <li>「相鄰最大差」（<b>EXT01-007</b>）：找相鄰兩個數字之間差距的最大值，走訪時要同時記得「上一個數字是什麼」</li>
+      </ul>
+    </div>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>處理「第二高分」時忘記考慮「新資料比最高分還高」的情況該怎麼連動更新第二高分（原本的最高分要往下移動變成新的第二高分），只單純判斷「比最高分小、比第二高分大」會漏掉這種情況。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>找到「值」之後，還要記錄「位置」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>找出最高分/最低溫<strong>第一次出現的位置</strong>（位置從1開始計算），不只是找出值本身。做法是走訪時除了記錄「目前最好的值」，還要多記錄一個變數存「這個值是在第幾個位置出現的」，值被更新時，位置也要跟著同步更新。</div>
+    <p><span class="problem-chip">最高分的位置（<b>EXT01-004</b>）</span><span class="problem-chip">最低溫的位置（<b>EXT01-005</b>）</span></p>
+    <p style="font-size:14.5px;color:var(--sub);">這個「記錄值的同時也記錄位置」的技巧，是之後 M1-04「清單索引與位置」、M1-07/M1-08 排序法（選擇排序要「先找最小值的位置」）都會用到的基礎功。</p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">7</div><h3>在指定的一段範圍內找最大值——走訪範圍的延伸</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定查詢區間 L 到 R，找出第 L 個到第 R 個數字中的最大值。這一題是概念4的延伸——走訪的範圍不再是整份清單，而是清單裡<strong>指定的一段</strong>。</div>
+    <p><span class="problem-chip">區間最大值（<b>EXT01-008</b>）</span></p>
+    <p style="font-size:14.5px;color:var(--sub);">這一題也預告了之後 M3-01「區間與最佳化」、M3-02「前綴和」會正式處理「同一份清單要被問很多次不同區間」的情況——如果只問一次，直接走訪這段範圍就好；如果要問很多次，之後你會學到更有效率的做法。</p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">8</div><h3>應用題——從故事情境認出概念3、4的技巧</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>「防禦工事」（<b>count-008</b>，計算1²到N²的序列，本質是概念2的「生成序列」＋計算）、「修復斷橋」（<b>count-011</b>，計算M加到N的總和，是概念3累加器的變形，只是範圍不是從1開始）、「登山冒險」（輸出1到N再回頭到1的序列，是概念2「生成序列」的進階版）。做這幾題時，先把故事包裝拿掉，問自己：「這其實是概念幾在做的事？」</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>基本走訪</td><td>清單逐一讀取（JSA01-D01）</td><td>M0-05</td></tr>
+      <tr><td class="center">2</td><td>自行生成序列</td><td>暖身運動-基礎計數／火箭發射倒數／魔法金幣倍增術</td><td>M0-05</td></tr>
+      <tr><td class="center">3</td><td>走訪＋累加</td><td>清單加總與平均示範／戰利品清點</td><td>M0-05、M1-01</td></tr>
+      <tr><td class="center">4</td><td>走訪＋找最大/最小值</td><td>清單最大最小值示範／找最大值／找最小值</td><td>M0-05、M0-06</td></tr>
+      <tr><td class="center">5</td><td>找最大值的延伸</td><td>最大最小差距／第二高分／相鄰最大差</td><td>M0-06</td></tr>
+      <tr><td class="center">6</td><td>記錄值的位置</td><td>最高分的位置／最低溫的位置</td><td>M0-06</td></tr>
+      <tr><td class="center">7</td><td>指定範圍找最大值</td><td>區間最大值（EXT01-008）</td><td>M0-06</td></tr>
+      <tr><td class="center">8</td><td>應用題辨識</td><td>防禦工事／修復斷橋／登山冒險</td><td>M1-01</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 走訪指標移動圖解 ② 概念4的「走訪＋比較最大值」格子圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M0-05-ListBasics.js</code>、<code class="inline">courses/M0-06-MinMaxExtra.js</code>、<code class="inline">courses/M1-01-ListSearch.js</code></div>
+  </div>
+</main>
+</body>
+</html>

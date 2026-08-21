@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>排序法：交換排序與選擇排序｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="泡泡排序與選擇排序的逐步圖解，以及雙清單連動排序">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>排序法：交換排序與選擇排序</h1>
+    <div class="course-tag">
+      <span>M1-07 排序法：交換與選擇排序</span>
+      <span>M1-08 排序應用：連動資料處理</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是排序法</h2>
+  <p class="lead">
+    排序，就是把一堆雜亂的資料，依照某個規則（由小到大、由大到小）重新排好順序。這聽起來很簡單——你自己整理撲克牌、排隊時比身高，早就會排序了。但當你要<strong>寫程式</strong>叫電腦幫你排序時，問題就不一樣了：電腦一次只能比較兩個數字、只能做一個動作，它不像人一樣「看一眼就知道誰最大」。所以你要做的事，是把「排序」這個你腦中直覺就會做的事，拆解成電腦看得懂的<strong>一步一步的比較和交換動作</strong>。
+    <br><br>
+    這是你在程式設計裡第一次真正練習「設計一段有步驟的邏輯」，而不是「套用一個現成的積木」。排序法也是資訊科學裡最經典的入門演算法主題之一：同一個「把資料排好」的目標，可以用不同的方法達成，而不同方法在「怎麼比較、怎麼交換」上會有清楚的差異。學會分辨這些差異，是你以後學任何演算法的基本功。
+    <br><br>
+    排序也會不斷在後面出現：找中位數、找第K名、要把資料做成排行榜……這些問題的第一步幾乎都是「先排序」。
+  </p>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>交換兩個值，一定要用「暫存變數」</h3></div>
+    <p>你可能會直覺地想寫：</p>
+    <pre class="code">A 設為 B
+B 設為 A</pre>
+    <p><strong>這是錯的。</strong> 執行第一步之後，A 的值已經被 B 蓋掉了，A 原本的值永遠消失了——所以第二步「B 設為 A」，其實是設成 B 原本自己的值，等於什麼都沒換到。</p>
+    <p>正確做法要多借一個變數（暫存），先把 A 原本的值存起來再開始覆蓋：</p>
+    <pre class="code">暫存 = A
+A = B
+B = 暫存</pre>
+
+    <div class="diagram">
+      <div class="flow">
+        <div class="step">暫存 = A<br>（先備份 A）</div>
+        <div class="op">→</div>
+        <div class="step">A = B<br>（A 被覆蓋沒關係）</div>
+        <div class="op">→</div>
+        <div class="step">B = 暫存<br>（把備份的 A 給 B）</div>
+      </div>
+      <div class="caption">🆕 補充圖解：三個步驟缺一不可，就像交換兩杯不同顏色的水，一定要先借一個空杯子<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">SWAP交換函數（<b>seclect-001</b>）</span><span class="problem-chip">兩數交換成升冪（<b>SORT01-001</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>忘記借用暫存變數，直接 A=B、B=A，結果兩個變數變成同一個值。這是排序法最容易犯的第一個錯——因為後面泡泡排序、選擇排序的每一次「交換」，做的都是這三行動作，這裡沒學會，後面一定會卡住。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>泡泡排序——一輪一輪，把最大的往後推</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>從清單第一個位置開始，依序比較「這個位置」跟「下一個位置」的數字，如果順序反了（前面比後面大）就交換。當你這樣掃完一整輪，你會發現一件事：<strong>這一輪掃過的範圍裡最大的數字，一定會被推到最右邊</strong>（因為它每次比較都贏，就一直被往後交換）。只要重複掃描 N-1 輪，整個清單就會排好。</div>
+
+    <p><strong>練習題目（按順序做）</strong></p>
+    <ol style="padding-left:20px;">
+      <li>「相鄰交換一次」（<b>SORT01-003</b>）：只做<strong>一輪</strong>掃描，親眼看到掃一輪之後最大值自己跑到最右邊——先搞懂這個現象，再往下做</li>
+      <li>「泡泡排序升冪」（<b>SORT01-004</b>）：把「掃一輪」包進外層迴圈，重複掃描直到完全排好</li>
+      <li>「泡泡排序降冪」：把比較的方向反過來（改成前面比後面小才交換）</li>
+    </ol>
+
+    <div class="diagram">
+      <p style="margin:0 0 8px;font-weight:700;font-size:14px;color:var(--sub);">自己動手跑一次（以 5 1 4 2 3 為例，看看第一輪掃描發生了什麼）</p>
+      <div class="cellrow"><div class="cell max">5</div><div class="cell active">1</div><div class="cell">4</div><div class="cell">2</div><div class="cell">3</div></div>
+      <div class="pointer">比較(5,1)：5&gt;1，交換</div>
+      <div class="arrow-down">↓</div>
+      <div class="cellrow"><div class="cell">1</div><div class="cell max">5</div><div class="cell active">4</div><div class="cell">2</div><div class="cell">3</div></div>
+      <div class="pointer">比較(5,4)：5&gt;4，交換</div>
+      <div class="arrow-down">↓</div>
+      <div class="cellrow"><div class="cell">1</div><div class="cell">4</div><div class="cell max">5</div><div class="cell active">2</div><div class="cell">3</div></div>
+      <div class="pointer">比較(5,2)：5&gt;2，交換</div>
+      <div class="arrow-down">↓</div>
+      <div class="cellrow"><div class="cell">1</div><div class="cell">4</div><div class="cell">2</div><div class="cell max">5</div><div class="cell active">3</div></div>
+      <div class="pointer">比較(5,3)：5&gt;3，交換</div>
+      <div class="arrow-down">↓</div>
+      <div class="cellrow"><div class="cell">1</div><div class="cell">4</div><div class="cell">2</div><div class="cell">3</div><div class="cell done">5</div></div>
+      <div class="caption">5 已經被一輪一輪推到最右邊了！🆕 圖解為補充內容<span class="new-badge">新增</span></div>
+    </div>
+
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>只掃一輪就以為排序完成了，忘記外層還要重複掃描 N-1 輪。這正是題組故意先讓你做「相鄰交換一次」的原因——先確認你真的看懂「一輪」的效果，再進到完整的重複迴圈。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>選擇排序——先找出這一輪最小的在哪裡，再換過去一次就好</h3></div>
+    <div class="todo-box">選擇排序跟泡泡排序的想法不一樣：<strong>不是每比較一次就交換一次</strong>，而是先在「還沒排好的範圍」裡，找出最小值<strong>所在的位置</strong>，等你確定找到了，這一輪<strong>只交換一次</strong>（把最小值換到這一輪的最前面）。</div>
+
+    <p><strong>練習題目（按順序做）</strong></p>
+    <ol style="padding-left:20px;">
+      <li>「清單最大最小值的位置」（<b>seclect-003</b>）：先單獨練習「找出最小值所在的位置（索引），不是找最小值本身」——這是選擇排序最容易搞混的地方</li>
+      <li>「選擇排序第一回合」：只做第一輪「找最小值位置＋交換一次」</li>
+      <li>「完整選擇排序」：把第一回合包進外層迴圈，跑完整個清單</li>
+      <li>「三數升冪排序」（<b>SORT01-002</b>）：N=3 的簡化版選擇排序，可以先做這一題暖身</li>
+    </ol>
+
+    <div class="table-wrap">
+      <table class="pretty compare-table">
+        <tr><th></th><th>泡泡排序</th><th>選擇排序</th></tr>
+        <tr><td>什麼時候交換</td><td>每次比較「順序不對」就馬上交換</td><td>一輪只交換一次（找到最小值位置後才換）</td></tr>
+        <tr><td>一輪交換幾次</td><td>可能很多次</td><td>固定1次</td></tr>
+        <tr><td>怎麼找最小值</td><td>沒有特別去「找位置」，是交換動作順便造成的結果</td><td>明確先找出位置，再用這個位置去交換</td></tr>
+      </table>
+    </div>
+
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>把兩種排序法的交換時機搞混——寫選擇排序時卻寫成「每次比較就交換」，變成四不像。做題目前先問自己：這一題是要「邊比較邊交換」還是「先找位置、最後只換一次」？</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>資料有多個欄位時，排序要「連動」——不能只排一個清單</h3></div>
+    <div class="todo-box">真實資料常常是「姓名＋分數」這種一筆資料、多個清單的組合，<strong>同一個位置的姓名和分數其實是綁在一起的一組資料</strong>。如果你只排序了分數清單，姓名清單卻沒有跟著動，姓名跟分數的對應關係就會全部對不起來——這是排序法應用到真實資料時最常出的錯。</div>
+
+    <div class="diagram">
+      <p style="margin:0 0 6px;font-size:13px;color:var(--sub);">分數：</p>
+      <div class="cellrow"><div class="cell active">72</div><div class="cell max">95</div><div class="cell">60</div></div>
+      <p style="margin:10px 0 6px;font-size:13px;color:var(--sub);">姓名（同一組位置要跟著換）：</p>
+      <div class="cellrow"><div class="cell active" style="min-width:60px;">小華</div><div class="cell max" style="min-width:60px;">小美</div><div class="cell" style="min-width:60px;">小明</div></div>
+      <div class="caption">🆕 補充圖解：交換分數清單的位置P、Q時，姓名清單也要用同一組P、Q交換一次<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><strong>練習題目（按順序做，M1-08）</strong></p>
+    <ol style="padding-left:20px;">
+      <li>「卡片位置交換清單版」（<b>seclect-002</b>）：先練習在清單裡「指定兩個位置」做交換，把概念1（暫存變數交換）用在清單索引上</li>
+      <li>「雙卡同步交換」（<b>seclect-007</b>）：兩個清單（姓名清單、分數清單）<strong>用同一組位置P、Q</strong>各自交換一次</li>
+      <li>「找出最高分與最低分學生的位置與姓名」（<b>seclect-008</b>）：在分數清單裡找到最大/最小值的位置後，<strong>用同一個位置</strong>去姓名清單取出對應的名字</li>
+      <li>「連動選擇排序第一回合」「完整雙清單排序」：把概念3的選擇排序套用在雙清單上</li>
+      <li>「排序結果應用-成績排行榜」「多清單整合實戰-學生資料分析」：綜合應用，排序完直接產出報表</li>
+    </ol>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>只寫了排序分數清單的邏輯，忘記姓名清單也要用同一組位置一起交換。做這一類題目時，養成習慣提醒自己：「這裡交換了一個清單，另一個清單是不是也要用同一個位置做一次？」</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>排好序之後，很多統計問題直接用位置就能回答</h3></div>
+    <div class="todo-box">
+      清單一旦排好順序，很多問題就變得很簡單：
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>找中位數：排序後直接拿正中間那個位置</li>
+        <li>找第K小：排序後直接拿第K個位置</li>
+        <li>去掉最高最低後的平均：排序後跳過第一個和最後一個，再加總平均</li>
+      </ul>
+    </div>
+    <p><span class="problem-chip">排序後的中間值</span><span class="problem-chip">排序後第K小</span><span class="problem-chip">排序後去除最高最低</span></p>
+    <p style="font-size:14.5px;color:var(--sub);">這一組題目不需要新的演算法概念——排序你已經在概念2、3學過了——重點是養成「先排序、再用位置取值」這個固定的解題套路。</p>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>暫存變數交換</td><td>SWAP交換函數（seclect-001）</td><td>M1-07</td></tr>
+      <tr><td class="center">2</td><td>暫存變數交換（if-else版）</td><td>兩數交換成升冪（SORT01-001）</td><td>M1-07</td></tr>
+      <tr><td class="center">3</td><td>選擇排序暖身</td><td>三數升冪排序（SORT01-002）</td><td>M1-07</td></tr>
+      <tr><td class="center">4</td><td>泡泡排序：一輪掃描</td><td>相鄰交換一次（SORT01-003）</td><td>M1-07</td></tr>
+      <tr><td class="center">5</td><td>泡泡排序：完整</td><td>泡泡排序升冪／降冪（SORT01-004起）</td><td>M1-07</td></tr>
+      <tr><td class="center">6</td><td>選擇排序：找位置</td><td>清單最大最小值的位置（seclect-003）</td><td>M1-08</td></tr>
+      <tr><td class="center">7</td><td>選擇排序：第一回合／完整</td><td>選擇排序第一回合／完整選擇排序</td><td>M1-07</td></tr>
+      <tr><td class="center">8</td><td>清單指定位置交換</td><td>卡片位置交換清單版（seclect-002）</td><td>M1-08</td></tr>
+      <tr><td class="center">9</td><td>雙清單同步交換</td><td>雙卡同步交換（seclect-007）</td><td>M1-08</td></tr>
+      <tr><td class="center">10</td><td>雙清單找值配對</td><td>找出最高分與最低分學生的位置與姓名（seclect-008）</td><td>M1-08</td></tr>
+      <tr><td class="center">11</td><td>連動排序</td><td>連動選擇排序第一回合／完整雙清單排序</td><td>M1-08</td></tr>
+      <tr><td class="center">12</td><td>綜合應用</td><td>排序結果應用-成績排行榜／多清單整合實戰</td><td>M1-08</td></tr>
+      <tr><td class="center">13</td><td>排序後應用</td><td>排序後的中間值／第K小／去除最高最低</td><td>M1-07</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 暫存變數交換三步驟圖解 ② 雙清單連動交換示意圖。原MD中泡泡排序的文字版逐步示範，已改繪成本頁的格子圖（內容數值相同，僅呈現方式改變）。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M1-07-SortBasics.js</code>、<code class="inline">courses/M1-08-SortApplied.js</code></div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>模擬與狀態追蹤｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="用狀態變數模擬血量、分數、位置隨事件變化的過程">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🟢 Tier B・延伸組合技巧</div>
+    <h1>模擬與狀態追蹤</h1>
+    <div class="course-tag">
+      <span>M2-03 模擬與狀態：基礎</span>
+      <span>M2-04 角色扮演系列</span>
+      <span>M2-05 感測與監控系列</span>
+      <span>M2-06 競賽綜合系列</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是模擬與狀態追蹤</h2>
+  <p class="lead">
+    「狀態（State）」指的是<strong>某個東西目前的樣子，而且這個樣子會隨著時間、隨著發生的事件持續改變</strong>——遊戲角色的血量、玩家目前的分數、燈泡是開是關、角色目前站在哪個位置。這個單元要你寫的程式，本質上都是在<strong>模擬一連串事件發生後，某個東西的狀態變成什麼樣子</strong>。
+    <br><br>
+    你可能會覺得這跟M0-04學過的「累加器」很像——沒錯，狀態追蹤其實就是累加器概念的延伸：<strong>用一個變數記住「目前的狀態」，每發生一個事件，就依照事件的規則更新這個變數</strong>。差別在於，累加器通常只是單純加總，而「狀態」可能會有上限/下限（血量不能低於0）、可能會在不同種類的事件下有不同的更新方式、甚至可能同時要追蹤好幾個狀態變數一起判斷結果。
+  </p>
+
+  <div class="diagram">
+    <div class="flow">
+      <div class="step">初始狀態<br>血量=100</div>
+      <div class="op">事件G</div>
+      <div class="step">狀態更新<br>血量=90</div>
+      <div class="op">事件B</div>
+      <div class="step">狀態更新<br>血量=70</div>
+      <div class="op">結束</div>
+      <div class="step">最終判讀<br>Win/Lose？</div>
+    </div>
+    <div class="caption">🆕 補充圖解：狀態隨每個事件持續更新，最後再依最終狀態決定輸出結果<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>最基本的狀態——分數與血量的累加/累減</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定每一回合的得分（或血量變化），計算最後的總分（或最後血量）。這一步跟M0-04的累加器幾乎一模一樣，只是換了個名字叫「狀態」——分數狀態、血量狀態，每一輪都用新發生的數值去更新它。</div>
+    <p><span class="problem-chip">分數累加模擬（<b>JSSIM01-D01</b>）</span><span class="problem-chip">血量變化模擬（<b>JSSIM01-D02</b>）</span><span class="problem-chip">分數累積（<b>SIM01-001</b>）</span><span class="problem-chip">血量變化（<b>SIM01-002</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>事件驅動的狀態更新——不同的事件字元，對應不同的更新規則</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>輸入一串事件字元，字元G代表得到10分，字元B代表扣5分，計算所有事件結束後的分數。跟概念1不同的是，這次<strong>更新的規則不是統一的加總</strong>，而是要先判斷「這個事件是什麼種類」，再依種類決定怎麼更新狀態。</div>
+    <p><span class="problem-chip">根據事件改變狀態（<b>JSSIM01-D03</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>狀態的最終判讀——依最終狀態決定輸出結果</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>模擬完所有回合後，依總分是否達到某個門檻，輸出Clear或Retry。這一題提醒你：<strong>模擬狀態的變化只是過程，通常題目真正要問的是「狀態模擬完之後，最終要輸出什麼判斷結果」</strong>——概念1、2負責把狀態算出來，這一步是額外再加一層條件判斷。</div>
+    <p><span class="problem-chip">簡單遊戲關卡累計（<b>JSSIM01-P01</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>多個狀態變數的組合判斷</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>同時給定玩家的血量H與分數S，依照H、S的組合情況輸出Win、Keep或Lose（例如H&gt;0且S≥100輸出Win；H&gt;0但S未達100輸出Keep；H≤0輸出Lose）。這一題要你<strong>同時追蹤兩個獨立的狀態變數</strong>，並依照它們的組合關係做出判斷——寫這一類題目前，建議先把所有組合情況條列出來，確認每一種組合都有對應的輸出，不要漏掉任何一種。</div>
+    <p><span class="problem-chip">多條件狀態判斷（<b>JSSIM01-P02</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>位置類狀態——用事件更新座標</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>角色一開始在位置0，一串移動指令L代表向左移動1格、R代表向右移動1格，計算最後位置。這是概念2「事件驅動更新」的變形，只是狀態從「分數」換成「位置座標」。</div>
+    <p><span class="problem-chip">左右移動位置（<b>SIM01-004</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>布林狀態——開與關的切換</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>一盞燈一開始是關閉狀態，每按一次開關，燈的狀態就切換一次，輸出最後燈是開或關。這是「狀態」的另一種型態——不是數字，而是「兩種可能性中的其中一種」，每次事件發生就在兩者之間切換（開→關、關→開）。</div>
+    <p><span class="problem-chip">開關切換（<b>SIM01-005</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">7</div><h3>有邊界限制的狀態——不能無限制地增減</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>血量會因事件增加或減少，<strong>但血量低於0時要改為0</strong>（同樣的邏輯也出現在「收集金幣與陷阱」：金幣數量不可低於0）。這是狀態追蹤很重要的一個延伸：<strong>更新狀態之後，要檢查有沒有超出合理範圍，超出的話要把它「夾」回範圍內</strong>，不能讓血量變成負的、金幣變成負的。</div>
+    <p><span class="problem-chip">血量不可低於0（<b>SIM01-003</b>）</span><span class="problem-chip">收集金幣與陷阱（<b>SIM01-006</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>只在最後才檢查一次有沒有超出範圍——正確做法是<strong>每一次狀態更新之後，就立刻檢查並修正</strong>，因為下一次更新是根據「修正後」的狀態繼續算，不是根據「原本可能是負的」狀態繼續算。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">8</div><h3>連續性狀態——記錄「連續發生了幾次」，中斷就重新計算</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定一串比賽結果（W代表勝利、L代表失敗），計算最長連續勝利次數。做法：用一個計數器記錄「目前連續贏了幾場」，遇到W就+1，遇到L就把計數器歸零重新開始，過程中隨時記錄出現過的最大值。</div>
+    <p><span class="problem-chip">最高連勝次數（<b>SIM01-007</b>）</span></p>
+    <p style="font-size:14.5px;color:var(--sub);">這個「連續計數、中斷歸零、隨時記錄最大值」的套路，之後在M3-03「滑動視窗」的「最長連續達標天數」會再遇到一次，是同一種思考方式。</p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">9</div><h3>進階應用——把狀態追蹤套用在更複雜的情境（M2-04~M2-06）</h3></div>
+    <div class="todo-box">
+      M2-04、M2-05、M2-06是把概念1～8的技巧包裝進更豐富的情境裡，沒有全新的核心概念，但情境更貼近真實應用，值得挑戰：
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li><b>找最高/找平均以上</b>（複習M0-06、M1-03）：「寶可夢訓練師-2」（找等級最高的寶可夢）、「寶可夢訓練師-3」（找等級高於平均的寶可夢）</li>
+        <li><b>統計連線數</b>（預告M2-07圖論）：「園遊會攤位熱度分析」（統計每個路口連接的走道數量）</li>
+        <li><b>循序填充直到滿了才換下一個</b>：「防災臨時屋」（臨時屋依序開放，滿了才開下一間）</li>
+        <li><b>區間查詢的伏筆</b>：「遊戲關卡的積分計算」（多次查詢「第L關到第R關」的總分，是M3-02前綴和的預告）</li>
+        <li><b>組合優惠計算</b>：「遊樂場」（親子套票組合的最優惠計算，預告M2-09貪心策略）</li>
+        <li><b>排序後去除極端值</b>：「歌唱比賽」（排序評審分數、去除最高最低分、算剩餘平均）</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>基本累加狀態</td><td>分數累加模擬／血量變化模擬</td><td>M2-03</td></tr>
+      <tr><td class="center">2</td><td>事件驅動更新</td><td>根據事件改變狀態（JSSIM01-D03）</td><td>M2-03</td></tr>
+      <tr><td class="center">3</td><td>最終狀態判讀</td><td>簡單遊戲關卡累計（JSSIM01-P01）</td><td>M2-03</td></tr>
+      <tr><td class="center">4</td><td>多狀態組合判斷</td><td>多條件狀態判斷（JSSIM01-P02）</td><td>M2-03</td></tr>
+      <tr><td class="center">5</td><td>位置類狀態</td><td>左右移動位置（SIM01-004）</td><td>M2-03</td></tr>
+      <tr><td class="center">6</td><td>布林狀態切換</td><td>開關切換（SIM01-005）</td><td>M2-03</td></tr>
+      <tr><td class="center">7</td><td>邊界限制狀態</td><td>血量不可低於0／收集金幣與陷阱</td><td>M2-03</td></tr>
+      <tr><td class="center">8</td><td>連續性狀態</td><td>最高連勝次數（SIM01-007）</td><td>M2-03</td></tr>
+      <tr><td class="center">9</td><td>進階應用</td><td>寶可夢訓練師系列／園遊會攤位熱度分析／防災臨時屋／遊戲關卡的積分計算／遊樂場／歌唱比賽</td><td>M2-04、M2-05、M2-06</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 狀態隨事件更新的流程圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M2-03-SimBasics.js</code>、<code class="inline">courses/M2-04-SimRolePlay.js</code>、<code class="inline">courses/M2-05-SimSensor.js</code>、<code class="inline">courses/M2-06-SimContest.js</code></div>
+  </div>
+</main>
+</body>
+</html>

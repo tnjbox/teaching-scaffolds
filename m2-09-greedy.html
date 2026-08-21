@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>貪心策略｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="每一步選當下最好的選擇——貪心策略的成立條件與排序後貪心套路">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>貪心策略</h1>
+    <div class="course-tag">
+      <span>M2-09 貪心策略入門</span>
+      <span>M2-10 貪心策略進階</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是貪心策略</h2>
+  <p class="lead">
+    貪心（Greedy）是你接觸的第一個「演算法策略」，而不是單一個技巧。它的想法很簡單：<strong>每一步都選當下看起來最好的選擇，不去考慮這個選擇會不會影響到後面</strong>。買東西優先買便宜的、找零錢優先用大面額——這些都是你生活中本來就會的直覺，貪心演算法就是把這個直覺寫成程式。
+    <br><br>
+    貪心最重要的觀念，也是它跟你之前學的技巧最不一樣的地方：<strong>貪心不是每次都對</strong>。它只在某些問題的結構下才能保證「每一步選最好的，最後加起來也是最好的」。這門課選的題目都是貪心策略成立的情境，但你以後遇到新問題時，要先想一下「這一步選當下最好的，會不會反而讓後面沒辦法選到更好的結果」——這正是貪心策略在資訊科學裡最核心的思考方式：<strong>不是先寫程式，而是先驗證這個策略講不講得通</strong>。
+  </p>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>暖身——貪心其實常常只是「除法」</h3></div>
+    <div class="todo-box">有些貪心問題簡單到就是一次整數除法：「已經沒辦法再更好」的答案，本身就是除法的商或無條件進位。</div>
+    <p><span class="problem-chip">最多可買幾瓶水（<b>GREEDY01-002</b>）：錢÷單價</span><span class="problem-chip">最少箱子數（<b>GREEDY01-006</b>）：物品數÷容量，無條件進位</span><span class="problem-chip">補到目標分數（<b>GREEDY01-007</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>忘記「無條件進位」——除得盡才剛好，除不盡的餘數還是需要再多一個箱子/多一題。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>硬幣找零——每次都用最大面額</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>用 50、10、5、1 元硬幣找零，要用最少硬幣數。貪心策略：<strong>每一步都盡量先用最大的面額</strong>，用到不能再用（再用下去會超過金額）才換下一級面額。</div>
+    <p><span class="problem-chip">最少硬幣數（<b>GREEDY01-001</b>）</span></p>
+
+    <div class="diagram">
+      <table class="pretty compare-table" style="font-size:14px;">
+        <tr><th>面額組合</th><th>湊6元的貪心結果</th><th>其實更好的湊法</th></tr>
+        <tr><td>1、3、4（貪心會出錯）</td><td>4+1+1（3枚）</td><td>3+3（2枚，更少！）</td></tr>
+        <tr><td>50、10、5、1（本課使用）</td><td>貪心保證正確</td><td>—</td></tr>
+      </table>
+      <div class="caption">🆕 補充圖解：貪心不是萬用的——換一組面額，貪心給的答案可能不是最優解<span class="new-badge">新增</span></div>
+    </div>
+
+    <p>這是理解「貪心不一定永遠對」的好例子：50/10/5/1這組面額剛好每一級都是下一級的倍數關係，貪心才會保證正確；如果面額換成例如「1、3、4」，湊6元時貪心會先選4再選1再選1（共3枚），但其實3+3只要2枚更好。這門課的面額都是貪心成立的情況，但<strong>記得貪心不是萬用的，要先確認題目的數字結構允不允許</strong>。</p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>排序後貪心——先排好順序，再依序選</h3></div>
+    <div class="todo-box">
+      這是貪心策略最常見的套路：<strong>先把資料按某個標準排序，再照排好的順序依序做選擇</strong>。排序的標準會依題目目標而不同：
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>「優先完成短任務」（<b>GREEDY01-003</b>）：時間<strong>由短到長</strong>排序，依序做，直到可用時間用完為止——先做短的，才能塞進最多任務</li>
+        <li>「買最多便宜商品」（<b>GREEDY01-004</b>）：價格<strong>由低到高</strong>排序，依序買，直到預算用完——先買便宜的，才能買到最多件</li>
+        <li>「最大總分選擇」（<b>GREEDY01-005</b>）：分數<strong>由高到低</strong>排序，取前K個加總——要總分最大，當然優先選分數最高的</li>
+        <li>「最多裝入背包」（<b>GREEDY01-008</b>）：重量<strong>由輕到重</strong>排序，依序裝，直到裝不下為止——想裝最多「件數」，優先選輕的才塞得下更多件</li>
+      </ul>
+    </div>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>排序方向選反了——想要「最多件數」通常要由小到大排序（先滿足最容易滿足的），想要「總值最大」通常要由大到小排序（優先拿貢獻最大的）。做每一題前先問自己：「我要的是數量最多，還是總值最大？」這會決定排序方向。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>排序後貪心的進階應用</h3></div>
+    <div class="todo-box">
+      M2-10 的多數題目都是概念3「排序後依序選」套用在更複雜的情境上：
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>「簽唱會門票」（<b>115J-02</b>）：粉絲依積分排序，取前K名（跟「最大總分選擇」是同一招）</li>
+        <li>「圖書館的舊書打包」（<b>cycjunior-003</b>）：書本已經由重到輕排好，依序裝箱，裝不下就換下一箱</li>
+        <li>「購買紀念品」（<b>TYTN-12</b>）：在預算內盡量買到最多件紀念品——概念3的變形，多了「商品數量有限」的條件</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>配對型貪心——把兩端排序後配對</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事（大隊接力的棒次安排，<b>cyjunior-004</b>）：</b>把一群人依能力值排序後，用某種配對規則（例如強的跟弱的配對）安排順序。這種「排序後從兩端各取一個」的貪心，常出現在「盡量拉近差距」或「平衡負擔」類的題目——「星際物資運補-疏散飛船的乘客名單」（<b>nantoJS-006-2</b>，體重限制下配對乘客）也是同樣的思路：清單已經由小到大排好，同時用兩個指標，一個從最重的開始、一個從最輕的開始，往中間逼近做配對。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>固定順序的模擬——不是「選」而是「照順序處理」</h3></div>
+    <div class="todo-box">「可口便當」（<b>WP-06</b>）不是要你「挑」出最好的組合，而是給定一個<strong>已經決定好的處理順序</strong>，要你照這個順序把訂單重新排列輸出。這一題提醒你：不是所有跟「順序」有關的題目都是貪心——有些只是單純的模擬，先看清楚題目要的是「你自己決定最佳策略」還是「照題目給的規則模擬」。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">7</div><h3>更多進階應用（可依需要挑戰）</h3></div>
+    <div class="todo-box">M2-10 還有幾題把貪心結合更複雜的情境包裝：「星際物資運補-神祕的配重」「星際物資運補-火星樣本回收」（重量/價值比的取捨）、「超市採購即時通」「金門小三通春運調度」「王牌教練」「金門粥糜採購任務」「外送員的接單策略」「神秘的煉金術配對」。這些題目沒有新的核心概念，是概念3～5的實戰演練，建議前面的概念都熟悉、也能說出「為什麼這樣排序」之後再挑戰。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>除法型貪心</td><td>最多可買幾瓶水／最少箱子數／補到目標分數</td><td>M2-09</td></tr>
+      <tr><td class="center">2</td><td>硬幣找零（貪心的界線）</td><td>最少硬幣數（GREEDY01-001）</td><td>M2-09</td></tr>
+      <tr><td class="center">3</td><td>排序後貪心：時間</td><td>優先完成短任務（GREEDY01-003）</td><td>M2-09</td></tr>
+      <tr><td class="center">4</td><td>排序後貪心：花費</td><td>買最多便宜商品（GREEDY01-004）</td><td>M2-09</td></tr>
+      <tr><td class="center">5</td><td>排序後貪心：總分</td><td>最大總分選擇（GREEDY01-005）</td><td>M2-09</td></tr>
+      <tr><td class="center">6</td><td>排序後貪心：件數</td><td>最多裝入背包（GREEDY01-008）</td><td>M2-09</td></tr>
+      <tr><td class="center">7</td><td>進階排序貪心</td><td>簽唱會門票／圖書館的舊書打包／購買紀念品</td><td>M2-10</td></tr>
+      <tr><td class="center">8</td><td>配對型貪心</td><td>大隊接力的棒次安排／星際物資運補-疏散飛船的乘客名單</td><td>M2-10</td></tr>
+      <tr><td class="center">9</td><td>固定順序模擬（辨析用）</td><td>可口便當</td><td>M2-10</td></tr>
+      <tr><td class="center">10</td><td>綜合進階應用</td><td>超市採購即時通／金門小三通春運調度／王牌教練等</td><td>M2-10</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 貪心「不是萬用」的面額對照表（把MD原本的文字敘述改成表格呈現，內容相同）。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M2-09-GreedyBasics.js</code>、<code class="inline">courses/M2-10-GreedyAdvanced.js</code></div>
+  </div>
+</main>
+</body>
+</html>

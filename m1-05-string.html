@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>字串處理：基礎與進階｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="把字串當成字元清單來操作：長度、索引、計數、反轉、轉換">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🟢 Tier B・延伸組合技巧</div>
+    <h1>字串處理：基礎與進階</h1>
+    <div class="course-tag">
+      <span>M1-05 字串處理基礎</span>
+      <span>M1-06 字串處理進階：格式與編碼</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是字串處理</h2>
+  <p class="lead">
+    字串（String）就是一串文字——姓名、密碼、一句話。你可能會覺得字串跟清單差很多，但其實<strong>字串幾乎可以當作「一個一個字元排成的清單」來操作</strong>：你可以問「這個字串有幾個字元」（跟清單問「有幾筆資料」一樣）、可以問「第幾個字元是什麼」（跟清單的索引存取一樣）、可以走訪每一個字元逐一處理（跟清單走訪一樣）。
+    <br><br>
+    所以這個單元不是全新的技巧，而是把你在前面單元學過的走訪、計數、比較這些能力，<strong>套用在字元上</strong>。差別只在於：字元本身除了可以被計數、比較，還可以做「轉換」（例如把字母往後移幾位變成密碼），這是字串處理特有、清單處理比較少見的操作。
+  </p>
+
+  <div class="diagram">
+    <div class="cellrow">
+      <div class="cell idx active" data-idx="1">H</div>
+      <div class="cell idx" data-idx="2">E</div>
+      <div class="cell idx" data-idx="3">L</div>
+      <div class="cell idx" data-idx="4">L</div>
+      <div class="cell idx" data-idx="5">O</div>
+    </div>
+    <div class="pointer">字串 "HELLO" 其實就是 5 個字元排成的清單，長度＝5</div>
+    <div class="caption">🆕 補充圖解：字串＝字元清單，索引、走訪的規則跟清單完全相同<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>字串的長度</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>輸出一個字串的長度（字元數）。這是操作字串前最基本的資訊，之後很多題目的迴圈次數都會用到「字串長度」這個值。</div>
+    <p><span class="problem-chip">字串長度（<b>STR01-001</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>存取指定位置的字元</h3></div>
+    <div class="todo-box">
+      <b class="tag">你要做的事：</b>
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>輸出第一個字元與最後一個字元——字串的位置從1開始算，最後一個字元的位置就是「字串長度」本身</li>
+        <li>輸出第P個字元——概念1（拿到長度）延伸出來的索引存取</li>
+        <li>逐一輸出每一個字元，每個字元各佔一行——用迴圈把「指定位置存取」套用到每一個位置</li>
+      </ul>
+    </div>
+    <p><span class="problem-chip">第一個與最後一個字元（<b>STR01-002</b>）</span><span class="problem-chip">指定位置的字元（<b>STR01-003</b>）</span><span class="problem-chip">逐字元輸出（<b>JSS01-D03</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>統計字元出現次數——條件計數套用在字元上</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>計算某個目標字元C在字串中出現幾次。做法完全就是你在M1-03學過的「條件計數」：準備一個計數器，走訪字串的每一個字元，符合（等於目標字元C）就+1。</div>
+    <p><span class="problem-chip">計算指定字元數量（<b>STR01-004</b>）</span><span class="problem-chip">指定字元出現次數（<b>JSS01-P01</b>）</span><span class="problem-chip">計算字元出現次數（<b>A-11-0</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>反向輸出——走訪方向反過來</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>把字串反向輸出。跟M1-03「清單反向加總」是同一招——迴圈從字串最後一個位置往回走到第一個位置。</div>
+    <p><span class="problem-chip">反向輸出字串（<b>STR01-005</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>判斷回文——正著讀反著讀是否相同</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>判斷字串正著讀和反著讀是否相同。做法是拿概念4「反向輸出」的結果，跟原本的字串比較是否完全相同；也可以更直接一點，同時從字串的最前面跟最後面各自往中間走，一路比較對應的字元是否相同。</div>
+
+    <div class="diagram">
+      <div class="cellrow">
+        <div class="cell idx active" data-idx="←">L</div>
+        <div class="cell idx" data-idx="">E</div>
+        <div class="cell idx" data-idx="中">V</div>
+        <div class="cell idx" data-idx="">E</div>
+        <div class="cell idx active" data-idx="→">L</div>
+      </div>
+      <div class="pointer">"LEVEL"：從左右兩端同時往中間逼近比較，逐一相同就是回文</div>
+      <div class="caption">🆕 補充圖解：兩個指標從頭尾出發，往中間走並逐一比對<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">是否回文（<b>STR01-007</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>母音數量——多字元條件的計數</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>計算母音a、e、i、o、u共出現幾次。跟概念3幾乎一樣，差別只是「符合條件」從「等於一個特定字元」變成「等於a、e、i、o、u其中之一」。</div>
+    <p><span class="problem-chip">母音數量（<b>STR01-006</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">7</div><h3>相鄰字元比較</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>判斷字串中是否存在兩個相鄰且相同的字元。跟M1-03「相鄰變化統計」是同一個套路：走訪時記住「上一個字元」，跟「這一個字元」比較。</div>
+    <p><span class="problem-chip">相鄰相同字元（<b>STR01-008</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">8</div><h3>格式檢查——用長度做條件判斷</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>若字串長度為4，輸出OK；否則輸出NG。這一題結合概念1（拿到長度）跟你在M0-03學過的條件判斷，是字串處理裡最簡單的「驗證資料格式」的雛形。</div>
+    <p><span class="problem-chip">簡易格式檢查（<b>JSS01-P02</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">9</div><h3>字元轉換——不只是讀取，還要「變成別的字元」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>設計一種簡單的密碼規則，將每個字母向後移動固定的位數（例如z會繞回b）。這是字串處理特有的新技巧：走訪每一個字元時，不是統計或比較，而是<strong>把它轉換成另一個字元再輸出</strong>——通常會用到字元跟數字之間的對應關係，計算位移後的新字元。</div>
+
+    <div class="diagram">
+      <div class="flow">
+        <div class="step">Y<br>（第25個字母）</div>
+        <div class="op">+2 位移</div>
+        <div class="step">A<br>（繞回第1個字母）</div>
+      </div>
+      <div class="caption">🆕 補充圖解：位移超過字母表尾端 Z 時，要「繞回」開頭 A<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">簡易密碼轉換（<b>A-12-0</b>）</span><span class="problem-chip">動態密碼轉換（<b>A-12-1</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>位移到字母表尾端時忘記「繞回開頭」（z往後移2位不是變成不存在的字母，而是繞回b）——這一類轉換題目的邊界情況，一定要動手驗證「移到最後幾個字母」的情況。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">10</div><h3>進位轉換——字元跟數字系統的結合</h3></div>
+    <div class="todo-box">「5進位解碼」（<b>cycjunior-002</b>）把字串處理跟數學的進位系統結合在一起，是概念9「字元轉換」的延伸應用——建議先確定自己熟悉概念9的位移邏輯，再挑戰這一題。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">11</div><h3>找出現最多次的字元——結合統計與找最大值</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>統計字串中每個字母各出現幾次，找出出現最多次的次數。做法是概念3（統計字元出現次數）套用在<strong>每一種可能的字母</strong>上（總共26種），再從這26個統計結果中，用你在M0-04學過的「找最大值」技巧找出最多的那個。</div>
+    <p><span class="problem-chip">計算字元出現最多次數（<b>A-11-1</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">12</div><h3>更多綜合應用（可依需要挑戰）</h3></div>
+    <div class="todo-box">M1-06還有幾題結合了字串處理跟其他情境：「多科成績計算」「加權成績計算」「檢查碼」「數位顯示器」。這些題目沒有全新的核心概念，是前面概念的實戰演練，建議前面的概念都熟悉後再挑戰。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>字串長度</td><td>字串長度（STR01-001）</td><td>M1-05</td></tr>
+      <tr><td class="center">2</td><td>指定位置存取</td><td>第一個與最後一個字元／指定位置的字元／逐字元輸出</td><td>M1-05、M1-06</td></tr>
+      <tr><td class="center">3</td><td>字元計數</td><td>計算指定字元數量／指定字元出現次數</td><td>M1-05、M1-06</td></tr>
+      <tr><td class="center">4</td><td>反向輸出</td><td>反向輸出字串（STR01-005）</td><td>M1-05</td></tr>
+      <tr><td class="center">5</td><td>判斷回文</td><td>是否回文（STR01-007）</td><td>M1-05</td></tr>
+      <tr><td class="center">6</td><td>多字元條件計數</td><td>母音數量（STR01-006）</td><td>M1-05</td></tr>
+      <tr><td class="center">7</td><td>相鄰比較</td><td>相鄰相同字元（STR01-008）</td><td>M1-05</td></tr>
+      <tr><td class="center">8</td><td>格式檢查</td><td>簡易格式檢查（JSS01-P02）</td><td>M1-06</td></tr>
+      <tr><td class="center">9</td><td>字元轉換</td><td>簡易密碼轉換／動態密碼轉換</td><td>M1-06</td></tr>
+      <tr><td class="center">10</td><td>進位轉換</td><td>5進位解碼</td><td>M1-06</td></tr>
+      <tr><td class="center">11</td><td>找最多次的字元</td><td>計算字元出現最多次數（A-11-1）</td><td>M1-06</td></tr>
+      <tr><td class="center">12</td><td>綜合應用</td><td>多科成績計算／加權成績計算／檢查碼／數位顯示器</td><td>M1-06</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 字串＝字元清單概念圖解 ② 回文雙指標比對圖 ③ 字元位移繞回圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M1-05-StringBasics.js</code>、<code class="inline">courses/M1-06-StringFormat.js</code></div>
+  </div>
+</main>
+</body>
+</html>

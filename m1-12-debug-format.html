@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>除錯與輸出格式控制（速查表）｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="補零、千分位、除以零防呆、負數餘數等常見輸出格式問題速查">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🟡 Tier C・速查表</div>
+    <h1>除錯與輸出格式控制（速查表）</h1>
+    <div class="course-tag"><span>M1-12 除錯與輸出格式控制</span></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是這個單元</h2>
+  <p class="lead">
+    這個單元不是新的演算法概念，是一組<strong>寫程式時很容易忽略、卻常常讓題目判定失敗的小細節</strong>——輸出格式對不對（要不要補零、要不要加逗號）、邊界條件有沒有考慮到（只有一筆資料時、除數是0時、負數取餘數時）。這些細節之所以獨立成一個單元，是因為<strong>演算法邏輯完全正確，卻因為這些小地方沒處理好而被判定錯誤</strong>，是初學者最容易踩、也最難自己發現的一類錯誤。這份文件用「速查表」的方式呈現，不是要你依序學一套概念，而是每一題各自對應一個容易忽略的細節，需要哪個就查哪個。
+  </p>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">🔎1</div><h3>數字補零，固定輸出兩位數</h3></div>
+    <div class="example-box"><span class="tag">情境</span>把0~99的整數，輸出成固定兩位數格式（5要輸出成05，23直接輸出23）。</div>
+    <div class="todo-box"><b class="tag">做法：</b>判斷數字是不是小於10，是的話在前面補一個「0」的文字再輸出；不是的話直接輸出。</div>
+    <p><span class="problem-chip">兩位數補零輸出（<b>M1-12-01</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">🔎2</div><h3>金額加千分位逗號</h3></div>
+    <div class="example-box"><span class="tag">情境</span>把一個金額數字，從個位數往左每三位加一個逗號（1234567要輸出成1,234,567）。</div>
+    <div class="todo-box"><b class="tag">做法：</b>這一題沒辦法用單一個運算完成，需要把數字拆解成好幾段（可以搭配M1-09/M1-10學過的「用÷10、%10拆解每一位數字」的技巧），從後面往前每三位插入一個逗號。</div>
+    <div class="diagram">
+      <div class="pointer">1 234 567 → 從右邊數來每 3 位插一個逗號 → 1,234,567</div>
+      <div class="caption">🆕 補充圖解<span class="new-badge">新增</span></div>
+    </div>
+    <p><span class="problem-chip">金額千分位輸出（<b>M1-12-02</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">🔎3</div><h3>只有一筆資料時，最大值/最小值邏輯還成不成立</h3></div>
+    <div class="example-box"><span class="tag">情境</span>找N筆分數中的最大值與最小值，但這次要特別注意N可能等於1。</div>
+    <div class="todo-box"><b class="tag">做法：</b>你在M0-04/M0-06學過的「找最大值」邏輯（跟目前記錄的最大值比較），在N=1時<strong>不需要任何比較，這一筆資料本身就同時是最大值也是最小值</strong>——先確認你的程式在只有一筆資料時，邏輯依然成立，不會因為少了「比較」的機會而算錯。</div>
+    <p><span class="problem-chip">單筆資料時的最大最小值（<b>M1-12-06</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">🔎4</div><h3>小數輸出要固定到小數點後兩位</h3></div>
+    <div class="example-box"><span class="tag">情境</span>計算平均值，輸出到小數點後兩位（四捨五入），即使結果剛好是整數，也要顯示到小數點後兩位（平均剛好80分要輸出80.00，不能只輸出80）。</div>
+    <div class="todo-box"><b class="tag">做法：</b>這一題容易漏掉的是「即使是整數也要補上.00」——很多語言/積木的預設數字輸出，剛好是整數時不會自動顯示小數點，需要另外處理格式，確保輸出永遠有兩位小數。</div>
+    <p><span class="problem-chip">平均分數到小數點後兩位（<b>M1-12-03</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">🔎5</div><h3>除以零要先擋下來，不能真的執行除法</h3></div>
+    <div class="example-box"><span class="tag">情境</span>計算a除以b的結果，但b有可能是0，這時候不能真的做除法（會出錯），要改成輸出「無法計算」。</div>
+    <div class="todo-box"><b class="tag">做法：</b>在做除法之前，<strong>一定要先判斷除數是不是0</strong>，是的話直接輸出替代訊息、不執行除法；不是0才進行除法運算。這是「先檢查邊界條件，再執行可能出錯的運算」這個習慣的具體練習——之後你寫任何除法運算，都應該養成先檢查除數的習慣。</div>
+    <p><span class="problem-chip">除以零的例外處理（<b>M1-12-04</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">🔎6</div><h3>負數取餘數，結果要落在0到b-1之間</h3></div>
+    <div class="example-box"><span class="tag">情境</span>計算a除以b的餘數，即使a是負數，餘數也必須維持在0到b-1之間，不能直接用一般的取餘數運算導致出現負的餘數。</div>
+    <div class="todo-box"><b class="tag">做法：</b>某些取餘數的運算在a是負數時，可能會算出負數的餘數（跟數學上「餘數應該是非負數」的定義不同）。如果算出來的餘數是負的，要<strong>再加上一次除數b</strong>，把它調整回0到b-1的正確範圍內。</div>
+    <p><span class="problem-chip">負數的正確餘數計算（<b>M1-12-05</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>直接相信程式語言/積木內建的取餘數運算一定符合數學定義——遇到負數時務必自己動手驗證一次結果是否在正確範圍內，不要理所當然地假設。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議查閱順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th>情境</th><th>題目</th><th>課程</th></tr>
+      <tr><td>補零到固定位數</td><td>兩位數補零輸出（M1-12-01）</td><td>M1-12</td></tr>
+      <tr><td>加千分位逗號</td><td>金額千分位輸出（M1-12-02）</td><td>M1-12</td></tr>
+      <tr><td>只有一筆資料的邊界</td><td>單筆資料時的最大最小值（M1-12-06）</td><td>M1-12</td></tr>
+      <tr><td>小數位數固定顯示</td><td>平均分數到小數點後兩位（M1-12-03）</td><td>M1-12</td></tr>
+      <tr><td>除以零防呆</td><td>除以零的例外處理（M1-12-04）</td><td>M1-12</td></tr>
+      <tr><td>負數取餘數</td><td>負數的正確餘數計算（M1-12-05）</td><td>M1-12</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 千分位插入示意圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M1-12-DebugFormat.js</code></div>
+  </div>
+</main>
+</body>
+</html>

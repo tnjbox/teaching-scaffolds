@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>迴圈與累加器｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="用生活情境理解迴圈與累加器，搭配圖解與練習題對照表">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🟢 Tier B・延伸組合技巧</div>
+    <h1>迴圈與累加器</h1>
+    <div class="course-tag"><span>M0-04 迴圈與累計</span></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是迴圈與累加器</h2>
+  <p class="lead">
+    如果要你把 1 加到 100，你不會想一行一行手動寫「1+2+3+……+100」，你會希望有個方法可以「重複做同一件事很多次」——這就是<strong>迴圈（Loop）</strong>：把一段動作重複執行，直到滿足某個次數或條件為止。
+    <br><br>
+    但迴圈本身只是「重複做」，如果你想要迴圈<strong>記住</strong>前面做過的結果（例如記住目前加到多少了），就需要一個額外的變數，在每一次重複時更新它——這個變數叫<strong>「累加器」</strong>（也可能是累乘、累計次數，統稱「狀態變數」）。<strong>迴圈負責「重複」，累加器負責「記憶」</strong>，這兩個東西合在一起，是你之後幾乎所有題目都會用到的最基本組合技——不管是加總、找最大值、統計次數，骨架都是同一套：一個變數存目前的狀態，一個迴圈每一輪更新它。
+  </p>
+
+  <div class="diagram">
+    <div class="flow">
+      <div class="step">開始<br>累加器 = 0</div>
+      <div class="op">→</div>
+      <div class="step">迴圈第 1 輪<br>累加器 += 數字</div>
+      <div class="op">→</div>
+      <div class="step">迴圈第 2 輪<br>累加器 += 數字</div>
+      <div class="op">→</div>
+      <div class="step">…重複 N 次…</div>
+      <div class="op">→</div>
+      <div class="step">結束<br>輸出累加器</div>
+    </div>
+    <div class="caption">🆕 補充圖解：迴圈每繞一圈，就把新的數字「疊加」進累加器一次，繞完才輸出最終結果<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>最單純的迴圈——重複輸出</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>輸入一個正整數 N，依序輸出 1 到 N 的所有整數。這是最基礎的迴圈，還不需要累加器——每一輪迴圈只是把「目前的數字」印出來，不需要記住前面發生過什麼。</div>
+    <p><span class="problem-chip">從1數到N（<b>JSL01-D01</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>每一輪都做一次計算，但不用「累積」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>輸入一個整數 N，輸出 1 到 9 的乘法表結果（N 乘以 1 到 9）。這一題每一輪迴圈都要做一次乘法計算，但每一輪的結果是<strong>獨立輸出</strong>的，不需要跟前面幾輪的結果加在一起——先分清楚「迴圈裡面做計算」跟「迴圈裡面累加」是兩件不同的事，再進到下一個概念。</div>
+    <p><span class="problem-chip">九九乘法（<b>A-07-0</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>累加器登場——用一個變數記住「目前的總和」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>計算 1+2+3+...+N 的總和。這是累加器的標準寫法：① 先準備一個變數（例如「總和」），初始值設為 0　② 迴圈每跑一輪，就把「目前的數字」加到「總和」上　③ 迴圈跑完之後，「總和」裡存的就是最終答案。</div>
+
+    <div class="diagram">
+      <div class="cellrow">
+        <div class="cell idx" data-idx="開始">0</div>
+        <div class="cell idx" data-idx="+1">1</div>
+        <div class="cell idx" data-idx="+2">3</div>
+        <div class="cell idx" data-idx="+3">6</div>
+        <div class="cell idx" data-idx="+4">10</div>
+      </div>
+      <div class="caption">🆕 補充圖解：累加器「總和」隨每一輪迴圈逐步長大，0→1→3→6→10<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">1到N加總示範（<b>JSL01-D02</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>忘記把累加器的初始值設對——如果忘記先把「總和」設為 0（或用了上一題殘留的值），後面每一輪加出來的結果都會是錯的。累加器一定要在迴圈開始「之前」就先給好初始值。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>累加的資料不是自己算出來的，是使用者輸入的</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>讀入 N 個整數，計算這 N 個整數的總和。跟概念 3 的差別是：這次每一輪要<strong>累加的數字</strong>是使用者一個一個輸入進來的，不是你自己用迴圈變數算出來的（例如概念 3 是加 1、2、3……本身，這一題是加使用者輸入的任意數字）。</div>
+    <p><span class="problem-chip">N個數字累加（<b>JSL01-P01</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>累加前先判斷條件——不是每個數字都要加</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>讀入 N 個整數，只把其中的偶數加總後輸出。這一題在累加器的基礎上多了一個條件判斷：<strong>每一輪迴圈先檢查這個數字符不符合條件（是不是偶數），符合才累加，不符合就跳過</strong>。這個「迴圈裡面先判斷、符合才更新累加器」的組合，之後在 M1-03「清單統計」會大量用到。</div>
+    <p><span class="problem-chip">只加偶數（<b>JSL01-P02</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>忘記「不符合條件的數字」也要繼續跑完整個迴圈（只是不累加），而不是整個迴圈提前結束——迴圈的「重複」跟累加器的「要不要更新」是分開的兩件事。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>累加器不一定是「加」——也可以是「乘」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>計算 1×2×3×...×N（階乘）。做法幾乎跟概念 3 一模一樣，只是累加器的初始值要設成<strong>1</strong>（不是 0——如果初始值設成 0，乘出來的結果永遠是 0），每一輪不是「加上」而是「乘上」目前的數字。</div>
+    <p><span class="problem-chip">簡化階乘（<b>A-06-0</b>）</span><span class="problem-chip">連續加總（<b>A-06-1</b>）</span><span class="problem-chip">連續乘積（<b>A-07-1</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>累乘的初始值也設成 0——這是最容易犯的錯，任何數字乘以 0 都是 0，累乘的初始值一定要是 1，累加的初始值才是 0。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">7</div><h3>文字包裝的應用題——先看懂題目在問累加器的哪一種</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>「跳繩比賽法」把「讀入 N 個數字並加總」包裝成體育課情境，考驗你能不能從故事敘述中認出「這其實就是概念 4 的累加器」。</div>
+    <p><span class="problem-chip">跳繩比賽法（<b>A-08-0</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">8</div><h3>累加器的變形——不是加總，是「隨時更新最大值」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>找出 N 筆成績中的最大值（甚至同時找最大值與最小值）。這是累加器思維的另一種變形：不是把每個數字加起來，而是<strong>每一輪都拿目前的數字跟「目前記錄到的最大值」比較，比較大就更新</strong>。這個套路，之後在找最大值/最小值、排序法（選擇排序）都會反覆出現。</div>
+    <p><span class="problem-chip">找最大值（<b>A-08-1</b>）</span><span class="problem-chip">找最大最小值</span></p>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>最基本迴圈</td><td>從1數到N（JSL01-D01）</td><td>M0-04</td></tr>
+      <tr><td class="center">2</td><td>迴圈內計算（不累加）</td><td>九九乘法（A-07-0）</td><td>M0-04</td></tr>
+      <tr><td class="center">3</td><td>累加器：加總</td><td>1到N加總示範（JSL01-D02）</td><td>M0-04</td></tr>
+      <tr><td class="center">4</td><td>累加使用者輸入的資料</td><td>N個數字累加（JSL01-P01）</td><td>M0-04</td></tr>
+      <tr><td class="center">5</td><td>累加＋條件判斷</td><td>只加偶數（JSL01-P02）</td><td>M0-04</td></tr>
+      <tr><td class="center">6</td><td>累加器：累乘</td><td>簡化階乘／連續加總／連續乘積</td><td>M0-04</td></tr>
+      <tr><td class="center">7</td><td>應用題辨識</td><td>跳繩比賽法（A-08-0）</td><td>M0-04</td></tr>
+      <tr><td class="center">8</td><td>累加器變形：找最大/最小</td><td>找最大值／找最大最小值（A-08-1起）</td><td>M0-04</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 迴圈＋累加器流程圖 ② 概念3的累加器數值變化格子圖（0→1→3→6→10）。內容準確性已核對，若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M0-04-LoopsAndSum.js</code></div>
+  </div>
+</main>
+</body>
+</html>

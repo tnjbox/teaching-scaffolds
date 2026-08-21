@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>動態規劃（Dynamic Programming）｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="用更小規模的答案組合出答案，爬樓梯、硬幣湊金額、路徑計數圖解">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>動態規劃（Dynamic Programming）</h1>
+    <div class="course-tag"><span>M3-04 動態規劃暖身</span></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是動態規劃</h2>
+  <p class="lead">
+    動態規劃（簡稱DP）是你在這個學習地圖裡會遇到最抽象的一個演算法概念，但它的核心想法其實很單純：<strong>很多問題的答案，可以由「更小規模的同一種問題的答案」組合出來</strong>。與其每次都從頭重新計算，不如把每一個小規模問題的答案先存起來，等要算更大規模的問題時，直接拿存好的答案來組合，不用重算。
+    <br><br>
+    聽起來有點抽象，但你其實已經有一半的基礎了——你在M0-04學過的「累加」，就是動態規劃最原始的雛形：算「1加到N」時，你不會每次都從1開始加，而是用「前一步的總和」加上「這一步的新數字」。動態規劃就是把這個想法，套用在比單純加總更複雜的問題上：<strong>先想清楚「這一步的答案，要怎麼用前面幾步已經算好的答案組合出來」，這個關係式（叫「遞迴關係」）想清楚了，程式往往只是一個迴圈搭配一個陣列在存中間結果。</strong>
+  </p>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>爬樓梯的方法數——答案是前兩步答案的加總</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>每一步可以爬1階或2階，問爬到第N階總共有幾種不同的爬法。</div>
+    <p><strong>怎麼想：</strong>要爬到第N階，最後一步只有兩種可能——「從第N-1階爬1階上來」，或「從第N-2階爬2階上來」。所以「爬到第N階的方法數」就等於「爬到第N-1階的方法數」加上「爬到第N-2階的方法數」。</p>
+
+    <div class="diagram">
+      <div class="cellrow">
+        <div class="cell idx" data-idx="第1階">1</div>
+        <div class="cell idx" data-idx="第2階">2</div>
+        <div class="cell idx active" data-idx="第3階">3</div>
+        <div class="cell idx" data-idx="第4階">5</div>
+        <div class="cell idx" data-idx="第5階">8</div>
+      </div>
+      <div class="pointer">第3階＝第1階(1) ＋ 第2階(2) ＝ 3；第4階＝第2階(2) ＋ 第3階(3) ＝ 5……以此類推</div>
+      <div class="caption">🆕 補充圖解：每一格答案都只需要看它前面兩格已經算好的答案<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">爬樓梯方法數（<b>M3-04-01</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>想用迴圈把每一種爬法都窮舉出來——階數一多，可能的爬法組合會爆炸性增加，程式會跑得非常慢。動態規劃的重點正是<strong>不需要窮舉出每一種走法，只需要記錄「到每一階為止總共有幾種走法」這個數量</strong>。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>爬樓梯的最小花費——從「方法數」換成「取最小值」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>跟概念1一樣是爬樓梯，但這次每一階都有花費，要找出到達目標所需的<strong>最小總花費</strong>。</div>
+    <p><strong>怎麼想：</strong>跟概念1的遞迴關係幾乎一樣——到達第N階的最小花費，是「從第N-1階多花一步」和「從第N-2階多花一步」這兩種走法之中<strong>取比較小的那個</strong>，再加上這一步本身的花費。差別只在於概念1是「兩種走法的方法數相加」，這一題是「兩種走法的花費取最小值」——同一種遞迴結構，換成不同的組合方式（加總 vs 取最小），就能解決性質很不一樣的問題。</p>
+    <p><span class="problem-chip">最小花費爬樓梯（<b>M3-04-02</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>不能選相鄰兩個——每一步要「選」或「不選」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>一排數字，挑選一些數字（可以不挑），規則是不能同時挑選相鄰的兩個位置，求挑選出來的總和最大是多少。</div>
+    <p><strong>怎麼想：</strong>對於第i個位置的數字，你只有兩個選擇——「選它」或「不選它」。如果選它，代表第i-1個不能選，所以總和是「到第i-2個為止的最佳總和」加上第i個的數值；如果不選它，總和就直接是「到第i-1個為止的最佳總和」。這一格的答案，是這兩個選項<strong>取比較大的那個</strong>。</p>
+    <p><span class="problem-chip">不能選相鄰兩個的最大總和（<b>M3-04-03</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>只考慮「選或不選目前這個」，忘記「選了這個之後，前一個就不能選了」這個限制要反映在遞迴關係裡（用「i-2」而不是「i-1」接續）。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>硬幣湊金額——跟貪心的差別在哪裡</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>有K種硬幣面額，每種可以重複使用，湊出目標金額最少需要幾枚硬幣。</div>
+    <p><strong>這一題值得特別停下來想一下：</strong>你在M2-09學過「最少硬幣數」，當時用貪心（每次都盡量用最大面額）就能解決——但那是因為當時的面額（50/10/5/1）剛好每一級都是下一級的倍數，貪心才會保證正確。<strong>這一題的面額是任意給定的</strong>，不保證有這種倍數關係，貪心可能會選出錯誤答案，所以要改用動態規劃：對每一個金額X，枚舉每一種硬幣面額C，「湊出金額X所需的最少硬幣數」就是「湊出金額(X-C)所需的最少硬幣數，加上這一枚硬幣」，在所有可能的C之中取最少的那個。從金額0（不需要任何硬幣）開始，依序往上算到目標金額。</p>
+    <p><span class="problem-chip">硬幣湊金額最少枚數（<b>M3-04-04</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>看到「湊硬幣」就直接套用M2-09學過的貪心解法——貪心在這一題不保證正確，這正是M2-09文件提到的「貪心不是萬用的」最直接的驗證機會。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>方格地圖走法數——從一維延伸到二維</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>R列C行的方格地圖，從左上角出發，每次只能往右或往下走一格，問走到右下角總共有幾種走法。</div>
+    <p><strong>怎麼想：</strong>跟概念1「爬樓梯方法數」是同一種思路，只是從一維延伸到二維：走到某一格的走法數，等於「從它正上方走下來的走法數」加上「從它正左方走過來的走法數」。你需要的不再是一維陣列，而是一個二維表格，從左上角（走法數=1）開始，依序往右、往下把每一格填滿。</p>
+
+    <div class="diagram">
+      <table class="pretty compare-table" style="max-width:280px;margin:0 auto;">
+        <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+        <tr><td>1</td><td>3</td><td>6</td><td>10</td></tr>
+      </table>
+      <div class="caption">🆕 補充圖解：每一格＝上面那格 + 左邊那格（第一列、第一欄固定是1）<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">方格地圖走法數（<b>M3-04-05</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>兩個字串的最長共同子序列——DP在文字比對上的應用</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給兩個字串，求它們的「最長共同子序列」長度（子序列不需要連續出現，但字母的相對先後順序要一致）。這是這個單元最進階的題目：用一個二維表格，<code class="inline">表格[i][j]</code> 代表「字串A的前i個字元」跟「字串B的前j個字元」的最長共同子序列長度。如果A的第i個字元跟B的第j個字元相同，這一格的答案就是「表格[i-1][j-1]（少考慮這兩個字元前的最佳結果）+1」；如果不同，這一格的答案就是「表格[i-1][j]」和「表格[i][j-1]」之中取比較大的那個。</div>
+    <p><span class="problem-chip">兩字串最長共同子序列長度（<b>M3-04-06</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>想直接窮舉所有可能的子序列組合去比對——字串一長，可能的子序列數量會爆炸性增加。這一題示範了動態規劃真正的威力：把「兩個字串的比對問題」拆解成一格一格填二維表格，每一格只需要看它左邊、上面、左上角這三格已經算好的答案。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>一維DP：方法數相加</td><td>爬樓梯方法數（M3-04-01）</td><td>M3-04</td></tr>
+      <tr><td class="center">2</td><td>一維DP：取最小值</td><td>最小花費爬樓梯（M3-04-02）</td><td>M3-04</td></tr>
+      <tr><td class="center">3</td><td>一維DP：選或不選</td><td>不能選相鄰兩個的最大總和（M3-04-03）</td><td>M3-04</td></tr>
+      <tr><td class="center">4</td><td>一維DP：枚舉多種選項</td><td>硬幣湊金額最少枚數（M3-04-04）</td><td>M3-04</td></tr>
+      <tr><td class="center">5</td><td>二維DP：路徑計數</td><td>方格地圖走法數（M3-04-05）</td><td>M3-04</td></tr>
+      <tr><td class="center">6</td><td>二維DP：字串比對</td><td>兩字串最長共同子序列長度（M3-04-06）</td><td>M3-04</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 爬樓梯方法數的一維格子圖 ② 方格地圖走法數的二維表格圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M3-04-DPWarmup.js</code></div>
+  </div>
+</main>
+</body>
+</html>

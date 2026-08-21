@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>區間與最佳化｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="猜答案＋驗證的解題套路，二分搜尋答案的應用">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🔴 Tier A・全新演算法概念</div>
+    <h1>區間與最佳化</h1>
+    <div class="course-tag"><span>M3-01 區間與最佳化</span></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是區間與最佳化</h2>
+  <p class="lead">
+    這個單元的題目有一個共同的形狀：資料是<strong>一整排連續排列的數字</strong>（垃圾重量、座標、營收……），而你要做的不是單純算個總和或找個最大值，是要在這排資料上找出一個「切法」「分配方式」或「一個點」，讓某個目標<strong>達到最好</strong>（可能是讓最辛苦的人負擔最小、讓某個總花費最少、讓某段區間內符合條件的天數最多）。
+    <br><br>
+    這類問題最重要的一個解題套路，是你之前沒學過的新招式：<strong>「猜一個答案，驗證這個答案行不行得通，再調整猜測範圍」</strong>——你不是直接算出答案，而是先假設「答案是X」，寫一段程式檢查「如果答案是X，做不做得到」，再依檢查結果決定要猜更大還是更小的X，重複這個過程直到找到最好的X。這個套路其實跟你在M3-00學的二分搜尋精神完全一樣，只是這裡「搜尋」的對象不是清單裡的某個數字，而是「答案本身可能的數值範圍」——所以也叫「二分搜尋答案」。
+  </p>
+
+  <div class="diagram">
+    <div class="flow">
+      <div class="step">猜一個答案 X</div>
+      <div class="op">→</div>
+      <div class="step">驗證：X 做不做得到？</div>
+      <div class="op">→</div>
+      <div class="step">做得到 → 試更嚴格的 X<br>做不到 → 放寬 X</div>
+    </div>
+    <div class="loopback">↺ 重複這個過程，直到縮小到剛好可行的那個 X</div>
+    <div class="caption">🆕 補充圖解：跟M3-00二分搜尋一樣的「砍半」精神，但搜尋的對象變成「答案本身」<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>讓「最辛苦的那個人」負擔最小——猜答案＋驗證</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>把一排連續的垃圾堆分成 M 段，分給 M 位志工，你不希望任何一位志工過度辛苦，目標是「讓搬最多的那個人，搬的重量越少越好」。</div>
+    <p><strong>解題套路：</strong></p>
+    <ol style="padding-left:20px;">
+      <li>猜一個答案 X（例如「每個人最多搬X公斤」）</li>
+      <li>驗證：如果限制每個人最多搬X公斤，用貪心的方式從左到右一段一段累加，累加到快超過X就切一刀、換下一個人來搬，看看這樣切最少需要幾個人</li>
+      <li>如果需要的人數 ≤ M（人手夠），代表X這個限制是可行的，可以嘗試更小的X；如果需要的人數 &gt; M（人手不夠），代表X太小了，要放寬限制</li>
+    </ol>
+    <p><span class="problem-chip">園遊會場地復原大作戰（<b>cycjunior-006-4</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>把「猜答案」跟「驗證答案」兩件事混在一起想，導致邏輯打結。建議先把「給定一個X，用貪心方式驗證需要幾個人」寫成獨立的一段邏輯，驗證這段邏輯本身是對的之後，再去外面試著調整X。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>反過來的最佳化——讓「最短的那一段」盡量長</h3></div>
+    <div class="todo-box">「校園密室逃脫-書架修繕工程」是概念1的鏡像版本：現有N根木材，要切出K根木條，這一題要你讓<strong>切出來最短的那根木條盡量長</strong>（跟概念1「讓最辛苦的人負擔最小」方向相反，這裡是「讓最不利的結果盡量好」）。解題套路完全相同：猜一個長度X，驗證「如果每根木條至少要長度X，目前的木材最多能切出幾根」，再依驗證結果調整X的猜測範圍。</div>
+    <p><span class="problem-chip">校園密室逃脫-書架修繕工程</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>分不清楚這一題要「最大化」還是概念1要「最小化」——兩題的解題套路（猜答案+驗證）一樣，但調整猜測方向剛好相反，做之前先想清楚：驗證結果如果「太寬鬆／太嚴格」，該把猜測值調大還是調小。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>同樣套路的另一種包裝——能量負載分配</h3></div>
+    <div class="todo-box">「星際物資運補-防禦塔的能量負載」是概念1的另一個應用：N座防禦塔的能量需求要由M台發電機分攤負載，目標同樣是「讓負擔最重的發電機，負載越小越好」。看到這種「把一排資料切成幾段，要讓最大的那一段盡量小」的敘述，就要想到概念1的猜答案＋驗證套路。</div>
+    <p><span class="problem-chip">星際物資運補-防禦塔的能量負載</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>找一個點，讓所有人跑過去的距離總和最小</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>N個基地分布在一條路上，找一個位置 P，讓所有基地到 P 的距離總和最小。這一題有個很漂亮的數學結論：<strong>答案一定會落在資料排序後最中間的那個位置（中位數）</strong>——不需要猜答案驗證，直接算出中位數就是答案；如果基地數量是偶數（中間有兩個候選點，距離總和會相同），要選數值較小的那個。</div>
+    <p><span class="problem-chip">星際物資運補-物流中心選址（<b>W0-04-3</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>在滑動的K天區間裡，找出「最愛餐點出現最多次」的那一段</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>學校提供N天菜單，找出「連續K天」的區間，讓指定的「最愛餐點」在這段期間出現次數最多（如果有多段次數相同，選最早出現的）。這一題要檢查的區間長度固定是K天，做法是把「連續K天」的區間一格一格往右移動，每次移動就重新計算這個區間內最愛餐點出現幾次，記錄目前為止出現次數最多的區間。</div>
+    <p><span class="problem-chip">挑選喜歡的午餐區間（<b>TYTN-07</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>每次移動區間都整段重新從頭數一次，題目資料量大時會很慢——這一題也是M3-03「滑動視窗」技巧的預告，之後學到滑動視窗，你會學到怎麼在移動區間時「只調整差異的部分」而不用整段重算。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>找出連續達標的區間（可依需要挑戰）</h3></div>
+    <div class="todo-box">「熱浪區間」給定N天溫度與門檻T，要找出高溫的連續區間。這一題沒有新概念，是概念5「在區間內檢查條件」的變化應用，建議前面概念都熟悉後再挑戰。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>猜答案＋驗證：最小化最大值</td><td>園遊會場地復原大作戰</td><td>M3-01</td></tr>
+      <tr><td class="center">2</td><td>猜答案＋驗證：最大化最小值</td><td>校園密室逃脫-書架修繕工程</td><td>M3-01</td></tr>
+      <tr><td class="center">3</td><td>同套路的應用</td><td>星際物資運補-防禦塔的能量負載</td><td>M3-01</td></tr>
+      <tr><td class="center">4</td><td>中位數最小化距離總和</td><td>星際物資運補-物流中心選址（W0-04-3）</td><td>M3-01</td></tr>
+      <tr><td class="center">5</td><td>固定長度區間掃描</td><td>挑選喜歡的午餐區間（TYTN-07）</td><td>M3-01</td></tr>
+      <tr><td class="center">6</td><td>連續達標區間</td><td>熱浪區間</td><td>M3-01</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 猜答案＋驗證的循環流程圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M3-01-IntervalOptimize.js</code></div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>數學規則：因數、倍數、質數與GCD｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="把國中數學的因數、倍數、質數、最大公因數翻譯成程式邏輯">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🟢 Tier B・延伸組合技巧</div>
+    <h1>數學規則：因數、倍數、質數與GCD</h1>
+    <div class="course-tag">
+      <span>M1-09 數學規則：因數倍數質數</span>
+      <span>M1-10 數學規則進階：GCD與應用</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是這個單元的數學規則</h2>
+  <p class="lead">
+    這個單元不是要你重新學數學，而是要你把國中數學課學過的「因數、倍數、質數、最大公因數」這些概念，<strong>翻譯成電腦看得懂的判斷步驟</strong>。你腦中可能已經知道「12的因數有1、2、3、4、6、12」，但電腦不會「一眼看出來」，它只能靠<strong>逐一嘗試、逐一判斷</strong>——這個單元教的正是「怎麼用迴圈跟條件判斷，把數學上的定義轉換成程式邏輯」。這也是你在程式設計裡第一次體會到：<strong>數學上一個簡單的定義（例如「質數」），寫成程式可能需要一個完整的迴圈跟判斷邏輯，不是一行就能算出來的。</strong>
+  </p>
+
+  <div class="diagram">
+    <div class="cellrow">
+      <div class="cell idx" data-idx="1÷12=0✓">1</div>
+      <div class="cell idx" data-idx="2÷... ✓">2</div>
+      <div class="cell faded" data-idx="✗">3</div>
+      <div class="cell idx" data-idx="✓">4</div>
+      <div class="cell faded" data-idx="✗">5</div>
+      <div class="cell idx" data-idx="✓">6</div>
+    </div>
+    <div class="pointer">用迴圈從 1 逐一嘗試到 12，檢查「12 除以這個數字餘數是否為 0」</div>
+    <div class="caption">🆕 補充圖解：電腦找因數不是「一眼看出」，是老老實實一個一個試<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>倍數判斷——用餘數為0來判斷</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>判斷A是否為B的倍數。做法：如果A除以B的餘數是0，A就是B的倍數。這是這整個單元最基礎的判斷式，之後找因數、判斷質數都會重複用到「餘數是不是0」這個檢查。</div>
+    <p><span class="problem-chip">倍數判斷（<b>MATH01-001</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>因數個數／找所有因數——從1試到N，逐一檢查</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>計算N有幾個正因數，或是把N所有的因數都列出來。做法：<strong>用迴圈從1一直嘗試到N，每一個數字都檢查「N除以這個數字的餘數是不是0」</strong>——是的話這個數字就是N的因數，計數器+1（或把它加進結果清單）。</div>
+    <p><span class="problem-chip">因數個數（<b>MATH01-002</b>）</span><span class="problem-chip">找所有因數（<b>A-09-1</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>忘記1和N自己本身也算是因數（很多人會漏算這兩個邊界值）。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>質數判斷——因數個數剛好只有兩個</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>判斷N是否為質數（質數是大於1，且只有1和自己兩個正因數的數）。這一題直接建立在概念2之上：<strong>質數的定義本身就是用「因數個數」來描述的</strong>——如果你已經會算因數個數，質數判斷只是多加一個條件：因數個數剛好等於2。</div>
+    <p><span class="problem-chip">質數判斷（<b>MATH01-003</b>）</span><span class="problem-chip">判斷質數（<b>A-09-0</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>忘記處理N=1的特殊情況——1只有一個因數（自己），不符合「兩個因數」的定義，所以1不是質數，但很多人直覺會誤判1是質數。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>最大公因數（GCD）——兩個數共同擁有的因數中最大的</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>找出兩個正整數A、B的最大公因數。做法延續概念2的「逐一嘗試」精神：<strong>用迴圈嘗試每一個可能的數字，檢查它同時是A的因數、也是B的因數</strong>，過程中記錄找到的最大值。</div>
+    <p><span class="problem-chip">最大公因數（<b>MATH01-004</b>）</span><span class="problem-chip">二個數的最大公因數（<b>A-13-0</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>最小公倍數（LCM）——用最大公因數推算出來</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>找出兩個正整數A、B的最小公倍數。這一題有個好用的數學關係：<strong>A和B的最小公倍數 = (A × B) ÷ 最大公因數</strong>。也就是說，只要你先用概念4算出GCD，LCM可以直接用一個公式算出來，不需要另外再用一次迴圈逐一嘗試。</div>
+    <p><span class="problem-chip">最小公倍數（<b>MATH01-005</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>不知道GCD和LCM之間有這層關係，重新寫一次跟概念4完全獨立的邏輯——善用已經算出來的結果，是這一題真正想教你的事。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>把兩個數的GCD延伸到一整串數字</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定一整組整數，計算這些數字<strong>全部</strong>的最大公因數（不只兩個）。做法：先算出前兩個數字的GCD，再拿這個結果跟第三個數字算GCD，再拿新結果跟第四個數字算GCD……依序把整串數字「一個一個併進來」，這是概念4的技巧重複套用在一整份清單上，也是你在M0-04學過的「累加器」精神的變形——只是這裡「累積」的不是總和，而是持續更新的GCD。</div>
+    <p><span class="problem-chip">數列的最大公因數（<b>A-13-1</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">7</div><h3>質數和——把質數判斷套進累加器</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>算出某個範圍內所有質數的總和。做法是把概念3（質數判斷）當作條件，套進你在M0-04學過的累加器：走訪範圍內的每一個數字，判斷是不是質數，是的話就加進總和。</div>
+    <p><span class="problem-chip">質數和（<b>TYTN-03</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">8</div><h3>拆解數字本身的每一位數——新技巧：用÷10和%10取出每一位</h3></div>
+    <div class="todo-box">
+      <b class="tag">你要做的事：</b>
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>「位數和」（<b>MATH01-006</b>）：計算一個數字每一位數字的總和</li>
+        <li>「數字反轉」（<b>MATH01-007</b>）：把數字的順序反轉輸出</li>
+      </ul>
+    </div>
+
+    <div class="diagram">
+      <div class="flow">
+        <div class="step">1234<br>%10 得 4</div>
+        <div class="op">→</div>
+        <div class="step">123<br>÷10（取整數商）</div>
+        <div class="op">→</div>
+        <div class="step">123<br>%10 得 3</div>
+        <div class="op">→</div>
+        <div class="step">…重複…</div>
+      </div>
+      <div class="caption">🆕 補充圖解：重複「取餘數、去尾數」直到數字變成0，就能把每一位數字依序拆解出來<span class="new-badge">新增</span></div>
+    </div>
+
+    <p>這是這個單元跟前面完全不一樣的新技巧——之前處理清單或字串時，你是靠索引位置存取每一個元素；但一個整數本身沒有「索引」可以存取，要靠數學運算（除法和餘數）才能把它拆開來看。</p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">9</div><h3>條件計數的複習——可被3整除的數量</h3></div>
+    <div class="todo-box">「可被3整除的數量」（<b>MATH01-008</b>）是概念1（倍數判斷）結合M1-03學過的「條件計數」——走訪一整份清單，統計有幾個數字符合倍數條件。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">10</div><h3>進階挑戰——費氏階梯</h3></div>
+    <div class="todo-box">「校園密室逃脫-費氏階梯(6-2)」（<b>cyjunior-007</b>）把數論延伸到費氏數列（每一項是前兩項的總和）——這其實已經預告了你之後在M3-04「動態規劃」會學到的「答案由前面幾步的答案組合出來」的思考方式，值得在正式學到DP之前先玩玩看這一題培養直覺。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>倍數判斷</td><td>倍數判斷（MATH01-001）</td><td>M1-09</td></tr>
+      <tr><td class="center">2</td><td>因數個數/列出因數</td><td>因數個數／找所有因數</td><td>M1-09、M1-10</td></tr>
+      <tr><td class="center">3</td><td>質數判斷</td><td>質數判斷／判斷質數</td><td>M1-09、M1-10</td></tr>
+      <tr><td class="center">4</td><td>最大公因數</td><td>最大公因數／二個數的最大公因數</td><td>M1-09、M1-10</td></tr>
+      <tr><td class="center">5</td><td>最小公倍數</td><td>最小公倍數（MATH01-005）</td><td>M1-09</td></tr>
+      <tr><td class="center">6</td><td>多個數的GCD</td><td>數列的最大公因數（A-13-1）</td><td>M1-10</td></tr>
+      <tr><td class="center">7</td><td>質數＋累加</td><td>質數和（TYTN-03）</td><td>M1-10</td></tr>
+      <tr><td class="center">8</td><td>拆解每一位數字</td><td>位數和／數字反轉</td><td>M1-09</td></tr>
+      <tr><td class="center">9</td><td>條件計數複習</td><td>可被3整除的數量（MATH01-008）</td><td>M1-09</td></tr>
+      <tr><td class="center">10</td><td>進階挑戰</td><td>校園密室逃脫-費氏階梯(6-2)</td><td>M1-10</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 逐一嘗試找因數的格子圖 ② 「÷10、%10拆解每一位數」流程圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M1-09-MathBasics.js</code>、<code class="inline">courses/M1-10-MathGCD.js</code></div>
+  </div>
+</main>
+</body>
+</html>

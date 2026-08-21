@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>清單索引與統計進階｜YDWS 教學鷹架</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="條件統計、相鄰比較、索引存取的圖解教學">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">YDWS 教學鷹架文件</div>
+    <div class="tier-badge">🟢 Tier B・延伸組合技巧</div>
+    <h1>清單索引與統計進階</h1>
+    <div class="course-tag">
+      <span>M1-02 清單資料分析挑戰</span>
+      <span>M1-03 清單統計</span>
+      <span>M1-04 清單索引與位置</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <h2 class="section-title"><span class="num">1</span>什麼是清單索引與統計進階</h2>
+  <p class="lead">
+    你已經在前一個單元學會「走訪清單、找最大值、算總和」這些基本動作。這個單元要把這些基本動作<strong>組合、延伸</strong>成更貼近真實資料分析的問題：不只是「總和是多少」，而是「有幾筆資料符合某個條件」「這筆資料在清單的第幾個位置」「跟前一筆比起來是變多還變少」。
+    <br><br>
+    這個單元也會正式介紹<strong>「索引（Index）」</strong>這個概念——位置本身也是一種你可以查詢、計算、比較的資訊，不只是資料的值本身重要，資料「在哪裡」也同樣重要。這是你之後排序法（要交換兩個位置的資料）、二分搜尋（要回答「在第幾個位置」）都會用到的基礎能力。
+  </p>
+
+  <div class="diagram">
+    <div class="cellrow">
+      <div class="cell idx" data-idx="第1個">55</div>
+      <div class="cell idx" data-idx="第2個">72</div>
+      <div class="cell idx active" data-idx="第3個">88</div>
+      <div class="cell idx" data-idx="第4個">40</div>
+      <div class="cell idx" data-idx="第5個">61</div>
+    </div>
+    <div class="pointer">位置（索引）從 1 開始算，第 3 個位置存的值是 88</div>
+    <div class="caption">🆕 補充圖解：每一格資料除了有「值」，還有一個固定的「位置」可以查詢<span class="new-badge">新增</span></div>
+  </div>
+
+  <h2 class="section-title"><span class="num">2</span>核心概念，依課程題目的順序拆解</h2>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">1</div><h3>基本統計的複習與延伸</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>計算清單的總和、平均、最高分與最低分。這是 M0-05/M0-06 學過技巧的直接複習，作為這個單元的暖身。</div>
+    <p><span class="problem-chip">清單總和（<b>STA01-001</b>）</span><span class="problem-chip">整數平均（<b>STA01-002</b>）</span><span class="problem-chip">最高分與最低分（<b>STA01-003</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">2</div><h3>條件統計——算「符合條件的數量」，不是值本身</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>不再是找出最大值或總和，而是<strong>數有幾筆資料符合某個條件</strong>。例如：分數大於等於60為通過，計算通過人數與通過率（要用整數百分比）；計算有幾個數字大於門檻K。做法是準備一個「計數器」（初始值0），走訪清單時，符合條件就+1。</div>
+    <p><span class="problem-chip">通過率整數版（<b>STA01-004</b>）</span><span class="problem-chip">大於門檻的數量（<b>CNT01-020</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>通過率要用「通過人數 ÷ 總人數 × 100」再取整數，順序不能顛倒（不能先各自取整數再相除，會產生誤差）。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">3</div><h3>兩階段統計——第一次走訪算出一個統計量，第二次走訪才能用它</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>先計算整數平均，再計算有幾個數字大於這個平均。這一題<strong>沒辦法只走訪清單一次就做完</strong>：你必須先完整走訪一次清單算出平均值，等平均值確定了，才能開始第二次走訪、逐一比較每個數字跟平均的大小。</div>
+
+    <div class="diagram">
+      <div class="flow">
+        <div class="step">第 1 次走訪<br>算出平均值</div>
+        <div class="op">→</div>
+        <div class="step">第 2 次走訪<br>逐一比較大小</div>
+      </div>
+      <div class="caption">🆕 補充圖解：兩次走訪不能合併，因為第一次結束前，平均值還沒有確定<span class="new-badge">新增</span></div>
+    </div>
+
+    <p><span class="problem-chip">高於平均的數量（<b>STA01-005</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>想在同一次走訪中「邊算總和邊比較」——但走訪到清單中間時，你根本還不知道最終的平均值是多少，這一題一定要拆成「先求平均」「再統計」兩個獨立的迴圈，順序不能顛倒或合併。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">4</div><h3>多類別統計——不只兩種情況，而是分成好幾類分別計數</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>統計正數、負數與零各有幾個。這是概念2「條件計數」的延伸——需要準備<strong>三個</strong>計數器，每走訪一筆資料，判斷它屬於哪一類，就把對應的計數器+1。</div>
+    <p><span class="problem-chip">正負零統計（<b>STA01-006</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">5</div><h3>相鄰比較——不是拿資料跟固定門檻比，是跟「前一筆」比</h3></div>
+    <div class="todo-box">
+      <b class="tag">你要做的事：</b>
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>「相鄰變化統計」（<b>CNT01-024</b>）：統計有幾次比前一天增加、幾次比前一天減少、幾次相同</li>
+        <li>「相鄰差值最大」（<b>CNT01-023</b>）：找出相鄰兩個數字差值的最大值</li>
+        <li>「相鄰相同的位置」（<b>IDX01-006</b>）：找出第一組數值相同的相鄰位置</li>
+      </ul>
+    </div>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區</div>從第一筆資料就開始比較——第一筆資料沒有「前一筆」可以比，迴圈要從第二筆開始才能做相鄰比較，這是這一類題目共同的邊界情況。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">6</div><h3>反向走訪——不是從頭到尾，是從尾到頭</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>從清單最後一個數字往前讀取，並輸出反向讀取時的累加結果。走訪的方向可以是任意的，重點是累加器的更新邏輯不變，只是迴圈變數從N遞減到1，而不是從1遞增到N。</div>
+    <p><span class="problem-chip">清單反向加總</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">7</div><h3>直接用索引存取——「第P個是什麼」</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定位置P，直接輸出清單中第P個數字。這是「索引」概念最基本的操作——位置從1開始算，是這個單元（也是之後所有清單題目）共同的慣例，務必記熟。</div>
+    <p><span class="problem-chip">指定位置的數字（<b>IDX01-001</b>）</span></p>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">8</div><h3>找出某個值「第一次」或「最後一次」出現的位置</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>給定目標值X，找出X第一次出現的位置（若沒出現，輸出0）；或是找出X最後一次出現的位置。做法是走訪清單，符合條件時記錄位置——差別在於：<strong>找第一次出現，找到就可以停止</strong>；<strong>找最後一次出現，要走訪到最後，每次符合都要覆蓋更新記錄的位置</strong>。</div>
+    <p><span class="problem-chip">第一個目標位置（<b>IDX01-003</b>）</span><span class="problem-chip">最後一個目標位置（<b>IDX01-004</b>）</span></p>
+    <div class="pitfall"><div class="tag">⚠️ 常見誤區（這一題組特別容易看漏）</div>「最大值的位置」（<b>IDX01-005</b>）要求的是「最大值<strong>第一次</strong>出現的位置」，但「最小值的位置」（<b>IDX01-006</b>原題）要求的卻是「最小值<strong>最後一次</strong>出現的位置」——同一份題組裡，兩題看起來很像，但「第一次」跟「最後一次」的要求剛好相反。這是這個單元最重要的提醒：<strong>題目的每一個字都要看清楚</strong>。</div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">9</div><h3>位置的應用——用位置去查詢周邊資訊</h3></div>
+    <div class="todo-box">
+      <b class="tag">你要做的事：</b>
+      <ul style="margin:8px 0 0;padding-left:20px;">
+        <li>「左右鄰居總和」（<b>IDX01-007</b>）：給定位置P，計算第P個數字左右鄰居的總和（若沒有左鄰居或右鄰居，該側視為0）</li>
+        <li>「兩個目標的距離」（<b>IDX01-008</b>）：找出A、B兩個目標值各自第一次出現的位置，計算兩個位置的距離</li>
+        <li>「第一個及格的位置」（<b>CNT01-022</b>）：概念8「找第一次符合條件的位置」的具體應用</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-head"><div class="concept-num">10</div><h3>綜合應用——把多個統計概念組合在同一題</h3></div>
+    <div class="todo-box"><b class="tag">你要做的事：</b>「每日步數統計」（<b>STA01-007</b>）要求同時輸出總步數、平均步數、以及步數達標的天數——是概念1、3的組合演練。「班服投票」（<b>TYTN-05</b>）則是把概念2（條件計數）套用在「票數統計」情境，並多了平局判斷——這是統計類題目常見的延伸：算出結果後，還要考慮「有沒有平手」這種特殊情況。</div>
+  </div>
+
+  <h2 class="section-title"><span class="num">3</span>建議練習順序對照表</h2>
+  <div class="table-wrap">
+    <table class="pretty">
+      <tr><th class="center">順序</th><th>概念</th><th>題目</th><th>課程</th></tr>
+      <tr><td class="center">1</td><td>基本統計複習</td><td>清單總和／整數平均／最高分與最低分</td><td>M1-03</td></tr>
+      <tr><td class="center">2</td><td>條件計數</td><td>通過率整數版／大於門檻的數量</td><td>M1-03</td></tr>
+      <tr><td class="center">3</td><td>兩階段統計</td><td>高於平均的數量（STA01-005）</td><td>M1-03</td></tr>
+      <tr><td class="center">4</td><td>多類別統計</td><td>正負零統計（STA01-006）</td><td>M1-03</td></tr>
+      <tr><td class="center">5</td><td>相鄰比較</td><td>相鄰變化統計／相鄰差值最大／相鄰相同的位置</td><td>M1-03、M1-04</td></tr>
+      <tr><td class="center">6</td><td>反向走訪</td><td>清單反向加總</td><td>M1-03</td></tr>
+      <tr><td class="center">7</td><td>索引存取</td><td>指定位置的數字（IDX01-001）</td><td>M1-04</td></tr>
+      <tr><td class="center">8</td><td>找第一次/最後一次位置</td><td>第一個目標位置／最後一個目標位置／最大值的位置／最小值的位置</td><td>M1-04</td></tr>
+      <tr><td class="center">9</td><td>位置的應用</td><td>左右鄰居總和／兩個目標的距離／第一個及格的位置</td><td>M1-04</td></tr>
+      <tr><td class="center">10</td><td>綜合應用</td><td>每日步數統計／班服投票</td><td>M1-03、M1-02</td></tr>
+    </table>
+  </div>
+
+  <div class="newcontent">
+    <div class="tag">🆕 本頁新增內容說明</div>
+    以下視覺元素為 Cowork 潤飾時新增，MD 正本中沒有：① 索引概念圖解 ② 概念3的「兩階段走訪」流程圖。若確認保留，建議之後補進 MD 正本。
+  </div>
+
+  <div class="footer">
+    本頁內容改寫自教學鷹架草稿，供 osep-judge／BlocklyYdws 平台共用連結。
+    <div class="source">正本來源：<code class="inline">courses/M1-02-ListAnalysis.js</code>、<code class="inline">courses/M1-03-ListStats.js</code>、<code class="inline">courses/M1-04-ListIndex.js</code></div>
+  </div>
+</main>
+</body>
+</html>
