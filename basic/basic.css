@@ -219,3 +219,16 @@ details.step .step-body{padding:4px 18px 14px;}
   .fold-bar{display:none;}
   details.fold > summary h2.section-title::after,details.step > summary::before{display:none;}
 }
+
+/* ---------- 首頁：進階挑戰（114 學年縣市題目組） ---------- */
+.adv-modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:10px 0 14px;}
+.adv-mode{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--lv1);border-radius:var(--radius-sm);padding:10px 14px;font-size:14.5px;}
+.adv-mode.contest{border-left-color:#d9534f;}
+.adv-mode b{display:block;font-size:15.5px;margin-bottom:2px;}
+table.adv-table td,table.adv-table th{text-align:center;vertical-align:middle;white-space:nowrap;}
+table.adv-table tbody th{text-align:left;font-weight:800;background:#fafbfe;color:var(--ink);}
+.adv-btn{padding:4px 12px;font-size:13.5px;background:var(--lv1);}
+.adv-btn.contest{background:#d9534f;}
+.adv-none{color:var(--sub);}
+.adv-foot{font-size:13.5px;color:var(--sub);}
+@media print{.adv-btn{display:inline !important;background:none;color:var(--ink);padding:0;}}
