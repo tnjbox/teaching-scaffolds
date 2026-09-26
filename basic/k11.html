@@ -19,24 +19,63 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
-
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（1 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>相鄰相同的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-006</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請找出第一組相鄰且數值相同的位置。若第 i 個與第 i+1 個相同，輸出 i。若沒有相鄰相同，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出一個整數，代表第一組相鄰相同的左側位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
-3 5 5 2 2 8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B3-05-Adjacent" data-task="IDX01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>比較第 i 項和第 i+1 項，迴圈只能跑到 N-1，不然第 i+1 項會超出清單範圍。</div></details></article></div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會比較清單裡<strong>相鄰</strong>的兩筆資料：第 i 項和第 i＋1 項。</li><li>知道比較相鄰資料時，迴圈只能跑到 <strong>N−1</strong>。</li><li>會把相鄰比較和計數、找最大值組合起來。</li></ul>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>有些問題要看的不是單一筆資料，而是<strong>前後兩筆的關係</strong>：今天比昨天多還是少？有沒有連續兩個一樣的？這時要把清單裡相鄰的兩項拿來比。</p>
+<div class="diagram">
+  <div class="cellrow">
+    <div class="cell idx" data-idx="第1項">3</div>
+    <div class="cell idx active" data-idx="第2項">5</div>
+    <div class="cell idx active" data-idx="第3項">5</div>
+    <div class="cell idx" data-idx="第4項">2</div>
+    <div class="cell idx" data-idx="第5項">2</div>
+    <div class="cell idx" data-idx="第6項">8</div>
+  </div>
+  <div class="pointer">i ＝ 2 時，比較第 2 項和第 3 項</div>
+</div>
+<pre class="code">i 從 1 數到 N−1：
+    比較 第 i 項 和 第 i＋1 項</pre>
+<div class="pitfall"><div class="tag">⚠️ 迴圈為什麼只能到 N−1？</div><p>有 6 筆資料時，最後一組是第 5 項和第 6 項。如果 i 跑到 6，就要拿第 7 項來比，但清單裡沒有第 7 項，結果會出錯。所以 i 的終點是 N−1。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>相鄰相同的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-006</span></div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請找出第一組相鄰且數值相同的位置。若第 i 個與第 i+1 個相同，輸出 i。若沒有相鄰相同，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出一個整數，代表第一組相鄰相同的左側位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+3 5 5 2 2 8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-05-Adjacent" data-task="IDX01-006" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：N（至少 2），接著 N 個整數。</li><li><strong>輸出</strong>：第一組「相鄰且相同」的左邊位置 i；沒有就輸出 0。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><p>這題是「相鄰比較」加上 K10 學過的「第一次出現」：</p>
+<pre class="code">（讀入 N 個數字，存進 全部數字）
+位置 設為 0
+i 從 1 數到 N−1：
+    如果 位置 ＝ 0 且 第 i 項 ＝ 第 i＋1 項：
+        位置 設為 i
+說出 位置</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>清單［3, 5, 5, 2, 2, 8］：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>第 i 項</th><th>第 i＋1 項</th><th>相同？</th><th>位置</th></tr></thead><tbody><tr><td>1</td><td>3</td><td>5</td><td>否</td><td>0</td></tr><tr><td>2</td><td>5</td><td>5</td><td>是</td><td>2</td></tr><tr><td>3</td><td>5</td><td>2</td><td>否</td><td>2</td></tr><tr><td>4</td><td>2</td><td>2</td><td>是，但已經找到過</td><td>2</td></tr><tr><td>5</td><td>2</td><td>8</td><td>否</td><td>2</td></tr></tbody></table></div>
+<p>輸出 2。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看迴圈的終點是「N − 1」，以及取第 i＋1 項時，位置是用數學積木算出來的「i ＋ 1」。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>終點寫成 N</strong>：最後一輪會拿不存在的第 N＋1 項來比。</li><li><strong>忘了「位置 ＝ 0」</strong>：會得到最後一組相同的位置 4，而不是第一組的 2。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 相鄰變化統計 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定 N 天的數值紀錄，請統計有幾次比前一天增加、幾次比前一天減少，以及幾次和前一天相同。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出三個整數，依序為增加次數、減少次數、相同次數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+<div class="focus"><b>挑戰重點：</b>把每一組相鄰資料分成三種情況：後一天比較大（增加）、比較小（減少）、一樣（相同），各用一個計數變數。這是 K04 的多重分支加上 K08 的計數。</div><div class="problem-desc" style="white-space:pre-line">給定 N 天的數值紀錄，請統計有幾次比前一天增加、幾次比前一天減少，以及幾次和前一天相同。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出三個整數，依序為增加次數、減少次數、相同次數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
 10 12 12 9 15 14</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 2 1</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-05-Adjacent" data-task="STA01-008" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從第 2 項開始，每一項都和前一項比較，分別統計增加、減少、相同的次數。</div></details></details>
 <details class="extension"><summary>🚀 相鄰差值最大 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請計算相鄰兩個數字之間差值的最大值。差值一律用較大的數減較小的數。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出一個整數，代表相鄰差值最大值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+<div class="focus"><b>挑戰重點：</b>每一組相鄰資料都算出差值（用大的減小的），再用 K09 的擂台法找出最大的差值。差值可以用「如果…否則…」決定誰減誰，也可以用數學的「絕對值」積木。</div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請計算相鄰兩個數字之間差值的最大值。差值一律用較大的數減較小的數。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出一個整數，代表相鄰差值最大值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 3 8 6 15 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>9</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-05-Adjacent" data-task="CNT01-023" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>每一組相鄰數字都算出差值（用大的減小的），再從這些差值中找出最大的。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用第 i 項和第 i＋1 項比較相鄰資料。</li><li>我能說明迴圈的終點為什麼是 N−1。</li><li>我會把相鄰比較和計數、找最大值、找第一次出現組合在一起。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k10.html"><div class="dir">← 上一個知識點</div><b>K10 位置追蹤與線性搜尋</b></a><a class="next" href="k12.html"><div class="dir">下一個知識點 →</div><b>K12 字串存取與走訪</b></a></nav>
 

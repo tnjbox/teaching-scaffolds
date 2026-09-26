@@ -19,24 +19,56 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用<strong>暫存變數</strong>交換兩個變數的值。</li><li>會判斷「需要交換才交換」。</li><li>會交換清單裡指定的兩個位置。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（3 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>SWAP交換函數</h3><span class="lv L1">L1｜基礎</span><span class="pid">seclect-001</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在學習排序之前，小安先練習一個重要的小任務。
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>想像你左手拿紅茶、右手拿奶茶，要把兩杯飲料交換到另一隻手。直接換一定會打翻，你需要一個空杯子（桌子）先放一杯：</p>
+<div class="diagram">
+  <div class="flow">
+    <div class="step">① 暫存 ← A</div><div class="op">→</div>
+    <div class="step">② A ← B</div><div class="op">→</div>
+    <div class="step">③ B ← 暫存</div>
+  </div>
+  <div class="caption">交換 A 和 B 的三個步驟，順序不能亂</div>
+</div>
+<p>用 A ＝ 8、B ＝ 3 走一次：</p>
+<div class="table-scroll"><table><thead><tr><th>步驟</th><th>暫存</th><th>A</th><th>B</th></tr></thead><tbody><tr><td>開始</td><td>－</td><td>8</td><td>3</td></tr><tr><td>① 暫存 設為 A</td><td>8</td><td>8</td><td>3</td></tr><tr><td>② A 設為 B</td><td>8</td><td>3</td><td>3</td></tr><tr><td>③ B 設為 暫存</td><td>8</td><td>3</td><td>8</td></tr></tbody></table></div>
+<div class="pitfall"><div class="tag">⚠️ 為什麼一定要暫存變數？</div><p>如果直接寫「A 設為 B」再寫「B 設為 A」：第一步做完 A 已經變成 3，原本的 8 就不見了，第二步 B 只會拿到 3，結果兩個都是 3。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>SWAP交換函數</h3><span class="lv L1">L1｜基礎</span><span class="pid">seclect-001</span></div><div class="problem-desc" style="white-space:pre-line">在學習排序之前，小安先練習一個重要的小任務。
 桌上有兩張數字卡片，依序放在第 1 個位置與第 2 個位置。
 小安希望讓「數字小的卡片在前面，數字大的卡片在後面」。
 如果前面的數字比較大，就需要把兩張卡片的位置交換；
 如果順序本來就正確，則不需要交換。
 請你寫一個程式，判斷是否需要交換，並輸出交換後的結果。
-（提示：交換時需要使用暫存變數）</div><dl class="io"><dt>輸入</dt><dd>一次輸入兩個整數 A、B（以空格隔開），代表目前卡片的順序。</dd><dt>輸出</dt><dd>輸出兩個整數，代表調整後由小到大的順序（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 8</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4 9</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4 9</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B6-01-Swap" data-task="seclect-001" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>要交換兩個變數，先用一個暫存變數保存其中一個值，否則會被蓋掉。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>三數升冪排序</h3><span class="lv L2">L2｜進階</span><span class="pid">SORT01-002</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定三個整數，請將它們由小到大輸出。這題可用多次相鄰比較與交換完成。</div><dl class="io"><dt>輸入</dt><dd>輸入三個整數 A、B、C。</dd><dt>輸出</dt><dd>輸出三個整數，由小到大排列，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>9 2 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 5 9</pre></div></div></div></details>
+（提示：交換時需要使用暫存變數）</div><dl class="io"><dt>輸入</dt><dd>一次輸入兩個整數 A、B（以空格隔開），代表目前卡片的順序。</dd><dt>輸出</dt><dd>輸出兩個整數，代表調整後由小到大的順序（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 8</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4 9</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4 9</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-01-Swap" data-task="seclect-001" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：兩個整數 A、B。</li><li><strong>輸出</strong>：由小到大的兩個數。前面比較大才需要交換。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問並等待 → A
+詢問並等待 → B
+如果 A ＞ B：
+    暫存 設為 A
+    A 設為 B
+    B 設為 暫存
+說出 A、空白、B</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><ul><li>輸入 8 3：A ＞ B 成立，交換後 A ＝ 3、B ＝ 8，輸出「3 8」。</li><li>輸入 2 9：A ＞ B 不成立，不交換，輸出「2 9」。</li></ul></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看交換的三個積木都放在「如果」裡面，而且順序是：暫存 ← A、A ← B、B ← 暫存。</p></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>三數升冪排序</h3><span class="lv L2">L2｜進階</span><span class="pid">SORT01-002</span></div><div class="focus"><b>這題多了什麼：</b>三個數字要排好，可以用「相鄰比較、需要就交換」：先比 A 和 B，再比 B 和 C，這時最大的會到最後面；再比一次 A 和 B，就全部排好了。每次比較都用示範的交換方法。（範例答案是把三個數放進清單，用 K17 的選擇排序寫法，兩種都可以。）</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定三個整數，請將它們由小到大輸出。這題可用多次相鄰比較與交換完成。</div><dl class="io"><dt>輸入</dt><dd>輸入三個整數 A、B、C。</dd><dt>輸出</dt><dd>輸出三個整數，由小到大排列，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>9 2 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 5 9</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B6-01-Swap" data-task="SORT01-002" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>比較第 1、2 個，必要時交換；再比較第 2、3 個……想想總共需要比較幾次才能保證排好。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>卡片位置交換清單版</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-002</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小安已經學會「兩個變數的交換」，現在他拿到一排固定 5 張的數字卡片，
+<article class="practice"><div class="problem-head"><h3>卡片位置交換清單版</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-002</span></div><div class="focus"><b>這題多了什麼：</b>交換的方法完全一樣，只是對象從兩個變數，換成清單的第 P 項和第 Q 項：暫存 ← 第 P 項、第 P 項 ← 第 Q 項、第 Q 項 ← 暫存。注意輸入的格式：第 3 行的 M 是固定的 2（代表接下來有兩個位置），要先讀掉它，再讀 P 和 Q。Blockly 用「自清單…設定 # P 為…」，Scratch 用「替換…的第 P 項為…」。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小安已經學會「兩個變數的交換」，現在他拿到一排固定 5 張的數字卡片，
 卡片依序放在第 1 到第 5 個位置中。
 老師指定清單中的兩個位置，小安需要把這兩個位置上的數字卡片進行交換，
 其他位置的卡片保持不變。
@@ -52,6 +84,11 @@
 2
 1 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 7 2 9 4</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B6-01-Swap" data-task="seclect-002" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>交換的方法和兩個變數交換相同，只是對象換成清單的第 A 項和第 B 項。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我能說明為什麼交換一定要用暫存變數。</li><li>我會照正確順序寫出交換的三個步驟。</li><li>我會只在需要的時候（例如前面比較大）才交換。</li><li>我會交換清單中指定的兩個位置。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k15.html"><div class="dir">← 上一個知識點</div><b>K15 位數拆解</b></a><a class="next" href="k17.html"><div class="dir">下一個知識點 →</div><b>K17 排序演算法</b></a></nav>
 

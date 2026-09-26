@@ -19,28 +19,60 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會逐字元走訪字串，<strong>統計</strong>符合條件的字元有幾個。</li><li>會用「或」一次檢查多個目標字元。</li><li>會比較<strong>相鄰</strong>的兩個字元。</li><li>會用「旗標」變數記錄「有沒有發生過某件事」。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（3 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>K12 學會了逐字元走訪，這個知識點把以前學過的技巧搬到字串上：</p>
+<div class="table-scroll"><table><thead><tr><th>以前學過</th><th>搬到字串上</th></tr></thead><tbody><tr><td>K08 條件計數</td><td>數字串裡有幾個 a</td></tr><tr><td>K04 用「或」組合條件</td><td>字元是 a、e、i、o、u 其中一個</td></tr><tr><td>K11 相鄰比較</td><td>第 i 個字元和第 i＋1 個字元一樣嗎？</td></tr></tbody></table></div>
+<p>骨架都是同一個：</p>
+<pre class="code">計數 設為 0
+i 從 1 數到 字串的長度：
+    如果 第 i 個字元 符合條件：
+        計數 設為 計數 ＋ 1
+說出 計數</pre>
+<div class="tip"><div class="tag">💡 旗標：只想知道「有沒有」的時候</div><p>有些題目不問「有幾個」，只問「有沒有」。這時可以準備一個變數當作<strong>旗標</strong>，先設為 NO；走訪時只要發現一次，就把它改成 YES。走完之後，旗標是 YES 就代表至少發生過一次。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>計算指定字元數量</h3><span class="lv L2">L2｜進階</span><span class="pid">STR01-004</span></div><div class="problem-desc" style="white-space:pre-line">給定一個字串與目標字元 C，請計算 C 在字串中出現幾次。</div><dl class="io"><dt>輸入</dt><dd>第一行輸入字串 S。第二行輸入一個字元 C。S 不包含空白。</dd><dt>輸出</dt><dd>輸出一個整數，代表 C 出現的次數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>banana
+a</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="STR01-004" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：第一行是字串 S，第二行是一個字元 C。</li><li><strong>輸出</strong>：C 在 S 裡出現幾次。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問並等待 → 字串
+詢問並等待 → C
+計數 設為 0
+i 從 1 數到 字串的長度：
+    如果 字串的第 i 個字元 ＝ C：
+        計數 設為 計數 ＋ 1
+說出 計數</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>字串「banana」、C ＝ a：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>第 i 個字元</th><th>等於 a？</th><th>計數</th></tr></thead><tbody><tr><td>1</td><td>b</td><td>否</td><td>0</td></tr><tr><td>2</td><td>a</td><td>是</td><td>1</td></tr><tr><td>3</td><td>n</td><td>否</td><td>1</td></tr><tr><td>4</td><td>a</td><td>是</td><td>2</td></tr><tr><td>5</td><td>n</td><td>否</td><td>2</td></tr><tr><td>6</td><td>a</td><td>是</td><td>3</td></tr></tbody></table></div>
+<p>輸出 3。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，這就是 K08「條件計數」的骨架，只是資料從「一串數字」換成「字串裡的字元」。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>大小寫不同</strong>：「A」和「a」是不同的字元，題目的字串如果有大寫，要看清楚題目要不要分大小寫。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>計算指定字元數量</h3><span class="lv L2">L2｜進階</span><span class="pid">STR01-004</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個字串與目標字元 C，請計算 C 在字串中出現幾次。</div><dl class="io"><dt>輸入</dt><dd>第一行輸入字串 S。第二行輸入一個字元 C。S 不包含空白。</dd><dt>輸出</dt><dd>輸出一個整數，代表 C 出現的次數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>banana
-a</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="STR01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>逐字元走訪字串，遇到和目標字元相同的就把計數加 1。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>母音數量</h3><span class="lv L2">L2｜進階</span><span class="pid">STR01-006</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個只包含小寫英文字母的字串，請計算母音 a、e、i、o、u 共出現幾次。</div><dl class="io"><dt>輸入</dt><dd>輸入一個只包含小寫英文字母的字串 S。</dd><dt>輸出</dt><dd>輸出一個整數，代表母音總數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>education</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div></details>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>母音數量</h3><span class="lv L2">L2｜進階</span><span class="pid">STR01-006</span></div><div class="focus"><b>這題多了什麼：</b>條件變成「第 i 個字元是 a <strong>或</strong> e <strong>或</strong> i <strong>或</strong> o <strong>或</strong> u」。Blockly 的「或」積木可以按齒輪增加格子；Scratch 則要把好幾個「或」積木套在一起。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個只包含小寫英文字母的字串，請計算母音 a、e、i、o、u 共出現幾次。</div><dl class="io"><dt>輸入</dt><dd>輸入一個只包含小寫英文字母的字串 S。</dd><dt>輸出</dt><dd>輸出一個整數，代表母音總數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>education</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="STR01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>逐字元走訪字串，這個字元只要是 a、e、i、o、u 其中之一就加 1，想想要用「且」還是「或」。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>相鄰相同字元</h3><span class="lv L2">L2｜進階</span><span class="pid">STR01-008</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個字串，請判斷是否存在兩個相鄰且相同的字元。</div><dl class="io"><dt>輸入</dt><dd>輸入一個字串 S。S 不包含空白，且長度至少為 1。</dd><dt>輸出</dt><dd>若存在相鄰相同字元，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>book</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
+<article class="practice"><div class="problem-head"><h3>相鄰相同字元</h3><span class="lv L2">L2｜進階</span><span class="pid">STR01-008</span></div><div class="focus"><b>這題多了什麼：</b>用旗標：「結果」先設為 NO；讓 i 從 1 數到「長度 − 1」，只要第 i 個字元等於第 i＋1 個字元，就把結果改成 YES。迴圈只跑到長度 − 1 的原因，和 K11 一樣。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個字串，請判斷是否存在兩個相鄰且相同的字元。</div><dl class="io"><dt>輸入</dt><dd>輸入一個字串 S。S 不包含空白，且長度至少為 1。</dd><dt>輸出</dt><dd>若存在相鄰相同字元，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>book</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="STR01-008" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>比較第 i 個和第 i+1 個字元，迴圈只跑到「長度-1」。</div></details></article></div>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 是否回文 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定一個不含空白的字串，請判斷它是否正著讀和反著讀都相同。</div><dl class="io"><dt>輸入</dt><dd>輸入一個字串 S。S 不包含空白。</dd><dt>輸出</dt><dd>若 S 是回文，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>level</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="STR01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把第 1 個和最後 1 個字元比較、第 2 個和倒數第 2 個比較……只要有一組不同，就不是回文。</div></details></details>
+<div class="focus"><b>挑戰重點：</b>回文就是頭尾對稱：第 1 個和最後 1 個一樣、第 2 個和倒數第 2 個一樣……第 i 個要和第（長度 − i ＋ 1）個比較，只要有一組不一樣就不是回文。另一個想法是：用 K12 的方法把字串反轉，再看反轉後和原本是不是一樣。</div><div class="problem-desc" style="white-space:pre-line">給定一個不含空白的字串，請判斷它是否正著讀和反著讀都相同。</div><dl class="io"><dt>輸入</dt><dd>輸入一個字串 S。S 不包含空白。</dd><dt>輸出</dt><dd>若 S 是回文，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>level</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="STR01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把第 1 個和最後 1 個字元比較、第 2 個和倒數第 2 個比較……只要有一組不同，就不是回文。</div></details></details>
 <details class="extension"><summary>🚀 簡易密碼轉換 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">小明設計了一種簡單的密碼環密碼規則：將每個字母向後移二個字母（z 變 b）。
+<div class="focus"><b>挑戰重點：</b>先準備密碼環「abcdefghijklmnopqrstuvwxyz」，對每個字元：找出它在密碼環裡的位置，往後移 2 個；如果超過 26，就減 26 回到開頭（y → a、z → b）。再用新位置從密碼環取出新字元，接到結果後面。</div><div class="problem-desc" style="white-space:pre-line">小明設計了一種簡單的密碼環密碼規則：將每個字母向後移二個字母（z 變 b）。
 
 密碼環：abcdefghijklmnopqrstuvwxyz
 
@@ -48,7 +80,7 @@ a</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></di
 
 這樣的練習訓練你字元處理與條件轉換。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>banana</pre></div><div class="sample-row"><div class="k">輸出</div><pre>dcpcpc</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>student</pre></div><div class="sample-row"><div class="k">輸出</div><pre>uvwfgpv</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="A-12-0" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先找出字元在密碼環中的位置，往後移 2 個；超過 z 的時候要從 a 繼續算。</div></details></details>
 <details class="extension"><summary>🚀 檢查碼 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">書店會員卡享有購書8折優惠，為避免有人偽造會員卡，書店老闆在卡號中加入檢查碼。
+<div class="focus"><b>挑戰重點：</b>卡號第 1 個字元是英文字母，要先換成對應的數字（A→11、B→13、C→15、D→17）；第 2～6 個字元是數字，把它們全部加起來，最後看總和除以 5 的餘數是不是 4。注意：從字串取出來的「2」是文字，Blockly 要先寫成「字元 − 0」轉成數字再相加，否則會被接成一串文字；Scratch 的「＋」會自動轉換。</div><div class="problem-desc" style="white-space:pre-line">書店會員卡享有購書8折優惠，為避免有人偽造會員卡，書店老闆在卡號中加入檢查碼。
 
 會員卡編號格式為：一個英文字母 + 4個數字 + 1個檢查碼。
 
@@ -65,6 +97,11 @@ B20135 = 13+2+0+1+3+5 = 24 → 24÷5=4餘4 → 正確會員卡
 A15274 = 11+1+5+2+7+4 = 30 → 30÷5=6餘0 → 不正確會員卡
 
 請寫一個程式判斷會員卡號是否正確，若正確輸出 yes，否則輸出 no。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>C20351</pre></div><div class="sample-row"><div class="k">輸出</div><pre>no</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>D15713</pre></div><div class="sample-row"><div class="k">輸出</div><pre>yes</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="TYTN-10" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把英文字母換成對應的數字，再把其他每一位數字加起來，最後看除以 5 的餘數是不是 4。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會逐字元走訪字串，數出符合條件的字元有幾個。</li><li>我會用「或」一次檢查好幾個目標字元。</li><li>我會比較字串中相鄰的兩個字元。</li><li>我會用旗標記錄「有沒有發生過」。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k12.html"><div class="dir">← 上一個知識點</div><b>K12 字串存取與走訪</b></a><a class="next" href="k14.html"><div class="dir">下一個知識點 →</div><b>K14 因數、倍數與質數</b></a></nav>
 

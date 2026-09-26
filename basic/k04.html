@@ -19,12 +19,59 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會處理<strong>三種以上</strong>的結果（多重分支）。</li><li>知道多段條件要依照<strong>順序</strong>判斷，並會安排判斷順序。</li><li>會用「或」組合條件：只要一個成立就算成立。</li><li>會用「且」組合條件：全部成立才算成立。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（5 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>有些問題不只兩種結果，例如成績等第有 A、B、C、D、F 五種。這時可以用「如果…否則，如果…否則…」一層一層往下判斷：</p>
+<pre class="code">如果 條件1：做 A
+否則，如果 條件2：做 B
+否則，如果 條件3：做 C
+否則：做 D</pre>
+<p>程式會<strong>從上往下</strong>檢查，遇到第一個成立的條件就走那條路，後面的就不再檢查。</p>
+<div class="tip"><div class="tag">💡 從最嚴格的條件開始判斷</div><p>判斷等第時，先問「≥ 90 嗎？」，不成立再問「≥ 80 嗎？」。因為能走到第二個問題，就代表一定不到 90，所以不用再寫「≥ 80 且 ＜ 90」，條件可以寫得很簡單。</p></div>
+<p>另一種情況是<strong>好幾個條件要一起考慮</strong>，這時用「且」和「或」把條件接起來：</p>
+<div class="table-scroll"><table><thead><tr><th>積木</th><th>意思</th><th>例子</th></tr></thead><tbody><tr><td>A 或 B</td><td>只要有一個成立就成立</td><td>年齡 ＜ 12 或 年齡 ≥ 65 → 優惠票</td></tr><tr><td>A 且 B</td><td>全部都要成立才成立</td><td>三組「兩邊和 ＞ 第三邊」全部成立 → 是三角形</td></tr></tbody></table></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>成績等第</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-006</span></div><div class="problem-desc" style="white-space:pre-line">給定一個分數，請依分數輸出等第。90 分以上為 A，80 到 89 為 B，70 到 79 為 C，60 到 69 為 D，未滿 60 為 F。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 S，代表分數。</dd><dt>輸出</dt><dd>輸出一個字母，代表等第。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>86</pre></div><div class="sample-row"><div class="k">輸出</div><pre>B</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-006" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個分數。</li><li><strong>輸出</strong>：90 以上 A、80～89 B、70～79 C、60～69 D、未滿 60 F。</li></ul></div></details>
+<details class="step"><summary>第 2 步：安排判斷順序</summary><div class="step-body"><p>從最高分開始，一層一層往下：</p>
+<pre class="code">詢問並等待 → 分數
+如果 分數 ≥ 90：說出 A
+否則，如果 分數 ≥ 80：說出 B
+否則，如果 分數 ≥ 70：說出 C
+否則，如果 分數 ≥ 60：說出 D
+否則：說出 F</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>分數 86：≥ 90？不成立 → ≥ 80？成立 → 說出 B，後面的條件都不用再看。</p>
+<div class="table-scroll"><table><thead><tr><th>分數</th><th>第一個成立的條件</th><th>輸出</th></tr></thead><tbody><tr><td>95</td><td>≥ 90</td><td>A</td></tr><tr><td>86</td><td>≥ 80</td><td>B</td></tr><tr><td>60</td><td>≥ 60</td><td>D</td></tr><tr><td>45</td><td>都不成立</td><td>F</td></tr></tbody></table></div></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，範例答案是把下一個「如果…否則…」放進上一個的「否則」裡面，一層一層往下（Scratch 也是這樣寫）。用 Blockly 的話，也可以在「如果」積木上按齒輪，加上「否則，如果」，兩種寫法效果一樣。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>判斷順序顛倒</strong>：先寫「≥ 60 就說 D」，那 95 分也會先符合 ≥ 60，結果變成 D。</li><li><strong>邊界寫錯</strong>：用成 ＞ 90，剛好 90 分會變成 B。</li></ul></div></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>門票優惠判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-004</span></div><div class="problem-desc" style="white-space:pre-line">某遊樂園規定，年齡小於 12 歲或大於等於 65 歲可以購買優惠票，其餘為一般票。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 A，代表年齡。</dd><dt>輸出</dt><dd>若可購買優惠票，輸出 DISCOUNT；否則輸出 NORMAL。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>DISCOUNT</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-004" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：年齡。</li><li><strong>輸出</strong>：小於 12 歲<strong>或</strong>大於等於 65 歲輸出 DISCOUNT，其他輸出 NORMAL。</li></ul></div></details>
+<details class="step"><summary>第 2 步：判斷要用「且」還是「或」</summary><div class="step-body"><p>一個人不可能同時小於 12 歲又大於等於 65 歲，所以不能用「且」。題目的意思是<strong>只要符合其中一個</strong>，就用「或」：</p>
+<pre class="code">詢問並等待 → 年齡
+如果 年齡 ＜ 12 或 年齡 ≥ 65：
+    說出 DISCOUNT
+否則：
+    說出 NORMAL</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><div class="table-scroll"><table><thead><tr><th>年齡</th><th>年齡 ＜ 12</th><th>年齡 ≥ 65</th><th>或的結果</th><th>輸出</th></tr></thead><tbody><tr><td>10</td><td>成立</td><td>不成立</td><td>成立</td><td>DISCOUNT</td></tr><tr><td>30</td><td>不成立</td><td>不成立</td><td>不成立</td><td>NORMAL</td></tr><tr><td>65</td><td>不成立</td><td>成立</td><td>成立</td><td>DISCOUNT</td></tr></tbody></table></div></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看「或」積木的兩個格子各放了一個比較條件。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>用了「且」</strong>：兩個條件不可能同時成立，所有人都會變成 NORMAL。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（3 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>比較大小</h3><span class="lv L2">L2｜進階</span><span class="pid">A-03-0</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在生活中常常會需要比較兩個數字誰比較大。
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>比較大小</h3><span class="lv L2">L2｜進階</span><span class="pid">A-03-0</span></div><div class="focus"><b>這題多了什麼：</b>三種結果：第一個數比較大、第二個數比較大、一樣大。用「如果…否則，如果…否則…」分成三條路，最後的「否則」就是一樣大的情況。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在生活中常常會需要比較兩個數字誰比較大。
 
 請寫一個程式，輸入兩個整數，輸出較大的數字。
 
@@ -34,18 +81,17 @@
 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>8</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7
 7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>一樣大</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="A-03-0" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>有三種可能：第一個大、第二個大、一樣大，用「如果…否則如果…否則」分成三條路。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>溫度警示</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-005</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定目前溫度，請判斷天氣狀態。低於 18 度為 COLD，18 到 27 度為 OK，高於 27 度為 HOT。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 T，代表溫度。</dd><dt>輸出</dt><dd>依規則輸出 COLD、OK 或 HOT。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>HOT</pre></div></div></div></details>
+<article class="practice"><div class="problem-head"><h3>溫度警示</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-005</span></div><div class="focus"><b>這題多了什麼：</b>溫度分成三段。想清楚 18 和 27 這兩個邊界各屬於哪一段：18 是 OK（不是 COLD），27 也是 OK（不是 HOT）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定目前溫度，請判斷天氣狀態。低於 18 度為 COLD，18 到 27 度為 OK，高於 27 度為 HOT。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 T，代表溫度。</dd><dt>輸出</dt><dd>依規則輸出 COLD、OK 或 HOT。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>HOT</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-005" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把溫度分成三段，想清楚 18 和 27 這兩個邊界值各屬於哪一段。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>成績等第</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-006</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個分數，請依分數輸出等第。90 分以上為 A，80 到 89 為 B，70 到 79 為 C，60 到 69 為 D，未滿 60 為 F。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 S，代表分數。</dd><dt>輸出</dt><dd>輸出一個字母，代表等第。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>86</pre></div><div class="sample-row"><div class="k">輸出</div><pre>B</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從最高的等第開始判斷（先判斷 ≥90），後面的條件就可以寫得比較簡單。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>門票優惠判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-004</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">某遊樂園規定，年齡小於 12 歲或大於等於 65 歲可以購買優惠票，其餘為一般票。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 A，代表年齡。</dd><dt>輸出</dt><dd>若可購買優惠票，輸出 DISCOUNT；否則輸出 NORMAL。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>DISCOUNT</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>「小於 12 歲」或「大於等於 65 歲」只要符合其中一個就是優惠票，想想要用「且」還是「或」。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>三角形成立判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-007</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定三個正整數作為邊長，請判斷是否可以形成三角形。任兩邊和都必須大於第三邊。</div><dl class="io"><dt>輸入</dt><dd>輸入三個正整數 A、B、C，代表三邊長。</dd><dt>輸出</dt><dd>若可形成三角形，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3 4 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
+<article class="practice"><div class="problem-head"><h3>三角形成立判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-007</span></div><div class="focus"><b>這題多了什麼：</b>三組條件（甲＋乙＞丙、乙＋丙＞甲、甲＋丙＞乙）<strong>全部</strong>成立才是三角形，所以要用「且」把三個條件接起來。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定三個正整數作為邊長，請判斷是否可以形成三角形。任兩邊和都必須大於第三邊。</div><dl class="io"><dt>輸入</dt><dd>輸入三個正整數 A、B、C，代表三邊長。</dd><dt>輸出</dt><dd>若可形成三角形，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3 4 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>三組「兩邊和大於第三邊」必須全部成立才是三角形，想想要用「且」還是「或」。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用「否則，如果」寫出三條以上的路。</li><li>我知道程式會從上往下找第一個成立的條件，並會安排正確的判斷順序。</li><li>我能判斷題目的意思該用「且」還是「或」。</li><li>我會用每一段的邊界值測試程式。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k03.html"><div class="dir">← 上一個知識點</div><b>K03 條件判斷：二選一</b></a><a class="next" href="k05.html"><div class="dir">下一個知識點 →</div><b>K05 計數迴圈</b></a></nav>
 

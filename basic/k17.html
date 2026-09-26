@@ -19,16 +19,47 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會做<strong>泡泡排序的一回合</strong>：相鄰比較，順序不對就交換。</li><li>會做<strong>選擇排序的一回合</strong>：找出最小值的位置，和最前面交換。</li><li>知道兩種排序法各是由哪些學過的技巧組合而成。</li><li>（延伸）會把「一回合」重複做完，完成整個排序。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（2 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>相鄰交換一次</h3><span class="lv L2">L2｜進階</span><span class="pid">SORT01-003</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請從左到右檢查每一組相鄰數字。如果左邊數字大於右邊數字，就交換兩者。整個清單只掃描一次。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出掃描一次後的 N 個整數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
-5 1 4 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 4 2 3 5</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="SORT01-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從左到右比較每一組相鄰數字，左邊比較大就交換；整個清單只掃描一次。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>選擇排序第一回合</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-004</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小安正在學習「選擇排序法」，老師請他先完成第一回合的任務。
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>排序看起來很難，其實兩種經典方法都是前面學過的技巧組合起來的：</p>
+<div class="table-scroll"><table><thead><tr><th>排序法</th><th>一回合在做什麼</th><th>用到的技巧</th></tr></thead><tbody><tr><td>泡泡排序</td><td>從左到右，相鄰兩個比較，左邊比較大就交換</td><td>K11 相鄰比較 ＋ K16 交換</td></tr><tr><td>選擇排序</td><td>找出最小值在哪裡，把它和最前面的交換</td><td>K10 記住最小值的位置 ＋ K16 交換</td></tr></tbody></table></div>
+<p><strong>泡泡排序一回合</strong>：大的數字會像泡泡一樣一路往右浮，一回合結束時，<strong>最大值一定到了最右邊</strong>。</p>
+<div class="diagram">
+  <div class="cellrow"><div class="cell active">5</div><div class="cell active">1</div><div class="cell">4</div><div class="cell">2</div><div class="cell">3</div></div>
+  <div class="arrow-down">↓ 5 ＞ 1，交換</div>
+  <div class="cellrow"><div class="cell">1</div><div class="cell active">5</div><div class="cell active">4</div><div class="cell">2</div><div class="cell">3</div></div>
+  <div class="arrow-down">↓ 一路比到最後</div>
+  <div class="cellrow"><div class="cell">1</div><div class="cell">4</div><div class="cell">2</div><div class="cell">3</div><div class="cell done">5</div></div>
+  <div class="caption">泡泡排序一回合後，最大的 5 到了最右邊</div>
+</div>
+<p><strong>選擇排序一回合</strong>：在全部資料中選出最小的，換到第 1 個位置，<strong>第 1 個位置就確定了</strong>。</p>
+<div class="note"><div class="tag">📌 為什麼先練「一回合」？</div><p>完整的排序就是把一回合重複做很多次。先把一回合寫對，再加一個外層迴圈重複它，就是完整的排序法（延伸挑戰）。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>相鄰交換一次</h3><span class="lv L2">L2｜進階</span><span class="pid">SORT01-003</span></div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請從左到右檢查每一組相鄰數字。如果左邊數字大於右邊數字，就交換兩者。整個清單只掃描一次。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出掃描一次後的 N 個整數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+5 1 4 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 4 2 3 5</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="SORT01-003" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：N（至少 2），接著 N 個整數。</li><li><strong>輸出</strong>：從左到右掃描<strong>一次</strong>、需要就交換之後的 N 個數字。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">（讀入 N 個數字，存進 全部數字）
+i 從 1 數到 N−1：
+    如果 第 i 項 ＞ 第 i＋1 項：
+        交換 第 i 項 和 第 i＋1 項
+說出 全部數字（依序說出每一項）</pre>
+<p>迴圈只到 N−1，原因和 K11 一樣：最後一組是第 N−1 項和第 N 項。</p></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>清單［5, 1, 4, 2, 3］：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>比較</th><th>交換嗎？</th><th>這一步之後的清單</th></tr></thead><tbody><tr><td>1</td><td>5 和 1</td><td>是</td><td>1 5 4 2 3</td></tr><tr><td>2</td><td>5 和 4</td><td>是</td><td>1 4 5 2 3</td></tr><tr><td>3</td><td>5 和 2</td><td>是</td><td>1 4 2 5 3</td></tr><tr><td>4</td><td>5 和 3</td><td>是</td><td>1 4 2 3 5</td></tr></tbody></table></div>
+<p>輸出「1 4 2 3 5」，最大值 5 到了最右邊。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看交換用的是 K16 的三個步驟，只是對象換成清單的第 i 項和第 i＋1 項。最後的說出可以用迴圈每一輪說出一項。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>迴圈跑到 N</strong>：最後一輪會拿不存在的第 N＋1 項來比。</li><li><strong>掃描超過一次</strong>：題目只要一回合，多做幾回合結果會變成完全排好，反而不對。</li></ul></div></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>選擇排序第一回合</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-004</span></div><div class="problem-desc" style="white-space:pre-line">小安正在學習「選擇排序法」，老師請他先完成第一回合的任務。
 桌上有一排固定 5 個的數字，依序放在第 1 到第 5 個位置中。
 請你找出這 5 個數字中最小的數字，並把它與第 1 個位置的數字交換。
 注意事項：
@@ -37,17 +68,29 @@
 3. 交換完成後，其餘位置的數字順序保持不變</div><dl class="io"><dt>輸入</dt><dd>第1行：輸入一個整數N，N固定為5
 第2行：輸入5 個整數，代表清單中第 1 到第 5 個位置的數字（以空格隔開）。</dd><dt>輸出</dt><dd>輸出 5 個整數，代表完成「選擇排序第一回合」後的數字順序（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 8 3 5 1 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 8 6</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
-2 4 6 8 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 4 6 8 10</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="seclect-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先找出最小值所在的位置，再把它和第 1 個位置的數字交換。</div></details></article></div>
+2 4 6 8 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 4 6 8 10</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="seclect-004" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：N（固定為 5），接著 5 個整數。</li><li><strong>輸出</strong>：把最小值和第 1 個位置交換之後的 5 個數字。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><p>先用 K10 的方法找出最小值的<strong>位置</strong>，再和第 1 項交換：</p>
+<pre class="code">（讀入 N 個數字，存進 全部數字）
+最小位置 設為 1
+j 從 2 數到 N：
+    如果 第 j 項 ＜ 第 最小位置 項：
+        最小位置 設為 j
+交換 第 1 項 和 第 最小位置 項
+說出 全部數字</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>清單［8, 3, 5, 1, 6］：最小位置從 1（值 8）開始，j ＝ 2 時 3 ＜ 8，最小位置變 2；j ＝ 4 時 1 ＜ 3，最小位置變 4。最後把第 1 項（8）和第 4 項（1）交換，得到「1 3 5 8 6」。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，範例答案比較的是「第 j 項」和「第 最小位置 項」，而不是另外存一個最小值變數，兩種寫法都可以。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>只記住最小值，沒記住位置</strong>：知道最小的是 1，卻不知道它在第幾格，就沒辦法交換。</li><li><strong>比較時用 ≤</strong>：最小值出現多次時要選最前面那一個，所以要用「＜」。</li></ul></div></div></details>
+</section>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 泡泡排序升冪 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請使用排序概念將它們由小到大輸出。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出由小到大排序後的 N 個整數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+<div class="focus"><b>挑戰重點：</b>把示範 SORT01-003 的「一回合」外面再包一層迴圈，重複做 N−1 次，就是完整的泡泡排序。（這題的範例答案用的是選擇排序的寫法，因為題目只檢查排序後的結果，兩種排序法都可以通過。）</div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請使用排序概念將它們由小到大輸出。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出由小到大排序後的 N 個整數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 5 1 4 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 3 4 5</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="SORT01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把「掃描一回合」重複做 N-1 次，就是完整的泡泡排序。</div></details></details>
 <details class="extension"><summary>🚀 完整選擇排序 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">小安已經學會如何在清單中找出最小值，並進行兩數交換。
+<div class="focus"><b>挑戰重點：</b>把示範 seclect-004 的一回合重複做：第 k 回合從第 k 個位置找到最後，找出最小值的位置，和第 k 個位置交換。k 從 1 做到 N−1 就排好了。</div><div class="problem-desc" style="white-space:pre-line">小安已經學會如何在清單中找出最小值，並進行兩數交換。
 現在老師請他完成完整的選擇排序任務。
 桌上有一排固定 5 個整數，請你使用「選擇排序法」，
 將這些數字由小到大排序。
@@ -62,8 +105,13 @@
 8 3 5 1 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 6 8</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
 2 4 6 8 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 4 6 8 10</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="seclect-005" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>第 k 回合從第 k 個位置之後找出最小值，再和第 k 個位置交換，重複到最後。</div></details></details>
 <details class="extension"><summary>🚀 排序後的中間值 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定奇數個整數，請將它們由小到大排序後，輸出中間位置的數字。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 為奇數。</dd><dt>輸出</dt><dd>輸出一個整數，代表排序後的中間值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+<div class="focus"><b>挑戰重點：</b>先用任何一種排序法把數字由小到大排好，中間值就在第（N＋1）÷ 2 個位置。例如 5 個數字，中間值是第 3 個。</div><div class="problem-desc" style="white-space:pre-line">給定奇數個整數，請將它們由小到大排序後，輸出中間位置的數字。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 為奇數。</dd><dt>輸出</dt><dd>輸出一個整數，代表排序後的中間值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 9 1 5 3 7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="SORT01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把數字由小到大排好，中間值就在第 (N+1)/2 個位置。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會寫出泡泡排序的一回合，並知道一回合後最大值會到最右邊。</li><li>我會寫出選擇排序的一回合，並知道要先找出最小值的位置。</li><li>我能說出兩種排序法各是由哪些學過的技巧組合起來的。</li><li>我知道怎麼把一回合重複，變成完整的排序。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k16.html"><div class="dir">← 上一個知識點</div><b>K16 資料交換</b></a><a class="next" href="k18.html"><div class="dir">下一個知識點 →</div><b>K18 平行清單連動處理</b></a></nav>
 

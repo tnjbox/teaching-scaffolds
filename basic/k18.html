@@ -19,29 +19,24 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道兩個清單的<strong>同一個位置代表同一筆資料</strong>（平行清單）。</li><li>會用一個清單找出位置，再用這個位置到另一個清單取資料。</li><li>會讓兩個清單<strong>同步交換</strong>，資料才不會配錯。</li><li>會完成連動選擇排序的第一回合。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（3 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>雙卡同步交換</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-007</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在資訊課中，老師準備了兩排卡片，
-第一排是學生姓名，第二排是對應的分數。
-每一個位置上的姓名與分數是一組資料，必須一起行動。
-老師指定兩個位置，小華需要把這兩個位置上的資料進行交換。
-交換時，姓名與分數都必須一起交換，其他位置保持不變。
-請你寫一個程式，完成指定位置的「連動清單交換」任務</div><dl class="io"><dt>輸入</dt><dd>第1行：5 個姓名（以空格隔開）。
-第2行：5 個整數，代表對應的分數（以空格隔開）。
-第3行：兩個整數 P、Q，代表要交換的位置（1 ≤ P, Q ≤ 5）。</dd><dt>輸出</dt><dd>第1行：交換完成後的 5 個姓名（以空格隔開）。
-第2行：交換完成後的 5 個分數（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>Amy Bob Carl Dora Eric
-80 90 70 85 60
-2 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Amy Dora Carl Bob Eric
-80 85 70 90 60</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>Tom May John Lily Ken
-75 88 92 60 85
-1 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Ken May John Lily Tom
-85 88 92 60 75</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>姓名清單和分數清單的同一個位置代表同一個人，兩個清單要做完全一樣的交換。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>找出最高分與最低分學生的位置與姓名</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-008</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在整理成績資料時，小華發現每位學生的姓名與分數
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>全班的資料常常分成好幾個清單存放：姓名一個清單、分數一個清單。只要<strong>同一個位置</strong>，就是同一位同學：</p>
+<div class="table-scroll"><table><thead><tr><th>位置</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody><tr><td>姓名清單</td><td>Amy</td><td>Bob</td><td>Carl</td><td>Dora</td><td>Eric</td></tr><tr><td>分數清單</td><td>80</td><td>90</td><td>70</td><td>85</td><td>60</td></tr></tbody></table></div>
+<p>Bob 在第 2 個位置，他的分數就在分數清單的第 2 個位置：90。</p>
+<p>這種「平行清單」有兩個重要的使用規則：</p>
+<ol><li><strong>用位置當橋樑</strong>：在分數清單找到最高分在第 2 個位置，就到姓名清單拿第 2 項，得到 Bob。</li><li><strong>要動一起動</strong>：交換分數清單的第 1、2 項時，姓名清單的第 1、2 項也一定要交換，不然 Amy 就會拿到 Bob 的分數。</li></ol>
+<div class="note"><div class="tag">📌 讀入資料的方法</div><p>這個知識點的題目，第一行是 5 個姓名、第二行是 5 個分數。用兩個「重複 5 次」分別讀入，添加到兩個清單。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>找出最高分與最低分學生的位置與姓名</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-008</span></div><div class="problem-desc" style="white-space:pre-line">在整理成績資料時，小華發現每位學生的姓名與分數
 是分別存放在兩個清單中，但相同位置代表同一位學生。
 現在老師希望小華一次找出：
 最高分所在的位置與姓名
@@ -55,10 +50,23 @@
 第2行：5 個整數，代表對應的分數（以空格隔開）。</dd><dt>輸出</dt><dd>輸出一行資料，依序輸出：
 最高分位置 最高分姓名 最低分位置 最低分姓名（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>Amy Bob Carl Dora Eric
 80 90 70 85 60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 Bob 5 Eric</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>Tom May John Lily Ken
-88 92 92 75 60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 May 5 Ken</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-008" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>在分數清單中找出最高分和最低分的位置，再用這些位置到姓名清單取出名字。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>連動選擇排序第一回合</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-009</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小華已經學會如何在成績清單中找出最高分與最低分的位置，
+88 92 92 75 60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 May 5 Ken</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-008" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：第一行 5 個姓名，第二行 5 個分數。</li><li><strong>輸出</strong>：最高分的位置和姓名、最低分的位置和姓名。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><p>在分數清單上用 K10 的方法記住最高分、最低分的位置；最後再用位置到姓名清單取名字：</p>
+<pre class="code">（讀入 姓名清單、分數清單）
+最高分 設為 −1000000，最低分 設為 1000000
+i 從 1 數到 5：
+    如果 分數的第 i 項 ＞ 最高分：
+        最高分 設為 分數的第 i 項，最高位置 設為 i
+    如果 分數的第 i 項 ＜ 最低分：
+        最低分 設為 分數的第 i 項，最低位置 設為 i
+說出 最高位置、姓名的第 最高位置 項、最低位置、姓名的第 最低位置 項</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>分數［80, 90, 70, 85, 60］：最高分 90 在第 2 個位置 → 姓名第 2 項是 Bob；最低分 60 在第 5 個位置 → 姓名第 5 項是 Eric。輸出「2 Bob 5 Eric」。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，範例答案在更新最高分的同時，就把姓名一起存起來。你也可以像上面一樣，最後再用位置去姓名清單拿，兩種都可以。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>比較時用 ≥ 或 ≤</strong>：最高分出現兩次時，題目要最前面那一個，所以要用「＞」「＜」。</li></ul></div></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>連動選擇排序第一回合</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-009</span></div><div class="problem-desc" style="white-space:pre-line">小華已經學會如何在成績清單中找出最高分與最低分的位置，
 現在老師要他進一步練習連動清單的排序操作。
 桌上有兩個清單：
 學生姓名清單
@@ -77,14 +85,50 @@
 80 90 70 85 60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Bob Amy Carl Dora Eric
 90 80 70 85 60</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>Tom May John Lily Ken
 95 88 92 75 60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Tom May John Lily Ken
-95 88 92 75 60</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-009" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>在分數清單中找出最高分的位置，姓名和分數都要跟第 1 個位置交換。</div></details></article></div>
+95 88 92 75 60</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-009" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：和 K17 的選擇排序差在哪裡？</summary><div class="step-body"><p>這題是 K17 選擇排序第一回合的<strong>連動版</strong>，而且要找的是<strong>最高分</strong>（由高到低排）：</p>
+<ol><li>在分數清單找出最高分的位置。</li><li>分數清單的第 1 項和該位置交換。</li><li><strong>姓名清單也做一模一樣的交換</strong>。</li></ol>
+<pre class="code">（讀入 姓名清單、分數清單）
+最高分 設為 分數的第 1 項，位置 設為 1
+i 從 2 數到 5：
+    如果 分數的第 i 項 ＞ 最高分：
+        最高分 設為 分數的第 i 項，位置 設為 i
+交換 姓名清單 的第 1 項 和 第 位置 項
+交換 分數清單 的第 1 項 和 第 位置 項
+說出 姓名清單，再說出 分數清單</pre></div></details>
+<details class="step"><summary>第 2 步：用範例走一次</summary><div class="step-body"><p>最高分 90 在第 2 個位置：姓名的 Amy、Bob 交換，分數的 80、90 也交換。</p>
+<div class="table-scroll"><table><thead><tr><th>位置</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody><tr><td>姓名清單</td><td>Bob</td><td>Amy</td><td>Carl</td><td>Dora</td><td>Eric</td></tr><tr><td>分數清單</td><td>90</td><td>80</td><td>70</td><td>85</td><td>60</td></tr></tbody></table></div></div></details>
+<details class="step"><summary>第 3 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看兩組交換各用了一個暫存變數（暫存、暫存2），分別處理姓名和分數。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>只交換分數</strong>：分數排好了，但姓名還在原位，Amy 會變成 90 分。</li></ul></div></div></details>
+</section>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（1 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>雙卡同步交換</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-007</span></div><div class="focus"><b>這題多了什麼：</b>把 K16 的清單交換做<strong>兩次</strong>：姓名清單交換第 P、Q 項，分數清單也交換第 P、Q 項。</p>
+<p>注意這題的實際輸入格式和題目範例不同：實際測資在姓名那一行、分數那一行、位置那一行<strong>前面各多一個數字</strong>（5、5、2），代表接下來有幾筆資料，要先讀掉它們。範例答案就是這樣讀的，按「載入範例」可以看到。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在資訊課中，老師準備了兩排卡片，
+第一排是學生姓名，第二排是對應的分數。
+每一個位置上的姓名與分數是一組資料，必須一起行動。
+老師指定兩個位置，小華需要把這兩個位置上的資料進行交換。
+交換時，姓名與分數都必須一起交換，其他位置保持不變。
+請你寫一個程式，完成指定位置的「連動清單交換」任務</div><dl class="io"><dt>輸入</dt><dd>第1行：5 個姓名（以空格隔開）。
+第2行：5 個整數，代表對應的分數（以空格隔開）。
+第3行：兩個整數 P、Q，代表要交換的位置（1 ≤ P, Q ≤ 5）。</dd><dt>輸出</dt><dd>第1行：交換完成後的 5 個姓名（以空格隔開）。
+第2行：交換完成後的 5 個分數（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>Amy Bob Carl Dora Eric
+80 90 70 85 60
+2 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Amy Dora Carl Bob Eric
+80 85 70 90 60</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>Tom May John Lily Ken
+75 88 92 60 85
+1 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Ken May John Lily Tom
+85 88 92 60 75</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>姓名清單和分數清單的同一個位置代表同一個人，兩個清單要做完全一樣的交換。注意：實際輸入在姓名、分數、位置三行前面，各有一個代表筆數的數字（5、5、2），要先讀掉。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 完整雙清單排序 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">小華已經完成「連動選擇排序第一回合」的練習，
+<div class="focus"><b>挑戰重點：</b>把示範 seclect-009 的一回合重複做：第 i 回合（i 從 1 到 4）從第 i 個位置找到最後，找出最高分的位置，姓名和分數一起和第 i 個位置交換。</div><div class="problem-desc" style="white-space:pre-line">小華已經完成「連動選擇排序第一回合」的練習，
 現在老師希望他能夠完成完整的連動排序任務。
 桌上有兩個清單：
 學生姓名清單
@@ -106,7 +150,7 @@
 95 88 92 75 60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Tom John May Lily Ken
 95 92 88 75 60</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-010" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把上一題的「第一回合」重複做完；每次交換分數時，姓名也要一起交換。</div></details></details>
 <details class="extension"><summary>🚀 排序結果應用-成績排行榜 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">小華已經完成「完整雙清單排序」，並且將學生依照分數由高到低
+<div class="focus"><b>挑戰重點：</b>先完成上一題的連動排序，再用迴圈依序說出「名次 姓名 分數」，名次就是迴圈的 i。</div><div class="problem-desc" style="white-space:pre-line">小華已經完成「完整雙清單排序」，並且將學生依照分數由高到低
 排序完成。
 現在老師希望小華能夠應用排序後的結果，
 製作一份簡單的成績排行榜。
@@ -130,6 +174,11 @@
 3 May 88
 4 Lily 75
 5 Ken 60</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-011" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先完成連動排序，再依序輸出名次、姓名、分數。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我知道平行清單的同一個位置代表同一筆資料。</li><li>我會在一個清單找出位置，再到另一個清單取出對應的資料。</li><li>我會讓兩個清單做完全一樣的交換。</li><li>我能說出連動選擇排序和一般選擇排序差在哪裡。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k17.html"><div class="dir">← 上一個知識點</div><b>K17 排序演算法</b></a><a class="next" href="k19.html"><div class="dir">下一個知識點 →</div><b>K19 堆疊與佇列</b></a></nav>
 

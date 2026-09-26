@@ -19,31 +19,57 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用「詢問並等待」讀入資料，用「詢問的答案」取得讀到的內容。</li><li>會用「說出」輸出答案。</li><li>會把文字和讀到的資料<strong>組合</strong>成題目指定的格式。</li><li>知道輸出格式要和題目<strong>一模一樣</strong>，平台才會判定正確。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（3 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>Hello world</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-01-0</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在程式設計的第一步，最重要的是能夠讀取使用者輸入，並將結果正確輸出。
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>每一題程式解題都有相同的流程：<strong>讀入資料 → 處理 → 輸出答案</strong>。這個知識點先練習頭和尾：讀進來、說出去。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>讀入一筆資料</td><td>詢問（　）並等待</td></tr><tr><td>取得剛剛讀到的資料</td><td>詢問的答案</td></tr><tr><td>輸出答案</td><td>說出（　）</td></tr><tr><td>把幾段文字接成一段</td><td>字串組合</td></tr></tbody></table></div>
+<p>讀到的資料通常會先存進一個<strong>變數</strong>，取一個看得懂的名字（例如「名字」），之後要用時就拿這個變數。</p>
+<div class="tip"><div class="tag">💡 平台怎麼判斷答案對不對？</div><p>平台會把你「說出」的內容和正確答案比較。比較時，空白和換行都視為一樣的分隔，多幾個空白也沒關係；但是<strong>文字、標點、順序</strong>必須完全相同。例如「Hello, Amy」寫成「Hello,Amy」（少了空白，兩個字黏在一起）或「hello, Amy」（大小寫不同）都會被判錯。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>Hello world</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-01-0</span></div><div class="problem-desc" style="white-space:pre-line">在程式設計的第一步，最重要的是能夠讀取使用者輸入，並將結果正確輸出。
 請你寫一個小程式，讓使用者輸入自己的名字，然後程式要輸出一行「Hello, 名字」。
 Hello後面會接小寫逗號，還有一個空白輸入
-這樣的練習可以幫助你理解輸入與輸出，是學習程式設計的基礎。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>Amy</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Hello, Amy</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>Tom</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Hello, Tom</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B1-01-InputOutput" data-task="A-01-0" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把輸入的名字存進變數，再把「Hello, 」和名字接起來輸出，注意逗號後面有一個空白。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>一起學習吧</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-01-1</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在程式設計的第一步，最重要的是能夠讀取使用者輸入，並將結果正確輸出。
+這樣的練習可以幫助你理解輸入與輸出，是學習程式設計的基礎。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>Amy</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Hello, Amy</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>Tom</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Hello, Tom</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B1-01-InputOutput" data-task="A-01-0" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個名字，例如「Amy」。</li><li><strong>輸出</strong>：一行「Hello, 名字」。Hello 後面是小寫逗號，逗號後面有一個空白。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問 並等待，把答案存進 名字
+說出 （「Hello, 」接上 名字）</pre>
+<p>「Hello, 」這段文字要連同逗號和後面的空白一起打進去，再接上變數「名字」。</p></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入「Amy」時，名字＝Amy；把「Hello, 」和「Amy」接起來，得到「Hello, Amy」，和範例輸出一樣。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，可以看到範例答案只有兩個動作：先「詢問並等待」把答案存進「名字」，再「說出」組合好的文字。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>漏掉逗號後面的空白</strong>：輸出變成「Hello,Amy」，會被判錯。</li><li><strong>直接說出固定的名字</strong>：例如寫死「Hello, Amy」。範例會過，但換成別的名字就錯了，一定要用讀進來的「名字」。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>一起學習吧</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-01-1</span></div><div class="focus"><b>這題多了什麼：</b>要讀入<strong>兩個</strong>名字，所以要「詢問並等待」兩次，分別存進兩個變數。輸出時把「名字一」「, 」「名字二」「, 一起學習吧！」依序接起來，標點符號要和題目一模一樣（最後是全形驚嘆號）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在程式設計的第一步，最重要的是能夠讀取使用者輸入，並將結果正確輸出。
 請你寫一個小程式，讓使用者輸入好朋友一的名字、接著輸入好朋友二的名字，然後程式要輸出一行「朋友一名字,朋友二名字, 一起學習吧！」。
 朋友一名字後面、朋友二名字後面都會接小寫逗號，還有一個空白輸入
 這樣的練習可以幫助你理解輸入與輸出，是學習程式設計的基礎。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>Amy
 John</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Amy, John, 一起學習吧！</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>Tom
 Susan</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Tom, Susan, 一起學習吧！</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-01-InputOutput" data-task="A-01-1" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>兩個名字要分兩次讀入；輸出時逗號、空白、驚嘆號都要和題目一模一樣。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>數字加總</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-02-0</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">當我們要處理數字時，常常需要加總。
+<article class="practice"><div class="problem-head"><h3>數字加總</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-02-0</span></div><div class="focus"><b>這題多了什麼：</b>這次讀進來的是數字，要算出兩個數字的<strong>和</strong>。請用數學的「＋」積木相加；如果用字串組合把兩個數字接起來，會得到「94」這種接在一起的結果，而不是 13。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">當我們要處理數字時，常常需要加總。
 請設計一個程式，讓使用者輸入兩個數字，程式要輸出這兩個數字的總和。
 這樣的題目能幫助你熟悉數字資料處理。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>9
 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>13</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6
 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>11</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B1-01-InputOutput" data-task="A-02-0" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>輸入讀進來的是文字，要當成數字相加，才不會變成「37」這種接在一起的結果。</div></details></article></div>
+<div class="card-actions"><a class="btn" data-course="B1-01-InputOutput" data-task="A-02-0" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用數學的「＋」積木把兩個數字相加；如果用「字串組合」，兩個數字會被接在一起（例如 9 和 4 變成 94），而不是 13。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用「詢問並等待」讀入資料，並把「詢問的答案」存進變數。</li><li>我會用字串組合，把固定文字和變數接成指定格式。</li><li>我知道「數字相加」和「文字接起來」要用不同的積木。</li><li>我會對照範例，檢查輸出的標點和空白是否完全一樣。</li></ul>
 </div></details>
 <nav class="pager"><a class="next" href="k02.html"><div class="dir">下一個知識點 →</div><b>K02 變數與四則運算</b></a></nav>
 

@@ -19,12 +19,29 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道<strong>堆疊</strong>是「後進先出」、<strong>佇列</strong>是「先進先出」。</li><li>會用清單模擬堆疊：從最後放入、從最後拿出。</li><li>會用清單模擬佇列：從最後放入、從最前面拿出。</li><li>知道拿資料之前要先確認<strong>不是空的</strong>。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（4 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>堆疊操作模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-01</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你模擬堆疊（後進先出）的操作：指令代碼1代表PUSH（把數字加入堆疊頂端），指令代碼2代表POP（把堆疊頂端的數字移除；如果堆疊是空的，這個指令就跳過不執行）。全部指令執行完後，請輸出堆疊裡剩下的內容，由最底部到最頂部依序輸出，空白分隔；如果堆疊是空的，輸出「空」。
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>資料放進去、拿出來的<strong>順序</strong>，會決定程式的行為。最常見的兩種規則：</p>
+<div class="table-scroll"><table><thead><tr><th></th><th>堆疊（Stack）</th><th>佇列（Queue）</th></tr></thead><tbody><tr><td>生活例子</td><td>一疊盤子、瀏覽器的上一頁</td><td>排隊買東西、叫號系統</td></tr><tr><td>規則</td><td>後進先出：最後放上去的最先拿走</td><td>先進先出：最先來的最先服務</td></tr><tr><td>放入</td><td>放在清單<strong>最後</strong></td><td>放在清單<strong>最後</strong></td></tr><tr><td>拿出</td><td>拿走清單<strong>最後一筆</strong></td><td>拿走清單<strong>第一筆</strong></td></tr></tbody></table></div>
+<div class="diagram">
+  <div class="cellrow">
+    <div class="stack-col"><div class="cell">10</div><div class="cell">20</div><div class="cell active">30</div></div>
+    <div class="queue-row"><div class="cell active">10</div><div class="cell">20</div><div class="cell">30</div></div>
+  </div>
+  <div class="caption">左：堆疊，要拿走的是最上面的 30｜右：佇列，要拿走的是最前面的 10</div>
+</div>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>Blockly</th><th>Scratch</th></tr></thead><tbody><tr><td>放入</td><td>自清單 堆疊 添加 最後一筆 為（數字）</td><td>添加（數字）到 堆疊</td></tr><tr><td>堆疊拿出</td><td>自清單 堆疊 移除 最後一筆</td><td>刪除 堆疊 的第（清單 堆疊 的長度）項</td></tr><tr><td>佇列拿出</td><td>自清單 佇列 移除 第一筆</td><td>刪除 佇列 的第 1 項</td></tr><tr><td>是不是空的</td><td>長度 堆疊 ＝ 0</td><td>清單 堆疊 的長度 ＝ 0</td></tr></tbody></table></div>
+<div class="pitfall"><div class="tag">⚠️ 空的時候不能拿</div><p>堆疊或佇列已經空了還要拿資料，程式可能會出錯。題目通常會說「如果是空的就跳過」，所以拿之前要先判斷「長度 ＞ 0」。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>堆疊操作模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-01</span></div><div class="problem-desc" style="white-space:pre-line">請你模擬堆疊（後進先出）的操作：指令代碼1代表PUSH（把數字加入堆疊頂端），指令代碼2代表POP（把堆疊頂端的數字移除；如果堆疊是空的，這個指令就跳過不執行）。全部指令執行完後，請輸出堆疊裡剩下的內容，由最底部到最頂部依序輸出，空白分隔；如果堆疊是空的，輸出「空」。
 
 第一行輸入M，代表共有M個指令
 
@@ -32,10 +49,28 @@
 
 第三行輸入M個數字，只有指令代碼是1（PUSH）時才會用到對應位置的數字，指令代碼是2時該位置數字請忽略。</div><dl class="io"><dt>輸入</dt><dd>M、M個指令代碼、M個數字</dd><dt>輸出</dt><dd>堆疊剩餘內容（底到頂）或「空」</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 1 1 2 1 2
-10 20 0 30 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-01" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>堆疊是後進先出：PUSH 加在清單最後，POP 刪除清單最後一項；堆疊是空的時候，POP 要跳過。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>佇列操作模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-02</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你模擬佇列（先進先出）的操作：指令代碼1代表ENQUEUE（把數字加入佇列最後面），指令代碼2代表DEQUEUE（把佇列最前面的數字移除；如果佇列是空的，這個指令就跳過不執行）。全部指令執行完後，請輸出佇列裡剩下的內容，由最前面到最後面依序輸出，空白分隔；如果佇列是空的，輸出「空」。
+10 20 0 30 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-01" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：三行。第一行 M（有幾個指令），第二行 M 個指令代碼（1 是放入、2 是拿出），第三行 M 個數字（代碼是 1 時才用到）。</li><li><strong>輸出</strong>：堆疊裡剩下的數字（從底到頂）；空的就輸出「空」。</li></ul></div></details>
+<details class="step"><summary>第 2 步：先把輸入讀進兩個清單</summary><div class="step-body"><p>第 i 個指令要搭配第 i 個數字，所以先把兩行分別讀進「指令清單」和「數字清單」（K18 的平行清單）：</p>
+<pre class="code">詢問並等待 → M
+重複 M 次：讀入 指令，添加到 指令清單
+重複 M 次：讀入 數值，添加到 數字清單</pre></div></details>
+<details class="step"><summary>第 3 步：一個一個執行指令</summary><div class="step-body"><pre class="code">堆疊 設為 空清單
+i 從 1 數到 M：
+    如果 指令清單 的第 i 項 ＝ 1：
+        把 數字清單 的第 i 項 添加到 堆疊 最後
+    否則：
+        如果 堆疊 的長度 ＞ 0：
+            移除 堆疊 的最後一筆
+如果 堆疊 的長度 ＝ 0：說出 空
+否則：依序說出 堆疊 的每一項</pre></div></details>
+<details class="step"><summary>第 4 步：用範例走一次</summary><div class="step-body"><p>指令「1 1 2 1 2」、數字「10 20 0 30 0」：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>指令</th><th>動作</th><th>堆疊</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>放入 10</td><td>10</td></tr><tr><td>2</td><td>1</td><td>放入 20</td><td>10 20</td></tr><tr><td>3</td><td>2</td><td>拿走最後的 20</td><td>10</td></tr><tr><td>4</td><td>1</td><td>放入 30</td><td>10 30</td></tr><tr><td>5</td><td>2</td><td>拿走最後的 30</td><td>10</td></tr></tbody></table></div>
+<p>輸出「10」。</p></div></details>
+<details class="step"><summary>第 5 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看「移除」外面有一層「如果不是空的」的判斷。</p></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>佇列操作模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-02</span></div><div class="problem-desc" style="white-space:pre-line">請你模擬佇列（先進先出）的操作：指令代碼1代表ENQUEUE（把數字加入佇列最後面），指令代碼2代表DEQUEUE（把佇列最前面的數字移除；如果佇列是空的，這個指令就跳過不執行）。全部指令執行完後，請輸出佇列裡剩下的內容，由最前面到最後面依序輸出，空白分隔；如果佇列是空的，輸出「空」。
 
 第一行輸入M，代表共有M個指令
 
@@ -43,10 +78,22 @@
 
 第三行輸入M個數字，只有指令代碼是1（ENQUEUE）時才會用到對應位置的數字。</div><dl class="io"><dt>輸入</dt><dd>M、M個指令代碼、M個數字</dd><dt>輸出</dt><dd>佇列剩餘內容（前到後）或「空」</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 1 1 2 1 2
-10 20 0 30 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>30</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-02" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>佇列是先進先出：加入時放到最後，移除時刪掉第 1 項；佇列是空的時候要跳過。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>瀏覽器上一頁模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-04</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你模擬瀏覽器的『上一頁』功能：指令代碼1代表造訪一個新頁面（頁面代碼是一個數字，會被放進瀏覽紀錄堆疊）；指令代碼2代表按下上一頁（從堆疊移除目前頁面，回到上一頁；如果已經沒有上一頁可以回，這個指令就跳過不執行）。全部指令執行完後，輸出目前所在頁面的代碼；如果從頭到尾都沒有造訪任何頁面（堆疊是空的），輸出0。
+10 20 0 30 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>30</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-02" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：和堆疊差在哪裡？</summary><div class="step-body"><p>輸入格式和上一題完全一樣，程式也幾乎一樣，<strong>只差拿出的位置</strong>：佇列要拿走<strong>第一筆</strong>（最早進來的）。</p>
+<pre class="code">    否則：
+        如果 佇列 的長度 ＞ 0：
+            移除 佇列 的第一筆</pre></div></details>
+<details class="step"><summary>第 2 步：用範例走一次</summary><div class="step-body"><p>同樣的指令「1 1 2 1 2」、數字「10 20 0 30 0」：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>指令</th><th>動作</th><th>佇列</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>放入 10</td><td>10</td></tr><tr><td>2</td><td>1</td><td>放入 20</td><td>10 20</td></tr><tr><td>3</td><td>2</td><td>拿走最前面的 10</td><td>20</td></tr><tr><td>4</td><td>1</td><td>放入 30</td><td>20 30</td></tr><tr><td>5</td><td>2</td><td>拿走最前面的 20</td><td>30</td></tr></tbody></table></div>
+<p>輸出「30」。同一組指令，堆疊剩 10、佇列剩 30，這就是兩種規則的差別。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>拿錯位置</strong>：堆疊拿最後一筆、佇列拿第一筆，弄反了答案就會對調。</li><li><strong>忘了判斷空的</strong>：題目測資通常會故意在空的時候下「拿出」指令。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>瀏覽器上一頁模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-04</span></div><div class="focus"><b>這題多了什麼：</b>瀏覽紀錄就是堆疊：造訪新頁面就放入，按上一頁就拿走最後一筆。和示範的差別只在最後：題目要的是「目前所在的頁面」，也就是堆疊的<strong>最後一筆</strong>；如果堆疊是空的，輸出 0。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你模擬瀏覽器的『上一頁』功能：指令代碼1代表造訪一個新頁面（頁面代碼是一個數字，會被放進瀏覽紀錄堆疊）；指令代碼2代表按下上一頁（從堆疊移除目前頁面，回到上一頁；如果已經沒有上一頁可以回，這個指令就跳過不執行）。全部指令執行完後，輸出目前所在頁面的代碼；如果從頭到尾都沒有造訪任何頁面（堆疊是空的），輸出0。
 
 第一行輸入M，代表共有M個指令
 
@@ -56,8 +103,8 @@
 1 1 1 2
 100 200 300 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>200</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-04" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>瀏覽紀錄就是一個堆疊，目前所在的頁面就是堆疊最上面那一項。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>排隊叫號系統模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-05</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你模擬排隊叫號系統：指令代碼1代表有一位顧客加入隊伍排隊（號碼是一個數字，加到隊伍最後面）；指令代碼2代表叫號服務隊伍最前面的顧客（把他從隊伍移除；如果隊伍是空的，這個指令就跳過不執行）。全部指令執行完後，輸出還在排隊的顧客號碼，依隊伍前到後順序輸出，空白分隔；如果隊伍是空的，輸出「空」。
+<article class="practice"><div class="problem-head"><h3>排隊叫號系統模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-05</span></div><div class="focus"><b>這題多了什麼：</b>排隊叫號就是佇列：新顧客放到最後，叫號時拿走第一筆。程式和示範 M1-11-02 幾乎一模一樣，試著自己從頭寫一次。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你模擬排隊叫號系統：指令代碼1代表有一位顧客加入隊伍排隊（號碼是一個數字，加到隊伍最後面）；指令代碼2代表叫號服務隊伍最前面的顧客（把他從隊伍移除；如果隊伍是空的，這個指令就跳過不執行）。全部指令執行完後，輸出還在排隊的顧客號碼，依隊伍前到後順序輸出，空白分隔；如果隊伍是空的，輸出「空」。
 
 第一行輸入M，代表共有M個指令
 
@@ -69,14 +116,19 @@
 <div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-05" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>排隊隊伍就是一個佇列：新顧客加在最後，叫號時服務最前面的人。</div></details></article></div>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 括號配對是否合法 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">請你判斷一串只包含小括號的字串，括號是否完全合法配對（每個左括號都有對應的右括號，且順序正確，右括號不會在對應的左括號之前出現）。
+<div class="focus"><b>挑戰重點：</b>括號配對可以想成堆疊：遇到「(」就放進去，遇到「)」就拿走一個配對。因為堆疊裡只會放「(」，其實只要一個計數變數「深度」就夠了：「(」深度加 1，「)」深度減 1。如果遇到「)」時深度已經是 0（沒有可以配對的），或是全部看完深度不是 0（還有沒配對的），就是不合法。</div><div class="problem-desc" style="white-space:pre-line">請你判斷一串只包含小括號的字串，括號是否完全合法配對（每個左括號都有對應的右括號，且順序正確，右括號不會在對應的左括號之前出現）。
 
 第一行輸入一個只包含'('與')'的字串
 
 如果合法配對，輸出「合法」；否則輸出「不合法」。</div><dl class="io"><dt>輸入</dt><dd>括號字串</dd><dt>輸出</dt><dd>合法 或 不合法</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>(())</pre></div><div class="sample-row"><div class="k">輸出</div><pre>合法</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>(()</pre></div><div class="sample-row"><div class="k">輸出</div><pre>不合法</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-03" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>遇到左括號就記錄一個「還沒配對」，遇到右括號就配掉一個；如果中途配不到，或最後還有剩，就不合法。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我能用生活例子說明堆疊和佇列的差別。</li><li>我會用清單模擬堆疊：放在最後、從最後拿。</li><li>我會用清單模擬佇列：放在最後、從最前面拿。</li><li>我會在拿資料之前先判斷是不是空的。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k18.html"><div class="dir">← 上一個知識點</div><b>K18 平行清單連動處理</b></a><a class="next" href="k20.html"><div class="dir">下一個知識點 →</div><b>K20 輸出格式與例外處理</b></a></nav>
 

@@ -19,12 +19,60 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會在找最大值、最小值時，同時記住它在<strong>第幾個位置</strong>。</li><li>會用線性搜尋：從頭到尾一個一個找，找出目標出現的位置。</li><li>會分辨「<strong>最後一次</strong>出現」和「<strong>第一次</strong>出現」的寫法差別。</li><li>會處理「找不到」的情況。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（4 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>到目前為止，我們關心的是資料的「值」：最大的是多少、總和是多少。這個知識點開始關心資料的「<strong>位置</strong>」：它排在第幾個？</p>
+<p>找位置的方法叫做<strong>線性搜尋</strong>：從第 1 個開始，一個一個檢查，符合就把目前的位置 i 記下來。</p>
+<pre class="code">位置 設為 0                  ← 0 代表「還沒找到」
+i 從 1 數到 N：
+    如果 第 i 項 符合條件：
+        位置 設為 i
+說出 位置</pre>
+<p>位置的初始值設為 0 很方便：清單的位置從 1 開始，所以走完之後如果位置還是 0，就代表<strong>一次都沒找到</strong>，剛好就是很多題目要求的輸出。</p>
+<div class="tip"><div class="tag">💡 最後一次和第一次，只差一個條件</div><p>上面的寫法每次符合都會覆蓋位置，所以留下來的是<strong>最後一次</strong>出現的位置。如果要<strong>第一次</strong>出現的位置，只要多加一個條件：「位置還是 0（還沒找到過）」才更新，找到之後就不會再被覆蓋。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>最後一個目標位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-003</span></div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與目標值 X，請找出 X 最後一次出現的位置。位置從 1 開始計算。若沒有出現，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 X。</dd><dt>輸出</dt><dd>輸出一個整數，代表 X 最後一次出現的位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+4 8 3 8 5 8
+8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="IDX01-003" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：N、N 個整數，最後是目標值 X。</li><li><strong>輸出</strong>：X <strong>最後一次</strong>出現的位置；沒出現就輸出 0。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><p>目標值在最後才輸入，所以要先把資料存進清單：</p>
+<pre class="code">（讀入 N 個數字，存進 全部數字）
+詢問並等待 → 目標值
+位置 設為 0
+i 從 1 數到 N：
+    如果 全部數字 的第 i 項 ＝ 目標值：
+        位置 設為 i
+說出 位置</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>清單［4, 8, 3, 8, 5, 8］，目標值 8：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>第 i 項</th><th>等於 8？</th><th>位置</th></tr></thead><tbody><tr><td>開始前</td><td>－</td><td>－</td><td>0</td></tr><tr><td>1</td><td>4</td><td>否</td><td>0</td></tr><tr><td>2</td><td>8</td><td>是</td><td>2</td></tr><tr><td>3</td><td>3</td><td>否</td><td>2</td></tr><tr><td>4</td><td>8</td><td>是</td><td>4</td></tr><tr><td>5</td><td>5</td><td>否</td><td>4</td></tr><tr><td>6</td><td>8</td><td>是</td><td>6</td></tr></tbody></table></div>
+<p>輸出 6。如果目標值是 7，位置從頭到尾都是 0，輸出 0。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看「位置 設為 i」放在「如果」裡面，每次找到都會把位置更新成目前的 i。</p></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>第一個目標位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-002</span></div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與目標值 X，請找出 X 第一次出現的位置。位置從 1 開始計算。若沒有出現，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 X。</dd><dt>輸出</dt><dd>輸出一個整數，代表 X 第一次出現的位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+4 8 3 8 5 8
+8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="IDX01-002" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：和上一題差在哪裡？</summary><div class="step-body"><p>同樣的資料，這次要找<strong>第一次</strong>出現的位置。只要在條件上多加「位置 ＝ 0」，用「且」接起來：</p>
+<pre class="code">如果 位置 ＝ 0 且 全部數字 的第 i 項 ＝ 目標值：
+    位置 設為 i</pre></div></details>
+<details class="step"><summary>第 2 步：用範例走一次</summary><div class="step-body"><p>清單［4, 8, 3, 8, 5, 8］，目標值 8：i ＝ 2 時第一次找到，位置變成 2。之後 i ＝ 4、6 雖然也是 8，但位置已經不是 0，條件不成立，位置就停在 2。</p></div></details>
+<details class="step"><summary>第 3 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看「且」積木左右兩邊各放了一個條件。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>忘了加「位置 ＝ 0」</strong>：答案會變成最後一次的位置 6，而不是第一次的 2。</li><li><strong>位置的初始值設成 1</strong>：找不到時會輸出 1，而且「位置 ＝ 0」這個條件永遠不成立。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>清單最大最小值的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-003</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在進行排序之前，程式必須先知道「最大值或最小值在清單的哪一個位置」。
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>清單最大最小值的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-003</span></div><div class="focus"><b>這題多了什麼：</b>把 K09 的擂台法和「記住位置」合在一起：更新最小值的時候，<strong>同時</strong>把位置更新成 i。所以這裡的迴圈要用計數迴圈，才有 i 可以用。題目說最小值出現多次時要最前面那一個，所以比較時用「＜」（相等時不更新）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在進行排序之前，程式必須先知道「最大值或最小值在清單的哪一個位置」。
 小安已經可以找出清單中的最大值與最小值，
 但老師希望他進一步找出該數值所在的位置（索引值），
 才能正確進行資料交換。
@@ -37,28 +85,23 @@
 8 3 5 1 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
 2 4 2 9 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="seclect-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>找最小值時，除了記住「最小值是多少」，也要同時記住「它在第幾個位置」。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>最後一個目標位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-003</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與目標值 X，請找出 X 最後一次出現的位置。位置從 1 開始計算。若沒有出現，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 X。</dd><dt>輸出</dt><dd>輸出一個整數，代表 X 最後一次出現的位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
-4 8 3 8 5 8
-8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="IDX01-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>位置初始值設為 0；每次遇到目標值就把位置更新成 i，走完清單後留下的就是最後一次出現的位置。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>第一個目標位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-002</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與目標值 X，請找出 X 第一次出現的位置。位置從 1 開始計算。若沒有出現，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 X。</dd><dt>輸出</dt><dd>輸出一個整數，代表 X 第一次出現的位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
-4 8 3 8 5 8
-8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="IDX01-002" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>和上一題幾乎一樣，但只有在「還沒找到過」（位置仍是 0）的時候才更新位置。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>第一個及格的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">CNT01-022</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 位學生的成績，請找出第一個分數大於或等於 60 的位置。位置從 1 開始計算。保證至少有一位學生及格。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數代表成績。</dd><dt>輸出</dt><dd>輸出一個整數，代表第一個及格成績的位置。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+<article class="practice"><div class="problem-head"><h3>第一個及格的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">CNT01-022</span></div><div class="focus"><b>這題多了什麼：</b>和示範的「第一次出現」寫法相同，只是把「等於目標值」換成「分數 ≥ 60」。這說明線性搜尋可以找<strong>任何條件</strong>，不只是找某個固定的數字。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 位學生的成績，請找出第一個分數大於或等於 60 的位置。位置從 1 開始計算。保證至少有一位學生及格。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數代表成績。</dd><dt>輸出</dt><dd>輸出一個整數，代表第一個及格成績的位置。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 40 55 60 80 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="CNT01-022" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>和上一題的寫法相同，只是把「等於目標值」換成「分數 ≥ 60」。</div></details></article></div>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 兩個目標的距離 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定 N 個整數，以及兩個目標值 A 與 B。請找出 A 第一次出現的位置與 B 第一次出現的位置，並輸出兩個位置的距離。保證 A 與 B 都會出現。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入兩個整數 A 與 B。</dd><dt>輸出</dt><dd>輸出一個整數，代表兩個位置的距離。距離一律用較大的位置減較小的位置。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+<div class="focus"><b>挑戰重點：</b>在同一個迴圈裡同時找兩個目標：用兩個位置變數（位置 A、位置 B），各自用「還沒找到才更新」的寫法。最後距離要用大的減小的。</div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，以及兩個目標值 A 與 B。請找出 A 第一次出現的位置與 B 第一次出現的位置，並輸出兩個位置的距離。保證 A 與 B 都會出現。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入兩個整數 A 與 B。</dd><dt>輸出</dt><dd>輸出一個整數，代表兩個位置的距離。距離一律用較大的位置減較小的位置。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
 4 8 3 9 5 8
 8 9</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="IDX01-008" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>分別找出 A 和 B 第一次出現的位置，再算兩個位置相差多少（用大的減小的）。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會在更新最大值或最小值時，一起記住它的位置。</li><li>我會用線性搜尋，找出符合條件的資料在第幾個位置。</li><li>我能說出「最後一次」和「第一次」出現的寫法差在哪裡。</li><li>我知道位置初始值設為 0 的好處。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k09.html"><div class="dir">← 上一個知識點</div><b>K09 最大值與最小值</b></a><a class="next" href="k11.html"><div class="dir">下一個知識點 →</div><b>K11 相鄰元素比較</b></a></nav>
 

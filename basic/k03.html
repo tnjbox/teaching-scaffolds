@@ -19,19 +19,51 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用「如果…否則…」讓程式依條件走兩條不同的路。</li><li>會寫比較條件：＞、＜、＝、≥、≤。</li><li>會用「除以 2 的餘數」判斷奇數、偶數。</li><li>會在分支裡面再做計算。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（3 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>生活中很多決定只有兩種結果：及格或不及格、要付運費或免運費。程式用「如果…否則…」來做這種決定：</p>
+<pre class="code">如果 條件成立：
+    做 A
+否則：
+    做 B</pre>
+<p>條件成立就走 A 這條路，不成立就走 B，兩條路<strong>只會走一條</strong>。</p>
+<div class="table-scroll"><table><thead><tr><th>題目說</th><th>條件要寫成</th></tr></thead><tbody><tr><td>大於或等於 60</td><td>分數 ≥ 60</td></tr><tr><td>未滿 60</td><td>分數 ＜ 60</td></tr><tr><td>是偶數</td><td>數字 除以 2 的餘數 ＝ 0</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 邊界值最容易錯</div><p>題目說「大於或等於 60 分為及格」，那剛好 60 分算及格。寫完之後，用「剛好等於邊界」的數字（60）測試一次，最能發現 ＞ 和 ≥ 用錯的問題。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>及格或不及格</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSC01-001</span></div><div class="problem-desc" style="white-space:pre-line">給定一位學生的分數，請判斷是否及格。分數大於或等於 60 分為及格。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 S，代表分數。</dd><dt>輸出</dt><dd>若 S 大於或等於 60，輸出 PASS；否則輸出 FAIL。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>75</pre></div><div class="sample-row"><div class="k">輸出</div><pre>PASS</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B1-03-IfElse" data-task="BSC01-001" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個分數。</li><li><strong>輸出</strong>：分數 ≥ 60 輸出 PASS，否則輸出 FAIL。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問並等待 → 分數
+如果 分數 ≥ 60：
+    說出 PASS
+否則：
+    說出 FAIL</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><div class="table-scroll"><table><thead><tr><th>分數</th><th>分數 ≥ 60？</th><th>輸出</th></tr></thead><tbody><tr><td>75</td><td>成立</td><td>PASS</td></tr><tr><td>60</td><td>成立（等於也算）</td><td>PASS</td></tr><tr><td>59</td><td>不成立</td><td>FAIL</td></tr></tbody></table></div></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看「如果…否則…」積木的兩個缺口：上面放條件成立要做的事，下面（否則）放條件不成立要做的事。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>用成 ＞ 60</strong>：剛好 60 分會被判成 FAIL。</li><li><strong>輸出的文字不一樣</strong>：題目要的是 PASS／FAIL，寫成「及格」或「pass」都會被判錯。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>及格或不及格</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSC01-001</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一位學生的分數，請判斷是否及格。分數大於或等於 60 分為及格。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 S，代表分數。</dd><dt>輸出</dt><dd>若 S 大於或等於 60，輸出 PASS；否則輸出 FAIL。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>75</pre></div><div class="sample-row"><div class="k">輸出</div><pre>PASS</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B1-03-IfElse" data-task="BSC01-001" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>只有一個條件：分數 ≥ 60 是一種結果，其他是另一種結果（要輸出的文字看範例）。注意「等於 60」也算及格。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>判斷奇偶數</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSC01-003</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個整數，請判斷它是奇數或偶數。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 N。</dd><dt>輸出</dt><dd>若 N 是偶數，輸出 EVEN；若 N 是奇數，輸出 ODD。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>14</pre></div><div class="sample-row"><div class="k">輸出</div><pre>EVEN</pre></div></div></div></details>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>判斷奇偶數</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSC01-003</span></div><div class="focus"><b>這題多了什麼：</b>條件換成「N 除以 2 的餘數 ＝ 0」：成立就是偶數（EVEN），否則是奇數（ODD）。這是之後很多題目都會用到的判斷方法。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個整數，請判斷它是奇數或偶數。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 N。</dd><dt>輸出</dt><dd>若 N 是偶數，輸出 EVEN；若 N 是奇數，輸出 ODD。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>14</pre></div><div class="sample-row"><div class="k">輸出</div><pre>EVEN</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-03-IfElse" data-task="BSC01-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>一個數除以 2 的餘數是 0 就是偶數，否則是奇數。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>購物免運費</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSC01-009</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">網路商店規定，購物金額大於或等於 1000 元可以免運費，否則需加收 80 元運費。請輸出最後應付金額。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 N，代表購物金額。</dd><dt>輸出</dt><dd>輸出一個整數，代表最後應付金額。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>950</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1030</pre></div></div></div></details>
+<article class="practice"><div class="problem-head"><h3>購物免運費</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSC01-009</span></div><div class="focus"><b>這題多了什麼：</b>兩條路要輸出的東西不一樣：滿 1000 元直接輸出原本的金額；不滿 1000 元要輸出「金額 ＋ 80」。也就是說，<strong>分支裡面也可以放計算</strong>。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">網路商店規定，購物金額大於或等於 1000 元可以免運費，否則需加收 80 元運費。請輸出最後應付金額。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 N，代表購物金額。</dd><dt>輸出</dt><dd>輸出一個整數，代表最後應付金額。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>950</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1030</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-03-IfElse" data-task="BSC01-009" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先判斷有沒有滿 1000 元，不滿的那一邊要把運費加上去，再輸出最後金額。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用「如果…否則…」寫出兩條路，並知道兩條路只會走一條。</li><li>我能把「大於或等於」「未滿」這些文字轉成正確的比較符號。</li><li>我會用餘數判斷奇數和偶數。</li><li>我會用剛好等於邊界的數字測試自己的程式。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k02.html"><div class="dir">← 上一個知識點</div><b>K02 變數與四則運算</b></a><a class="next" href="k04.html"><div class="dir">下一個知識點 →</div><b>K04 條件判斷：多重分支與邏輯運算</b></a></nav>
 

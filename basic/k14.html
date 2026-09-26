@@ -19,15 +19,48 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用「除以…的餘數 ＝ 0」判斷整除、倍數和因數。</li><li>會用迴圈找出一個數的<strong>所有因數</strong>，並數出因數的個數。</li><li>會判斷一個數是不是<strong>質數</strong>。</li><li>（延伸）認識求最大公因數的輾轉相除法。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（4 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>數學課學過的因數、倍數，在程式裡都靠同一個工具：<strong>餘數</strong>。</p>
+<div class="table-scroll"><table><thead><tr><th>說法</th><th>用程式判斷</th></tr></thead><tbody><tr><td>A 是 B 的倍數</td><td>A 除以 B 的餘數 ＝ 0</td></tr><tr><td>i 是 N 的因數</td><td>N 除以 i 的餘數 ＝ 0</td></tr><tr><td>N 是偶數</td><td>N 除以 2 的餘數 ＝ 0</td></tr></tbody></table></div>
+<p>要找 N 的所有因數，就讓 i 從 1 數到 N，一個一個試：</p>
+<pre class="code">i 從 1 數到 N：
+    如果 N 除以 i 的餘數 ＝ 0：
+        i 是 N 的因數</pre>
+<div class="note"><div class="tag">📌 質數是什麼？</div><p>質數是<strong>大於 1</strong>、而且只有 1 和自己兩個因數的數，例如 2、3、5、7、17。1 只有一個因數，所以 1 不是質數。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>因數個數</h3><span class="lv L2">L2｜進階</span><span class="pid">MATH01-002</span></div><div class="problem-desc" style="white-space:pre-line">給定一個正整數 N，請計算 N 有幾個正因數。</div><dl class="io"><dt>輸入</dt><dd>輸入一個正整數 N。</dd><dt>輸出</dt><dd>輸出一個整數，代表 N 的正因數個數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="MATH01-002" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個正整數 N。</li><li><strong>輸出</strong>：N 有幾個正因數。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><p>這是「找所有因數」加上 K08 的「條件計數」：</p>
+<pre class="code">詢問並等待 → N
+次數 設為 0
+i 從 1 數到 N：
+    如果 N 除以 i 的餘數 ＝ 0：
+        次數 設為 次數 ＋ 1
+說出 次數</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>N ＝ 12：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>12 除以 i 的餘數</th><th>是因數？</th><th>次數</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>是</td><td>1</td></tr><tr><td>2</td><td>0</td><td>是</td><td>2</td></tr><tr><td>3</td><td>0</td><td>是</td><td>3</td></tr><tr><td>4</td><td>0</td><td>是</td><td>4</td></tr><tr><td>5</td><td>2</td><td>否</td><td>4</td></tr><tr><td>6</td><td>0</td><td>是</td><td>5</td></tr><tr><td>7～11</td><td>不是 0</td><td>否</td><td>5</td></tr><tr><td>12</td><td>0</td><td>是</td><td>6</td></tr></tbody></table></div>
+<p>輸出 6。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，注意餘數積木的順序是「<strong>N</strong> 除以 <strong>i</strong> 的餘數」，不是「i 除以 N」。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>餘數的兩邊放反</strong>：寫成「i 除以 N 的餘數」，意思完全不同，答案會錯。</li><li><strong>迴圈終點寫成 N−1</strong>：會漏掉 N 自己這個因數，12 的因數個數會變成 5。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（3 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>倍數判斷</h3><span class="lv L1">L1｜基礎</span><span class="pid">MATH01-001</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定兩個正整數 A 與 B，請判斷 A 是否為 B 的倍數。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個正整數 A 與 B。</dd><dt>輸出</dt><dd>若 A 是 B 的倍數，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>24 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>倍數判斷</h3><span class="lv L1">L1｜基礎</span><span class="pid">MATH01-001</span></div><div class="focus"><b>這題多了什麼：</b>不需要迴圈：A 除以 B 的餘數是 0，就輸出 YES，否則輸出 NO。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定兩個正整數 A 與 B，請判斷 A 是否為 B 的倍數。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個正整數 A 與 B。</dd><dt>輸出</dt><dd>若 A 是 B 的倍數，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>24 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="MATH01-001" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>A 除以 B 的餘數是 0，A 就是 B 的倍數。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>找所有因數</h3><span class="lv L2">L2｜進階</span><span class="pid">A-09-1</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">因數是指一個整數能被另一整數「整除」時，這個「除數」就是「被除數」的因數。
+<article class="practice"><div class="problem-head"><h3>找所有因數</h3><span class="lv L2">L2｜進階</span><span class="pid">A-09-1</span></div><div class="focus"><b>這題多了什麼：</b>和示範用同一個迴圈，只是找到因數時不是計數，而是<strong>說出</strong> i。每一輪找到就說出，平台比對時空白和換行視為一樣，所以不用自己處理空白。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">因數是指一個整數能被另一整數「整除」時，這個「除數」就是「被除數」的因數。
 
 0不是任何整數的因數。1是所有整數的因數。
 
@@ -37,20 +70,23 @@
 
 這題訓練你使用條件與迴圈判斷。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 3 4 6 12</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>39</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 13 39</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="A-09-1" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>讓 i 從 1 跑到 N，N 除以 i 的餘數是 0，i 就是 N 的因數。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>因數個數</h3><span class="lv L2">L2｜進階</span><span class="pid">MATH01-002</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個正整數 N，請計算 N 有幾個正因數。</div><dl class="io"><dt>輸入</dt><dd>輸入一個正整數 N。</dd><dt>輸出</dt><dd>輸出一個整數，代表 N 的正因數個數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="MATH01-002" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>和上一題的判斷方法相同，只是把「輸出 i」改成「計數加 1」。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>質數判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">MATH01-003</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個正整數 N，請判斷 N 是否為質數。質數是大於 1，且只有 1 和自己兩個正因數的數。</div><dl class="io"><dt>輸入</dt><dd>輸入一個正整數 N。</dd><dt>輸出</dt><dd>若 N 是質數，輸出 PRIME；否則輸出 NOT。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>17</pre></div><div class="sample-row"><div class="k">輸出</div><pre>PRIME</pre></div></div></div></details>
+<article class="practice"><div class="problem-head"><h3>質數判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">MATH01-003</span></div><div class="focus"><b>這題多了什麼：</b>有兩種想法都可以：</p>
+<ul><li><strong>數因數個數</strong>：用示範的方法數出因數個數，剛好 2 個就是質數（PRIME）。記得 N ＝ 1 時只有 1 個因數，不是質數。</li><li><strong>找其他因數</strong>（範例答案的做法）：讓 i 從 2 數到 N−1，只要有一個 i 能整除 N，就用旗標記下「找到了」，那 N 就不是質數。</li></ul></div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個正整數 N，請判斷 N 是否為質數。質數是大於 1，且只有 1 和自己兩個正因數的數。</div><dl class="io"><dt>輸入</dt><dd>輸入一個正整數 N。</dd><dt>輸出</dt><dd>若 N 是質數，輸出 PRIME；否則輸出 NOT。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>17</pre></div><div class="sample-row"><div class="k">輸出</div><pre>PRIME</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="MATH01-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先算出因數個數；質數的因數剛好只有 2 個。注意 1 不是質數。</div></details></article></div>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 最大公因數 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定兩個正整數 A 與 B，請找出它們的最大公因數。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個正整數 A 與 B。</dd><dt>輸出</dt><dd>輸出一個整數，代表 A 與 B 的最大公因數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="MATH01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>可以用輾轉相除法：把大數除以小數的餘數當成新的除數，重複到餘數是 0 為止。</div></details></details>
+<div class="focus"><b>挑戰重點：</b>輾轉相除法：把 B 設為「A 除以 B 的餘數」，原本的 B 變成新的 A，一直重複到 B 變成 0，這時的 A 就是最大公因數。例如 12 和 18：（12, 18）→（18, 12）→（12, 6）→（6, 0），答案是 6。這題會用到「重複直到」迴圈，因為事先不知道要重複幾次。</div><div class="problem-desc" style="white-space:pre-line">給定兩個正整數 A 與 B，請找出它們的最大公因數。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個正整數 A 與 B。</dd><dt>輸出</dt><dd>輸出一個整數，代表 A 與 B 的最大公因數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="MATH01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>可以用輾轉相除法：把大數除以小數的餘數當成新的除數，重複到餘數是 0 為止。</div></details></details>
 <details class="extension"><summary>🚀 最小公倍數 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定兩個正整數 A 與 B，請找出它們的最小公倍數。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個正整數 A 與 B。</dd><dt>輸出</dt><dd>輸出一個整數，代表 A 與 B 的最小公倍數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>36</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="MATH01-005" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>想一想：兩數的乘積、最大公因數、最小公倍數之間有什麼關係？</div></details></details>
+<div class="focus"><b>挑戰重點：</b>利用一個關係：<strong>兩數的乘積 ＝ 最大公因數 × 最小公倍數</strong>。所以先用上一題的方法算出最大公因數，最小公倍數就是 A × B ÷ 最大公因數。例如 12 × 18 ÷ 6 ＝ 36。</div><div class="problem-desc" style="white-space:pre-line">給定兩個正整數 A 與 B，請找出它們的最小公倍數。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個正整數 A 與 B。</dd><dt>輸出</dt><dd>輸出一個整數，代表 A 與 B 的最小公倍數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>36</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B5-01-Factors" data-task="MATH01-005" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>想一想：兩數的乘積、最大公因數、最小公倍數之間有什麼關係？</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用餘數判斷整除、倍數和因數，也知道餘數積木兩邊的順序很重要。</li><li>我會用迴圈找出所有因數，並數出因數的個數。</li><li>我能說出質數的定義，並知道 1 不是質數。</li><li>我能用兩種不同的想法判斷質數。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k13.html"><div class="dir">← 上一個知識點</div><b>K13 字串統計與轉換</b></a><a class="next" href="k15.html"><div class="dir">下一個知識點 →</div><b>K15 位數拆解</b></a></nav>
 

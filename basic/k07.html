@@ -19,12 +19,75 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用「重複 N 次」把一串資料一筆一筆讀進來。</li><li>會把讀到的資料<strong>存進清單</strong>，之後用位置（第幾項）取出來。</li><li>會用迴圈變數 i 同時表示「第幾筆」和「清單的第 i 項」。</li><li>會<strong>倒著走</strong>清單，並處理位置在最前面、最後面的<strong>邊界情況</strong>。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（5 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>清單就像一排有編號的置物櫃：第 1 格、第 2 格、第 3 格……每一格放一筆資料。只要知道「第幾格」，就能直接拿出裡面的東西。</p>
+<div class="diagram">
+  <div class="cellrow">
+    <div class="cell idx" data-idx="第1項">8</div>
+    <div class="cell idx" data-idx="第2項">3</div>
+    <div class="cell idx active" data-idx="第3項">12</div>
+    <div class="cell idx" data-idx="第4項">7</div>
+    <div class="cell idx" data-idx="第5項">10</div>
+  </div>
+  <div class="pointer">清單的第 3 項是 12，位置從 1 開始算</div>
+</div>
+<p>題目的資料通常長這樣：第一行是 N（有幾筆資料），第二行是 N 個數字。讀入的方法都一樣：</p>
+<pre class="code">詢問並等待 → N
+重複 N 次：
+    詢問並等待 → 數字
+    （直接處理這個數字，或把它添加到清單最後）</pre>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>Blockly</th><th>Scratch</th></tr></thead><tbody><tr><td>準備一個空清單</td><td>將 全部數字 設為「建立空的清單」</td><td>刪除 全部數字 的所有項目</td></tr><tr><td>把資料放到清單最後</td><td>自清單 全部數字 添加 最後一筆 為（數字）</td><td>添加（數字）到 全部數字</td></tr><tr><td>取出第 P 項</td><td>自清單 全部數字 取得 # P</td><td>全部數字 的第 P 項</td></tr></tbody></table></div>
+<div class="note"><div class="tag">📌 一定要存進清單嗎？</div><p>如果每一筆資料讀到就能馬上處理（例如依序說出來），就不需要清單。只有當你需要<strong>之後再拿</strong>某一筆資料，例如「第 P 項是多少」「倒著說出來」，才需要先把資料存進清單。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>指定位置的數字</h3><span class="lv L1">L1｜基礎</span><span class="pid">IDX01-001</span></div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與一個位置 P，請輸出第 P 個數字。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 P。保證 1 &lt;= P &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表第 P 個數字。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+8 3 12 7 10
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="IDX01-001" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：先輸入 N，接著 N 個整數，最後輸入位置 P。</li><li><strong>輸出</strong>：清單的第 P 個數字。</li></ul></div></details>
+<details class="step"><summary>第 2 步：為什麼需要清單？</summary><div class="step-body"><p>位置 P 是在<strong>最後</strong>才輸入的。讀數字的時候還不知道要哪一個，所以要先把 N 個數字全部存起來，等讀到 P 再去拿。</p>
+<pre class="code">詢問並等待 → N
+全部數字 設為 空清單
+重複 N 次：
+    詢問並等待 → 數字
+    把 數字 添加到 全部數字 的最後
+詢問並等待 → P
+說出 全部數字 的第 P 項</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入 N ＝ 5，數字「8 3 12 7 10」，P ＝ 3：清單存好後是［8, 3, 12, 7, 10］，第 3 項是 12。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，注意「建立空的清單」放在迴圈<strong>前面</strong>，「添加到清單」放在迴圈<strong>裡面</strong>。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>在迴圈裡建立空清單</strong>：每一輪都被清空，最後清單裡只剩一個數字。</li><li><strong>把 P 當成第幾格的前一格</strong>：這個平台的清單位置從 1 開始，第 3 項就是第 3 個數字，不用減 1。</li></ul></div></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>左右鄰居總和</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-007</span></div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與位置 P，請計算第 P 個數字左右鄰居的總和。若沒有左鄰居或右鄰居，該側視為 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 P。保證 1 &lt;= P &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表左右鄰居總和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="IDX01-007" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：N、N 個整數、位置 P。</li><li><strong>輸出</strong>：第 P 項的左鄰居（第 P−1 項）加上右鄰居（第 P＋1 項）。沒有鄰居的那一邊當作 0。</li></ul></div></details>
+<details class="step"><summary>第 2 步：想清楚邊界情況</summary><div class="step-body"><div class="table-scroll"><table><thead><tr><th>P 的位置</th><th>左鄰居</th><th>右鄰居</th></tr></thead><tbody><tr><td>在中間（1 ＜ P ＜ N）</td><td>第 P−1 項</td><td>第 P＋1 項</td></tr><tr><td>在最前面（P ＝ 1）</td><td>沒有，當作 0</td><td>第 P＋1 項</td></tr><tr><td>在最後面（P ＝ N）</td><td>第 P−1 項</td><td>沒有，當作 0</td></tr></tbody></table></div>
+<p>所以要先判斷「有沒有左鄰居（P ＞ 1）」「有沒有右鄰居（P ＜ N）」，再決定要不要去拿那一項：</p>
+<pre class="code">（前面和上一題一樣，讀入並存好清單、讀入 P）
+左邊 設為 0
+如果 P ＞ 1：左邊 設為 全部數字 的第 P−1 項
+右邊 設為 0
+如果 P ＜ N：右邊 設為 全部數字 的第 P＋1 項
+說出 左邊 ＋ 右邊</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>清單［10, 20, 30, 40, 50］：</p>
+<ul><li>P ＝ 3：左邊 20、右邊 40，輸出 60。</li><li>P ＝ 1：沒有左鄰居，左邊 0、右邊 20，輸出 20。</li><li>P ＝ 5：左邊 40、沒有右鄰居，輸出 40。</li></ul></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，範例答案用一個「測試…如果為真…如果為假…」積木，把「有鄰居就取值，沒有就用 0」寫在一行裡。和上面用兩個「如果」的寫法效果一樣。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>沒有檢查邊界</strong>：P ＝ 1 時去拿第 0 項，清單裡沒有這一格，結果會出錯或拿到空值。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（3 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>清單逐一讀取</h3><span class="lv L1">L1｜基礎</span><span class="pid">JSA01-D01</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">第一行輸入一個整數 N，第二行輸入 N 個整數。請依照原本順序逐一輸出每個數字，每個數字各佔一行。本題用來示範清單逐一讀取與輸出。</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N。
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>清單逐一讀取</h3><span class="lv L1">L1｜基礎</span><span class="pid">JSA01-D01</span></div><div class="focus"><b>這題多了什麼：</b>最基本的讀入方式：「重複 N 次」，每一輪讀一個數字就馬上說出來。這題不需要清單，先熟悉「一行有 N 個數字，就詢問並等待 N 次」的讀法。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">第一行輸入一個整數 N，第二行輸入 N 個整數。請依照原本順序逐一輸出每個數字，每個數字各佔一行。本題用來示範清單逐一讀取與輸出。</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N。
 第二行：N 個整數，以空白分隔。</dd><dt>輸出</dt><dd>依序輸出每個數字，每個數字各佔一行。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
 5 8 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5
 8
@@ -32,13 +95,8 @@
 10 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10
 20</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="JSA01-D01" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把第二行的 N 個數字存進清單，再用迴圈從第 1 項取到第 N 項，逐一輸出。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>指定位置的數字</h3><span class="lv L1">L1｜基礎</span><span class="pid">IDX01-001</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與一個位置 P，請輸出第 P 個數字。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 P。保證 1 &lt;= P &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表第 P 個數字。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
-8 3 12 7 10
-3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="IDX01-001" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>不需要迴圈：把數字存進清單後，直接取「第 P 項」。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>冒險日誌</h3><span class="lv L2">L2｜進階</span><span class="pid">count-018</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者寫了 N 天的冒險日誌，清單中依序記錄了每天打倒的怪物數量。
+<article class="practice"><div class="problem-head"><h3>冒險日誌</h3><span class="lv L2">L2｜進階</span><span class="pid">count-018</span></div><div class="focus"><b>這題多了什麼：</b>不用存清單也能做：迴圈讓 i 從 1 數到 N，每一輪讀入一個數字，說出「Day-」、i、「-」、數字接起來的文字。這題練習的是：<strong>i 同時代表第幾天</strong>。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者寫了 N 天的冒險日誌，清單中依序記錄了每天打倒的怪物數量。
 例如清單的第一個數字是第 1 天打倒的數量，第二個數字是第 2 天的...
 請你格式化輸出每天的戰績，格式為：Day-[第幾天]-[數量]。
 輸入格式
@@ -48,8 +106,8 @@
 15 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Day-1-15 Day-2-5</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
 12 15 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Day-1-12 Day-2-15 Day-3-20</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="count-018" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>迴圈變數 i 同時代表「第幾天」，而清單的第 i 項是「那天的數量」，兩個一起用。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>倒轉時光</h3><span class="lv L2">L2｜進階</span><span class="pid">count-017</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者獲得了一個「時光倒流」的魔法卷軸。這個卷軸上有一串數字密碼，但是必須從最後一個數字讀回到第一個數字，魔法才能生效。 請讀取一個清單，並將清單內的數字「由後往前」印出來。
+<article class="practice"><div class="problem-head"><h3>倒轉時光</h3><span class="lv L2">L2｜進階</span><span class="pid">count-017</span></div><div class="focus"><b>這題多了什麼：</b>要倒著說，就一定要先把資料存進清單。存好之後，讓迴圈的 i 從 N <strong>倒數</strong>到 1，每一輪說出清單的第 i 項。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者獲得了一個「時光倒流」的魔法卷軸。這個卷軸上有一串數字密碼，但是必須從最後一個數字讀回到第一個數字，魔法才能生效。 請讀取一個清單，並將清單內的數字「由後往前」印出來。
 輸入格式
 輸入共有兩行。第一行是一個整數 N，代表密碼長度。
 第二行輸入 N 個整數，代表N個數字的密碼組合。
@@ -57,12 +115,12 @@
 (提示：循環計數迴圈起點設為清單長度，終點設為 1，間隔設為 -1)</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
 10 20 30 40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>40 30 20 10</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
 1 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 2 1</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="count-017" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>讓迴圈從 N 倒數到 1，依序取清單的第 i 項，就會變成反向輸出。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>左右鄰居總和</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-007</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與位置 P，請計算第 P 個數字左右鄰居的總和。若沒有左鄰居或右鄰居，該側視為 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 P。保證 1 &lt;= P &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表左右鄰居總和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
-10 20 30 40 50
-3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="IDX01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>左鄰居是第 P-1 項、右鄰居是第 P+1 項；P 在最前面或最後面時，其中一邊不存在，要當作 0。</div></details></article></div>
+<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="count-017" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>讓迴圈從 N 倒數到 1，依序取清單的第 i 項，就會變成反向輸出。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用「重複 N 次」讀入一串資料，並把它們添加到清單最後。</li><li>我會用位置取出清單的第幾項，並知道位置從 1 開始。</li><li>我能說出什麼時候需要把資料存進清單，什麼時候邊讀邊處理就好。</li><li>我會處理位置在最前面或最後面時的邊界情況。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k06.html"><div class="dir">← 上一個知識點</div><b>K06 累加與累乘</b></a><a class="next" href="k08.html"><div class="dir">下一個知識點 →</div><b>K08 清單累計與條件統計</b></a></nav>
 

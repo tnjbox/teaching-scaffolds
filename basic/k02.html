@@ -19,32 +19,68 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會把讀進來的數字存進<strong>有意義名字</strong>的變數。</li><li>會用四則運算（＋ − × ÷）寫出題目要的算式。</li><li>會分辨「四捨五入」和「只取整數商（無條件捨去）」。</li><li>會用<strong>整除</strong>和<strong>餘數</strong>做單位換算。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（6 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>變數就像一個貼了標籤的盒子：把數字放進去，之後用標籤（變數名稱）就能拿出來計算。幫變數取一個看得懂的名字，例如「鉛筆單價」「總秒數」，寫算式時就不容易弄錯。</p>
+<p>這個知識點會用到這些運算：</p>
+<div class="table-scroll"><table><thead><tr><th>運算</th><th>例子</th><th>結果</th><th>用在哪裡</th></tr></thead><tbody><tr><td>乘、加</td><td>10 × 3 ＋ 5 × 2</td><td>40</td><td>算總金額</td></tr><tr><td>除法後四捨五入</td><td>13 ÷ 2 → 四捨五入</td><td>7</td><td>題目說「四捨五入取整數」</td></tr><tr><td>除法後無條件捨去</td><td>246 ÷ 3 → 無條件捨去</td><td>82</td><td>題目說「只取商」「整數平均」</td></tr><tr><td>餘數</td><td>125 除以 60 的餘數</td><td>5</td><td>算「剩下多少」</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 整除和餘數是一對好朋友</div><p>「125 秒是幾分幾秒？」→ 分鐘＝125 ÷ 60 無條件捨去＝2，秒＝125 除以 60 的餘數＝5。只要題目有「換算成…又…」「分成幾組、剩下幾個」，通常就是這一對一起出場。</p></div>
+<div class="note"><div class="tag">📌 一行有好幾個數字時</div><p>題目常把幾個數字寫在同一行、用空白隔開，例如「10 3 5 2」。平台的「詢問並等待」每次會依序拿到<strong>一個</strong>數字，所以有幾個數字就「詢問並等待」幾次。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>購買文具</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSA01-001</span></div><div class="problem-desc" style="white-space:pre-line">小明到文具店購買鉛筆與橡皮擦。請根據單價與數量，計算總金額。</div><dl class="io"><dt>輸入</dt><dd>輸入四個整數，依序為鉛筆單價、鉛筆數量、橡皮擦單價、橡皮擦數量。</dd><dt>輸出</dt><dd>輸出一個整數，代表總金額。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10 3 5 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>40</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B1-02-Variables" data-task="BSA01-001" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：四個整數，依序是鉛筆單價、鉛筆數量、橡皮擦單價、橡皮擦數量。</li><li><strong>輸出</strong>：總金額。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><p>先把四個數字分別存進四個變數，再寫出算式：</p>
+<pre class="code">詢問並等待 → 鉛筆單價
+詢問並等待 → 鉛筆數量
+詢問並等待 → 橡皮擦單價
+詢問並等待 → 橡皮擦數量
+說出 鉛筆單價 × 鉛筆數量 ＋ 橡皮擦單價 × 橡皮擦數量</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入「10 3 5 2」：10 × 3 ＝ 30，5 × 2 ＝ 10，30 ＋ 10 ＝ 40。和範例輸出一樣。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，注意讀入的<strong>順序</strong>要和題目一樣。在積木裡，乘法要先組好，再放進加法積木的兩邊，順序才會是「先乘後加」。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>變數配錯對</strong>：寫成「鉛筆單價 × 橡皮擦數量」，範例會算出 10 × 2 ＋ 5 × 3 ＝ 35，答案就錯了。讀入的順序和變數名稱要一一對好。</li><li><strong>積木巢狀放錯</strong>：寫成（10 × 3 ＋ 5）× 2，答案變成 70。</li></ul></div></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>秒數換算</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSA01-004</span></div><div class="problem-desc" style="white-space:pre-line">給定一段時間的總秒數，請換算成幾分鐘又幾秒。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 S，代表總秒數。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為分鐘與剩餘秒數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>125</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 5</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B1-02-Variables" data-task="BSA01-004" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：總秒數 S，例如 125。</li><li><strong>輸出</strong>：兩個整數，依序是分鐘和剩下的秒數，中間用空白隔開。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問並等待 → 總秒數
+說出 （總秒數 ÷ 60 無條件捨去）、空白、（總秒數 除以 60 的餘數）</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>125 ÷ 60 ＝ 2.08…，無條件捨去得到 2；125 除以 60 的餘數是 5。輸出「2 5」。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看範例答案怎麼用「字串組合」把分鐘、空白、秒數接成一行。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>用四捨五入算分鐘</strong>：如果是 150 秒，150 ÷ 60 ＝ 2.5，四捨五入會變成 3 分鐘，但正確答案是 2 分 30 秒。</li><li><strong>秒數用減法算錯</strong>：「總秒數 − 60」只扣掉一分鐘，要用餘數才對。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（4 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>購買文具</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSA01-001</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小明到文具店購買鉛筆與橡皮擦。請根據單價與數量，計算總金額。</div><dl class="io"><dt>輸入</dt><dd>輸入四個整數，依序為鉛筆單價、鉛筆數量、橡皮擦單價、橡皮擦數量。</dd><dt>輸出</dt><dd>輸出一個整數，代表總金額。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10 3 5 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>40</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B1-02-Variables" data-task="BSA01-001" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>總金額＝鉛筆單價×數量＋橡皮擦單價×數量，先想清楚四個輸入分別代表什麼。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>長方形周長與面積</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSA01-003</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定長方形的長與寬，請計算長方形的周長與面積。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個整數，依序為長方形的長與寬。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為周長與面積，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>26 40</pre></div></div></div></details>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>長方形周長與面積</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSA01-003</span></div><div class="focus"><b>這題多了什麼：</b>一次要輸出<strong>兩個</strong>結果：周長和面積。周長是（長 ＋ 寬）× 2，注意括號；最後把兩個結果用空白隔開輸出。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定長方形的長與寬，請計算長方形的周長與面積。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個整數，依序為長方形的長與寬。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為周長與面積，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>26 40</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-02-Variables" data-task="BSA01-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>周長和面積各用一個變數算好，最後一起輸出，中間用空白隔開。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>數字平均</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-02-1</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">當我們要處理數字時，常常需計算平均。
+<article class="practice"><div class="problem-head"><h3>數字平均</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-02-1</span></div><div class="focus"><b>這題多了什麼：</b>平均＝（兩數相加）÷ 2，題目要<strong>四捨五入</strong>取整數。例如 9 和 4 的平均是 6.5，四捨五入後是 7。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">當我們要處理數字時，常常需計算平均。
 請設計一個程式，讓使用者輸入兩個數字，程式要輸出這兩個數字的平均(四捨五入取整數)。
 這樣的題目能幫助你熟悉數字資料處理。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>9
 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>7</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6
 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-02-Variables" data-task="A-02-1" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先算出平均，再用「四捨五入」取整數。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>平均分數整數版</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSA01-007</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定三科成績，請計算總分與整數平均。整數平均只取商，不處理小數。</div><dl class="io"><dt>輸入</dt><dd>輸入三個整數，代表三科成績。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為總分與整數平均，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>80 75 91</pre></div><div class="sample-row"><div class="k">輸出</div><pre>246 82</pre></div></div></div></details>
+<article class="practice"><div class="problem-head"><h3>平均分數整數版</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSA01-007</span></div><div class="focus"><b>這題多了什麼：</b>和上一題很像，但這題的整數平均要<strong>只取商</strong>（無條件捨去）。例如總分 246 ÷ 3 ＝ 82，如果是 248 ÷ 3 ＝ 82.66…，也要輸出 82，不能四捨五入成 83。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定三科成績，請計算總分與整數平均。整數平均只取商，不處理小數。</div><dl class="io"><dt>輸入</dt><dd>輸入三個整數，代表三科成績。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為總分與整數平均，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>80 75 91</pre></div><div class="sample-row"><div class="k">輸出</div><pre>246 82</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-02-Variables" data-task="BSA01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這題的整數平均「只取商」，和上一題的四捨五入不一樣，比較看看兩種結果的差別。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>秒數換算</h3><span class="lv L1">L1｜基礎</span><span class="pid">BSA01-004</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一段時間的總秒數，請換算成幾分鐘又幾秒。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 S，代表總秒數。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為分鐘與剩餘秒數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>125</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 5</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B1-02-Variables" data-task="BSA01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>分鐘數用「整除 60」，剩下的秒數用「除以 60 的餘數」。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>找零錢</h3><span class="lv L2">L2｜進階</span><span class="pid">BSA01-005</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">商店只使用 50 元、10 元與 1 元硬幣找零。給定找零金額，請計算最少需要多少枚硬幣。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 N，代表找零金額。</dd><dt>輸出</dt><dd>輸出三個整數，依序為 50 元、10 元與 1 元硬幣的數量，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>187</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 3 7</pre></div></div></div></details>
+<article class="practice"><div class="problem-head"><h3>找零錢</h3><span class="lv L2">L2｜進階</span><span class="pid">BSA01-005</span></div><div class="focus"><b>這題多了什麼：</b>把示範的「整除＋餘數」<strong>連續用三次</strong>：先算 50 元有幾枚，用餘數知道還剩多少錢；再用剩下的錢算 10 元有幾枚；最後剩下的就是 1 元的枚數。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">商店只使用 50 元、10 元與 1 元硬幣找零。給定找零金額，請計算最少需要多少枚硬幣。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 N，代表找零金額。</dd><dt>輸出</dt><dd>輸出三個整數，依序為 50 元、10 元與 1 元硬幣的數量，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>187</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 3 7</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B1-02-Variables" data-task="BSA01-005" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先用 50 元整除算枚數，再用餘數更新「還剩多少錢」，接著換 10 元、1 元，重複同樣的步驟。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會幫變數取看得懂的名字，並照題目順序讀入。</li><li>我知道「四捨五入」和「無條件捨去」的差別，並能從題目文字判斷要用哪一個。</li><li>我會用整除算「有幾個」、用餘數算「剩多少」。</li><li>我會把好幾個結果用空白隔開，輸出在同一行。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k01.html"><div class="dir">← 上一個知識點</div><b>K01 輸入與輸出</b></a><a class="next" href="k03.html"><div class="dir">下一個知識點 →</div><b>K03 條件判斷：二選一</b></a></nav>
 

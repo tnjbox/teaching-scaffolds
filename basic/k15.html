@@ -19,19 +19,55 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
-
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（1 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>位數和</h3><span class="lv L2">L2｜進階</span><span class="pid">MATH01-006</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個非負整數 N，請計算它的每一位數字總和。</div><dl class="io"><dt>輸入</dt><dd>輸入一個非負整數 N。</dd><dt>輸出</dt><dd>輸出一個整數，代表 N 的位數和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12345</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B5-02-Digits" data-task="MATH01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>除以 10 的餘數就是個位數；把數字整除 10 就能去掉個位數。重複到數字變成 0 為止。</div></details></article></div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會把一個數字拆成一位一位，再個別處理。</li><li>會用兩種方法拆位數：<strong>當成文字逐字取出</strong>，或用<strong>除以 10 的餘數</strong>。</li><li>（延伸）會把拆開的位數重新組合成新的數字。</li></ul>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>「12345 的每一位加起來是多少？」要回答這個問題，得先把 12345 拆成 1、2、3、4、5。有兩種方法：</p>
+<p><strong>方法一：當成文字，一個字一個字取出</strong></p>
+<p>把數字看成字串「12345」，用 K12 的逐字元走訪，第 i 個字元就是第 i 位數字。取出來的是文字，要當成數字來加。</p>
+<p><strong>方法二：用數學，一次拿掉一位</strong></p>
+<div class="table-scroll"><table><thead><tr><th>動作</th><th>12345</th><th>結果</th></tr></thead><tbody><tr><td>除以 10 的餘數 → 個位數</td><td>12345 除以 10 的餘數</td><td>5</td></tr><tr><td>除以 10 後無條件捨去 → 拿掉個位數</td><td>12345 ÷ 10 無條件捨去</td><td>1234</td></tr></tbody></table></div>
+<p>重複這兩個動作，直到數字變成 0：5、4、3、2、1 就一位一位被拿出來了。因為事先不知道要重複幾次，所以用「重複直到 數字 ＝ 0」。</p>
+<div class="note"><div class="tag">📌 兩種方法都可以</div><p>方法一和 K12 的字串技巧一樣，比較直覺；方法二是數學上的標準做法，之後遇到更多數字題會常用到。平台上的範例答案用的是方法一。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>位數和</h3><span class="lv L2">L2｜進階</span><span class="pid">MATH01-006</span></div><div class="problem-desc" style="white-space:pre-line">給定一個非負整數 N，請計算它的每一位數字總和。</div><dl class="io"><dt>輸入</dt><dd>輸入一個非負整數 N。</dd><dt>輸出</dt><dd>輸出一個整數，代表 N 的位數和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12345</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B5-02-Digits" data-task="MATH01-006" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個非負整數 N，例如 12345。</li><li><strong>輸出</strong>：每一位數字的總和，例如 15。</li></ul></div></details>
+<details class="step"><summary>第 2 步：方法一，當成文字逐字取出</summary><div class="step-body"><pre class="code">詢問並等待 → N（先變成文字）
+總和 設為 0
+i 從 1 數到 N 的長度：
+    總和 設為 總和 ＋（N 的第 i 個字元，轉成數字）
+說出 總和</pre>
+<p>取出來的是文字「3」，要先轉成數字 3 才能相加：</p>
+<ul><li><strong>Blockly</strong>：寫成「（第 i 個字元）− 0」，減 0 會讓文字變成數字。如果直接用「＋」，數字加文字會被接起來，0 ＋「3」會變成「03」。另外，要先用「字串組合」把答案和空字串接起來，確保 N 是文字（K12 說明過原因）。</li><li><strong>Scratch</strong>：「＋」積木會自動把文字「3」當成數字 3，直接相加就可以。</li></ul></div></details>
+<details class="step"><summary>第 3 步：方法二，用餘數一位一位拿掉</summary><div class="step-body"><pre class="code">詢問並等待 → N
+總和 設為 0
+重複直到 N ＝ 0：
+    總和 設為 總和 ＋（N 除以 10 的餘數）
+    N 設為 N ÷ 10 無條件捨去
+說出 總和</pre>
+<p>用 12345 走一次：</p>
+<div class="table-scroll"><table><thead><tr><th>這一輪開始時的 N</th><th>取出的個位數</th><th>總和</th></tr></thead><tbody><tr><td>12345</td><td>5</td><td>5</td></tr><tr><td>1234</td><td>4</td><td>9</td></tr><tr><td>123</td><td>3</td><td>12</td></tr><tr><td>12</td><td>2</td><td>14</td></tr><tr><td>1</td><td>1</td><td>15</td></tr><tr><td>0（停止）</td><td>－</td><td>15</td></tr></tbody></table></div></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，範例答案用的是方法一。你可以兩種都寫寫看，比較哪一種比較好理解。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>方法一沒有把字元轉成數字（Blockly）</strong>：總和會變成「012345」這種接在一起的文字，要先「− 0」再相加。</li><li><strong>方法二忘了無條件捨去</strong>：12345 ÷ 10 ＝ 1234.5，如果不捨去，N 永遠不會剛好變成 0，迴圈停不下來。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 數字反轉 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定一個非負整數 N，請將它的數字順序反轉後輸出。反轉後前導 0 不需要保留。</div><dl class="io"><dt>輸入</dt><dd>輸入一個非負整數 N。</dd><dt>輸出</dt><dd>輸出一個整數，代表反轉後的數字。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12340</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4321</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B5-02-Digits" data-task="MATH01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用上一題的方法逐位取出數字，每取出一位就把結果×10 再加上這一位。</div></details></details>
+<div class="focus"><b>挑戰重點：</b>把數字反轉，例如 12340 → 4321。方法一：像 K12 反轉字串一樣倒著接，最後再把結果轉成數字，開頭的 0 就會消失。方法二：每取出一位，就讓「結果 ＝ 結果 × 10 ＋ 這一位」。</div><div class="problem-desc" style="white-space:pre-line">給定一個非負整數 N，請將它的數字順序反轉後輸出。反轉後前導 0 不需要保留。</div><dl class="io"><dt>輸入</dt><dd>輸入一個非負整數 N。</dd><dt>輸出</dt><dd>輸出一個整數，代表反轉後的數字。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12340</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4321</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B5-02-Digits" data-task="MATH01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用上一題的方法逐位取出數字，每取出一位就把結果×10 再加上這一位。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會把數字當成文字，逐字取出每一位。</li><li>我會用除以 10 的餘數取出個位數，並用無條件捨去拿掉個位數。</li><li>我知道什麼時候要用「重複直到」而不是「重複 N 次」。</li><li>我能說出兩種拆位數方法各自的做法。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k14.html"><div class="dir">← 上一個知識點</div><b>K14 因數、倍數與質數</b></a><a class="next" href="k16.html"><div class="dir">下一個知識點 →</div><b>K16 資料交換</b></a></nav>
 

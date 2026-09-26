@@ -19,15 +19,44 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用<strong>累加變數</strong>把每一輪的數字加起來。</li><li>知道累加變數要在迴圈<strong>之前</strong>設好初始值，並知道加法從 0、乘法從 1 開始。</li><li>會只累加<strong>符合條件</strong>的那幾輪。</li><li>會用<strong>累乘變數</strong>算連乘的結果。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（4 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>迴圈會重複做事，但它自己不會「記住」前面算過什麼。想算 1 ＋ 2 ＋ 3 ＋ … ＋ N，就需要一個變數當作存錢筒，每一輪把新的數字放進去：</p>
+<pre class="code">總和 設為 0                ← 迴圈開始前，存錢筒先清空
+i 從 1 數到 N：
+    總和 設為 總和 ＋ i     ← 每一輪把 i 加進去
+說出 總和                   ← 迴圈結束後才說出答案</pre>
+<p>這三個位置（迴圈前、迴圈裡、迴圈後）是累加變數最重要的觀念：</p>
+<div class="table-scroll"><table><thead><tr><th>位置</th><th>要做的事</th><th>放錯會怎樣</th></tr></thead><tbody><tr><td>迴圈前</td><td>設定初始值</td><td>放進迴圈裡：每一輪都被清空</td></tr><tr><td>迴圈裡</td><td>更新累加變數</td><td>放到迴圈外：只加到一次</td></tr><tr><td>迴圈後</td><td>說出答案</td><td>放進迴圈裡：每一輪都說一次，輸出太多</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 在 Blockly 和 Scratch 怎麼寫「總和加 i」？</div><ul><li><strong>Blockly</strong>：「將 總和 設為（總和 ＋ i）」，或是「將 總和 的值加 i」。</li><li><strong>Scratch</strong>：「變數 總和 改變 i」。</li></ul></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>1到N加總示範</h3><span class="lv L2">L2｜進階</span><span class="pid">JSL01-D02</span></div><div class="problem-desc" style="white-space:pre-line">輸入一個正整數 N，請計算 1 + 2 + 3 + ... + N 的總和。本題用來示範累加變數的初始化、更新與輸出。</div><dl class="io"><dt>輸入</dt><dd>第一行：一個正整數 N。</dd><dt>輸出</dt><dd>輸出 1 到 N 的總和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>55</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B2-02-Accumulate" data-task="JSL01-D02" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個正整數 N。</li><li><strong>輸出</strong>：1 ＋ 2 ＋ … ＋ N 的總和。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問並等待 → N
+總和 設為 0
+i 從 1 數到 N：
+    總和 設為 總和 ＋ i
+說出 總和</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>N ＝ 5 時，每一輪結束後：</p>
+<div class="table-scroll"><table><thead><tr><th>第幾輪</th><th>i</th><th>總和</th></tr></thead><tbody><tr><td>開始前</td><td>－</td><td>0</td></tr><tr><td>第 1 輪</td><td>1</td><td>1</td></tr><tr><td>第 2 輪</td><td>2</td><td>3</td></tr><tr><td>第 3 輪</td><td>3</td><td>6</td></tr><tr><td>第 4 輪</td><td>4</td><td>10</td></tr><tr><td>第 5 輪</td><td>5</td><td>15</td></tr></tbody></table></div>
+<p>最後說出 15，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，確認三件事：「總和設為 0」在迴圈上面、「總和加 i」在迴圈裡面、「說出總和」在迴圈下面。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>忘了設初始值</strong>：總和一開始不是 0，答案就會多出奇怪的數字。</li><li><strong>「說出」放進迴圈裡</strong>：會依序說出 1、3、6、10、15，而不是只說 15。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（3 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>1到N加總示範</h3><span class="lv L2">L2｜進階</span><span class="pid">JSL01-D02</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">輸入一個正整數 N，請計算 1 + 2 + 3 + ... + N 的總和。本題用來示範累加變數的初始化、更新與輸出。</div><dl class="io"><dt>輸入</dt><dd>第一行：一個正整數 N。</dd><dt>輸出</dt><dd>輸出 1 到 N 的總和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>55</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B2-02-Accumulate" data-task="JSL01-D02" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>在迴圈開始前，先把「總和」設為 0；每一輪把 i 加進總和，迴圈結束後再輸出。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>修復斷橋</h3><span class="lv L2">L2｜進階</span><span class="pid">count-011</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者需要修復一座斷掉的橋。橋的每一段需要的木材數量等於該段的編號。
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>修復斷橋</h3><span class="lv L2">L2｜進階</span><span class="pid">count-011</span></div><div class="focus"><b>這題多了什麼：</b>和示範一樣是累加，只是迴圈改成從 M 數到 N。例如 M ＝ 3、N ＝ 5：3 ＋ 4 ＋ 5 ＝ 12。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者需要修復一座斷掉的橋。橋的每一段需要的木材數量等於該段的編號。
 現在只需修復從編號M到編號N的這一段區間。
 請計算修復這段區間總共需要多少木材？(即計算M+(M+1)+...+N的總和)。
 輸入格式
@@ -37,17 +66,22 @@
 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>1
 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B2-02-Accumulate" data-task="count-011" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>和上一題一樣是累加，只是迴圈改從 M 開始、到 N 結束。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>偶數日的存款</h3><span class="lv L2">L2｜進階</span><span class="pid">count-009</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者改變了存錢計畫，他決定「只在偶數日存錢」。
+<article class="practice"><div class="problem-head"><h3>偶數日的存款</h3><span class="lv L2">L2｜進階</span><span class="pid">count-009</span></div><div class="focus"><b>這題多了什麼：</b>在「總和加 i」外面包一層判斷：<strong>i 是偶數才加</strong>（i 除以 2 的餘數 ＝ 0）。這是「迴圈 ＋ 條件判斷 ＋ 累加」三個技巧第一次組合在一起。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者改變了存錢計畫，他決定「只在偶數日存錢」。
 在第 2 天存 2 元，第 4 天存 4 元，第 6 天存 6 元...以此類推。奇數天（1, 3, 5...）則不存錢。
 請問到了第 N 天結束(N&gt;1)，勇者總共存了多少錢？
 輸入格式
 第一行：輸入一個整數 N
 程式輸出從 1 到 N 之間所有偶數的總和。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B2-02-Accumulate" data-task="count-009" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>在迴圈裡先判斷 i 是不是偶數，是偶數才加進總和。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>簡化階乘</h3><span class="lv L2">L2｜進階</span><span class="pid">JSL01-P03</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">輸入一個正整數 N，請計算 1 × 2 × 3 × ... × N 的結果。本題用來練習累乘變數與迴圈結構</div><dl class="io"><dt>輸入</dt><dd>第一行：一個正整數 N。</dd><dt>輸出</dt><dd>輸出 N 的階乘結果。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>24</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>120</pre></div></div></div></details>
+<article class="practice"><div class="problem-head"><h3>簡化階乘</h3><span class="lv L2">L2｜進階</span><span class="pid">JSL01-P03</span></div><div class="focus"><b>這題多了什麼：</b>這次是<strong>累乘</strong>：乘積 ＝ 乘積 × i。想一想初始值要設多少？如果設成 0，不管乘什麼都是 0，所以累乘的初始值要設成 <strong>1</strong>。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">輸入一個正整數 N，請計算 1 × 2 × 3 × ... × N 的結果。本題用來練習累乘變數與迴圈結構</div><dl class="io"><dt>輸入</dt><dd>第一行：一個正整數 N。</dd><dt>輸出</dt><dd>輸出 N 的階乘結果。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>24</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>120</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B2-02-Accumulate" data-task="JSL01-P03" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>累乘的變數初始值要設成 1，不能設成 0，想想看為什麼。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我知道累加變數的初始值、更新、說出答案分別要放在迴圈前、迴圈裡、迴圈後。</li><li>我知道加法的初始值是 0、乘法的初始值是 1，並說得出原因。</li><li>我會在迴圈裡先判斷條件，只累加符合條件的數字。</li><li>我會用列表的方式，一輪一輪追蹤累加變數的變化。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k05.html"><div class="dir">← 上一個知識點</div><b>K05 計數迴圈</b></a><a class="next" href="k07.html"><div class="dir">下一個知識點 →</div><b>K07 清單讀取與索引走訪</b></a></nav>
 

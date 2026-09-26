@@ -19,26 +19,55 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
-
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（2 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>兩位數補零輸出</h3><span class="lv L1">L1｜基礎</span><span class="pid">M1-12-01</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你把一個介於0到99之間的整數，輸出成固定兩位數的格式：如果數字小於10，前面要補一個0（例如5要輸出成05）；如果數字是兩位數，直接輸出即可（例如23輸出23）。
-
-第一行輸入一個介於0到99之間的整數N</div><dl class="io"><dt>輸入</dt><dd>N（0~99）</dd><dt>輸出</dt><dd>補零後的兩位數字串</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>05</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>23</pre></div><div class="sample-row"><div class="k">輸出</div><pre>23</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-01" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>數字小於 10 的時候，在前面接一個「0」再輸出。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>負數的正確餘數計算</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-12-05</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你計算a除以b的餘數，餘數必須維持在0到b-1之間（即使a是負數，也要輸出這個範圍內正確的餘數，不能直接用一般的取餘數運算導致出現負的餘數）。（b保證是正整數）
-
-第一行輸入a b（空白分隔）</div><dl class="io"><dt>輸入</dt><dd>a b</dd><dt>輸出</dt><dd>0到b-1之間的正確餘數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>-3 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-05" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>一般的餘數運算遇到負數可能會得到負的結果；算出來是負的就再加上 b，把它調回 0 到 b-1 之間。</div></details></article></div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會依題目要求<strong>控制輸出格式</strong>，例如補零、固定小數位數。</li><li>會先用條件判斷擋下<strong>會出錯的計算</strong>，例如除以 0。</li><li>知道負數取餘數時可能出現負的結果，並會把它調整到正確範圍。</li></ul>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>程式算出正確的數字還不夠，還要<strong>用題目要求的樣子</strong>說出來，也要能應付特殊的輸入。這個知識點整理三種常見狀況：</p>
+<div class="table-scroll"><table><thead><tr><th>狀況</th><th>例子</th><th>處理方法</th></tr></thead><tbody><tr><td>格式要固定</td><td>5 要輸出成 05；85 要輸出成 85.00</td><td>自己判斷，補上缺的 0</td></tr><tr><td>計算可能出錯</td><td>除數是 0</td><td>先判斷，是 0 就不要做除法</td></tr><tr><td>平台行為不同</td><td>−3 除以 5 的餘數</td><td>用一個兩邊都適用的公式</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 先列出「特殊情況」再寫程式</div><p>讀完題目後，先想一想：什麼樣的輸入會讓答案變得不一樣？例如小於 10 的數字、剛好是整數的平均、除數是 0、負數。把這些情況各試一次，最容易找到錯誤。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>兩位數補零輸出</h3><span class="lv L1">L1｜基礎</span><span class="pid">M1-12-01</span></div><div class="problem-desc" style="white-space:pre-line">請你把一個介於0到99之間的整數，輸出成固定兩位數的格式：如果數字小於10，前面要補一個0（例如5要輸出成05）；如果數字是兩位數，直接輸出即可（例如23輸出23）。
+
+第一行輸入一個介於0到99之間的整數N</div><dl class="io"><dt>輸入</dt><dd>N（0~99）</dd><dt>輸出</dt><dd>補零後的兩位數字串</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>05</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>23</pre></div><div class="sample-row"><div class="k">輸出</div><pre>23</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-01" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個 0 到 99 的整數 N。</li><li><strong>輸出</strong>：固定兩位數。小於 10 前面補 0，例如 5 → 05。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問並等待 → N
+如果 N ＜ 10：
+    說出 （「0」接上 N）
+否則：
+    說出 N</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><div class="table-scroll"><table><thead><tr><th>N</th><th>N ＜ 10？</th><th>輸出</th></tr></thead><tbody><tr><td>5</td><td>是</td><td>05</td></tr><tr><td>0</td><td>是</td><td>00</td></tr><tr><td>23</td><td>否</td><td>23</td></tr></tbody></table></div></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，「0」和 N 是用「字串組合」接起來的，這樣才會得到文字「05」。如果用數學的「＋」，0 ＋ 5 只會得到 5。</p></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>負數的正確餘數計算</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-12-05</span></div><div class="problem-desc" style="white-space:pre-line">請你計算a除以b的餘數，餘數必須維持在0到b-1之間（即使a是負數，也要輸出這個範圍內正確的餘數，不能直接用一般的取餘數運算導致出現負的餘數）。（b保證是正整數）
+
+第一行輸入a b（空白分隔）</div><dl class="io"><dt>輸入</dt><dd>a b</dd><dt>輸出</dt><dd>0到b-1之間的正確餘數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>-3 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-05" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：兩個整數 a、b（b 是正整數）。</li><li><strong>輸出</strong>：a 除以 b 的餘數，而且一定要在 0 到 b−1 之間。</li></ul></div></details>
+<details class="step"><summary>第 2 步：發現問題：兩個平台的餘數不一樣</summary><div class="step-body"><p>數學上 −3 ＝（−1）× 5 ＋ 2，所以 −3 除以 5 的餘數應該是 2。但是：</p>
+<div class="table-scroll"><table><thead><tr><th>平台</th><th>−3 除以 5 的餘數</th></tr></thead><tbody><tr><td>Blockly</td><td>−3（負的，不在 0～4 之間）</td></tr><tr><td>Scratch</td><td>2（已經自動調整成正的）</td></tr></tbody></table></div></div></details>
+<details class="step"><summary>第 3 步：用一個兩邊都適用的公式</summary><div class="step-body"><p>先算一次餘數，加上 b 讓它變成正的，再算一次餘數，把超過的部分去掉：</p>
+<pre class="code">詢問並等待 → a
+詢問並等待 → b
+說出 （（a 除以 b 的餘數）＋ b）除以 b 的餘數</pre>
+<p>用範例驗證：</p>
+<div class="table-scroll"><table><thead><tr><th>a</th><th>b</th><th>a 除以 b 的餘數（Blockly）</th><th>＋ b</th><th>再除以 b 的餘數</th></tr></thead><tbody><tr><td>−3</td><td>5</td><td>−3</td><td>2</td><td>2</td></tr><tr><td>7</td><td>5</td><td>2</td><td>7</td><td>2</td></tr><tr><td>−10</td><td>5</td><td>0</td><td>5</td><td>0</td></tr></tbody></table></div>
+<p>不管 a 是正的、負的還是剛好整除，答案都正確；在 Scratch 上用這個公式也一樣正確。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，範例答案就是這一行公式。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>只加一次 b</strong>：a 是正數時，例如 7 除以 5 餘 2，加上 5 變成 7，答案就錯了，所以最後還要再取一次餘數。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 平均分數到小數點後兩位 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">請你計算N筆分數的平均值，輸出到小數點後兩位（四捨五入），即使結果剛好是整數，也要顯示到小數點後兩位（例如平均剛好80分要輸出80.00）。
+<div class="focus"><b>挑戰重點：</b>平均要輸出到小數點後兩位，而且 85 要輸出「85.00」。一種做法：把平均 × 100 後四捨五入（得到 8500），整數部分是「÷ 100 無條件捨去」，小數部分是「除以 100 的餘數」；小數部分如果小於 10，前面要補一個 0（和示範 M1-12-01 同樣的補零技巧），最後用「字串組合」接成「整數.小數」。</div><div class="problem-desc" style="white-space:pre-line">請你計算N筆分數的平均值，輸出到小數點後兩位（四捨五入），即使結果剛好是整數，也要顯示到小數點後兩位（例如平均剛好80分要輸出80.00）。
 
 第一行輸入N
 
@@ -47,15 +76,20 @@
 輸出平均值，格式為小數點後兩位。</div><dl class="io"><dt>輸入</dt><dd>N、N個分數</dd><dt>輸出</dt><dd>平均值（小數點後兩位）</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
 80 90 70 100</pre></div><div class="sample-row"><div class="k">輸出</div><pre>85.00</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-03" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先四捨五入到小數兩位；如果結果是整數或只有一位小數，要自己補上「0」，湊滿兩位。</div></details></details>
 <details class="extension"><summary>🚀 除以零的例外處理 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">請你計算兩個整數a除以b的結果，並輸出到小數點後兩位。但是b有可能是0，這時候不能真的做除法（會出錯），請改成輸出「無法計算」。
+<div class="focus"><b>挑戰重點：</b>先判斷 b 是不是 0：是 0 就說出「無法計算」，不要做除法；不是 0 才計算 a ÷ b，並用上一題的方法輸出到小數點後兩位。</div><div class="problem-desc" style="white-space:pre-line">請你計算兩個整數a除以b的結果，並輸出到小數點後兩位。但是b有可能是0，這時候不能真的做除法（會出錯），請改成輸出「無法計算」。
 
 第一行輸入a b（空白分隔）
 
 如果b不是0，輸出a除以b的結果（小數點後兩位）；如果b是0，輸出「無法計算」。</div><dl class="io"><dt>輸入</dt><dd>a b</dd><dt>輸出</dt><dd>除法結果（小數點後兩位）或「無法計算」</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2.50</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>無法計算</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-04" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先判斷 b 是不是 0，是 0 就輸出「無法計算」，不要真的去做除法。</div></details></details>
 <details class="extension"><summary>🚀 金額千分位輸出 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">請你把一個金額數字，輸出成加上千分位逗號的格式（從個位數往左，每三位加一個逗號，例如1234567要輸出成1,234,567）。金額保證是不含小數的正整數。
+<div class="focus"><b>挑戰重點：</b>把金額當成文字，一個字元一個字元接到結果後面。每接一個字元，就算一下<strong>後面還剩幾位</strong>：剩下的位數大於 0，而且是 3 的倍數時，就接一個逗號。例如 1234567：接完 1 還剩 6 位，接逗號；接完 4 還剩 3 位，接逗號。</div><div class="problem-desc" style="white-space:pre-line">請你把一個金額數字，輸出成加上千分位逗號的格式（從個位數往左，每三位加一個逗號，例如1234567要輸出成1,234,567）。金額保證是不含小數的正整數。
 
 第一行輸入一個正整數金額amount</div><dl class="io"><dt>輸入</dt><dd>amount（正整數）</dd><dt>輸出</dt><dd>加上千分位逗號的金額字串</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>1234567</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1,234,567</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-02" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從個位數往左數，每三位加一個逗號。可以先算出第一段有幾位數，再決定逗號要放在哪裡。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用條件判斷加字串組合，做出補零的輸出。</li><li>我會在做除法前，先判斷除數是不是 0。</li><li>我知道 Blockly 和 Scratch 的負數餘數不一樣，也會用通用公式得到正確答案。</li><li>寫完程式後，我會刻意用特殊的輸入測試。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k19.html"><div class="dir">← 上一個知識點</div><b>K19 堆疊與佇列</b></a></nav>
 

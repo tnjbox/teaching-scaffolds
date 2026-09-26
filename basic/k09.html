@@ -19,42 +19,90 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用「擂台法」一筆一筆比較，找出最大值和最小值。</li><li>會安排最大值、最小值的<strong>初始值</strong>，並知道為什麼用第一筆資料最安全。</li><li>會在同一個迴圈裡同時找最大值和最小值。</li><li>會只在清單的某一段範圍內找最大值。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（4 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>找最大值就像打擂台：先讓一個人站上擂台當「目前的冠軍」，接下來每個挑戰者都上來比一比，<strong>比冠軍大就換他當冠軍</strong>。所有人都比完，站在台上的就是最大值。</p>
+<pre class="code">最大值 設為 （初始值）
+每讀到一個數字：
+    如果 數字 ＞ 最大值：
+        最大值 設為 數字
+說出 最大值</pre>
+<div class="diagram">
+  <div class="cellrow">
+    <div class="cell">8</div>
+    <div class="cell">3</div>
+    <div class="cell max">12</div>
+    <div class="cell">7</div>
+    <div class="cell">10</div>
+  </div>
+  <div class="pointer">目前的冠軍：8 → 8 → 12 → 12 → 12</div>
+  <div class="caption">只有遇到比冠軍大的數字，冠軍才會換人</div>
+</div>
+<p><strong>初始值要設多少？</strong> 有兩種常見做法：</p>
+<div class="table-scroll"><table><thead><tr><th>做法</th><th>最大值的初始值</th><th>優點</th><th>要注意</th></tr></thead><tbody><tr><td>用第一筆資料</td><td>第 1 個數字</td><td>一定正確</td><td>迴圈要從第 2 個開始比</td></tr><tr><td>用一個極端的數</td><td>例如 −999999</td><td>寫法簡單，迴圈從第 1 個開始</td><td>資料如果比這個數還小就會出錯</td></tr></tbody></table></div>
+<p>找最小值的方法完全一樣，只要把「＞」換成「＜」，極端的初始值換成很大的數（例如 999999）。</p>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>找最大值</h3><span class="lv L2">L2｜進階</span><span class="pid">EXT01-001</span></div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請找出其中最大的數字。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出一個整數，代表最大值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+8 3 12 7 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-03-MinMax" data-task="EXT01-001" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：N，接著 N 個整數。</li><li><strong>輸出</strong>：最大的數字。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問並等待 → N
+最大值 設為 −999999
+重複 N 次：
+    詢問並等待 → 數字
+    如果 數字 ＞ 最大值：
+        最大值 設為 數字
+說出 最大值</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>資料「8 3 12 7 10」：</p>
+<div class="table-scroll"><table><thead><tr><th>讀到的數字</th><th>比最大值大嗎？</th><th>最大值</th></tr></thead><tbody><tr><td>開始前</td><td>－</td><td>−999999</td></tr><tr><td>8</td><td>是</td><td>8</td></tr><tr><td>3</td><td>否</td><td>8</td></tr><tr><td>12</td><td>是</td><td>12</td></tr><tr><td>7</td><td>否</td><td>12</td></tr><tr><td>10</td><td>否</td><td>12</td></tr></tbody></table></div>
+<p>輸出 12。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，範例答案用的是「極端的初始值」做法（−999999），所以不需要清單，邊讀邊比就可以。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>最大值的初始值設成 0</strong>：如果資料全部是負數（例如 −5、−2、−9），最大值會停在 0，答案就錯了。</li><li><strong>比較符號寫反</strong>：寫成「數字 ＜ 最大值 就更新」，找到的會是最小值。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（3 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>找最大值</h3><span class="lv L2">L2｜進階</span><span class="pid">EXT01-001</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請找出其中最大的數字。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出一個整數，代表最大值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
-8 3 12 7 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B3-03-MinMax" data-task="EXT01-001" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先假設第 1 個數字是最大值，再從第 2 個開始逐一比較，遇到更大的就更新。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>最大最小差距</h3><span class="lv L2">L2｜進階</span><span class="pid">EXT01-003</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請找出最大值與最小值，並計算兩者差距。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出三個整數，依序為最大值、最小值、差距，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>最大最小差距</h3><span class="lv L2">L2｜進階</span><span class="pid">EXT01-003</span></div><div class="focus"><b>這題多了什麼：</b>在同一個迴圈裡放<strong>兩個</strong>「如果」：一個負責更新最大值，一個負責更新最小值。注意兩個「如果」是分開的，不要寫成「如果…否則…」，因為第一個數字可能同時需要更新兩者。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請找出最大值與最小值，並計算兩者差距。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出三個整數，依序為最大值、最小值、差距，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 8 3 12 7 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12 3 9</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B3-03-MinMax" data-task="EXT01-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>同一個迴圈裡同時更新最大值和最小值，最後再相減。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>單筆資料時的最大最小值</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-12-06</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你找出N筆分數中的最大值與最小值，並依序輸出。</div><dl class="io"><dt>輸入</dt><dd>N、N個分數</dd><dt>輸出</dt><dd>最大值 最小值</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>1
+<article class="practice"><div class="problem-head"><h3>單筆資料時的最大最小值</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-12-06</span></div><div class="focus"><b>這題多了什麼：</b>這題只有<strong>一筆</strong>資料，最大值和最小值都應該是它自己。範例答案用的是「第一筆資料當初始值」的做法：先把資料存進清單，最大值和最小值都設為第 1 項，再從第 2 項開始比。只有一筆資料時，迴圈一次都不用跑，答案也是對的。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你找出N筆分數中的最大值與最小值，並依序輸出。</div><dl class="io"><dt>輸入</dt><dd>N、N個分數</dd><dt>輸出</dt><dd>最大值 最小值</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>1
 88</pre></div><div class="sample-row"><div class="k">輸出</div><pre>88 88</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B3-03-MinMax" data-task="M1-12-06" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>只有一筆資料時，最大值和最小值都是它自己。如果初始值用第 1 筆資料，就不會出錯。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>區間最大值</h3><span class="lv L2">L2｜進階</span><span class="pid">EXT01-008</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，以及查詢區間 L 到 R，請找出第 L 個到第 R 個數字中的最大值。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入兩個整數 L 與 R。保證 1 &lt;= L &lt;= R &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表區間最大值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+<article class="practice"><div class="problem-head"><h3>區間最大值</h3><span class="lv L2">L2｜進階</span><span class="pid">EXT01-008</span></div><div class="focus"><b>這題多了什麼：</b>找最大值的方法不變，只是範圍變成第 L 項到第 R 項。先把資料存進清單，最大值的初始值用<strong>第 L 項</strong>，迴圈從第 L＋1 項比到第 R 項。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，以及查詢區間 L 到 R，請找出第 L 個到第 R 個數字中的最大值。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入兩個整數 L 與 R。保證 1 &lt;= L &lt;= R &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表區間最大值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
 5 8 3 12 7 10
 2 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B3-03-MinMax" data-task="EXT01-008" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>找最大值的方法不變，只是迴圈改成從第 L 項跑到第 R 項，初始值也要用第 L 項。</div></details></article></div>
 </div></details>
 
-<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 第二高分 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">給定 N 位學生的成績，請找出最高分與第二高分。保證至少有兩種不同分數。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數代表成績。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為最高分與第二高分，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+<div class="focus"><b>挑戰重點：</b>要同時記住「第一名」和「第二名」。遇到比第一名大的數字時，原本的第一名要先<strong>退位</strong>成第二名，新數字再當第一名。另外，和第一名一樣大的分數不能算成第二名（範例有兩個 95，第二高分是 88）。</div><div class="problem-desc" style="white-space:pre-line">給定 N 位學生的成績，請找出最高分與第二高分。保證至少有兩種不同分數。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數代表成績。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為最高分與第二高分，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
 70 95 80 95 60 88</pre></div><div class="sample-row"><div class="k">輸出</div><pre>95 88</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-03-MinMax" data-task="EXT01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>同時記住「第一名」和「第二名」：遇到比第一名大的數，原本的第一名要退成第二名。分數相同的情況也要想清楚。</div></details></details>
 <details class="extension"><summary>🚀 班服投票 <span class="lv L3">L3｜挑戰</span></summary>
-<div class="problem-desc" style="white-space:pre-line">可愛國小601班要製作紀念班服，本次班服設計共有3個款式，分別編號為1、2、3。
+<div class="focus"><b>挑戰重點：</b>先用三個計數變數算出 1、2、3 號各得幾票，再用擂台法找出最高票數。最後還要數一數：有幾款的票數等於最高票？超過一款就輸出「請重新投票」。</div><div class="problem-desc" style="white-space:pre-line">可愛國小601班要製作紀念班服，本次班服設計共有3個款式，分別編號為1、2、3。
 每位同學可在選票上寫下自己選擇的班服款式編號，最後以得票數最高者為班服樣式。
 請先計算每款班服的得票數（依1→3順序），並輸出最高票的班服編號。
 若有兩款或以上的票數相同且為最高票，則輸出：請重新投票</div><dl class="io"><dt>輸入</dt><dd>第一行：整數 N，代表投票數。
 第二行：N 個整數（介於 1~3），代表每張選票的班服設計編號。</dd><dt>輸出</dt><dd>若票數最高者唯一，輸出該款式編號；若最高票出現同票數，輸出「請重新投票」。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8
 1 2 2 3 2 1 3 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6
 1 2 3 1 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>請重新投票</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-03-MinMax" data-task="TYTN-05" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先用三個計數變數算出每一款的票數，再找出最高票；最高票如果有兩款以上相同，要輸出「請重新投票」。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我能用擂台法說明找最大值的過程。</li><li>我知道初始值用第一筆資料最安全，也知道用 0 當初始值可能出錯的情況。</li><li>我會在同一個迴圈裡同時找最大值和最小值。</li><li>我會只在清單的某一段範圍裡找最大值。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k08.html"><div class="dir">← 上一個知識點</div><b>K08 清單累計與條件統計</b></a><a class="next" href="k10.html"><div class="dir">下一個知識點 →</div><b>K10 位置追蹤與線性搜尋</b></a></nav>
 

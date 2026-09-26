@@ -19,39 +19,37 @@
   </div>
 </header>
 <main class="page md">
-<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用計數迴圈，讓一個變數（例如 i）從起點數到終點。</li><li>會設定迴圈的<strong>起點、終點、間隔</strong>，做出正數、倒數、跳著數。</li><li>會在迴圈裡用 i 做計算，例如 i × 10。</li><li>會把兩段迴圈接在一起。</li></ul>
+</div></details>
 
-<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（6 題）</h2></summary><div class="fold-body">
-<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
-<div class="practice-list"><article class="practice"><div class="problem-head"><h3>從1數到N</h3><span class="lv L1">L1｜基礎</span><span class="pid">JSL01-D01</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">輸入一個正整數 N，請依序輸出 1 到 N 的所有整數，每個數字各佔一行。本題用來示範最基本的計數迴圈</div><dl class="io"><dt>輸入</dt><dd>第一行：一個正整數 N。</dd><dt>輸出</dt><dd>輸出 1 到 N，每個數字各佔一行。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>如果要說出 1 到 100，不需要寫 100 個「說出」。計數迴圈會幫你準備一個變數 i，讓它從起點開始，每一輪增加一個間隔，直到超過終點為止：</p>
+<pre class="code">i 從 起點 數到 終點，每次增加 間隔：
+    （每一輪要做的事，可以用到 i）</pre>
+<div class="table-scroll"><table><thead><tr><th>想要的數列</th><th>起點</th><th>終點</th><th>間隔</th></tr></thead><tbody><tr><td>1 2 3 4 5</td><td>1</td><td>5</td><td>1</td></tr><tr><td>1 3 5 7</td><td>1</td><td>7</td><td>2</td></tr><tr><td>5 4 3 2 1 0</td><td>5</td><td>0</td><td>往下數 1</td></tr><tr><td>2 4 6 8 10</td><td>2</td><td>10</td><td>2</td></tr></tbody></table></div>
+<div class="note"><div class="tag">📌 在 Blockly 和 Scratch 怎麼寫？</div><ul><li><strong>Blockly</strong>：用「循環計數 i 從（起點）到（終點）每次增加（間隔）」積木，一個積木就搞定。</li><li><strong>Scratch</strong>：沒有這個積木，要自己組：先「變數 i 設為（起點）」，再用「重複直到 i ＞ 終點」，並在迴圈裡的<strong>最後</strong>放「變數 i 改變（間隔）」。按「載入範例」就能看到這種寫法。</li></ul></div>
+<div class="tip"><div class="tag">💡 每輪說出一個數字就可以</div><p>題目要求「數字之間用空白隔開」時，平台比對答案會把空白和換行當成一樣，所以在迴圈裡每一輪「說出」一個數字，也會被判定正確。範例答案有時會把數字接成一行再一次說出，兩種寫法都可以。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（2 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>從1數到N</h3><span class="lv L1">L1｜基礎</span><span class="pid">JSL01-D01</span></div><div class="problem-desc" style="white-space:pre-line">輸入一個正整數 N，請依序輸出 1 到 N 的所有整數，每個數字各佔一行。本題用來示範最基本的計數迴圈</div><dl class="io"><dt>輸入</dt><dd>第一行：一個正整數 N。</dd><dt>輸出</dt><dd>輸出 1 到 N，每個數字各佔一行。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1
 2
-3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="JSL01-D01" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用計數迴圈讓變數 i 從 1 跑到 N，每一輪輸出 i。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>九九乘法</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-07-0</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請寫一個程式，輸入一個整數 N，輸出 1 到 9 的乘法表結果。
-例如輸入 3，輸出 1x3=3, 2x3=6, …, 9x3=27。
-
-程式輸出3 6 9 12 15 18 21 24 27
-
-這樣的練習能讓你熟悉迴圈的運用。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 6 9 12 15 18 21 24 27</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6 12 18 24 30 36 42 48 54</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="A-07-0" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>i 從 1 跑到 9，每一輪輸出 i×N，數字之間用空白隔開。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>跳石過河-間隔計數</h3><span class="lv L1">L1｜基礎</span><span class="pid">count-002</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者來到了一條充滿鱷魚的河流，河面上有一排標有號碼的石頭（1, 2, 3, 4...）。為了安全，勇者決定施展「輕功」，從第 1 塊石頭開始，每次跳躍都跳過 1 個石頭（也就是每次號碼 +2），直到超過或剛好到達指定的目標號碼 N 為止。請印出勇者踩到的所有石頭號碼。
-輸入格式
-第一行：輸入一個整數 N ，代表河岸對面的目標號碼。 N 為大於 0 的整數
-程式依照順序輸出勇者踩到的石頭編號，從 1 開始，每次加 2。
-數字之間以空白隔開。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 7</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="count-002" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把迴圈的「間隔」設成 2，就會輸出 1、3、5……</div></details></article>
-<article class="practice"><div class="problem-head"><h3>火箭發射倒數</h3><span class="lv L1">L1｜基礎</span><span class="pid">count-003</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者要搭乘火箭前往太空站。火箭發射控制中心需要一個倒數計時器。請你設計一個程式，輸入開始倒數的秒數 S，程式會從 S 開始倒數，每次減少 1，直到數到 0 為止。
-輸入格式
-第一行：輸入一個整數 S ，代表倒數的起始秒數。
-程式依照順序輸出S到0的編號，每次減1。
-數字之間以空白隔開。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 4 3 2 1 0</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>7 6 5 4 3 2 1 0</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="count-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>迴圈可以倒著數：從 S 開始，每次減 1，直到 0。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>萬能傳送門</h3><span class="lv L1">L1｜基礎</span><span class="pid">count-006</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者發現了一個萬能傳送門。這個傳送門可以讓勇者自由設定「起點」、「終點」以及每次傳送的「跨度（距離）」。 請設計一個程式，讀取三個數字，分別代表：起點 (Start)、終點 (End)、跨度 (Step)。 請依序印出傳送過程中經過的所有座標點。
+3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="JSL01-D01" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個正整數 N。</li><li><strong>輸出</strong>：1 到 N，每個數字一行。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問並等待 → N
+i 從 1 數到 N，每次增加 1：
+    說出 i</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>N ＝ 3 時：</p>
+<div class="table-scroll"><table><thead><tr><th>第幾輪</th><th>i</th><th>說出</th></tr></thead><tbody><tr><td>第 1 輪</td><td>1</td><td>1</td></tr><tr><td>第 2 輪</td><td>2</td><td>2</td></tr><tr><td>第 3 輪</td><td>3</td><td>3</td></tr><tr><td>結束</td><td>4（已經超過 3）</td><td>－</td></tr></tbody></table></div></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，看看迴圈的終點放的是變數「N」，而不是固定的數字 3。這樣不管輸入多少，程式都能正確數到 N。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>終點寫成固定數字</strong>：範例會過，其他測資就錯了。</li><li><strong>「說出」放在迴圈外面</strong>：迴圈跑完後只說一次，只會看到最後一個數字。</li></ul></div></div></details>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>萬能傳送門</h3><span class="lv L1">L1｜基礎</span><span class="pid">count-006</span></div><div class="problem-desc" style="white-space:pre-line">勇者發現了一個萬能傳送門。這個傳送門可以讓勇者自由設定「起點」、「終點」以及每次傳送的「跨度（距離）」。 請設計一個程式，讀取三個數字，分別代表：起點 (Start)、終點 (End)、跨度 (Step)。 請依序印出傳送過程中經過的所有座標點。
 輸入格式
 第一行：輸入一個整數 M ，代表起點。
 第二行：輸入一個整數 N ，代表終點。
@@ -61,10 +59,47 @@
 10
 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 4 6 8 10</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
 15
-3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 8 11 14</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="count-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>起點、終點、間隔三個數字都由輸入決定，直接放進計數迴圈的三個欄位。</div></details></article>
-<article class="practice"><div class="problem-head"><h3>登山冒險</h3><span class="lv L2">L2｜進階</span><span class="pid">count-012</span></div>
-<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">這是一題大魔王關卡！勇者要爬一座高山，然後再下山。
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 8 11 14</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="count-006" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：三個數字：起點 M、終點 N、跨度 O。</li><li><strong>輸出</strong>：從起點開始，每次加跨度，一直到不超過終點的所有數字。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把三個輸入放進迴圈</summary><div class="step-body"><p>這題就是把計數迴圈的三個設定，全部改成由輸入決定：</p>
+<pre class="code">詢問並等待 → M（起點）
+詢問並等待 → N（終點）
+詢問並等待 → O（跨度）
+i 從 M 數到 N，每次增加 O：
+    說出 i</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>M ＝ 2、N ＝ 10、O ＝ 2：i 依序是 2、4、6、8、10，下一個 12 超過 10 就停。輸出「2 4 6 8 10」。</p>
+<p>如果 M ＝ 1、N ＝ 10、O ＝ 4：i 依序是 1、5、9，下一個 13 超過 10 就停，所以終點 10 本身不會出現。</p></div></details>
+<details class="step"><summary>第 4 步：對照範例答案</summary><div class="step-body"><p>按「載入範例」，範例答案先把起點放進「結果」，再從「起點＋跨度」開始，把後面的數字一個一個接上去，最後一次說出。你也可以用更簡單的寫法：迴圈裡每一輪直接說出 i。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>三個輸入放錯位置</strong>：例如把跨度放進終點，會輸出完全不同的數列。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（4 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>九九乘法</h3><span class="lv L1">L1｜基礎</span><span class="pid">A-07-0</span></div><div class="focus"><b>這題多了什麼：</b>迴圈的終點是固定的 9，但每一輪要說出的不是 i，而是 <strong>i × N</strong>。這是第一次在迴圈裡用 i 做計算。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請寫一個程式，輸入一個整數 N，輸出 1 到 9 的乘法表結果。
+例如輸入 3，輸出 1x3=3, 2x3=6, …, 9x3=27。
+
+程式輸出3 6 9 12 15 18 21 24 27
+
+這樣的練習能讓你熟悉迴圈的運用。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 6 9 12 15 18 21 24 27</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6 12 18 24 30 36 42 48 54</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="A-07-0" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>i 從 1 跑到 9，每一輪輸出 i×N，數字之間用空白隔開。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>跳石過河-間隔計數</h3><span class="lv L1">L1｜基礎</span><span class="pid">count-002</span></div><div class="focus"><b>這題多了什麼：</b>間隔設成 2，從 1 開始數到 N。例如 N ＝ 6 時，1、3、5 之後的 7 已經超過 6，所以停在 5。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者來到了一條充滿鱷魚的河流，河面上有一排標有號碼的石頭（1, 2, 3, 4...）。為了安全，勇者決定施展「輕功」，從第 1 塊石頭開始，每次跳躍都跳過 1 個石頭（也就是每次號碼 +2），直到超過或剛好到達指定的目標號碼 N 為止。請印出勇者踩到的所有石頭號碼。
+輸入格式
+第一行：輸入一個整數 N ，代表河岸對面的目標號碼。 N 為大於 0 的整數
+程式依照順序輸出勇者踩到的石頭編號，從 1 開始，每次加 2。
+數字之間以空白隔開。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 7</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="count-002" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把迴圈的「間隔」設成 2，就會輸出 1、3、5……</div></details></article>
+<article class="practice"><div class="problem-head"><h3>火箭發射倒數</h3><span class="lv L1">L1｜基礎</span><span class="pid">count-003</span></div><div class="focus"><b>這題多了什麼：</b>這次要<strong>倒著數</strong>：從 S 數到 0。Blockly 的計數迴圈只要起點比終點大，就會自動往下數；Scratch 則要把條件改成「重複直到 i ＜ 0」，並用「變數 i 改變 −1」讓 i 每次減 1。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者要搭乘火箭前往太空站。火箭發射控制中心需要一個倒數計時器。請你設計一個程式，輸入開始倒數的秒數 S，程式會從 S 開始倒數，每次減少 1，直到數到 0 為止。
+輸入格式
+第一行：輸入一個整數 S ，代表倒數的起始秒數。
+程式依照順序輸出S到0的編號，每次減1。
+數字之間以空白隔開。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 4 3 2 1 0</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>7 6 5 4 3 2 1 0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="count-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>迴圈可以倒著數：從 S 開始，每次減 1，直到 0。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>登山冒險</h3><span class="lv L2">L2｜進階</span><span class="pid">count-012</span></div><div class="focus"><b>這題多了什麼：</b>把兩段迴圈接在一起：第一段從 1 數到 N（上山），第二段從 N−1 倒數到 1（下山）。注意山頂的 N 只能出現一次，所以第二段要從 N−1 開始。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">這是一題大魔王關卡！勇者要爬一座高山，然後再下山。
 這座山的高度是 N。勇者必須從 1 爬到 N，到達山頂後，再從 N-1 走回 1。
 請依序列出勇者經過的高度。。
 輸入格式
@@ -72,6 +107,11 @@
 程式輸出一個序列：1 2 3 ...N N-1 ...1。
 序列數字以空白間隔</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 3 4 5 4 3 2 1</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 3 4 3 2 1</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B2-01-CountingLoop" data-task="count-012" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>拆成兩段：先用一個迴圈從 1 數到 N，再用另一個迴圈從 N-1 倒數到 1。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會設定計數迴圈的起點、終點、間隔。</li><li>我知道終點要放變數（例如 N），不能放固定數字。</li><li>我會在迴圈裡用 i 做計算，而不只是說出 i。</li><li>我會用兩段迴圈組合出比較複雜的數列。</li></ul>
 </div></details>
 <nav class="pager"><a class="prev" href="k04.html"><div class="dir">← 上一個知識點</div><b>K04 條件判斷：多重分支與邏輯運算</b></a><a class="next" href="k06.html"><div class="dir">下一個知識點 →</div><b>K06 累加與累乘</b></a></nav>
 
