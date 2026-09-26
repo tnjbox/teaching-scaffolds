@@ -106,23 +106,32 @@ i 從 2 數到 5：
 <details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（1 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
 <div class="practice-list"><article class="practice"><div class="problem-head"><h3>雙卡同步交換</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-007</span></div><div class="focus"><b>這題多了什麼：</b>把 K16 的清單交換做<strong>兩次</strong>：姓名清單交換第 P、Q 項，分數清單也交換第 P、Q 項。</p>
-<p>注意這題的實際輸入格式和題目範例不同：實際測資在姓名那一行、分數那一行、位置那一行<strong>前面各多一個數字</strong>（5、5、2），代表接下來有幾筆資料，要先讀掉它們。範例答案就是這樣讀的，按「載入範例」可以看到。</div>
+<p>注意輸入格式：姓名、分數、位置這三行前面，各有一個數字（5、5、2）告訴你接下來有幾筆資料。先讀這個數字，再用「重複」讀入對應的筆數，這也是很多題目常見的輸入方式。</div>
 <details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在資訊課中，老師準備了兩排卡片，
 第一排是學生姓名，第二排是對應的分數。
 每一個位置上的姓名與分數是一組資料，必須一起行動。
 老師指定兩個位置，小華需要把這兩個位置上的資料進行交換。
 交換時，姓名與分數都必須一起交換，其他位置保持不變。
-請你寫一個程式，完成指定位置的「連動清單交換」任務</div><dl class="io"><dt>輸入</dt><dd>第1行：5 個姓名（以空格隔開）。
-第2行：5 個整數，代表對應的分數（以空格隔開）。
-第3行：兩個整數 P、Q，代表要交換的位置（1 ≤ P, Q ≤ 5）。</dd><dt>輸出</dt><dd>第1行：交換完成後的 5 個姓名（以空格隔開）。
-第2行：交換完成後的 5 個分數（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>Amy Bob Carl Dora Eric
+請你寫一個程式，完成指定位置的「連動清單交換」任務</div><dl class="io"><dt>輸入</dt><dd>第1行：一個整數 5，代表接下來有 5 個姓名。
+第2行：5 個姓名（以空格隔開）。
+第3行：一個整數 5，代表接下來有 5 個分數。
+第4行：5 個整數，代表對應的分數（以空格隔開）。
+第5行：一個整數 2，代表接下來有 2 個位置。
+第6行：兩個整數 P、Q，代表要交換的位置（1 ≤ P, Q ≤ 5）。</dd><dt>輸出</dt><dd>第1行：交換完成後的 5 個姓名（以空格隔開）。
+第2行：交換完成後的 5 個分數（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+Amy Bob Carl Dora Eric
+5
 80 90 70 85 60
+2
 2 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Amy Dora Carl Bob Eric
-80 85 70 90 60</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>Tom May John Lily Ken
+80 85 70 90 60</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+Tom May John Lily Ken
+5
 75 88 92 60 85
+2
 1 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Ken May John Lily Tom
 85 88 92 60 75</pre></div></div></div></details>
-<div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>姓名清單和分數清單的同一個位置代表同一個人，兩個清單要做完全一樣的交換。注意：實際輸入在姓名、分數、位置三行前面，各有一個代表筆數的數字（5、5、2），要先讀掉。</div></details></article></div>
+<div class="card-actions"><a class="btn" data-course="B6-03-ParallelLists" data-task="seclect-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>姓名清單和分數清單的同一個位置代表同一個人，兩個清單要做完全一樣的交換。輸入的第 1、3、5 行是筆數（5、5、2），記得先讀掉，再讀姓名、分數和位置。</div></details></article></div>
 </div></details>
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
