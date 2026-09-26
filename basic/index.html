@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="8 個單元、20 個知識點，每個知識點都有示範題帶你一步一步解，再用練習題把技巧練熟。">
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="basic.css?v=feb58388">
+<link rel="stylesheet" href="basic.css?v=7794050c">
 </head>
 <body style="--unit:#5b6fee">
 <header class="hero unit-hero">
@@ -15,7 +15,7 @@
     <div class="tier-badge">🗺️ 自主學習地圖</div>
     <h1>程式設計基礎・自主學習地圖</h1>
     <p class="hero-lead">8 個單元、20 個知識點，每個知識點都有示範題帶你一步一步解，再用練習題把技巧練熟。</p>
-    <div class="hero-actions"><div class="platform-switch" role="group" aria-label="選擇練習平台"><span class="label">練習平台</span><button type="button" data-platform="blockly" aria-pressed="true">Blockly</button><button type="button" data-platform="scratch" aria-pressed="false">Scratch</button></div></div>
+    <div class="hero-actions"><div class="platform-switch" role="group" aria-label="選擇練習平台"><span class="label">練習平台</span><button type="button" data-platform="blockly" aria-pressed="true">Blockly</button><button type="button" data-platform="scratch" aria-pressed="false">Scratch</button></div><nav class="hero-bookmarks" aria-label="頁內書籤"><a href="#map-u1" title="程式基礎">U1</a><a href="#map-u2" title="迴圈">U2</a><a href="#map-u3" title="清單">U3</a><a href="#map-u4" title="字串">U4</a><a href="#map-u5" title="數學規則">U5</a><a href="#map-u6" title="排序">U6</a><a href="#map-u7" title="資料結構">U7</a><a href="#map-u8" title="輸出格式與例外處理">U8</a><a class="adv" href="#advanced">縣市題庫</a></nav></div>
   </div>
 </header>
 <main class="page md">
@@ -31,15 +31,16 @@
   <h2 class="section-title"><span class="num">2</span>學習地圖</h2>
   <p>共 8 個單元、20 個知識點、94 題。題目標有「延伸」的是挑戰題，可以學完核心題之後再做。</p>
   <div class="roadmap">
-<div class="stage"><a class="unit-card" href="u1.html" style="--unit:#2c9a6b"><div class="unit-top"><span class="unit-icon">🌱</span><div><div class="unit-id">U1</div><h3>程式基礎</h3></div></div><p>讓程式讀進資料、算出結果、做出判斷</p><div class="kp-mini"><span>K01 輸入與輸出</span><span>K02 變數與四則運算</span><span>K03 條件判斷：二選一</span><span>K04 條件判斷：多重分支與邏輯運算</span></div></a></div>
-<div class="connector">↓</div><div class="stage"><a class="unit-card" href="u2.html" style="--unit:#5b6fee"><div class="unit-top"><span class="unit-icon">🔁</span><div><div class="unit-id">U2</div><h3>迴圈</h3></div></div><p>讓程式重複做同一件事</p><div class="kp-mini"><span>K05 計數迴圈</span><span>K06 累加與累乘</span></div></a></div>
-<div class="connector">↓</div><div class="stage"><a class="unit-card" href="u3.html" style="--unit:#c5891a"><div class="unit-top"><span class="unit-icon">📋</span><div><div class="unit-id">U3</div><h3>清單</h3></div></div><p>一次處理一整串資料</p><div class="kp-mini"><span>K07 清單讀取與索引走訪</span><span>K08 清單累計與條件統計</span><span>K09 最大值與最小值</span><span>K10 位置追蹤與線性搜尋</span><span>K11 相鄰元素比較</span></div></a></div>
-<div class="connector">↓</div><div class="stage-note">這兩個單元可以依興趣選擇先後順序</div><div class="stage"><a class="unit-card" href="u4.html" style="--unit:#8b5cf6"><div class="unit-top"><span class="unit-icon">🔤</span><div><div class="unit-id">U4</div><h3>字串</h3></div></div><p>把文字拆開、檢查、重新組合</p><div class="kp-mini"><span>K12 字串存取與走訪</span><span>K13 字串統計與轉換</span></div></a><a class="unit-card" href="u5.html" style="--unit:#e8536b"><div class="unit-top"><span class="unit-icon">🧮</span><div><div class="unit-id">U5</div><h3>數學規則</h3></div></div><p>用餘數和迴圈解數學問題</p><div class="kp-mini"><span>K14 因數、倍數與質數</span><span>K15 位數拆解</span></div></a></div>
-<div class="connector">↓</div><div class="stage"><a class="unit-card" href="u6.html" style="--unit:#0e8fb0"><div class="unit-top"><span class="unit-icon">📶</span><div><div class="unit-id">U6</div><h3>排序</h3></div></div><p>把資料由小到大排好</p><div class="kp-mini"><span>K16 資料交換</span><span>K17 排序演算法</span><span>K18 平行清單連動處理</span></div></a></div>
-<div class="connector">↓</div><div class="stage"><a class="unit-card" href="u7.html" style="--unit:#6b7a90"><div class="unit-top"><span class="unit-icon">🧱</span><div><div class="unit-id">U7</div><h3>資料結構</h3></div></div><p>堆疊與佇列：資料進出的規則</p><div class="kp-mini"><span>K19 堆疊與佇列</span></div></a></div>
+<div class="stage"><a class="unit-card" id="map-u1" href="u1.html" style="--unit:#2c9a6b"><div class="unit-top"><span class="unit-icon">🌱</span><div><div class="unit-id">U1</div><h3>程式基礎</h3></div></div><p>讓程式讀進資料、算出結果、做出判斷</p><div class="kp-mini"><span>K01 輸入與輸出</span><span>K02 變數與四則運算</span><span>K03 條件判斷：二選一</span><span>K04 條件判斷：多重分支與邏輯運算</span></div></a></div>
+<div class="connector">↓</div><div class="stage"><a class="unit-card" id="map-u2" href="u2.html" style="--unit:#5b6fee"><div class="unit-top"><span class="unit-icon">🔁</span><div><div class="unit-id">U2</div><h3>迴圈</h3></div></div><p>讓程式重複做同一件事</p><div class="kp-mini"><span>K05 計數迴圈</span><span>K06 累加與累乘</span></div></a></div>
+<div class="connector">↓</div><div class="stage"><a class="unit-card" id="map-u3" href="u3.html" style="--unit:#c5891a"><div class="unit-top"><span class="unit-icon">📋</span><div><div class="unit-id">U3</div><h3>清單</h3></div></div><p>一次處理一整串資料</p><div class="kp-mini"><span>K07 清單讀取與索引走訪</span><span>K08 清單累計與條件統計</span><span>K09 最大值與最小值</span><span>K10 位置追蹤與線性搜尋</span><span>K11 相鄰元素比較</span></div></a></div>
+<div class="connector">↓</div><div class="stage-note">這兩個單元可以依興趣選擇先後順序</div><div class="stage"><a class="unit-card" id="map-u4" href="u4.html" style="--unit:#8b5cf6"><div class="unit-top"><span class="unit-icon">🔤</span><div><div class="unit-id">U4</div><h3>字串</h3></div></div><p>把文字拆開、檢查、重新組合</p><div class="kp-mini"><span>K12 字串存取與走訪</span><span>K13 字串統計與轉換</span></div></a><a class="unit-card" id="map-u5" href="u5.html" style="--unit:#e8536b"><div class="unit-top"><span class="unit-icon">🧮</span><div><div class="unit-id">U5</div><h3>數學規則</h3></div></div><p>用餘數和迴圈解數學問題</p><div class="kp-mini"><span>K14 因數、倍數與質數</span><span>K15 位數拆解</span></div></a></div>
+<div class="connector">↓</div><div class="stage"><a class="unit-card" id="map-u6" href="u6.html" style="--unit:#0e8fb0"><div class="unit-top"><span class="unit-icon">📶</span><div><div class="unit-id">U6</div><h3>排序</h3></div></div><p>把資料由小到大排好</p><div class="kp-mini"><span>K16 資料交換</span><span>K17 排序演算法</span><span>K18 平行清單連動處理</span></div></a></div>
+<div class="connector">↓</div><div class="stage"><a class="unit-card" id="map-u7" href="u7.html" style="--unit:#6b7a90"><div class="unit-top"><span class="unit-icon">🧱</span><div><div class="unit-id">U7</div><h3>資料結構</h3></div></div><p>堆疊與佇列：資料進出的規則</p><div class="kp-mini"><span>K19 堆疊與佇列</span></div></a></div>
   </div>
-  <div class="side-branch"><div class="side-head">🔀 支線單元：學完 U1 之後，可以隨時穿插學習</div><a class="unit-card" href="u8.html" style="--unit:#8a6d3b"><div class="unit-top"><span class="unit-icon">🛡️</span><div><div class="unit-id">U8</div><h3>輸出格式與例外處理</h3></div></div><p>讓答案格式正確、程式不出錯</p><div class="kp-mini"><span>K20 輸出格式與例外處理</span></div></a></div>
+  <div class="side-branch"><div class="side-head">🔀 支線單元：學完 U1 之後，可以隨時穿插學習</div><a class="unit-card" id="map-u8" href="u8.html" style="--unit:#8a6d3b"><div class="unit-top"><span class="unit-icon">🛡️</span><div><div class="unit-id">U8</div><h3>輸出格式與例外處理</h3></div></div><p>讓答案格式正確、程式不出錯</p><div class="kp-mini"><span>K20 輸出格式與例外處理</span></div></a></div>
 
+  <div id="advanced" class="anchor"></div>
   <h2 class="section-title"><span class="num">3</span>進階挑戰：114 學年縣市程式解題</h2>
   <p>學完基礎知識點之後，可以挑戰各縣市 114 學年度的程式解題題目。每個縣市都有國小、國中兩組題目，每組各有兩種模式，點按鈕會直接打開那一組的第 1 題。</p>
   <div class="adv-modes"><div class="adv-mode"><b>學習模式</b>可以按「載入範例」看範例答案，適合先練習、再對照。</div><div class="adv-mode contest"><b>競賽模式</b>和正式比賽一樣，沒有範例答案，只能靠自己寫出程式、按「系統評分」檢查。</div></div>
@@ -71,7 +72,8 @@
 
   <div class="footer">
     <div>程式設計基礎・自主學習地圖｜題目取自 YDWS 程式解題題庫（課程代碼 B1-01 ～ B8-01）</div>
-    <div class="source">練習平台：Blockly（BlocklyYdws）、Scratch（osep-judge）｜<a href="../index.html">YDWS 教學鷹架文件首頁</a></div>
+    <div class="source">練習平台：Blockly（BlocklyYdws）、Scratch（osep-judge）｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、圖解、示範解說）與 B 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；僅限參與共享的縣市師生基於教育目的使用，請勿轉載或公開散布。</p><p>練習平台使用的 Blockly（Apache License 2.0）與 Scratch／TurboWarp（GPL-3.0）程式碼，依其原本的授權釋出。Scratch 是 MIT 媒體實驗室 Scratch 團隊的專案，本網站與上述單位沒有合作或代言關係。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
   </div>
 </main>
 <script>window.BASIC_PLATFORMS={"blockly":{"label":"Blockly","url":"https://p2766602-beep.github.io/BlocklyYdws/"},"scratch":{"label":"Scratch","url":"https://p2766602-beep.github.io/osep-judge/editor.html"}};</script>

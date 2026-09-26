@@ -232,3 +232,16 @@ table.adv-table tbody th{text-align:left;font-weight:800;background:#fafbfe;colo
 .adv-none{color:var(--sub);}
 .adv-foot{font-size:13.5px;color:var(--sub);}
 @media print{.adv-btn{display:inline !important;background:none;color:var(--ink);padding:0;}}
+
+/* ---------- 首頁頁首的頁內書籤 ---------- */
+.hero-bookmarks{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.hero-bookmarks a{color:#fff;text-decoration:none;font-size:13.5px;font-weight:700;background:rgba(255,255,255,.16);border-radius:999px;padding:5px 12px;}
+.hero-bookmarks a:hover{background:rgba(255,255,255,.3);}
+.hero-bookmarks a.adv{background:rgba(255,255,255,.92);color:var(--unit);}
+.unit-card,.anchor{scroll-margin-top:16px;}
+
+/* ---------- 頁尾版權宣告 ---------- */
+.copyright{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;line-height:1.75;color:var(--sub);}
+.copyright p{margin:4px 0;}
+.copyright a{color:var(--sub);}
+@media print{.hero-bookmarks{display:none !important;}}
