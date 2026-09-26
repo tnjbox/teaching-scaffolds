@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>K04 條件判斷：多重分支與邏輯運算｜程式設計基礎自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="處理三種以上的結果，並用「且」「或」組合條件">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="basic.css">
+</head>
+<body style="--unit:#2c9a6b">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="u1.html">U1 程式基礎</a> › K04</div>
+    <div class="tier-badge">🌱 U1 程式基礎・知識點 K04</div>
+    <h1>條件判斷：多重分支與邏輯運算</h1>
+    <p class="hero-lead">處理三種以上的結果，並用「且」「或」組合條件</p>
+    <div class="hero-actions"><span class="code-chip">B1-04-MultiBranch<button type="button" data-copy="B1-04-MultiBranch">複製</button></span><div class="platform-switch" role="group" aria-label="選擇練習平台"><span class="label">練習平台</span><button type="button" data-platform="blockly" aria-pressed="true">Blockly</button><button type="button" data-platform="scratch" aria-pressed="false">Scratch</button></div></div>
+  </div>
+</header>
+<main class="page md">
+<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+
+<h2 class="section-title"><span class="num">1</span>練習題</h2>
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>比較大小</h3><span class="lv L2">L2｜進階</span><span class="pid">A-03-0</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在生活中常常會需要比較兩個數字誰比較大。
+
+請寫一個程式，輸入兩個整數，輸出較大的數字。
+
+如果兩個數字相同，就輸出「一樣大」。
+
+這樣的練習可以訓練你使用條件判斷。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8
+5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>8</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7
+7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>一樣大</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="A-03-0" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>有三種可能：第一個大、第二個大、一樣大，用「如果…否則如果…否則」分成三條路。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>溫度警示</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-005</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定目前溫度，請判斷天氣狀態。低於 18 度為 COLD，18 到 27 度為 OK，高於 27 度為 HOT。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 T，代表溫度。</dd><dt>輸出</dt><dd>依規則輸出 COLD、OK 或 HOT。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>HOT</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-005" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把溫度分成三段，想清楚 18 和 27 這兩個邊界值各屬於哪一段。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>成績等第</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-006</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個分數，請依分數輸出等第。90 分以上為 A，80 到 89 為 B，70 到 79 為 C，60 到 69 為 D，未滿 60 為 F。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 S，代表分數。</dd><dt>輸出</dt><dd>輸出一個字母，代表等第。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>86</pre></div><div class="sample-row"><div class="k">輸出</div><pre>B</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從最高的等第開始判斷（先判斷 ≥90），後面的條件就可以寫得比較簡單。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>門票優惠判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-004</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">某遊樂園規定，年齡小於 12 歲或大於等於 65 歲可以購買優惠票，其餘為一般票。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 A，代表年齡。</dd><dt>輸出</dt><dd>若可購買優惠票，輸出 DISCOUNT；否則輸出 NORMAL。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>DISCOUNT</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>「小於 12 歲」或「大於等於 65 歲」只要符合其中一個就是優惠票，想想要用「且」還是「或」。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>三角形成立判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">BSC01-007</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定三個正整數作為邊長，請判斷是否可以形成三角形。任兩邊和都必須大於第三邊。</div><dl class="io"><dt>輸入</dt><dd>輸入三個正整數 A、B、C，代表三邊長。</dd><dt>輸出</dt><dd>若可形成三角形，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3 4 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B1-04-MultiBranch" data-task="BSC01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>三組「兩邊和大於第三邊」必須全部成立才是三角形，想想要用「且」還是「或」。</div></details></article></div>
+<nav class="pager"><a class="prev" href="k03.html"><div class="dir">← 上一個知識點</div><b>K03 條件判斷：二選一</b></a><a class="next" href="k05.html"><div class="dir">下一個知識點 →</div><b>K05 計數迴圈</b></a></nav>
+
+  <div class="footer">
+    <div>程式設計基礎・自主學習地圖｜題目取自 YDWS 程式解題題庫（課程代碼 B1-01 ～ B8-01）</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws）、Scratch（osep-judge）｜<a href="../index.html">YDWS 教學鷹架文件首頁</a></div>
+  </div>
+</main>
+<script>window.BASIC_PLATFORMS={"blockly":{"label":"Blockly","url":"https://p2766602-beep.github.io/BlocklyYdws/"},"scratch":{"label":"Scratch","url":"https://p2766602-beep.github.io/osep-judge/editor.html"}};</script>
+<script src="basic.js"></script>
+</body>
+</html>

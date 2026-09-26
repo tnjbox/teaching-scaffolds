@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>K17 排序演算法｜程式設計基礎自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="理解泡泡排序和選擇排序的每一回合在做什麼">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="basic.css">
+</head>
+<body style="--unit:#0e8fb0">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="u6.html">U6 排序</a> › K17</div>
+    <div class="tier-badge">📶 U6 排序・知識點 K17</div>
+    <h1>排序演算法</h1>
+    <p class="hero-lead">理解泡泡排序和選擇排序的每一回合在做什麼</p>
+    <div class="hero-actions"><span class="code-chip">B6-02-SortAlgo<button type="button" data-copy="B6-02-SortAlgo">複製</button></span><div class="platform-switch" role="group" aria-label="選擇練習平台"><span class="label">練習平台</span><button type="button" data-platform="blockly" aria-pressed="true">Blockly</button><button type="button" data-platform="scratch" aria-pressed="false">Scratch</button></div></div>
+  </div>
+</header>
+<main class="page md">
+<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+
+<h2 class="section-title"><span class="num">1</span>練習題</h2>
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>相鄰交換一次</h3><span class="lv L2">L2｜進階</span><span class="pid">SORT01-003</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請從左到右檢查每一組相鄰數字。如果左邊數字大於右邊數字，就交換兩者。整個清單只掃描一次。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出掃描一次後的 N 個整數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+5 1 4 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 4 2 3 5</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="SORT01-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從左到右比較每一組相鄰數字，左邊比較大就交換；整個清單只掃描一次。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>選擇排序第一回合</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-004</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小安正在學習「選擇排序法」，老師請他先完成第一回合的任務。
+桌上有一排固定 5 個的數字，依序放在第 1 到第 5 個位置中。
+請你找出這 5 個數字中最小的數字，並把它與第 1 個位置的數字交換。
+注意事項：
+1. 只進行「第一回合」，不需要完成整個排序。
+2. 若最小值有多個，請選擇最前面出現的那一個。
+3. 交換完成後，其餘位置的數字順序保持不變</div><dl class="io"><dt>輸入</dt><dd>第1行：輸入一個整數N，N固定為5
+第2行：輸入5 個整數，代表清單中第 1 到第 5 個位置的數字（以空格隔開）。</dd><dt>輸出</dt><dd>輸出 5 個整數，代表完成「選擇排序第一回合」後的數字順序（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+8 3 5 1 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 8 6</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+2 4 6 8 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 4 6 8 10</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="seclect-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先找出最小值所在的位置，再把它和第 1 個位置的數字交換。</div></details></article></div>
+
+<h2 class="section-title"><span class="num">2</span>延伸挑戰</h2>
+<p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 泡泡排序升冪 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請使用排序概念將它們由小到大輸出。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出由小到大排序後的 N 個整數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+5 1 4 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 3 4 5</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="SORT01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把「掃描一回合」重複做 N-1 次，就是完整的泡泡排序。</div></details></details>
+<details class="extension"><summary>🚀 完整選擇排序 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="problem-desc" style="white-space:pre-line">小安已經學會如何在清單中找出最小值，並進行兩數交換。
+現在老師請他完成完整的選擇排序任務。
+桌上有一排固定 5 個整數，請你使用「選擇排序法」，
+將這些數字由小到大排序。
+選擇排序說明：
+1. 從尚未排序的部分中找出最小值。
+2. 將最小值與目前排序位置的數字交換。
+3. 重複上述步驟，直到整個清單排序完成。
+注意事項：
+1. 不可使用排序相關的積木或指令。
+2. 若有相同數字，排序後相對位置不限</div><dl class="io"><dt>輸入</dt><dd>第1行：輸入數字N，N固定為5
+第2行：輸入5 個整數，代表清單中的數字（以空格隔開）。</dd><dt>輸出</dt><dd>輸出 5 個整數，代表排序完成後的結果（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+8 3 5 1 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 6 8</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+2 4 6 8 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 4 6 8 10</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="seclect-005" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>第 k 回合從第 k 個位置之後找出最小值，再和第 k 個位置交換，重複到最後。</div></details></details>
+<details class="extension"><summary>🚀 排序後的中間值 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="problem-desc" style="white-space:pre-line">給定奇數個整數，請將它們由小到大排序後，輸出中間位置的數字。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 為奇數。</dd><dt>輸出</dt><dd>輸出一個整數，代表排序後的中間值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+9 1 5 3 7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B6-02-SortAlgo" data-task="SORT01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把數字由小到大排好，中間值就在第 (N+1)/2 個位置。</div></details></details>
+<nav class="pager"><a class="prev" href="k16.html"><div class="dir">← 上一個知識點</div><b>K16 資料交換</b></a><a class="next" href="k18.html"><div class="dir">下一個知識點 →</div><b>K18 平行清單連動處理</b></a></nav>
+
+  <div class="footer">
+    <div>程式設計基礎・自主學習地圖｜題目取自 YDWS 程式解題題庫（課程代碼 B1-01 ～ B8-01）</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws）、Scratch（osep-judge）｜<a href="../index.html">YDWS 教學鷹架文件首頁</a></div>
+  </div>
+</main>
+<script>window.BASIC_PLATFORMS={"blockly":{"label":"Blockly","url":"https://p2766602-beep.github.io/BlocklyYdws/"},"scratch":{"label":"Scratch","url":"https://p2766602-beep.github.io/osep-judge/editor.html"}};</script>
+<script src="basic.js"></script>
+</body>
+</html>

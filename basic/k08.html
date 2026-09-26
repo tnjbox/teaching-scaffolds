@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>K08 清單累計與條件統計｜程式設計基礎自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="邊讀邊統計：總和、平均、符合條件的數量">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="basic.css">
+</head>
+<body style="--unit:#c5891a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="u3.html">U3 清單</a> › K08</div>
+    <div class="tier-badge">📋 U3 清單・知識點 K08</div>
+    <h1>清單累計與條件統計</h1>
+    <p class="hero-lead">邊讀邊統計：總和、平均、符合條件的數量</p>
+    <div class="hero-actions"><span class="code-chip">B3-02-ListStats<button type="button" data-copy="B3-02-ListStats">複製</button></span><div class="platform-switch" role="group" aria-label="選擇練習平台"><span class="label">練習平台</span><button type="button" data-platform="blockly" aria-pressed="true">Blockly</button><button type="button" data-platform="scratch" aria-pressed="false">Scratch</button></div></div>
+  </div>
+</header>
+<main class="page md">
+<h2 class="section-title"><span class="num">1</span>學習目標</h2>
+<ul class="goals"><li>會用「重複 N 次」把一串資料一筆一筆讀進來，<strong>邊讀邊處理</strong>。</li><li>會用<strong>累加變數</strong>算出總和與平均。</li><li>會用<strong>計數變數</strong>數出「符合條件」的資料有幾筆。</li><li>知道什麼時候需要先把資料<strong>存進清單</strong>，之後再回頭使用。</li></ul>
+
+<h2 class="section-title"><span class="num">2</span>概念說明</h2>
+<p>老師拿到全班的成績單，最常問的問題是：總分多少？平均幾分？有幾個人及格？及格率多少？</p>
+<p>這些問題看起來不一樣，做法卻有同一個骨架：<strong>一筆一筆看資料，每看一筆，就更新一個「記錄用的變數」</strong>。看完全部資料，記錄變數裡存的就是答案。</p>
+<p>依照你想知道的事，記錄變數有兩種常見的用法：</p>
+<div class="table-scroll"><table><thead><tr><th>你想知道</th><th>記錄變數</th><th>初始值</th><th>每讀到一筆資料要做的事</th></tr></thead><tbody><tr><td>全部加起來是多少</td><td>總和</td><td>0</td><td>總和 ＝ 總和 ＋ 這筆資料</td></tr><tr><td>有幾筆符合條件</td><td>數量</td><td>0</td><td>如果這筆資料符合條件：數量 ＝ 數量 ＋ 1</td></tr></tbody></table></div>
+<p>把它寫成步驟，就是這個知識點每一題都會用到的骨架：</p>
+<pre class="code">讀入 N（總共有幾筆資料）
+記錄變數 設為 初始值
+重複 N 次：
+    讀入一筆資料
+    （需要的話，先判斷這筆資料符不符合條件）
+    更新記錄變數
+說出答案</pre>
+<div class="diagram">
+  <div class="cellrow">
+    <div class="cell">30</div>
+    <div class="cell done">60</div>
+    <div class="cell">50</div>
+    <div class="cell done">80</div>
+    <div class="cell">45</div>
+    <div class="cell done">90</div>
+  </div>
+  <div class="pointer">大於 50 的資料每出現一次，「數量」就加 1：0 → 1 → 2 → 3</div>
+  <div class="caption">邊讀邊數：看完 6 筆資料，數量＝3</div>
+</div>
+<div class="tip"><div class="tag">💡 一行有好幾個數字，要怎麼讀？</div><p>題目常把 N 個數字放在同一行、用空白隔開，例如「30 60 50 80 45 90」。平台的「詢問並等待」每次會依序拿到<strong>一個</strong>數字，所以只要重複「詢問並等待」N 次，就能照順序讀完這一行。</p></div>
+<div class="note"><div class="tag">📌 這個單元叫「清單」，為什麼這裡沒用到清單積木？</div><p>因為這些問題的每一筆資料只需要看<strong>一次</strong>：讀到就處理，處理完就可以不管它了。只有當你需要<strong>回頭再看</strong>資料時，才需要先把資料存進清單。最後的延伸挑戰就是這種情況。</p></div>
+
+<h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做</h2>
+<p>先讀題，再照著步驟想一遍。建議每讀完一步，就先自己在平台上試著寫寫看。</p>
+<section class="demo"><span class="demo-label">示範題 1</span>
+<div class="problem-card"><div class="problem-head"><h3>清單加總與平均示範</h3><span class="lv L2">L2｜進階</span><span class="pid">JSA01-D02</span></div><div class="problem-desc" style="white-space:pre-line">第一行輸入一個整數 N，第二行輸入 N 個整數。請輸出這 N 個數字的總和與整數平均，兩個結果各佔一行。平均值請使用整數除法，只保留整數部分。</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N。
+第二行：N 個整數，以空白分隔。</dd><dt>輸出</dt><dd>第一行：總和。
+第二行：整數平均。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+10 20 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60
+20</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+1 2 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10
+2</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-02-ListStats" data-task="JSA01-D02" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<h3>第 1 步：讀題，找出輸入和輸出</h3>
+<ul><li><strong>輸入</strong>：第一行是 N，第二行是 N 個整數。</li><li><strong>輸出</strong>：兩行，第一行是總和，第二行是整數平均（只取整數部分）。</li></ul>
+<h3>第 2 步：把問題拆成步驟</h3>
+<ol><li>讀入 N。</li><li>準備記錄變數「總和」，設為 0。</li><li>重複 N 次：讀入一個數字，把它加進「總和」。</li><li>說出「總和」。</li><li>說出「總和 ÷ N」無條件捨去後的整數。</li></ol>
+<pre class="code">讀入 N
+總和 設為 0
+重複 N 次：
+    讀入 數字
+    總和 設為 總和 ＋ 數字
+說出 總和
+說出 （總和 ÷ N）無條件捨去</pre>
+<h3>第 3 步：用範例走一次</h3>
+<p>輸入「3」和「10 20 30」時，每一輪迴圈結束後，變數會變成這樣：</p>
+<div class="table-scroll"><table><thead><tr><th>第幾輪</th><th>讀到的數字</th><th>總和</th></tr></thead><tbody><tr><td>開始前</td><td>－</td><td>0</td></tr><tr><td>第 1 輪</td><td>10</td><td>10</td></tr><tr><td>第 2 輪</td><td>20</td><td>30</td></tr><tr><td>第 3 輪</td><td>30</td><td>60</td></tr></tbody></table></div>
+<p>最後說出總和 60，平均是 60 ÷ 3 ＝ 20。和範例輸出一樣。</p>
+<div class="tip"><div class="tag">💡 動手寫之前，先用範例在紙上走一次</div><p>像上面這樣列表追蹤變數，是找出錯誤最有效的方法。程式跑出來的答案不對時，也可以用同樣的方法一輪一輪檢查。</p></div>
+<h3>第 4 步：對照範例答案</h3>
+<p>寫完之後，可以在平台上按「載入範例」，看看範例答案和你的寫法哪裡不同。請特別注意這三個地方：</p>
+<ul><li>「總和設為 0」放在<strong>迴圈外面、迴圈之前</strong>。</li><li>迴圈裡面的順序是：先「詢問並等待」讀一個數字，再把它加進總和。</li><li>平均用數學積木的「無條件捨去」取整數。</li></ul>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>把「總和設為 0」放進迴圈裡</strong>：每一輪都會被清回 0，最後的總和只剩最後一個數字。</li><li><strong>平均沒有取整數</strong>：輸入「4」和「1 2 3 4」時，總和是 10，平均要輸出 2，不是 2.5。</li></ul></div>
+</section>
+<section class="demo"><span class="demo-label">示範題 2</span>
+<div class="problem-card"><div class="problem-head"><h3>大於門檻的數量</h3><span class="lv L2">L2｜進階</span><span class="pid">CNT01-020</span></div><div class="problem-desc" style="white-space:pre-line">給定一個門檻值 K 與 N 個整數，請計算有幾個數字大於 K。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 K，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出一個整數，代表大於 K 的數字數量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+50
+30 60 50 80 45 90</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-02-ListStats" data-task="CNT01-020" target="_blank" rel="noopener">▶ 在平台上打開這一題（<span data-platform-name>Blockly</span>）</a></div></div>
+<h3>第 1 步：讀題，找出輸入和輸出</h3>
+<ul><li><strong>輸入</strong>：先輸入 N，再輸入門檻值 K，接著是 N 個整數。</li><li><strong>輸出</strong>：一個整數，代表<strong>大於</strong> K 的數字有幾個。</li></ul>
+<h3>第 2 步：和上一題差在哪裡？</h3>
+<p>骨架完全一樣，只改了兩個地方：</p>
+<ol><li>記錄變數從「總和」換成「數量」，初始值一樣是 0。</li><li>不是每一筆都要處理：要先判斷「這個數字大於 K 嗎？」，是的話數量才加 1。</li></ol>
+<pre class="code">讀入 N
+讀入 K
+數量 設為 0
+重複 N 次：
+    讀入 數字
+    如果 數字 ＞ K：
+        數量 設為 數量 ＋ 1
+說出 數量</pre>
+<h3>第 3 步：用範例走一次</h3>
+<p>輸入 N＝6、K＝50，資料是「30 60 50 80 45 90」：</p>
+<div class="table-scroll"><table><thead><tr><th>讀到的數字</th><th>大於 50 嗎？</th><th>數量</th></tr></thead><tbody><tr><td>30</td><td>否</td><td>0</td></tr><tr><td>60</td><td>是</td><td>1</td></tr><tr><td>50</td><td>否（等於不算大於）</td><td>1</td></tr><tr><td>80</td><td>是</td><td>2</td></tr><tr><td>45</td><td>否</td><td>2</td></tr><tr><td>90</td><td>是</td><td>3</td></tr></tbody></table></div>
+<p>答案是 3。</p>
+<h3>第 4 步：對照範例答案</h3>
+<p>按「載入範例」後，請注意：判斷條件用的是「＞」，數量每次只加 <strong>1</strong>，不是加上那個數字。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>「大於」寫成「大於或等於」</strong>：等於 K 的數字會被多算進去。範例裡的 50 就是用來檢查這件事的。</li><li><strong>讀入順序弄反</strong>：題目是先 N 再 K。如果先讀 K，迴圈次數就會錯。</li><li><strong>「數量 ＋ 1」寫成「數量 ＋ 數字」</strong>：這樣算出來的是總和，不是數量。</li></ul></div>
+</section>
+
+<h2 class="section-title"><span class="num">4</span>練習題</h2>
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>只加偶數</h3><span class="lv L2">L2｜進階</span><span class="pid">JSL01-P02</span></div><div class="focus"><b>這題多了什麼：</b>骨架和第一題示範一樣，只是在「加進總和」之前多一道判斷：<strong>偶數才加</strong>。怎麼判斷偶數，可以回想 K03 學過的「除以 2 的餘數」。如果資料裡完全沒有偶數，總和會保持初始值 0，剛好就是題目要的答案。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">第一行輸入一個整數 N，第二行輸入 N 個整數。請只把其中的偶數加總後輸出。本題用來練習迴圈內加入條件判斷</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N。
+第二行：N 個整數，以空白分隔。</dd><dt>輸出</dt><dd>輸出所有偶數的總和。若沒有偶數，輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+1 2 3 4 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+1 3 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-02-ListStats" data-task="JSL01-P02" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>走訪清單時，先判斷這一項是不是偶數，是才加進總和。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>合格的裝備</h3><span class="lv L2">L2｜進階</span><span class="pid">count-016</span></div><div class="focus"><b>這題多了什麼：</b>這次符合條件的資料不是加起來、也不是數數量，而是<strong>輸出</strong>出來。難的地方在格式：數字之間要有一個空白，但最前面和最後面不能多出空白。可以準備一個文字變數「結果」，把合格的數字一個一個接上去，再想一想：第一個數字前面要不要接空白？</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者的負重能力有限，他只能攜帶重量「小於 10」的輕型裝備。 現在清單中有一堆裝備的重量，請你利用迴圈檢查每一個裝備，只把重量小於 10 的裝備重量印出來。
+輸入格式
+輸入共有兩行。第一行是一個整數 N，代表裝備數量。
+第二行輸入 N 個整數，代表每個裝備重量。
+程式依序輸出小於 10 的數字，中間以空白隔開。
+如果都沒有小於 10 的數字，則什麼都不輸出。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+15 5 20 8 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 8 3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+12 15 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre><span class="empty">（不輸出）</span></pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-02-ListStats" data-task="count-016" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>走訪清單時，只把重量小於 10 的項目輸出；都沒有的話就什麼都不輸出。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>通過率整數版</h3><span class="lv L2">L2｜進階</span><span class="pid">STA01-004</span></div><div class="focus"><b>這題多了什麼：</b>這題同時用到「數量」和一次計算。通過率要<strong>先乘 100 再除</strong>：例如 3 人通過、共 5 人，要算 3 × 100 ÷ 5 ＝ 60。如果先把 3 ÷ 5 取整數（得到 0）再乘 100，結果就變成 0 了。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 位學生的成績，分數大於或等於 60 為通過。請計算通過人數與通過率。通過率使用整數百分比，小數直接捨去。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數代表成績。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為通過人數與通過率百分比，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+80 55 60 40 90</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 60</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-02-ListStats" data-task="STA01-004" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先數出通過人數，通過率＝通過人數×100 整除總人數。注意要先乘 100 再除。</div></details></article></div>
+
+<h2 class="section-title"><span class="num">5</span>延伸挑戰</h2>
+<p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 高於平均的數量 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>平均要等<strong>全部資料讀完</strong>才算得出來，可是「有幾個數字大於平均」又需要<strong>回頭再看每一個數字</strong>。這就是需要清單的時候：第一次讀資料時，一邊加總、一邊把數字存進清單；算出平均後，再用第二個迴圈走訪清單，數出大於平均的有幾個。</div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，先計算整數平均，再計算有幾個數字大於平均。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為整數平均與大於平均的數量，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50</pre></div><div class="sample-row"><div class="k">輸出</div><pre>30 2</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-02-ListStats" data-task="STA01-005" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>要走訪兩次：第一次算出平均，第二次再數有幾個數字大於平均。</div></details></details>
+
+<h2 class="section-title"><span class="num">6</span>自我檢核</h2>
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我能說出「總和」和「數量」的初始值要設多少，以及為什麼要放在迴圈外面。</li><li>我能分辨「總和 ＝ 總和 ＋ 數字」和「數量 ＝ 數量 ＋ 1」各用在什麼時候。</li><li>我知道「大於」和「大於或等於」會讓答案不同，會用剛好等於的數字來檢查。</li><li>我能說出什麼情況需要先把資料存進清單，什麼情況邊讀邊算就夠了。</li></ul>
+<nav class="pager"><a class="prev" href="k07.html"><div class="dir">← 上一個知識點</div><b>K07 清單讀取與索引走訪</b></a><a class="next" href="k09.html"><div class="dir">下一個知識點 →</div><b>K09 最大值與最小值</b></a></nav>
+
+  <div class="footer">
+    <div>程式設計基礎・自主學習地圖｜題目取自 YDWS 程式解題題庫（課程代碼 B1-01 ～ B8-01）</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws）、Scratch（osep-judge）｜<a href="../index.html">YDWS 教學鷹架文件首頁</a></div>
+  </div>
+</main>
+<script>window.BASIC_PLATFORMS={"blockly":{"label":"Blockly","url":"https://p2766602-beep.github.io/BlocklyYdws/"},"scratch":{"label":"Scratch","url":"https://p2766602-beep.github.io/osep-judge/editor.html"}};</script>
+<script src="basic.js"></script>
+</body>
+</html>

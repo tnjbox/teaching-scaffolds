@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>K10 位置追蹤與線性搜尋｜程式設計基礎自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="記住資料的位置，找出目標第一次或最後一次出現在哪裡">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="basic.css">
+</head>
+<body style="--unit:#c5891a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="u3.html">U3 清單</a> › K10</div>
+    <div class="tier-badge">📋 U3 清單・知識點 K10</div>
+    <h1>位置追蹤與線性搜尋</h1>
+    <p class="hero-lead">記住資料的位置，找出目標第一次或最後一次出現在哪裡</p>
+    <div class="hero-actions"><span class="code-chip">B3-04-LinearSearch<button type="button" data-copy="B3-04-LinearSearch">複製</button></span><div class="platform-switch" role="group" aria-label="選擇練習平台"><span class="label">練習平台</span><button type="button" data-platform="blockly" aria-pressed="true">Blockly</button><button type="button" data-platform="scratch" aria-pressed="false">Scratch</button></div></div>
+  </div>
+</header>
+<main class="page md">
+<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+
+<h2 class="section-title"><span class="num">1</span>練習題</h2>
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>清單最大最小值的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">seclect-003</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在進行排序之前，程式必須先知道「最大值或最小值在清單的哪一個位置」。
+小安已經可以找出清單中的最大值與最小值，
+但老師希望他進一步找出該數值所在的位置（索引值），
+才能正確進行資料交換。
+現在給你一個固定長度為 5 的整數清單，
+請找出清單中最小值所在的位置。
+注意事項：
+1. 清單位置由 1 開始計算（第 1 個為位置 1）。
+2. 若最小值出現多次，請輸出最前面出現的那一個位置</div><dl class="io"><dt>輸入</dt><dd>第 1 行：輸入一個數N，N固定為整數5
+第 2 行：輸入5 個整數，代表清單內容（以空格隔開）。</dd><dt>輸出</dt><dd>輸出一個整數，代表最小值所在的位置（索引值）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+8 3 5 1 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+2 4 2 9 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="seclect-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>找最小值時，除了記住「最小值是多少」，也要同時記住「它在第幾個位置」。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>最後一個目標位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-003</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與目標值 X，請找出 X 最後一次出現的位置。位置從 1 開始計算。若沒有出現，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 X。</dd><dt>輸出</dt><dd>輸出一個整數，代表 X 最後一次出現的位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+4 8 3 8 5 8
+8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="IDX01-003" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>位置初始值設為 0；每次遇到目標值就把位置更新成 i，走完清單後留下的就是最後一次出現的位置。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>第一個目標位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-002</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與目標值 X，請找出 X 第一次出現的位置。位置從 1 開始計算。若沒有出現，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 X。</dd><dt>輸出</dt><dd>輸出一個整數，代表 X 第一次出現的位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+4 8 3 8 5 8
+8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="IDX01-002" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>和上一題幾乎一樣，但只有在「還沒找到過」（位置仍是 0）的時候才更新位置。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>第一個及格的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">CNT01-022</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 位學生的成績，請找出第一個分數大於或等於 60 的位置。位置從 1 開始計算。保證至少有一位學生及格。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數代表成績。</dd><dt>輸出</dt><dd>輸出一個整數，代表第一個及格成績的位置。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+40 55 60 80 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="CNT01-022" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>和上一題的寫法相同，只是把「等於目標值」換成「分數 ≥ 60」。</div></details></article></div>
+
+<h2 class="section-title"><span class="num">2</span>延伸挑戰</h2>
+<p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 兩個目標的距離 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="problem-desc" style="white-space:pre-line">給定 N 個整數，以及兩個目標值 A 與 B。請找出 A 第一次出現的位置與 B 第一次出現的位置，並輸出兩個位置的距離。保證 A 與 B 都會出現。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入兩個整數 A 與 B。</dd><dt>輸出</dt><dd>輸出一個整數，代表兩個位置的距離。距離一律用較大的位置減較小的位置。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+4 8 3 9 5 8
+8 9</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-04-LinearSearch" data-task="IDX01-008" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>分別找出 A 和 B 第一次出現的位置，再算兩個位置相差多少（用大的減小的）。</div></details></details>
+<nav class="pager"><a class="prev" href="k09.html"><div class="dir">← 上一個知識點</div><b>K09 最大值與最小值</b></a><a class="next" href="k11.html"><div class="dir">下一個知識點 →</div><b>K11 相鄰元素比較</b></a></nav>
+
+  <div class="footer">
+    <div>程式設計基礎・自主學習地圖｜題目取自 YDWS 程式解題題庫（課程代碼 B1-01 ～ B8-01）</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws）、Scratch（osep-judge）｜<a href="../index.html">YDWS 教學鷹架文件首頁</a></div>
+  </div>
+</main>
+<script>window.BASIC_PLATFORMS={"blockly":{"label":"Blockly","url":"https://p2766602-beep.github.io/BlocklyYdws/"},"scratch":{"label":"Scratch","url":"https://p2766602-beep.github.io/osep-judge/editor.html"}};</script>
+<script src="basic.js"></script>
+</body>
+</html>

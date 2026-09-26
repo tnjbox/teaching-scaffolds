@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>K07 清單讀取與索引走訪｜程式設計基礎自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="讀入一串資料，用位置取出資料、正著走或倒著走">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="basic.css">
+</head>
+<body style="--unit:#c5891a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="u3.html">U3 清單</a> › K07</div>
+    <div class="tier-badge">📋 U3 清單・知識點 K07</div>
+    <h1>清單讀取與索引走訪</h1>
+    <p class="hero-lead">讀入一串資料，用位置取出資料、正著走或倒著走</p>
+    <div class="hero-actions"><span class="code-chip">B3-01-ListTraversal<button type="button" data-copy="B3-01-ListTraversal">複製</button></span><div class="platform-switch" role="group" aria-label="選擇練習平台"><span class="label">練習平台</span><button type="button" data-platform="blockly" aria-pressed="true">Blockly</button><button type="button" data-platform="scratch" aria-pressed="false">Scratch</button></div></div>
+  </div>
+</header>
+<main class="page md">
+<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+
+<h2 class="section-title"><span class="num">1</span>練習題</h2>
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>清單逐一讀取</h3><span class="lv L1">L1｜基礎</span><span class="pid">JSA01-D01</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">第一行輸入一個整數 N，第二行輸入 N 個整數。請依照原本順序逐一輸出每個數字，每個數字各佔一行。本題用來示範清單逐一讀取與輸出。</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N。
+第二行：N 個整數，以空白分隔。</dd><dt>輸出</dt><dd>依序輸出每個數字，每個數字各佔一行。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+5 8 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5
+8
+2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>2
+10 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10
+20</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="JSA01-D01" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把第二行的 N 個數字存進清單，再用迴圈從第 1 項取到第 N 項，逐一輸出。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>指定位置的數字</h3><span class="lv L1">L1｜基礎</span><span class="pid">IDX01-001</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與一個位置 P，請輸出第 P 個數字。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 P。保證 1 &lt;= P &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表第 P 個數字。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+8 3 12 7 10
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="IDX01-001" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>不需要迴圈：把數字存進清單後，直接取「第 P 項」。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>冒險日誌</h3><span class="lv L2">L2｜進階</span><span class="pid">count-018</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者寫了 N 天的冒險日誌，清單中依序記錄了每天打倒的怪物數量。
+例如清單的第一個數字是第 1 天打倒的數量，第二個數字是第 2 天的...
+請你格式化輸出每天的戰績，格式為：Day-[第幾天]-[數量]。
+輸入格式
+輸入共有兩行。第一行是一個整數 N，代表天數。
+第二行輸入 N 個整數，代表每天怪物的數量。
+程式依序輸出 N 天資料，每天格式為 Day-i-數量 不同天中間以空白間隔。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>2
+15 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Day-1-15 Day-2-5</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+12 15 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Day-1-12 Day-2-15 Day-3-20</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="count-018" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>迴圈變數 i 同時代表「第幾天」，而清單的第 i 項是「那天的數量」，兩個一起用。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>倒轉時光</h3><span class="lv L2">L2｜進階</span><span class="pid">count-017</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者獲得了一個「時光倒流」的魔法卷軸。這個卷軸上有一串數字密碼，但是必須從最後一個數字讀回到第一個數字，魔法才能生效。 請讀取一個清單，並將清單內的數字「由後往前」印出來。
+輸入格式
+輸入共有兩行。第一行是一個整數 N，代表密碼長度。
+第二行輸入 N 個整數，代表N個數字的密碼組合。
+程式反序輸 N 筆密碼數字資料，中間以空白間隔
+(提示：循環計數迴圈起點設為清單長度，終點設為 1，間隔設為 -1)</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
+10 20 30 40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>40 30 20 10</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+1 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 2 1</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="count-017" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>讓迴圈從 N 倒數到 1，依序取清單的第 i 項，就會變成反向輸出。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>左右鄰居總和</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-007</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與位置 P，請計算第 P 個數字左右鄰居的總和。若沒有左鄰居或右鄰居，該側視為 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 P。保證 1 &lt;= P &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表左右鄰居總和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B3-01-ListTraversal" data-task="IDX01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>左鄰居是第 P-1 項、右鄰居是第 P+1 項；P 在最前面或最後面時，其中一邊不存在，要當作 0。</div></details></article></div>
+<nav class="pager"><a class="prev" href="k06.html"><div class="dir">← 上一個知識點</div><b>K06 累加與累乘</b></a><a class="next" href="k08.html"><div class="dir">下一個知識點 →</div><b>K08 清單累計與條件統計</b></a></nav>
+
+  <div class="footer">
+    <div>程式設計基礎・自主學習地圖｜題目取自 YDWS 程式解題題庫（課程代碼 B1-01 ～ B8-01）</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws）、Scratch（osep-judge）｜<a href="../index.html">YDWS 教學鷹架文件首頁</a></div>
+  </div>
+</main>
+<script>window.BASIC_PLATFORMS={"blockly":{"label":"Blockly","url":"https://p2766602-beep.github.io/BlocklyYdws/"},"scratch":{"label":"Scratch","url":"https://p2766602-beep.github.io/osep-judge/editor.html"}};</script>
+<script src="basic.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>K20 輸出格式與例外處理｜程式設計基礎自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="控制輸出格式，並預先處理會出錯的特殊情況">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="basic.css">
+</head>
+<body style="--unit:#8a6d3b">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="u8.html">U8 輸出格式與例外處理</a> › K20</div>
+    <div class="tier-badge">🛡️ U8 輸出格式與例外處理・知識點 K20</div>
+    <h1>輸出格式與例外處理</h1>
+    <p class="hero-lead">控制輸出格式，並預先處理會出錯的特殊情況</p>
+    <div class="hero-actions"><span class="code-chip">B8-01-FormatCheck<button type="button" data-copy="B8-01-FormatCheck">複製</button></span><div class="platform-switch" role="group" aria-label="選擇練習平台"><span class="label">練習平台</span><button type="button" data-platform="blockly" aria-pressed="true">Blockly</button><button type="button" data-platform="scratch" aria-pressed="false">Scratch</button></div></div>
+  </div>
+</header>
+<main class="page md">
+<div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
+
+<h2 class="section-title"><span class="num">1</span>練習題</h2>
+<p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>兩位數補零輸出</h3><span class="lv L1">L1｜基礎</span><span class="pid">M1-12-01</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你把一個介於0到99之間的整數，輸出成固定兩位數的格式：如果數字小於10，前面要補一個0（例如5要輸出成05）；如果數字是兩位數，直接輸出即可（例如23輸出23）。
+
+第一行輸入一個介於0到99之間的整數N</div><dl class="io"><dt>輸入</dt><dd>N（0~99）</dd><dt>輸出</dt><dd>補零後的兩位數字串</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>05</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>23</pre></div><div class="sample-row"><div class="k">輸出</div><pre>23</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-01" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>數字小於 10 的時候，在前面接一個「0」再輸出。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>負數的正確餘數計算</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-12-05</span></div>
+<details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你計算a除以b的餘數，餘數必須維持在0到b-1之間（即使a是負數，也要輸出這個範圍內正確的餘數，不能直接用一般的取餘數運算導致出現負的餘數）。（b保證是正整數）
+
+第一行輸入a b（空白分隔）</div><dl class="io"><dt>輸入</dt><dd>a b</dd><dt>輸出</dt><dd>0到b-1之間的正確餘數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>-3 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-05" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>一般的餘數運算遇到負數可能會得到負的結果；算出來是負的就再加上 b，把它調回 0 到 b-1 之間。</div></details></article></div>
+
+<h2 class="section-title"><span class="num">2</span>延伸挑戰</h2>
+<p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 平均分數到小數點後兩位 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="problem-desc" style="white-space:pre-line">請你計算N筆分數的平均值，輸出到小數點後兩位（四捨五入），即使結果剛好是整數，也要顯示到小數點後兩位（例如平均剛好80分要輸出80.00）。
+
+第一行輸入N
+
+第二行輸入N個分數
+
+輸出平均值，格式為小數點後兩位。</div><dl class="io"><dt>輸入</dt><dd>N、N個分數</dd><dt>輸出</dt><dd>平均值（小數點後兩位）</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
+80 90 70 100</pre></div><div class="sample-row"><div class="k">輸出</div><pre>85.00</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-03" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先四捨五入到小數兩位；如果結果是整數或只有一位小數，要自己補上「0」，湊滿兩位。</div></details></details>
+<details class="extension"><summary>🚀 除以零的例外處理 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="problem-desc" style="white-space:pre-line">請你計算兩個整數a除以b的結果，並輸出到小數點後兩位。但是b有可能是0，這時候不能真的做除法（會出錯），請改成輸出「無法計算」。
+
+第一行輸入a b（空白分隔）
+
+如果b不是0，輸出a除以b的結果（小數點後兩位）；如果b是0，輸出「無法計算」。</div><dl class="io"><dt>輸入</dt><dd>a b</dd><dt>輸出</dt><dd>除法結果（小數點後兩位）或「無法計算」</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2.50</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>無法計算</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-04" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先判斷 b 是不是 0，是 0 就輸出「無法計算」，不要真的去做除法。</div></details></details>
+<details class="extension"><summary>🚀 金額千分位輸出 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="problem-desc" style="white-space:pre-line">請你把一個金額數字，輸出成加上千分位逗號的格式（從個位數往左，每三位加一個逗號，例如1234567要輸出成1,234,567）。金額保證是不含小數的正整數。
+
+第一行輸入一個正整數金額amount</div><dl class="io"><dt>輸入</dt><dd>amount（正整數）</dd><dt>輸出</dt><dd>加上千分位逗號的金額字串</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>1234567</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1,234,567</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B8-01-FormatCheck" data-task="M1-12-02" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從個位數往左數，每三位加一個逗號。可以先算出第一段有幾位數，再決定逗號要放在哪裡。</div></details></details>
+<nav class="pager"><a class="prev" href="k19.html"><div class="dir">← 上一個知識點</div><b>K19 堆疊與佇列</b></a></nav>
+
+  <div class="footer">
+    <div>程式設計基礎・自主學習地圖｜題目取自 YDWS 程式解題題庫（課程代碼 B1-01 ～ B8-01）</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws）、Scratch（osep-judge）｜<a href="../index.html">YDWS 教學鷹架文件首頁</a></div>
+  </div>
+</main>
+<script>window.BASIC_PLATFORMS={"blockly":{"label":"Blockly","url":"https://p2766602-beep.github.io/BlocklyYdws/"},"scratch":{"label":"Scratch","url":"https://p2766602-beep.github.io/osep-judge/editor.html"}};</script>
+<script src="basic.js"></script>
+</body>
+</html>
