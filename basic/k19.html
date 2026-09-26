@@ -21,7 +21,7 @@
 <main class="page md">
 <div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
 
-<h2 class="section-title"><span class="num">1</span>練習題</h2>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（4 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
 <div class="practice-list"><article class="practice"><div class="problem-head"><h3>堆疊操作模擬</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-11-01</span></div>
 <details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你模擬堆疊（後進先出）的操作：指令代碼1代表PUSH（把數字加入堆疊頂端），指令代碼2代表POP（把堆疊頂端的數字移除；如果堆疊是空的，這個指令就跳過不執行）。全部指令執行完後，請輸出堆疊裡剩下的內容，由最底部到最頂部依序輸出，空白分隔；如果堆疊是空的，輸出「空」。
@@ -67,8 +67,9 @@
 1 1 1 2
 101 102 103 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>102 103</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-05" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>排隊隊伍就是一個佇列：新顧客加在最後，叫號時服務最前面的人。</div></details></article></div>
+</div></details>
 
-<h2 class="section-title"><span class="num">2</span>延伸挑戰</h2>
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 括號配對是否合法 <span class="lv L3">L3｜挑戰</span></summary>
 <div class="problem-desc" style="white-space:pre-line">請你判斷一串只包含小括號的字串，括號是否完全合法配對（每個左括號都有對應的右括號，且順序正確，右括號不會在對應的左括號之前出現）。
@@ -76,6 +77,7 @@
 第一行輸入一個只包含'('與')'的字串
 
 如果合法配對，輸出「合法」；否則輸出「不合法」。</div><dl class="io"><dt>輸入</dt><dd>括號字串</dd><dt>輸出</dt><dd>合法 或 不合法</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>(())</pre></div><div class="sample-row"><div class="k">輸出</div><pre>合法</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>(()</pre></div><div class="sample-row"><div class="k">輸出</div><pre>不合法</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B7-01-StackQueue" data-task="M1-11-03" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>遇到左括號就記錄一個「還沒配對」，遇到右括號就配掉一個；如果中途配不到，或最後還有剩，就不合法。</div></details></details>
+</div></details>
 <nav class="pager"><a class="prev" href="k18.html"><div class="dir">← 上一個知識點</div><b>K18 平行清單連動處理</b></a><a class="next" href="k20.html"><div class="dir">下一個知識點 →</div><b>K20 輸出格式與例外處理</b></a></nav>
 
   <div class="footer">

@@ -21,14 +21,15 @@
 <main class="page md">
 <div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
 
-<h2 class="section-title"><span class="num">1</span>練習題</h2>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（1 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
 <div class="practice-list"><article class="practice"><div class="problem-head"><h3>相鄰相同的位置</h3><span class="lv L2">L2｜進階</span><span class="pid">IDX01-006</span></div>
 <details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請找出第一組相鄰且數值相同的位置。若第 i 個與第 i+1 個相同，輸出 i。若沒有相鄰相同，輸出 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出一個整數，代表第一組相鄰相同的左側位置；若不存在則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
 3 5 5 2 2 8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B3-05-Adjacent" data-task="IDX01-006" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>比較第 i 項和第 i+1 項，迴圈只能跑到 N-1，不然第 i+1 項會超出清單範圍。</div></details></article></div>
+</div></details>
 
-<h2 class="section-title"><span class="num">2</span>延伸挑戰</h2>
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 相鄰變化統計 <span class="lv L3">L3｜挑戰</span></summary>
 <div class="problem-desc" style="white-space:pre-line">給定 N 天的數值紀錄，請統計有幾次比前一天增加、幾次比前一天減少，以及幾次和前一天相同。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出三個整數，依序為增加次數、減少次數、相同次數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
@@ -36,6 +37,7 @@
 <details class="extension"><summary>🚀 相鄰差值最大 <span class="lv L3">L3｜挑戰</span></summary>
 <div class="problem-desc" style="white-space:pre-line">給定 N 個整數，請計算相鄰兩個數字之間差值的最大值。差值一律用較大的數減較小的數。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數。保證 N 大於或等於 2。</dd><dt>輸出</dt><dd>輸出一個整數，代表相鄰差值最大值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
 3 8 6 15 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>9</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B3-05-Adjacent" data-task="CNT01-023" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>每一組相鄰數字都算出差值（用大的減小的），再從這些差值中找出最大的。</div></details></details>
+</div></details>
 <nav class="pager"><a class="prev" href="k10.html"><div class="dir">← 上一個知識點</div><b>K10 位置追蹤與線性搜尋</b></a><a class="next" href="k12.html"><div class="dir">下一個知識點 →</div><b>K12 字串存取與走訪</b></a></nav>
 
   <div class="footer">

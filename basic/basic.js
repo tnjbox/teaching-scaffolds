@@ -2,7 +2,7 @@
 // 1. 平台切換（Blockly／Scratch）：只記住這台瀏覽器的偏好，不記錄學習進度。
 // 2. 「前往練習」連結依平台產生一鍵直達網址（?course=課程代碼&task=題號）。
 // 3. 複製課程代碼。
-// 4. 列印時自動展開所有收合區塊。
+// 4. 列印時自動展開所有收合區塊；「全部展開／全部收合」按鈕。
 (function () {
   var PLATFORMS = window.BASIC_PLATFORMS || {};
   var KEY = 'ydwsBasicPlatform';
@@ -45,6 +45,12 @@
       savePlatform(btn.dataset.platform);
       applyPlatform(btn.dataset.platform);
       toast('已切換到 ' + (PLATFORMS[btn.dataset.platform] || {}).label + ' 平台');
+      return;
+    }
+    var fold = ev.target.closest('button[data-fold]');
+    if (fold) {
+      var open = fold.dataset.fold === 'open';
+      document.querySelectorAll('details.fold, details.step').forEach(function (d) { d.open = open; });
       return;
     }
     var copy = ev.target.closest('button[data-copy]');

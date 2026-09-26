@@ -21,7 +21,7 @@
 <main class="page md">
 <div class="wip-box">📝 這個知識點的教材還在撰寫中。你可以先直接做下面的練習題，每一題都附有提示。</div>
 
-<h2 class="section-title"><span class="num">1</span>練習題</h2>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>練習題（3 題）</h2></summary><div class="fold-body">
 <p>照順序完成這些題目。寫完之後，可以在平台上按「載入範例」和自己的寫法比較。</p>
 <div class="practice-list"><article class="practice"><div class="problem-head"><h3>計算指定字元數量</h3><span class="lv L2">L2｜進階</span><span class="pid">STR01-004</span></div>
 <details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個字串與目標字元 C，請計算 C 在字串中出現幾次。</div><dl class="io"><dt>輸入</dt><dd>第一行輸入字串 S。第二行輸入一個字元 C。S 不包含空白。</dd><dt>輸出</dt><dd>輸出一個整數，代表 C 出現的次數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>banana
@@ -33,8 +33,9 @@ a</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></di
 <article class="practice"><div class="problem-head"><h3>相鄰相同字元</h3><span class="lv L2">L2｜進階</span><span class="pid">STR01-008</span></div>
 <details class="problem-more" open><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個字串，請判斷是否存在兩個相鄰且相同的字元。</div><dl class="io"><dt>輸入</dt><dd>輸入一個字串 S。S 不包含空白，且長度至少為 1。</dd><dt>輸出</dt><dd>若存在相鄰相同字元，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>book</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
 <div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="STR01-008" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>比較第 i 個和第 i+1 個字元，迴圈只跑到「長度-1」。</div></details></article></div>
+</div></details>
 
-<h2 class="section-title"><span class="num">2</span>延伸挑戰</h2>
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
 <p>核心題都會了嗎？這些題目需要把好幾個技巧組合起來，想挑戰的話可以試試看。</p>
 <details class="extension"><summary>🚀 是否回文 <span class="lv L3">L3｜挑戰</span></summary>
 <div class="problem-desc" style="white-space:pre-line">給定一個不含空白的字串，請判斷它是否正著讀和反著讀都相同。</div><dl class="io"><dt>輸入</dt><dd>輸入一個字串 S。S 不包含空白。</dd><dt>輸出</dt><dd>若 S 是回文，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>level</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="STR01-007" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把第 1 個和最後 1 個字元比較、第 2 個和倒數第 2 個比較……只要有一組不同，就不是回文。</div></details></details>
@@ -64,6 +65,7 @@ B20135 = 13+2+0+1+3+5 = 24 → 24÷5=4餘4 → 正確會員卡
 A15274 = 11+1+5+2+7+4 = 30 → 30÷5=6餘0 → 不正確會員卡
 
 請寫一個程式判斷會員卡號是否正確，若正確輸出 yes，否則輸出 no。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>C20351</pre></div><div class="sample-row"><div class="k">輸出</div><pre>no</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>D15713</pre></div><div class="sample-row"><div class="k">輸出</div><pre>yes</pre></div></div></div><div class="card-actions"><a class="btn" data-course="B4-02-StringProcess" data-task="TYTN-10" target="_blank" rel="noopener">▶ 前往練習（<span data-platform-name>Blockly</span>）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把英文字母換成對應的數字，再把其他每一位數字加起來，最後看除以 5 的餘數是不是 4。</div></details></details>
+</div></details>
 <nav class="pager"><a class="prev" href="k12.html"><div class="dir">← 上一個知識點</div><b>K12 字串存取與走訪</b></a><a class="next" href="k14.html"><div class="dir">下一個知識點 →</div><b>K14 因數、倍數與質數</b></a></nav>
 
   <div class="footer">
