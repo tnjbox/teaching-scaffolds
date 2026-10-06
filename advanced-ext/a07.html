@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="單一if、if/else、多重範圍判斷、優先順序規則判斷">
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+<link rel="stylesheet" href="advanced.css?v=7435309d">
 </head>
 <body style="--unit:#5b6fee">
 <header class="hero unit-hero">
@@ -27,7 +27,7 @@
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
 <p>條件判斷的題目，差別通常不在「if 要怎麼寫」，而在<strong>判斷的依據是什麼</strong>：有時候是單純的數字大小，有時候是好幾條規則要照順序檢查，有時候甚至要先經過別的計算才能拿到判斷用的數字。</p>
-<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>單一條件成立才做事</td><td>如果 ○○</td></tr><tr><td>條件不成立要做另一件事</td><td>如果 ○○ ... 否則 ...</td></tr><tr><td>好幾個門檻由高到低依序判斷</td><td>如果 ○○ ... 否則如果 ○○ ... 否則如果 ○○ ... 否則 ...</td></tr><tr><td>讀入資料、暫存起來</td><td>將 ○○ 設為 ○○</td></tr><tr><td>一邊讀資料一邊累加</td><td>重複執行＋將 總和 設為 (總和 + 這筆資料)</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>單一條件成立才做事</td><td><img class="block-img" src="assets/blocks/if_simple.png" alt="如果 ○○" loading="lazy"></td></tr><tr><td>條件不成立要做另一件事</td><td><img class="block-img" src="assets/blocks/if_else.png" alt="如果 ○○ ... 否則 ..." loading="lazy"></td></tr><tr><td>好幾個門檻由高到低依序判斷</td><td><img class="block-img" src="assets/blocks/if_elseif_else.png" alt="如果 ○○ ... 否則如果 ○○ ... 否則如果 ○○ ... 否則 ..." loading="lazy"></td></tr><tr><td>讀入資料、暫存起來</td><td><img class="block-img" src="assets/blocks/var_set.png" alt="將 ○○ 設為 ○○" loading="lazy"></td></tr><tr><td>一邊讀資料一邊累加</td><td>重複執行＋將 總和 設為 (總和 + 這筆資料)</td></tr></tbody></table></div>
 <div class="tip"><div class="tag">💡 多重範圍判斷的順序很重要</div><p>寫「90分以上A、80分以上B、70分以上C」這種多重範圍判斷時，一定要<strong>從最高的門檻開始</strong>依序用「否則如果」往下檢查。如果先判斷「≥70就是C」，95分也會符合，等不到後面判斷A的機會——程式會停在第一個成立的分支，不會繼續往下看。</p></div>
 </div></details>
 

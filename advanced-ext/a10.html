@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="清單統計技巧綜合運用，以及約瑟夫環模擬">
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+<link rel="stylesheet" href="advanced.css?v=7435309d">
 </head>
 <body style="--unit:#d9534f">
 <header class="hero unit-hero">
@@ -27,7 +27,7 @@
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
 <p>這個知識點的題目都包著「寶可夢訓練師」「大風吹」之類的故事，但底層其實是<strong>清單統計技巧的綜合運用</strong>：算平均、找最大值（而且要同時記住它是誰）、依統計結果篩選、模擬清單內容隨時間改變。拆開故事包裝後，每一題都能對應到下面幾種基本動作：</p>
-<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>算出清單所有數字的總和</td><td>將 總和 設為 總和 + (自清單取得 # i)</td></tr><tr><td>總和除以筆數算平均</td><td>除以 N，無條件捨去</td></tr><tr><td>找最大值，同時記住是誰</td><td>如果 這一項 大於 目前最大值，就同時更新「最大值」和「對應名稱」兩個變數</td></tr><tr><td>依統計結果篩選清單</td><td>先走訪一次算出統計值，再走訪第二次比較並輸出符合的項目</td></tr><tr><td>清單內容動態減少</td><td>清單中刪除 # ○○</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>算出清單所有數字的總和</td><td>將 總和 設為 總和 + (自清單取得 # i)</td></tr><tr><td>總和除以筆數算平均</td><td><img class="block-img" src="assets/blocks/div_floor.png" alt="除以 N，無條件捨去" loading="lazy"></td></tr><tr><td>找最大值，同時記住是誰</td><td>如果 這一項 大於 目前最大值，就同時更新「最大值」和「對應名稱」兩個變數</td></tr><tr><td>依統計結果篩選清單</td><td>先走訪一次算出統計值，再走訪第二次比較並輸出符合的項目</td></tr><tr><td>清單內容動態減少</td><td><img class="block-img" src="assets/blocks/list_delete.png" alt="清單中刪除 # ○○" loading="lazy"></td></tr></tbody></table></div>
 <div class="tip"><div class="tag">💡 約瑟夫環類題目的關鍵</div><p>「大風吹搶位子」這類題目的核心不是算術，是<strong>模擬</strong>：準備一份「目前還在圈內」的清單，依規則數到該淘汰的人就刪除，位置是環狀的（數到清單尾端要繞回開頭）。清單會越來越短，直到剩下指定人數為止。</p></div>
 </div></details>
 

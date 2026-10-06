@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="走訪清單處理邊界情況，並用連續區間找出最大總和">
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+<link rel="stylesheet" href="advanced.css?v=7435309d">
 </head>
 <body style="--unit:#2c7a9a">
 <header class="hero unit-hero">
@@ -26,7 +26,7 @@
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
 <p>處理清單時，常常會遇到「這個位置的左邊／右邊可能根本不存在」的情況，例如第 1 項沒有左鄰居、最後一項沒有右鄰居。遇到這種邊界，要先判斷再處理，不能無條件去讀取不存在的位置。</p>
-<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>取得清單第幾項</td><td>自清單取得 # ○○</td></tr><tr><td>判斷是不是第一項／最後一項</td><td>如果 ○○ = 1 ／ 如果 ○○ = 清單長度</td></tr><tr><td>分段處理（先升後降）</td><td>兩個獨立的「循環計數」迴圈，各自負責一段</td></tr><tr><td>窮舉所有起點比較大小</td><td>外層迴圈列出每個起點，內層迴圈算出該起點對應的結果，再互相比較</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>取得清單第幾項</td><td><img class="block-img" src="assets/blocks/list_get.png" alt="自清單取得 # ○○" loading="lazy"></td></tr><tr><td>判斷是不是第一項／最後一項</td><td>如果 ○○ = 1 ／ 如果 ○○ = 清單長度</td></tr><tr><td>分段處理（先升後降）</td><td>兩個獨立的「循環計數」迴圈，各自負責一段</td></tr><tr><td>窮舉所有起點比較大小</td><td>外層迴圈列出每個起點，內層迴圈算出該起點對應的結果，再互相比較</td></tr></tbody></table></div>
 </div></details>
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="累加、字元對應效果、布林切換、數值clamp、連續次數計數">
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+<link rel="stylesheet" href="advanced.css?v=7435309d">
 </head>
 <body style="--unit:#e8536b">
 <header class="hero unit-hero">
@@ -27,7 +27,7 @@
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
 <p>很多模擬題都有同一個骨架：<strong>準備一個狀態變數 → 讀到每一筆事件就更新它 → 全部處理完輸出最終狀態</strong>。差別在「怎麼更新」：有時候是單純加總，有時候要看是什麼字元/事件決定加多少，有時候更新完還要檢查有沒有超出合理範圍。</p>
-<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>準備狀態變數的初始值</td><td>將 狀態 設為 0（迴圈開始前，只做一次）</td></tr><tr><td>逐筆讀資料更新狀態</td><td>重複執行＋將 狀態 設為 狀態 + ○○</td></tr><tr><td>逐字元走訪字串</td><td>循環計數 i 從 1 到 字串長度／自字串取得第 i 個字元</td></tr><tr><td>依字元/事件決定效果</td><td>如果 字元 = &quot;G&quot; ... 否則如果 字元 = &quot;B&quot; ...</td></tr><tr><td>開關切換（布林翻轉）</td><td>將 狀態 設為 不是 狀態</td></tr><tr><td>限制數值不超出範圍</td><td>如果 狀態 &amp;lt; 0，將 狀態 設為 0</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>準備狀態變數的初始值</td><td>將 狀態 設為 0（迴圈開始前，只做一次）</td></tr><tr><td>逐筆讀資料更新狀態</td><td>重複執行＋將 狀態 設為 狀態 + ○○</td></tr><tr><td>逐字元走訪字串</td><td>循環計數 i 從 1 到 字串長度／自字串取得第 i 個字元</td></tr><tr><td>依字元/事件決定效果</td><td><img class="block-img" src="assets/blocks/if_elseif_else.png" alt="如果 字元 = &quot;G&quot; ... 否則如果 字元 = &quot;B&quot; ..." loading="lazy"></td></tr><tr><td>開關切換（布林翻轉）</td><td><img class="block-img" src="assets/blocks/toggle.png" alt="將 狀態 設為 不是 狀態" loading="lazy"></td></tr><tr><td>限制數值不超出範圍</td><td>如果 狀態 &amp;lt; 0，將 狀態 設為 0</td></tr></tbody></table></div>
 <div class="tip"><div class="tag">💡 狀態變數只能初始化一次</div><p>狀態變數（總分、血量、金幣數……）要在迴圈<strong>開始之前</strong>設定初始值，迴圈跑的時候只能「更新」它，不能在迴圈裡面又把它重設回初始值，否則前面幾輪的結果會被洗掉。</p></div>
 </div></details>
 

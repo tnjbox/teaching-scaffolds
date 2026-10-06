@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="迴圈中即時修正資料、連續次數統計、組合搜尋">
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+<link rel="stylesheet" href="advanced.css?v=7435309d">
 </head>
 <body style="--unit:#5b6fee">
 <header class="hero unit-hero">
@@ -26,7 +26,7 @@
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
 <p>這個知識點的題目都是「條件判斷＋迴圈」的進階組合：不是看一筆資料就能判斷完，而是要邊走訪、邊更新某個狀態變數，而且判斷的條件常常跟<strong>目前狀態</strong>有關，不是只看當下這筆資料本身。</p>
-<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>在迴圈裡逐筆檢查並即時修正</td><td>重複執行＋如果 ○○ ... 將 ○○ 設為 ○○</td></tr><tr><td>事件達成後提早結束</td><td>中斷循環</td></tr><tr><td>記住目前一直在變動的狀態</td><td>將 狀態 設為 ○○（迴圈外先初始化，迴圈內更新）</td></tr><tr><td>窮舉所有可能的組合</td><td>巢狀迴圈／巢狀條件，把每一種可能都檢查一次</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>在迴圈裡逐筆檢查並即時修正</td><td>重複執行＋如果 ○○ ... 將 ○○ 設為 ○○</td></tr><tr><td>事件達成後提早結束</td><td><img class="block-img" src="assets/blocks/break.png" alt="中斷循環" loading="lazy"></td></tr><tr><td>記住目前一直在變動的狀態</td><td>將 狀態 設為 ○○（迴圈外先初始化，迴圈內更新）</td></tr><tr><td>窮舉所有可能的組合</td><td>巢狀迴圈／巢狀條件，把每一種可能都檢查一次</td></tr></tbody></table></div>
 <div class="tip"><div class="tag">💡 狀態變數跟迴圈變數不一樣</div><p>迴圈變數（例如 <code class="inline">i</code>）每一輪都會變，但<strong>狀態變數</strong>（例如目前血量、目前箱子裝了多重、冷氣現在開或關）要記得：它的值是從上一輪「延續」下來的，不能每輪都重新初始化，否則狀態就會被洗掉。</p></div>
 </div></details>
 

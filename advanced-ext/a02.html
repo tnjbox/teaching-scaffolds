@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="進位系統解碼、查表轉換、位移加密這幾種字串進階處理">
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+<link rel="stylesheet" href="advanced.css?v=7435309d">
 </head>
 <body style="--unit:#2c7a9a">
 <header class="hero unit-hero">
@@ -27,7 +27,7 @@
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
 <p>字串進階處理常常不是在做「文字操作」本身，而是把字串當成一種<strong>編碼</strong>，要先轉換成數值或查表才能進一步運算。這個知識點練習兩種常見手法：</p>
-<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>逐一走訪字串裡的每個符號</td><td>循環計數 i 從 1 到 長度 每次增加 1</td></tr><tr><td>把符號對應到數值（查表）</td><td>如果 ○○ = &quot;A&quot; ... 否則如果 ○○ = &quot;B&quot; ...</td></tr><tr><td>累積出進位系統的數值</td><td>將 結果 設為 (結果 × 底數 + 這一位的值)</td></tr><tr><td>位移後繞回範圍內</td><td>將 新位置 設為 (位置 + 位移量) 除以 環長度 的餘數</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>逐一走訪字串裡的每個符號</td><td><img class="block-img" src="assets/blocks/for_loop.png" alt="循環計數 i 從 1 到 長度 每次增加 1" loading="lazy"></td></tr><tr><td>把符號對應到數值（查表）</td><td><img class="block-img" src="assets/blocks/if_elseif_else.png" alt="如果 ○○ = &quot;A&quot; ... 否則如果 ○○ = &quot;B&quot; ..." loading="lazy"></td></tr><tr><td>累積出進位系統的數值</td><td>將 結果 設為 (結果 × 底數 + 這一位的值)</td></tr><tr><td>位移後繞回範圍內</td><td>將 新位置 設為 (位置 + 位移量) 除以 環長度 的餘數</td></tr></tbody></table></div>
 <div class="tip"><div class="tag">💡 累積轉換的技巧</div><p>把一串符號（例如「BC」）轉成數值時，不用算「最後一位 ×1、倒數第二位 ×底數、...」這種麻煩的次方公式。更簡單的做法是<strong>從左到右走訪，每看一位就把目前的結果乘上底數再加上這一位的值</strong>：這樣自然就會把前面已經處理過的位數往上移一個位階，效果跟算次方一樣，但不用額外記录「這是第幾位」。</p></div>
 </div></details>
 
