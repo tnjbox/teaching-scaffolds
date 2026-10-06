@@ -16,7 +16,34 @@
     toastTimer = setTimeout(function () { el.classList.remove('show'); }, 1600);
   }
 
+  // 積木截圖點一下放大看（有些圖在表格裡縮得很小看不清楚）。
+  function closeLightbox() {
+    var ov = document.querySelector('.img-lightbox');
+    if (ov) ov.remove();
+    document.removeEventListener('keydown', onLightboxKey);
+  }
+  function onLightboxKey(ev) {
+    if (ev.key === 'Escape') closeLightbox();
+  }
+  function openLightbox(src, alt) {
+    closeLightbox();
+    var ov = document.createElement('div');
+    ov.className = 'img-lightbox';
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = alt || '';
+    ov.appendChild(img);
+    ov.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', onLightboxKey);
+    document.body.appendChild(ov);
+  }
+
   document.addEventListener('click', function (ev) {
+    var blockImg = ev.target.closest('img.block-img');
+    if (blockImg) {
+      openLightbox(blockImg.src, blockImg.alt);
+      return;
+    }
     var fold = ev.target.closest('button[data-fold]');
     if (fold) {
       var open = fold.dataset.fold === 'open';

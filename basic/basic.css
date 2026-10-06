@@ -107,7 +107,9 @@ main.md > h3,.demo > h3{font-size:18px;font-weight:800;margin:26px 0 8px;color:c
 .md td{padding:9px 14px;border-bottom:1px solid var(--line);}
 .md tr:nth-child(even) td{background:#fafbfe;}
 /* 概念說明對照表裡的真實積木截圖（取代純文字積木名稱），白底卡片襯托，避免跟表格底色融在一起。 */
-img.block-img{display:inline-block;max-height:40px;width:auto;vertical-align:middle;background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 6px;}
+img.block-img{display:inline-block;max-height:56px;width:auto;vertical-align:middle;background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 6px;cursor:zoom-in;}
+.img-lightbox{position:fixed;inset:0;background:rgba(20,22,30,.78);display:flex;align-items:center;justify-content:center;padding:32px;z-index:999;cursor:zoom-out;}
+.img-lightbox img{max-width:min(92vw,900px);max-height:88vh;background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 12px 40px rgba(0,0,0,.4);}
 .table-scroll{overflow-x:auto;}
 .note{background:#f3f4fa;border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;margin:14px 0 0;font-size:15px;}
 .note .tag,.tip .tag{display:flex;align-items:center;gap:6px;font-weight:800;margin-bottom:6px;font-size:14px;}
@@ -182,7 +184,7 @@ details.extension > summary .lv{margin-left:6px;vertical-align:middle;}
 @media print{
   .hero{background:none !important;color:var(--ink);border-bottom:2px solid var(--unit);border-radius:0;}
   .hero .breadcrumb a,.hero .code-chip{color:var(--ink);}
-  .platform-switch,.card-actions,.btn,.code-chip button,.pager,.toast{display:none !important;}
+  .platform-switch,.card-actions,.btn,.code-chip button,.pager,.toast,.img-lightbox{display:none !important;}
   details{border:0;}
   details > summary{list-style:none;}
   .demo,.practice,.kp-node .kp-body{box-shadow:none;break-inside:avoid;}
