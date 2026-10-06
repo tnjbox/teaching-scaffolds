@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A08 條件判斷挑戰｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="迴圈中即時修正資料、連續次數統計、組合搜尋">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#5b6fee">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v4.html">V4 條件判斷綜合應用</a> › A08</div>
+    <div class="tier-badge">🧭 V4 條件判斷綜合應用・知識點 A08・競賽模式</div>
+    <h1>條件判斷挑戰</h1>
+    <p class="hero-lead">迴圈中即時修正資料、連續次數統計、組合搜尋</p>
+    <div class="hero-actions"><span class="code-chip">A4-02-CondChallenge<button type="button" data-copy="A4-02-CondChallenge">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會在迴圈裡對每一筆資料做條件判斷並即時修正（例如補貨、設上限）。</li><li>會處理「事件發生時要立刻停止」的情況（例如角色陣亡）。</li><li>會用一個額外變數記錄「目前狀態」，讓條件判斷不只看這一筆資料，還要考慮之前累積的狀態（例如目前裝了多重、目前開著還是關著）。</li><li>知道有些題目要先窮舉所有可能的組合，才能用條件判斷挑出符合要求的答案。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個知識點的題目都是「條件判斷＋迴圈」的進階組合：不是看一筆資料就能判斷完，而是要邊走訪、邊更新某個狀態變數，而且判斷的條件常常跟<strong>目前狀態</strong>有關，不是只看當下這筆資料本身。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>在迴圈裡逐筆檢查並即時修正</td><td>重複執行＋如果 ○○ ... 將 ○○ 設為 ○○</td></tr><tr><td>事件達成後提早結束</td><td>中斷循環</td></tr><tr><td>記住目前一直在變動的狀態</td><td>將 狀態 設為 ○○（迴圈外先初始化，迴圈內更新）</td></tr><tr><td>窮舉所有可能的組合</td><td>巢狀迴圈／巢狀條件，把每一種可能都檢查一次</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 狀態變數跟迴圈變數不一樣</div><p>迴圈變數（例如 <code class="inline">i</code>）每一輪都會變，但<strong>狀態變數</strong>（例如目前血量、目前箱子裝了多重、冷氣現在開或關）要記得：它的值是從上一輪「延續」下來的，不能每輪都重新初始化，否則狀態就會被洗掉。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>校園販賣機自動補貨</h3><span class="lv L2">L2｜進階</span><span class="pid">TYTN-09</span></div><div class="problem-desc" style="white-space:pre-line">自立國中販賣機販售多種飲料，每種飲料都有目前庫存量。為避免缺貨造成不便，系統規定：凡庫存低於10罐者，一律自動補貨至20罐；庫存大於等於10者不補貨。
+請寫一個程式，讀入各品項目前的庫存量，進行自動補貨後，輸出所有飲料的總罐數</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N，代表飲料的種類數。
+第二行：輸入 N 個整數，代表各飲料目前的庫存量（以空格隔開）。</dd><dt>輸出</dt><dd>輸出一個整數（自動補貨後的飲料總罐數）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+12 8 5 20 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>90</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+9 9 9 9</pre></div><div class="sample-row"><div class="k">輸出</div><pre>80</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A4-02-CondChallenge&amp;task=TYTN-09" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：飲料種類數 N、每種飲料目前的庫存量。</li><li><strong>輸出</strong>：補貨後的總罐數——庫存 &lt; 10 的補到 20 罐，庫存 ≥ 10 的維持原樣，全部加總。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 總罐數 設為 0
+循環計數 i 從 1 到 N 每次增加 1
+    將 庫存 設為 自清單取得 # i
+    如果 庫存 &lt; 10
+        將 庫存 設為 20
+    將 總罐數 設為 總罐數 + 庫存
+說出 總罐數</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>庫存清單「12 8 5 20 18」：12 不補（12）、8 補到 20、5 補到 20、20 不補（20）、18 不補（18）。總和 = 12+20+20+20+18 = 90，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題的關鍵是「先判斷、再修正、再使用」：讀到每一筆庫存後，先檢查是不是低於 10，是的話<strong>直接把這個變數改成 20</strong>，再把（可能已經被改過的）庫存值加進總罐數。如果順序顛倒——先加總再判斷——補貨的效果就不會真正反映到總和裡。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>只判斷不修正</strong>：寫了「如果庫存&lt;10」但判斷完沒有真的把庫存設成20，等於沒有補貨。</li><li><strong>判斷條件寫反</strong>：題目是「低於10才補」，等於10不用補，用 <code class="inline">≤10</code> 會多補到剛好10罐的情況。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（7 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>勇者的挑戰</h3><span class="lv L3">L3｜挑戰</span><span class="pid">nanto-002</span></div><div class="focus"><b>這題多了什麼：</b>這題除了判斷「血量不能超過上限」要 clamp 住，還多了一個「血量歸零就立刻停止」的規則：事件還沒跑完，只要某一刻血量 ≤ 0，就不用再處理剩下的事件了，直接輸出 0。迴圈裡要用「中斷循環」在那個當下跳出，而不是讓迴圈傻傻跑完剩下的事件（雖然答案不會變，但觀念上要知道事件已經不該再發生了）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">勇者的挑戰
+說明：勇者正在地下城探險。他會遇到怪物（扣血）或撿到藥水（補血）。請模擬他的血量變化。要注意的是，血量有上限，補血不能補超過上限；且一旦血量歸零或變負數，勇者就倒下了，血量歸零，勇者已經陣亡，立即停止事件處理，最終輸出為 0</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 H，代表初始血量 (同時也是血量上限)。
+第二行：一個整數 N ( N 大於 0 )，代表發生了 N 個事件。
+第三行：輸入 N 個整數，代表 N 個事件造成的數值變化</dd><dt>輸出</dt><dd>輸出一個整數，代表最終血量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>100
+4
+-30 50 -10 -5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>85</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>50
+3
+-60 20 -10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A4-02-CondChallenge&amp;task=nanto-002" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>依序處理每個事件，血量增加時要跟上限比較、不能超過上限；血量變成0或負數時立刻停止處理剩下的事件，輸出0。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>玩具收納運送計算</h3><span class="lv L3">L3｜挑戰</span><span class="pid">nanto-005</span></div><div class="focus"><b>這題多了什麼：</b>這題的狀態是「目前這個箱子已經裝了多重」：每來一件玩具，檢查「目前重量 + 這件重量」會不會超過 20 公斤，不會才裝進去、重量累加；會超過就讓箱子數 +1、把目前重量<strong>重設成這件玩具的重量</strong>（新箱子從這件玩具開始裝，不是歸零不裝）。這招「累加到超過門檻就重置、計數器加一」跟示範題「單純判斷補不補貨」不一樣，是本知識點第一次出現「狀態會因為超過門檻而整個重來一次」的題型。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">夢想玩具工坊每天需要將完成的玩具裝箱後，運送到展示倉庫。
+為了確保運送安全，每一個標準收納箱最多只能承載 20 公斤 的玩具重量。
+玩具會依照製作完成的順序，一件一件依序處理。
+當嘗試將某件玩具放入目前使用的收納箱時，
+若箱內現有玩具重量加上該玩具後超過 20 公斤，
+則該玩具不可放入此箱，該箱立即封箱，
+並改使用一個新的收納箱來放置該玩具。
+請根據輸入的玩具重量資料，計算最少需要多少個收納箱，
+才能將所有玩具依序安全裝箱完成</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N，代表玩具的件數。
+第二行：N 個整數，代表每件玩具的重量（公斤），資料之間以一個半形空格隔開。</dd><dt>輸出</dt><dd>輸出一個整數，代表最少需要的收納箱數量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+5 6 4 7 9 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+8 9 6 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A4-02-CondChallenge&amp;task=nanto-005" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>準備一個「目前箱子已裝重量」的變數，每來一件玩具就檢查「目前重量+這件重量」會不會超過20公斤，不會才裝進去並累加重量，會超過就開一個新箱子。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>碼易丁飲料店-4</h3><span class="lv L3">L3｜挑戰</span><span class="pid">nanto-006-4</span></div><div class="focus"><b>這題多了什麼：</b>這題要同時追蹤 <strong>K 個獨立的狀態</strong>（每一種飲料各自的銷售杯數），不是只有一個總計變數：準備一個長度 K 的清單當計數器，每讀到一筆訂單，依飲料編號把對應那一格的計數器加上購買杯數，全部訂單讀完後，依序輸出每種飲料的銷售量，再加總利潤。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">子題四：每日銷售數量結算
+到了晚上，小明需要結算一整天賣出了多少杯飲料，以及總共多少利潤。
+假設店內共有 K 種飲料（編號為 1 ～ K），每種飲料的「每杯利潤」皆不同。
+今天共有 N 筆訂單，每筆訂單包含「飲料編號」與「購買杯數」。
+請你設計一個程式，依序讀取輸入資料，計算：
+1. 各種飲料的總銷售杯數（依照 1～K 順序）
+2. 當天的總利潤</div><dl class="io"><dt>輸入</dt><dd>• 第一行輸入一個整數 K（3 ≤ K ≤ 10），代表飲料種類數。
+• 第二行輸入 K 個整數，依序代表第 1 種到第 K 種飲料的「每杯利潤」。
+• 第三行輸入一個整數 N（1 ≤ N ≤ 20），代表今天共有 N 筆訂單。
+• 第四行輸入 2N 個整數，依序代表「飲料編號（1～K）」與「杯數（1～20）」。</dd><dt>輸出</dt><dd>• 輸出一行共 K+1 個整數。
+• 前 K 個數字依序為第 1～K 種飲料的總銷售杯數。
+• 最後一個數字為當天的總利潤。
+• 所有數字之間以一個半形空格隔開。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+15 10 15 20 25
+3
+5 5 2 2 2 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0 12 0 0 5 245</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+5 8 8 6 5
+5
+2 4 1 3 5 2 3 3 4 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 4 3 4 2 105</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A4-02-CondChallenge&amp;task=nanto-006-4" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>每種飲料準備一個「賣出杯數」的累計變數，依序讀入每筆訂單的飲料編號和杯數，累加到對應飲料的計數器，最後把每種飲料的利潤加總。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>程式設計師阿倫</h3><span class="lv L3">L3｜挑戰</span><span class="pid">W2-02</span></div><div class="focus"><b>這題多了什麼：</b>這題沒有要「判斷」什麼，重點在於狀態之間的<strong>遞迴關係</strong>：第 3 天開始，每天的數量都等於「前兩天的數量相加」（跟費氏數列的結構一樣）。用一個迴圈從第 3 天算到第 N 天，每算完一天就把「前一天」「前兩天」這兩個狀態往前推進一格，才能算下一天。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">阿倫很喜歡寫程式，他每天都會寫好幾個程式。
+為了自我要求，他規定自己：
+從第 3 天開始，每天寫的程式數量必須等於「前 2 天寫的總和」，
+以此作為自己持續進步的證明。
+已知阿倫：
+第 1 天寫了 A 個程式，第 2 天寫了 B 個程式。
+請你撰寫一個程式，計算阿倫在第 N 天寫了多少個程式。</div><dl class="io"><dt>輸入</dt><dd>輸入為一行，包含三個整數 N、A、B，
+分別代表要查詢的天數、第 1 天與第 2 天寫的程式數量。</dd><dt>輸出</dt><dd>輸出一個整數，代表阿倫在第 N 天寫的程式數量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4 1 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>1 1 1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A4-02-CondChallenge&amp;task=W2-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>第3天開始的程式數量=前兩天的總和（跟費氏數列一樣的遞迴關係），用一個迴圈依序算出第3天到第N天的值。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>連續成績進步分析</h3><span class="lv L3">L3｜挑戰</span><span class="pid">W9-05</span></div><div class="focus"><b>這題多了什麼：</b>這題要找「最長連續進步次數」：準備一個計數器，從第 2 天開始，當天成績比前一天高就讓計數器 +1，沒有比前一天高就把計數器歸 0（連續中斷了）；過程中要另外用一個變數隨時記住出現過的最大計數器值，因為連續次數會不斷歸零重來，不能只看迴圈結束那一刻的計數器。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">老師連續記錄了你 N 天的測驗成績，依照時間順序存放在一份成績清單中。老師希望透過這些資料，了解你在學習過程中是否有持續進步的表現。
+
+請從第 2 天開始，將每天的成績與前一天的成績進行比較，並依下列規則判斷：
+
+• 若當天成績大於前一天成績，則視為「成績進步一次」。
+
+• 若當天成績沒有比前一天高（小於或等於），則中斷連續進步的計算。
+
+• 請找出並輸出「連續成績進步」的最長次數。</div><dl class="io"><dt>輸出</dt><dd>• 第一行輸入一個整數 N，代表記錄成績的天數（1 ≤ N ≤ 50）。
+• 第二行輸入 N 個整數，分別代表每一天的測驗成績（0 ≤ 成績 ≤ 100），數字間以單一空白隔開。
+• 輸出一個整數，代表「連續成績進步」的最大連續次數。若完全沒有進步，請輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+60 65 70 68 72</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+50 60 55 56 57</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A4-02-CondChallenge&amp;task=W9-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從第2天開始，把當天成績跟前一天比較，大於就讓「進步次數」加1，小於就讓「退步次數」加1，相同則不計入任何一邊。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>攻擊防禦力平衡</h3><span class="lv L4">L4｜精熟</span><span class="pid">TYTN-11</span></div><div class="focus"><b>這題多了什麼：</b>這題的狀態判斷要建立在「窮舉所有道具使用組合」之上：3 件道具最多有 8 種「用／不用」的組合，把每一種組合的攻擊力增量、防禦力增量都算出來，再檢查「角色攻擊力+增量」是否等於「角色防禦力+增量」，在所有符合條件的組合裡，挑使用道具數量最少的那一組輸出。跟前面幾題「狀態隨時間變化」不同，這題的狀態是「這個組合選了哪些道具」。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小麗在玩一款魔法戰鬥RPG手機遊戲。角色擁有「魔力攻擊」與「魔法防禦」兩種屬性。三件魔法道具會同時提升攻擊與防禦，道具效果可以疊加，但每件道具只能使用一次。
+小麗希望使用最少的道具，使角色攻擊力與防禦力相等。請撰寫程式找出要使用哪些道具才能達成要求，若需要多個道具，請依道具編號由小到大輸出；若無法達成攻擊力等於防禦力則輸出0</div><dl class="io"><dt>輸入</dt><dd>第1行：角色的魔法攻擊力
+第2行：角色的魔法防禦力
+第3行：第1、2、3件道具的攻擊力與防禦力（先列全部攻擊力，再列全部防禦力）</dd><dt>輸出</dt><dd>第1行：使用的道具編號（若多個，請以空白間隔；若無法達成則輸出0）</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>15
+20
+20 5 10 10 15 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>10
+15
+5 20 15 10 10 25</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A4-02-CondChallenge&amp;task=TYTN-11" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>列出所有道具的使用組合，找出能讓攻擊力+防禦力增量相等、且使用道具數量最少的組合。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>省電大作戰</h3><span class="lv L4">L4｜精熟</span><span class="pid">W4-03</span></div><div class="focus"><b>這題多了什麼：</b>這題要同時維護「冷氣現在開還是關」這個狀態，並根據狀態轉換是否發生額外的花費：每個小時先判斷「這小時冷氣是否該開著」（小明在房間時一定要開），再判斷「這一刻是不是從關機變開機的瞬間」——如果是，才需要額外付 5 度的啟動費；如果冷氣本來就開著，繼續開不用再付啟動費。小明不在房間的時段可以自由選擇開或關，要抓住「維持開機雖然多耗運轉費，但能省下下次的啟動費」這個權衡，才能算出最少總耗電。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小明的房間有一台變頻冷氣，為了節省電費，他研究出冷氣的耗電規則如下：
+【耗電規則】
+1. 運轉費：只要冷氣是開著的（運轉中），每個小時消耗 1 度電。
+2. 啟動費：每次把冷氣「從關機變成開機」的瞬間，需要額外消耗 5 度電。
+注意：若冷氣本來就是開著的，進入下一小時不需要再付啟動費。
+3. 關機省電：冷氣關掉時不耗電（0 度）。
+【行程表】
+小明列出一天 N 個小時的行程表（以 0 和 1 表示）：
+1：代表小明在房間，該小時冷氣必須是開著的。
+0：代表小明不在房間，你可以選擇讓冷氣關掉（省運轉費），或維持開著（避免下次再付啟動費 5 度）。
+【任務】
+在滿足所有「小明在房間」的時段冷氣都必須開著的條件下，請計算一整天最少總共要消耗多少度電。</div><dl class="io"><dt>輸入</dt><dd>第一行輸入一個整數 N，代表總時數。
+第二行輸入 N 個整數（0 或 1，以空白隔開），代表每個小時小明是否在房間。</dd><dt>輸出</dt><dd>輸出一個整數，代表最少的總耗電度數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+1 1 1 1 1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>8
+1 0 0 1 0 1 0 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>11</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A4-02-CondChallenge&amp;task=W4-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用一個變數記錄冷氣目前是開或關；每小時先判斷這小時開著就要付運轉費，再判斷這小時是不是「剛從關機變開機」要額外付啟動費，依序累加總電費。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會在迴圈裡用狀態變數記錄「目前裝了多重／目前連續幾次／目前開或關」這類持續變動的資訊。</li><li>我知道狀態變數要在迴圈外初始化一次，迴圈內才更新，不能每輪重設。</li><li>我會判斷什麼時候該用「中斷循環」提早結束。</li><li>我能窮舉所有可能的組合，再用條件判斷挑出符合要求的答案。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a07.html"><div class="dir">← 上一個知識點</div><b>A07 條件判斷綜合</b></a><a class="next" href="a09.html"><div class="dir">下一個知識點 →</div><b>A09 狀態追蹤基礎</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

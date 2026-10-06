@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A21 動態規劃暖身｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="計數型、最佳化型、決策型、二維動態規劃">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#8b5cf6">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v11.html">V11 區間最佳化與動態規劃</a> › A21</div>
+    <div class="tier-badge">🧩 V11 區間最佳化與動態規劃・知識點 A21・競賽模式</div>
+    <h1>動態規劃暖身</h1>
+    <p class="hero-lead">計數型、最佳化型、決策型、二維動態規劃</p>
+    <div class="hero-actions"><span class="code-chip">A11-02-DPWarmup<button type="button" data-copy="A11-02-DPWarmup">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道動態規劃（DP）的核心精神：把一個大問題拆成「規模較小的同類問題」，並且<strong>把算過的結果存起來</strong>，不要重複計算。</li><li>會建立一份「狀態清單」，用遞迴關係式從前面已經算好的項推出下一項。</li><li>看得出同一種遞迴結構（例如爬樓梯），可以套用在「算方法數」「算最小花費」「算最大總和」等不同目標上，只是把加法換成取最小值或最大值。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>有些題目會先讓人想用遞迴：要算出「規模N的答案」，可以拆成「規模N-1的答案」加上「規模N-2的答案」（或是其他較小規模的組合）。但如果每次都重新從頭算一次小規模的答案，重複計算的量會隨著N增加暴增。</p>
+<p>動態規劃的做法是：準備一份清單（狀態清單，常簡稱dp清單），<strong>由小到大</strong>依序把每個規模的答案算出來並存進清單，之後要用到某個小規模的答案時，直接從清單裡讀，不用重算。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>建立狀態清單</td><td>「清單中加入」，依序把dp[0]、dp[1]、dp[2]...放進去</td></tr><tr><td>從前面已算好的項推出下一項</td><td>清單的第(i-1)項、第(i-2)項...（看遞迴關係式需要哪幾項）</td></tr><tr><td>要「方法數」「總和」</td><td>把前面的項相加</td></tr><tr><td>要「最小花費」「最少枚數」</td><td>把前面的項取最小值（min）再加上這一步的代價</td></tr><tr><td>要「最大總和」</td><td>把前面的項取最大值（max）</td></tr><tr><td>兩個字串的題目（二維DP）</td><td>用二維表格，dp[i][j]代表「字串A前i個字元、字串B前j個字元」的結果</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 同一個遞迴結構，換個組合運算子</div><p>爬樓梯「有幾種方法」是把dp[i-1]和dp[i-2]<strong>相加</strong>；最小花費爬樓梯是把兩者<strong>取最小值</strong>再加上這階的花費。遞迴的「形狀」一樣，差別只在最後用加法、取最小、還是取最大去組合前面算好的結果——先認出遞迴結構，再決定要用哪種組合方式。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>爬樓梯方法數</h3><span class="lv L2">L2｜進階</span><span class="pid">M3-04-01</span></div><div class="problem-desc" style="white-space:pre-line">小朋友在爬樓梯，每一步可以爬1階或2階，請問爬到第N階，總共有幾種不同的爬法？（N保證大於等於1）
+
+第一行輸入N
+
+輸出爬到第N階的方法數。</div><dl class="io"><dt>輸入</dt><dd>N</dd><dt>輸出</dt><dd>爬法總數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>8</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-02-DPWarmup&amp;task=M3-04-01" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：樓梯階數N。</li><li><strong>輸出</strong>：爬到第N階的方法數（每次可以爬1階或2階）。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 dp清單 設為空清單
+清單中加入 1（dp[1]：爬到第1階只有1種走法）
+清單中加入 2（dp[2]：爬到第2階有2種走法，1+1或直接2）
+循環計數 i 從 3 到 N 每次增加 1
+    將 這階方法數 設為 (dp清單第(i-1)項) + (dp清單第(i-2)項)
+    清單中加入 這階方法數
+說出 dp清單的第 N 項</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入「5」：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>dp[i]＝dp[i-1]+dp[i-2]</th><th>說明</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>起始值</td></tr><tr><td>2</td><td>2</td><td>起始值</td></tr><tr><td>3</td><td>dp[2]+dp[1]=2+1=3</td><td>—</td></tr><tr><td>4</td><td>dp[3]+dp[2]=3+2=5</td><td>—</td></tr><tr><td>5</td><td>dp[4]+dp[3]=5+3=8</td><td>—</td></tr></tbody></table></div>
+<p>輸出「8」，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題是最單純的「計數型DP」，建立起整個知識點的基本框架：</p>
+<ul><li>爬到第i階的最後一步，只有兩種可能：從第i-1階爬1階上來，或從第i-2階爬2階上來。所以「爬到第i階的方法數」就是這兩種情況的方法數相加。</li><li>起始值（dp[1]=1、dp[2]=2）沒辦法用遞迴關係式算出來，要自己先手動放進清單，之後才能從第3階開始套用遞迴關係式往上推。</li><li>整個過程只需要從1算到N，每一階都只用到前面已經算好的兩項，不會重複計算。</li></ul>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>忘記處理N=1或N=2的特殊情況</strong>：如果N本身就是1或2，不需要跑迴圈，直接輸出起始值就好，硬是跑迴圈反而會存取不存在的dp[0]或dp[-1]。</li><li><strong>用遞迴函式直接呼叫自己，沒有存結果</strong>：這樣雖然邏輯正確，但重複計算量會隨N暴增，失去動態規劃「存起來不重算」的意義。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（5 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>最小花費爬樓梯</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-04-02</span></div><div class="focus"><b>這題多了什麼：</b>跟示範題一樣的遞迴結構，但目標從「方法數」換成「最少花費」：到第i階的最少花費 = 這一階本身的花費 + (dp[i-1]和dp[i-2]兩者中較小的那個)。最後答案要比較「從倒數第一階出去」和「從倒數第二階出去」兩種離開方式，取花費較小的。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">每一階樓梯都有一個花費，你可以選擇從第1階或第2階開始爬（不用付出發那階的費用以外的額外代價），每次可以往上爬1階或2階，最終目標是離開樓梯（爬過最後一階或倒數第二階再跨一步出去都算離開）。請問離開樓梯最少要花多少錢？
+
+第一行輸入N，代表共有N階樓梯
+
+第二行輸入N個數字，代表第1階到第N階（由1開始編號）各自的花費
+
+輸出離開樓梯的最小花費。</div><dl class="io"><dt>輸入</dt><dd>N、N個花費數字</dd><dt>輸出</dt><dd>最小花費</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+10 15 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-02-DPWarmup&amp;task=M3-04-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟爬樓梯方法數結構一樣，但這次算「最少花費」：到第i階的最少花費=這一階的花費+min(到i-1階的花費,到i-2階的花費)。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>不能選相鄰兩個的最大總和</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-04-03</span></div><div class="focus"><b>這題多了什麼：</b>這題的遞迴想法稍微不同：對每個位置i，有兩個選擇——<strong>不選</strong>這個位置（總和沿用dp[i-1]），或<strong>選</strong>這個位置（這個位置的值加上dp[i-2]，因為選了這個位置，相鄰的i-1就不能選）。dp[i]取這兩種選擇中較大的總和。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">一排數字，請你從中挑選一些數字（可以不挑），規則是不能同時挑選相鄰的兩個位置，求挑選出來的數字總和最大是多少。
+
+第一行輸入N
+
+第二行輸入N個數字
+
+輸出可以選出的最大總和。</div><dl class="io"><dt>輸入</dt><dd>N、N個數字</dd><dt>輸出</dt><dd>最大總和</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+3 2 5 10 7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-02-DPWarmup&amp;task=M3-04-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>到第i個位置，有兩個選擇：不選這個位置（總和=到i-1的最大總和），或選這個位置（總和=這個位置的值+到i-2的最大總和），取較大的那個。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>硬幣湊金額最少枚數</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-04-04</span></div><div class="focus"><b>這題多了什麼：</b>這題的dp清單索引代表「金額」而不是「第幾階」：dp[0]=0（湊出0元要0枚硬幣），dp[i]＝用每一種面額各自往前推「i-面額」的最少枚數，取其中最小的再加1（代表多用了這一枚硬幣）。要注意這題是「每種面額可以重複使用」，所以每個金額都要把所有面額都試過一輪，取最小值。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">有K種硬幣面額可以使用（面額中一定包含1，所以任何金額都湊得出來），每種面額可以重複使用，請你算出湊出目標金額amount最少需要幾枚硬幣。
+
+第一行輸入K，代表有K種硬幣面額
+
+第二行輸入K個數字，代表各面額（保證其中包含1）
+
+第三行輸入amount，代表目標金額
+
+輸出最少需要的硬幣枚數。</div><dl class="io"><dt>輸入</dt><dd>K、K個硬幣面額、amount</dd><dt>輸出</dt><dd>最少硬幣枚數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+1 5 10
+18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-02-DPWarmup&amp;task=M3-04-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>到達金額i的最少枚數=min(用每一種面額往前推i-面額的最少枚數)+1，從金額0（0枚）開始往上推到目標金額。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>方格地圖走法數</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-04-05</span></div><div class="focus"><b>這題多了什麼：</b>跟示範題的爬樓梯結構很像，只是從一維（第幾階）變成二維（第幾列第幾行）：走到(r, c)的走法數＝走到(r-1, c)的走法數＋走到(r, c-1)的走法數（因為只能從上面或左邊走過來）。第一列跟第一行每個位置都只有1種走法（只能一直往右或一直往下走），要先手動填好當起始值。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">有一個R列C行的方格地圖，你從左上角（第1列第1行）出發，每次只能往右走一格或往下走一格，請問走到右下角（第R列第C行）總共有幾種不同的走法？
+
+第一行輸入R C
+
+輸出走法總數。</div><dl class="io"><dt>輸入</dt><dd>R C</dd><dt>輸出</dt><dd>走法總數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-02-DPWarmup&amp;task=M3-04-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>到達(r,c)的走法數=到達(r-1,c)的走法數+到達(r,c-1)的走法數（因為只能從上面或左邊走過來），第一列和第一行的走法數都是1。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>兩字串最長共同子序列長度</h3><span class="lv L4">L4｜精熟</span><span class="pid">M3-04-06</span></div><div class="focus"><b>這題多了什麼：</b>這題是二維DP，狀態用「兩個字串分別取前幾個字元」描述：dp[i][j]代表字串A前i個字元跟字串B前j個字元的最長共同子序列長度。如果第i個字元（A）和第j個字元（B）相同，dp[i][j]＝dp[i-1][j-1]+1（兩邊都往前一格，長度+1）；不同的話，dp[i][j]＝dp[i-1][j]和dp[i][j-1]兩者中較大的那個（看看少看A的這個字元、還是少看B的這個字元，哪個結果比較好）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給你兩個字串，請你求出它們的『最長共同子序列』長度（子序列不需要連續出現，但字母的相對先後順序要一致）。
+
+第一行輸入字串A
+
+第二行輸入字串B
+
+輸出最長共同子序列的長度。</div><dl class="io"><dt>輸入</dt><dd>字串A、字串B</dd><dt>輸出</dt><dd>最長共同子序列長度</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>ABCDE
+ACE</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-02-DPWarmup&amp;task=M3-04-06" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用一個二維表格dp[i][j]記錄「字串A前i個字元」跟「字串B前j個字元」的最長共同子序列長度：兩個字元相同時dp[i][j]=dp[i-1][j-1]+1，不同時取dp[i-1][j]和dp[i][j-1]的較大值。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 園遊會尋找幸運抽獎號 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟示範題「爬樓梯方法數」是完全相同的費氏數列遞迴結構（dp[i]=dp[i-1]+dp[i-2]），只是包裝成「幸運跳格子」的故事情境，當作同招的延伸練習。</div><div class="problem-desc" style="white-space:pre-line">園遊會中最熱門的攤位是「幸運跳格子」挑戰賽。地上畫了一排共有 N 格的格子（編號從 1 到 N）。 為了增加遊戲的趣味性與挑戰性，主辦單位規定：參賽者從起點（第 0 格）出發，每次跳躍只能選擇「跳 1 格」或「跳 2 格」。
+例如：要跳到第 3 格，可以有三種跳法：
+1. 跳1格 → 跳1格 → 跳1格 (1, 1, 1)
+2. 跳1格 → 跳2格 (1, 2)
+3. 跳2格 → 跳1格 (2, 1)
+學生會長想知道，如果要剛好停在第 N 格領取大獎，總共有多少種不同的跳法組合？
+這正是經典的費氏數列問題，若剛好停在第 N 格可能的走法數為F(N)種，我們可觀察到
+F(1)=1                ,停在第1格有1種走法
+F(2)=2                ,停在第2格有2種走法
+F(3)=F(2)+F(1)=1+2=3   ,停在第3格有3種走法
+F(4)=F(3)+F(2)=3+2=5   ,停在第4格有5種走法
+…</div><dl class="io"><dt>輸入</dt><dd>一個整數 N，代表目標格子。</dd><dt>輸出</dt><dd>一個整數，代表到達第 N 格的總跳法數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-02-DPWarmup&amp;task=cycjunior-006-2-%E5%9C%92%E9%81%8A%E6%9C%83%E5%B0%8B%E6%89%BE%E5%B9%B8%E9%81%8B%E6%8A%BD%E7%8D%8E%E8%99%9F" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟爬樓梯方法數一樣是「爬1階或2階、求方法數」的費氏數列結構，只是包裝成尋找幸運抽獎號碼的敘事，當作同招的延伸練習。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我知道動態規劃是把大問題拆成小問題，並且把算過的結果存起來不重算。</li><li>我會建立dp清單，從小規模的起始值開始，依序往上推到目標規模。</li><li>我分得清楚同一個遞迴結構，什麼時候該用加法（算方法數/總和）、什麼時候該用取最小值或最大值。</li><li>我看得懂二維DP的狀態定義（例如dp[i][j]代表兩個字串分別取前幾個字元的結果）。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a20.html"><div class="dir">← 上一個知識點</div><b>A20 區間最佳化</b></a><a class="next" href="a22.html"><div class="dir">下一個知識點 →</div><b>A22 115全國賽示範題</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

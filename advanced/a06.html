@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A06 除錯與格式控制｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="補零、千分位、四捨五入、除以零例外、負數餘數調整">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#6b7a90">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v3.html">V3 新資料結構與輸出格式</a> › A06</div>
+    <div class="tier-badge">🧱 V3 新資料結構與輸出格式・知識點 A06・競賽模式</div>
+    <h1>除錯與格式控制</h1>
+    <p class="hero-lead">補零、千分位、四捨五入、除以零例外、負數餘數調整</p>
+    <div class="hero-actions"><span class="code-chip">A3-02-OutputFormat<button type="button" data-copy="A3-02-OutputFormat">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道平台比對答案時連一個字元都不能有差異，養成注意輸出格式細節的習慣。</li><li>會處理常見的格式陷阱：補零、千分位逗號、固定小數位數。</li><li>會在計算前先判斷例外情況（除以零），避免程式真的執行到會出錯的那一步。</li><li>會用「加上除數再取餘數」處理負數取餘數的問題。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個知識點不是一招打天下，而是整理 6 個<strong>實戰中很容易忽略、但平台判題完全不會放水</strong>的輸出格式與例外處理技巧。每一題都是獨立的小陷阱，練完之後看到類似的坑就能直接反應過來。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>數字不夠位數時補零</td><td>如果 數字 &lt; 10，前面接上 &quot;0&quot;</td></tr><tr><td>除法前先檢查除數是不是 0</td><td>如果 除數 = 0，直接輸出替代文字，不要真的做除法</td></tr><tr><td>固定輸出小數點後兩位</td><td>用「無條件捨去到小數點後兩位」或四捨五入後補齊位數</td></tr><tr><td>從個位數往左每三位加逗號</td><td>把數字轉成文字後，從右邊數，每 3 個字元插入一個逗號</td></tr><tr><td>負數取餘數調整回正確範圍</td><td>先取餘數，結果是負的就再加上除數</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 平台判題不會放水</div><p>多一個空格、少一個 0、小數點位數不夠，答案就算錯。這個知識點的每一題測資都特別設計了容易漏掉的邊界情況（例如剛好是整數的平均、金額剛好是整數倍的情況），練習時要特別留意這些細節。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>兩位數補零輸出</h3><span class="lv L1">L1｜基礎</span><span class="pid">M1-12-01</span></div><div class="problem-desc" style="white-space:pre-line">請你把一個介於0到99之間的整數，輸出成固定兩位數的格式：如果數字小於10，前面要補一個0（例如5要輸出成05）；如果數字是兩位數，直接輸出即可（例如23輸出23）。
+
+第一行輸入一個介於0到99之間的整數N</div><dl class="io"><dt>輸入</dt><dd>N（0~99）</dd><dt>輸出</dt><dd>補零後的兩位數字串</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>05</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>23</pre></div><div class="sample-row"><div class="k">輸出</div><pre>23</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A3-02-OutputFormat&amp;task=M1-12-01" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個介於 0 到 99 之間的整數 N。</li><li><strong>輸出</strong>：固定兩位數的格式——N 小於 10 就在前面補一個 0，否則直接輸出。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">讀入 N
+如果 N &lt; 10
+    說出 (&quot;0&quot; 接上 N)
+否則
+    說出 N</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>N=5：5 小於 10，所以輸出「0」接上「5」，變成「05」，和範例一樣。N=23：23 不小於 10，直接輸出「23」。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題只有一個判斷：N 是不是個位數（小於 10）。是的話就用字串組合在前面接一個字元「0」；不是的話代表本來就是兩位數，直接輸出原本的數字就好，不用額外處理。重點是「0」要用文字接起來，不是用數學運算，因為補零是格式問題不是數值問題（05 當數字看會變成 5，當文字看才是「05」）。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>用數學運算處理補零</strong>：直接把 0 和 N 相加沒有意義，一定要用字串組合把「0」這個文字接在前面。</li><li><strong>忘記 N=0 的情況</strong>：N=0 時也小於 10，要補成「00」，不是輸出空字串或「0」。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（5 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>負數的正確餘數計算</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-12-05</span></div><div class="focus"><b>這題多了什麼：</b>這題要算 a 除以 b 的餘數，但 a 可能是負數——直接用取餘數積木，碰到負數時平台可能會得到負的餘數（例如 -3 除以 5，直接取餘數可能得到 -3，但題目要的是 0 到 4 之間的正確餘數）。做法是：先用一般的取餘數算出結果，如果這個結果是負的，就再加上除數 b，把它調整到 0 到 b-1 的範圍內。這是負數取餘數的通用公式 <code class="inline">((a 除以 b 的餘數) + b) 的餘數</code>，用在任何可能出現負數的取餘數情境都適用。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你計算a除以b的餘數，餘數必須維持在0到b-1之間（即使a是負數，也要輸出這個範圍內正確的餘數，不能直接用一般的取餘數運算導致出現負的餘數）。（b保證是正整數）
+
+第一行輸入a b（空白分隔）</div><dl class="io"><dt>輸入</dt><dd>a b</dd><dt>輸出</dt><dd>0到b-1之間的正確餘數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>-3 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A3-02-OutputFormat&amp;task=M1-12-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先用一般的取餘數算出結果，如果結果是負的，再加上除數b，把它調整到0到b-1之間。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>單筆資料時的最大最小值</h3><span class="lv L2">L2｜進階</span><span class="pid">M1-12-06</span></div><div class="focus"><b>這題多了什麼：</b>這題要找 N 筆分數的最大值和最小值，重點在<strong>初始值怎麼設</strong>：如果把最大值的初始值設成 0、最小值設成某個很大的數字，遇到「只有 1 筆資料」或「全部分數都比初始值極端」的情況可能會出錯。正確做法是<strong>直接拿第一筆資料當作最大值和最小值的初始值</strong>，之後從第二筆開始才逐一比較更新——這樣不管資料有幾筆、數值多大多小，都不會漏判。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你找出N筆分數中的最大值與最小值，並依序輸出。</div><dl class="io"><dt>輸入</dt><dd>N、N個分數</dd><dt>輸出</dt><dd>最大值 最小值</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>1
+88</pre></div><div class="sample-row"><div class="k">輸出</div><pre>88 88</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A3-02-OutputFormat&amp;task=M1-12-06" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>第一筆資料直接當作目前的最大值和最小值的初始值，之後每筆資料再跟目前的最大/最小值比較、更新。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>平均分數到小數點後兩位</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M1-12-03</span></div><div class="focus"><b>這題多了什麼：</b>這題要把平均值輸出到小數點後兩位，<strong>即使剛好是整數也要顯示兩位小數</strong>（例如 85 要輸出成 85.00，不能只輸出 85）。做法是先算出四捨五入到小數兩位的平均值，再檢查小數部分的位數夠不夠兩位，不夠的話要自己用字串組合補上「0」字元湊滿——這一步容易被忽略，因為很多語言預設印出小數時，結尾多餘的 0 會被省略掉。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你計算N筆分數的平均值，輸出到小數點後兩位（四捨五入），即使結果剛好是整數，也要顯示到小數點後兩位（例如平均剛好80分要輸出80.00）。
+
+第一行輸入N
+
+第二行輸入N個分數
+
+輸出平均值，格式為小數點後兩位。</div><dl class="io"><dt>輸入</dt><dd>N、N個分數</dd><dt>輸出</dt><dd>平均值（小數點後兩位）</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
+80 90 70 100</pre></div><div class="sample-row"><div class="k">輸出</div><pre>85.00</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A3-02-OutputFormat&amp;task=M1-12-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先算出四捨五入到小數兩位的平均值，再檢查小數部分的位數夠不夠兩位，不夠就自己補「0」字元湊滿。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>除以零的例外處理</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M1-12-04</span></div><div class="focus"><b>這題多了什麼：</b>這題要計算 a 除以 b，但 b 有可能是 0。重點是<strong>順序</strong>：要先判斷 b 是不是 0，是的話直接輸出「無法計算」，完全不要真的去執行除法——如果先做除法運算再判斷結果，程式在除以 0 的那一刻就已經出錯了，根本來不及判斷。這是「先檢查例外情況，再做可能出錯的運算」的典型寫法。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你計算兩個整數a除以b的結果，並輸出到小數點後兩位。但是b有可能是0，這時候不能真的做除法（會出錯），請改成輸出「無法計算」。
+
+第一行輸入a b（空白分隔）
+
+如果b不是0，輸出a除以b的結果（小數點後兩位）；如果b是0，輸出「無法計算」。</div><dl class="io"><dt>輸入</dt><dd>a b</dd><dt>輸出</dt><dd>除法結果（小數點後兩位）或「無法計算」</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2.50</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>無法計算</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A3-02-OutputFormat&amp;task=M1-12-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先判斷除數b是不是0，是0的話直接輸出「無法計算」，不要真的執行除法；不是0才正常計算並輸出到小數點後兩位。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>金額千分位輸出</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M1-12-02</span></div><div class="focus"><b>這題多了什麼：</b>這題要把一個金額數字加上千分位逗號（例如 1234567 要變成 1,234,567）。做法是從數字的<strong>最後一位（個位數）往左數</strong>，每 3 個字元插入一個逗號——可以先把數字轉成文字，再從右邊數起決定逗號要插入哪些位置。要特別注意不滿 4 位數（例如 999）不需要任何逗號，以及位數剛好是 3 的倍數時（例如 1000），逗號要插在正確的地方而不是多插或少插。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你把一個金額數字，輸出成加上千分位逗號的格式（從個位數往左，每三位加一個逗號，例如1234567要輸出成1,234,567）。金額保證是不含小數的正整數。
+
+第一行輸入一個正整數金額amount</div><dl class="io"><dt>輸入</dt><dd>amount（正整數）</dd><dt>輸出</dt><dd>加上千分位逗號的金額字串</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>1234567</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1,234,567</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A3-02-OutputFormat&amp;task=M1-12-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從數字的最後一位往前數，每三位加一個逗號；可以先把數字轉成字串處理，或算出總位數決定逗號要插入的位置。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我知道平台判題連一個字元、一個空格的差異都會被判錯。</li><li>我會用字串組合處理補零、千分位逗號這類格式問題，不會跟數學運算搞混。</li><li>我會在做除法之前先判斷除數是不是 0，避免程式執行到會出錯的那一步。</li><li>我會用「取餘數後再加除數」的公式處理負數取餘數的問題。</li><li>我會用「第一筆資料當初始值」的方式正確處理最大值／最小值的邊界情況。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a05.html"><div class="dir">← 上一個知識點</div><b>A05 堆疊與佇列</b></a><a class="next" href="a07.html"><div class="dir">下一個知識點 →</div><b>A07 條件判斷綜合</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

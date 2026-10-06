@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A10 角色扮演系列｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="清單統計技巧綜合運用，以及約瑟夫環模擬">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#d9534f">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v6.html">V6 模擬與狀態追蹤進階</a> › A10</div>
+    <div class="tier-badge">🕹️ V6 模擬與狀態追蹤進階・知識點 A10・競賽模式</div>
+    <h1>角色扮演系列</h1>
+    <p class="hero-lead">清單統計技巧綜合運用，以及約瑟夫環模擬</p>
+    <div class="hero-actions"><span class="code-chip">A6-01-RolePlay<button type="button" data-copy="A6-01-RolePlay">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用「總和除以筆數」算平均值，並知道要無條件捨去。</li><li>會在走訪清單時，同時追蹤「目前最大值」和「對應的名稱」兩個變數。</li><li>會先算出一個統計值（例如平均），再走訪第二次清單來篩選符合條件的項目。</li><li>會模擬「清單內容會動態變動」的情境（約瑟夫環：有人不斷被淘汰、清單越來越短）。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個知識點的題目都包著「寶可夢訓練師」「大風吹」之類的故事，但底層其實是<strong>清單統計技巧的綜合運用</strong>：算平均、找最大值（而且要同時記住它是誰）、依統計結果篩選、模擬清單內容隨時間改變。拆開故事包裝後，每一題都能對應到下面幾種基本動作：</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>算出清單所有數字的總和</td><td>將 總和 設為 總和 + (自清單取得 # i)</td></tr><tr><td>總和除以筆數算平均</td><td>除以 N，無條件捨去</td></tr><tr><td>找最大值，同時記住是誰</td><td>如果 這一項 大於 目前最大值，就同時更新「最大值」和「對應名稱」兩個變數</td></tr><tr><td>依統計結果篩選清單</td><td>先走訪一次算出統計值，再走訪第二次比較並輸出符合的項目</td></tr><tr><td>清單內容動態減少</td><td>清單中刪除 # ○○</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 約瑟夫環類題目的關鍵</div><p>「大風吹搶位子」這類題目的核心不是算術，是<strong>模擬</strong>：準備一份「目前還在圈內」的清單，依規則數到該淘汰的人就刪除，位置是環狀的（數到清單尾端要繞回開頭）。清單會越來越短，直到剩下指定人數為止。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>寶可夢訓練師-1</h3><span class="lv L2">L2｜進階</span><span class="pid">cycelement-006</span></div><div class="problem-desc" style="white-space:pre-line">你是一位剛成為寶可夢訓練師的新手，正在整理你抓到的寶可夢資料。
+你想設計一個程式，幫助你分析寶可夢的資料。
+
+【子題一：計算寶可夢的平均等級】
+
+請設計一個程式，輸入多隻寶可夢的等級，
+計算並輸出牠們的平均等級（無條件捨去至整數）。
+
+• 第一行輸入一個整數 N，代表寶可夢的數量（1 ≤ N ≤ 20）。
+
+• 第二行輸入 N 個整數，分別代表每隻寶可夢的等級（1 ≤ 等級 ≤ 100）。
+
+• 輸出一個整數，代表所有寶可夢等級的平均值（無條件捨去）。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
+10 20 30 40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>25</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+7 8 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>8</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A6-01-RolePlay&amp;task=cycelement-006" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：寶可夢數量 N、N 隻寶可夢的等級。</li><li><strong>輸出</strong>：所有等級的平均值（無條件捨去至整數）。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 總和 設為 0
+循環計數 i 從 1 到 N 每次增加 1
+    將 總和 設為 總和 + (自清單取得 # i)
+將 平均 設為 總和 除以 N（無條件捨去）
+說出 平均</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>N=4，等級清單「10 20 30 40」：</p>
+<div class="table-scroll"><table><thead><tr><th>回合</th><th>讀到的等級</th><th>總和</th></tr></thead><tbody><tr><td>1</td><td>10</td><td>10</td></tr><tr><td>2</td><td>20</td><td>30</td></tr><tr><td>3</td><td>30</td><td>60</td></tr><tr><td>4</td><td>40</td><td>100</td></tr></tbody></table></div>
+<p>平均 = 100 除以 4（無條件捨去）= 25，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題是整個知識點最基礎的動作：<strong>先用迴圈把清單全部加總，迴圈跑完才做除法</strong>。要注意兩件事：</p>
+<ul><li>除法一定要放在迴圈<strong>外面</strong>、所有數字都加完之後才算，不能邊加邊除。</li><li>除以 N 一定要用無條件捨去，否則像範例2（7、8、10 平均 25÷3=8.33）會算出小數，跟整數輸出的題目要求不符。</li></ul>
+<p>這個「累加再除」的動作，之後幾題（找最大值、篩選高於平均）都會先用到它。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>除法放錯位置</strong>：在迴圈裡面每加一次就除一次，會得到錯誤的中間值。</li><li><strong>忘記無條件捨去</strong>：平台看到小數會直接判定輸出格式不符。</li><li><strong>總和變數沒有歸零</strong>：如果沿用前一題殘留的變數，加總會算錯。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（3 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>寶可夢訓練師-2</h3><span class="lv L2">L2｜進階</span><span class="pid">cycelement-006-2-寶可夢訓練師-2</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：不是算平均，是要找<strong>最高等級，而且要連同寶可夢的名字一起記住</strong>。走訪清單時準備兩個變數「目前最高等級」和「目前最高等級的名字」，每讀到一筆資料就比較：如果這隻的等級比「目前最高」更高，就同時更新這兩個變數（先更新名字、再更新等級，或反過來都可以，但兩個要一起換，不能只換其中一個）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">子題二：最高等級的寶可夢
+請設計一個程式，輸入多隻寶可夢的名稱與等級，找出等級最高的寶可夢名稱。
+（本題保證不會有等級相同的情況，寶可夢名稱不包含空白字元）</div><dl class="io"><dt>輸入</dt><dd>• 第一行輸入一個整數 N，代表寶可夢的數量（1 ≤ N ≤ 20）。
+• 第二行輸入 2N 筆資料，依序為「寶可夢名稱 等級」，資料之間以一個半形空格分隔。</dd><dt>輸出</dt><dd>• 輸出一行，所有寶可夢的最高等級。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+皮卡丘 25 小火龍 12 妙蛙種子 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>25</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+傑尼龜 10 伊布 15 卡比獸 35 胖丁 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>35</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A6-01-RolePlay&amp;task=cycelement-006-2-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E8%A8%93%E7%B7%B4%E5%B8%AB-2" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>走訪清單時同時記住「目前看到的最高等級」和「對應的名稱」，遇到更高的才更新這兩個變數。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>寶可夢訓練師-3</h3><span class="lv L3">L3｜挑戰</span><span class="pid">cycelement-006-3-寶可夢訓練師-3</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：要<strong>先算出示範題教的平均值，再走訪清單第二次</strong>，這次改成「只要這隻的等級大於平均，就輸出牠的名字」。兩次走訪的目的不一樣：第一次是為了算出平均這個「門檻」，第二次才是真正的篩選輸出，不能省略其中一次。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">子題三：列出平均等級以上的寶可夢
+
+請綜合前面的概念，輸入寶可夢名稱與等級，計算平均等級後，輸出等級高於平均值的寶可夢名稱。
+
+第一行輸入整數 N，代表寶可夢數量。
+
+第二行輸入 N 個寶可夢名稱及等級資料，名稱及等級以空白間隔，每筆資料也以空白間隔。
+
+程式依照輸入出現順序，輸出所有等級高於平均值的寶可夢名稱。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+皮卡丘 25 小火龍 12 妙蛙種子 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>皮卡丘</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+傑尼龜 10 伊布 15 卡比獸 20 胖丁 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>卡比獸 胖丁</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A6-01-RolePlay&amp;task=cycelement-006-3-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E8%A8%93%E7%B7%B4%E5%B8%AB-3" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先算出全部的平均等級，再走訪一次清單，只輸出等級高於平均值的寶可夢名稱。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>大風吹搶位子</h3><span class="lv L4">L4｜精熟</span><span class="pid">cycjunior-005</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：這題是<strong>約瑟夫環模擬</strong>，跟前面兩題的「清單統計」完全不同招。準備一份「1 到 N」的清單代表還在圈內的人，用一個「目前數到第幾位」的位置指標，從目前持球的人開始，往後數 M 個人（位置超過清單長度要繞回開頭），把數到的那個人從清單中刪除；重複這個動作直到清單只剩 1 個人，剩下的那個人編號就是答案。位置是環狀的，刪除後清單會變短，下一輪的位置要以<strong>縮短後的清單</strong>重新計算。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">隔宿露營的晚會高潮，班聯會設計了一個刺激的「電子傳球大風吹」遊戲。全班 N 位同學圍繞營火坐成一圈，每個人身上都有一個原本的號碼牌（從 1 號到 N 號）。遊戲開始時，音樂響起，一顆發光的電子球從 1 號同學手中開始順時針傳遞。這顆電子球設定了爆炸秒數，相當於傳遞 M 次。也就是說，從目前拿球的人開始算第 1 次，傳給下一位算第 2 次...一直數到第 M 個人，球就會變色發出「嗶！」的聲音，這時候持有球的那個人就被淘汰，必須立刻離開圓圈。被淘汰的人離開後，圓圈會縮小，球交給下一位還在圈子裡的同學，重新開始從 1 數到 M。遊戲持續進行，直到圓圈只剩下最後一位同學，該名同學就是今晚的「大風吹之王」。請設計一個程式，模擬這個過程，算出最後留下的那位同學原本的號碼是多少。
+假設有 5 人參賽 (N=5)，編號為 1, 2, 3, 4, 5。每數到第 2 人 (M=2) 該員即淘汰。
+第 1 輪：從 1 號開始數 (1, 2)，2 號淘汰。剩下：1, 3, 4, 5。
+第 2 輪：從 3 號開始數 (3, 4)，4 號淘汰。剩下：1, 3, 5。
+第 3 輪：從 5 號開始數 (5, 1)，因為繞回開頭，1 號淘汰。剩下：3, 5。
+第 4 輪：從 3 號開始數 (3, 5)，5 號淘汰。剩下：3。
+結果：最後贏家是 3 號</div><dl class="io"><dt>輸入</dt><dd>第一行：整數 N (人數)。
+第二行：整數 M (間隔)。</dd><dt>輸出</dt><dd>一個整數 (贏家編號)。。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A6-01-RolePlay&amp;task=cycjunior-005" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>模擬約瑟夫環：維持一份還在圈內的人員清單，依規則數到該出去的人就從清單移除，重複直到剩下指定人數，過程中位置是環狀（數到最後一個要繞回開頭）。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 寶可夢訓練師-4 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟其他知識點教過的「依類別分別累計數量」是同一招，只是這次類別換成寶可夢屬性：走訪清單，遇到沒看過的屬性就新增一筆計數，看過的就把對應的計數加 1，最後依照屬性第一次出現的順序輸出「屬性＋數量」。</div><div class="problem-desc" style="white-space:pre-line">子題四：統計不同屬性寶可夢的數量
+
+請設計一個程式，輸入多隻寶可夢的屬性，輸出各屬性寶可夢的數量統計結果。
+
+第一行輸入整數 N，代表寶可夢數量。
+
+第二行輸入 N 個寶可夢屬性名稱，每筆資料以空白間隔。
+
+程式需依照「屬性第一次出現的順序」，輸出每個屬性與該屬性寶可夢數量，格式為「屬性 數量」，屬性之間以一個空白隔開。
+
+若屬性重複，只輸出一次。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+火 水 火 電 水</pre></div><div class="sample-row"><div class="k">輸出</div><pre>火2 水2 電1</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+草 草 毒 草</pre></div><div class="sample-row"><div class="k">輸出</div><pre>草3 毒1</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A6-01-RolePlay&amp;task=cycelement-006-4-%E5%AF%B6%E5%8F%AF%E5%A4%A2%E8%A8%93%E7%B7%B4%E5%B8%AB-4" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟V4的「依類別分別累計數量」是同一招，只是這次類別換成寶可夢屬性。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用「累加＋除以筆數（無條件捨去）」算平均值。</li><li>我會走訪清單時同時更新兩個相關變數（例如最大值和它的名稱）。</li><li>我知道「先算統計值、再篩選」需要走訪清單兩次，不能只走訪一次就同時做完。</li><li>我會模擬約瑟夫環：清單動態刪除元素、環狀位置計算。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a09.html"><div class="dir">← 上一個知識點</div><b>A09 狀態追蹤基礎</b></a><a class="next" href="a11.html"><div class="dir">下一個知識點 →</div><b>A11 感測與監控系列</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

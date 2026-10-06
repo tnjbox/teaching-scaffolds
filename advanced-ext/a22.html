@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A22 115全國賽示範題｜程式設計進階自主學習地圖（校外師生版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="5題115全國賽真題，綜合運用條件判斷、貪心、動態規劃、區間技巧">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#b5172a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="edition-tag">校外師生版</div>
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v12.html">V12 115全國賽示範題</a> › A22</div>
+    <div class="tier-badge">🏆 V12 115全國賽示範題・知識點 A22・競賽模式</div>
+    <h1>115全國賽示範題</h1>
+    <p class="hero-lead">5題115全國賽真題，綜合運用條件判斷、貪心、動態規劃、區間技巧</p>
+    <div class="hero-actions"><span class="code-chip">A12-01-National115<button type="button" data-copy="A12-01-National115">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>完整看過一次正式競賽的題目長相：題目敘述更長、規則更多層、需要自己拆解成好幾個步驟。</li><li>會把前面各單元學過的技巧（條件判斷、模擬、貪心、動態規劃、區間技巧）用在同一題裡組合使用。</li><li>知道面對長題目時，先抓出「規則」「狀態」「終止條件」三件事，再動手寫程式。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個知識點收錄115學年全國賽的5題歷屆真題，當作整個進階版課程的結業挑戰。這些題目不再是單一技巧的練習，而是把規則包裝得更接近真正比賽的樣子——題目會變長、會有好幾條規則要同時滿足、也更常需要自己設計資料結構（例如用清單存「狀態」）。</p>
+<p>面對這種長題目，拆解的順序建議是：</p>
+<div class="table-scroll"><table><thead><tr><th>你要做的事</th><th>怎麼做</th></tr></thead><tbody><tr><td>先搞懂規則</td><td>把題目的每一條規則編號，一條一條確認自己看懂了</td></tr><tr><td>找出「狀態」有哪些</td><td>題目裡會隨時間/回合變化的數值（例如點數、血量、房間編號）就是狀態，先列出來要用幾個變數存</td></tr><tr><td>找出「終止條件」</td><td>模擬類題目一定有結束的時機，先想清楚什麼時候該停下來</td></tr><tr><td>再動手寫虛擬碼</td><td>確認前三步都想清楚了，再開始拆解程式步驟，不要邊看題目邊亂寫</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 這5題呼應了前面學過的技巧</div><p>115J-01呼應V4條件判斷（每週資格檢查＋累加點數）；115J-02呼應V8貪心（依積分排序、同分一起進退）；115J-03是環狀模擬（取餘數處理房間編號）；115J-04呼應V11動態規劃（選或不選的背包型決策）；115J-05呼應V10/V11的區間技巧（找最長符合條件的連續區間）。能看出每題背後是哪招，比硬記題目更重要。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>闖關遊戲</h3><span class="lv L3">L3｜挑戰</span><span class="pid">115J-03</span></div><div class="problem-desc" style="white-space:pre-line">園遊會中有個闖關遊戲：有 12 個小房間依編號（1 到 12）順時鐘圍成一圈。
+闖關時須依給定的條件正確進出不同的房間，若進入錯誤房間即闖關失敗。每個房間內有個螢幕會顯示一個介於 -3 到 +3 的數字。闖關遊戲有三組起始設定：A、B、C，每一組的房間（1號到12號）螢幕數字起始設定如下：
+• A 組：+1, +2, +3, -1, -2, -3, +1, +2, +3, -3, -2, -1
+• B 組：-2, -2, -3, -2, -2, -3, -2, -2, -3, -2, -2, -3
+• C 組：+1, +2, -1, 0, +1, -2, +2, +1, -1, +2, -2, 0
+【闖關遊戲進行方式】
+1. 電腦會給定一組起始設定（A、B 或 C），並給定第一個進入的房間編號。
+2. 若該房間螢幕數字是正值（+i），就要前往「順時針」方向的第 i 個房間；若為負值（-i），就要前往「逆時針」方向的第 i 個房間。
+3. 終止條件：若進入的房間螢幕數字是 0，或者「已累計進入正確房間共 11 次」，則闖關成功，遊戲結束。
+4. 狀態更新：每次離開一個房間後，該房間螢幕上的數字就會「正負交換」，也就是 +i 變 -i，或 -i 變 +i。
+請寫一個程式，依序輸出闖關過程中所進入的房間編號，直到闖關成功。</div><dl class="io"><dt>輸入</dt><dd>• 輸入為單行，包含一個大寫英文字母（A、B 或 C）與一個整數 N（1 ≤ N ≤ 12），分別代表「起始設定組別」與「第一個進入的房間編號」，兩者以單一空白隔開。</dd><dt>輸出</dt><dd>• 請依序輸出進入的房間編號（包含第一個進入的房間），數字之間以單一空白隔開。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>A 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 4 3 6 3 12 11 9 12 1 2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>B 12</pre></div><div class="sample-row"><div class="k">輸出</div><pre>12 9 6 3 12 3 6 9 12 9 6</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A12-01-National115&amp;task=115J-03" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：起始設定組別（A、B或C）、第一個進入的房間編號N。</li><li><strong>輸出</strong>：依序列出進入的每個房間編號，直到闖關成功（螢幕數字變成0，或已經進入正確房間共11次）。</li><li><strong>規則</strong>：12個房間圍成一圈，每個房間螢幕顯示一個數字；正值往順時針走那麼多步，負值往逆時針走那麼多步；<strong>離開</strong>房間後，該房間的數字會正負交換。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 房間 設為 起始房間編號
+將 螢幕清單 設為 起始設定組的12個數字
+將 次數 設為 0
+將 路徑 設為空清單
+清單中加入 路徑 房間
+重複直到 (螢幕清單的第房間項 = 0) 或 (次數 = 11)
+    將 數字 設為 螢幕清單的第房間項
+    如果 數字 &gt; 0
+        將 下一房間 設為 房間 + 數字
+        如果 下一房間 &gt; 12
+            將 下一房間 設為 下一房間 - 12
+    否則
+        將 下一房間 設為 房間 - (0 - 數字)
+        如果 下一房間 &lt; 1
+            將 下一房間 設為 下一房間 + 12
+    將 螢幕清單的第房間項 設為 (0 - 數字)（正負交換）
+    將 房間 設為 下一房間
+    將 次數 設為 次數 + 1
+    清單中加入 路徑 房間
+說出 路徑（空白接起來）</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入「A 2」，A組螢幕「+1,+2,+3,-1,-2,-3,+1,+2,+3,-3,-2,-1」（房間1到12）：</p>
+<div class="table-scroll"><table><thead><tr><th>次數</th><th>目前房間</th><th>螢幕數字</th><th>下一房間</th><th>這個房間離開後變成</th></tr></thead><tbody><tr><td>0</td><td>2</td><td>+2</td><td>2+2=4</td><td>房間2變成-2</td></tr><tr><td>1</td><td>4</td><td>-1</td><td>4-1=3</td><td>房間4變成+1</td></tr><tr><td>2</td><td>3</td><td>+3</td><td>3+3=6</td><td>房間3變成-3</td></tr><tr><td>3</td><td>6</td><td>-3</td><td>6-3=3</td><td>房間6變成+3</td></tr><tr><td>…</td><td>…</td><td>…</td><td>…</td><td>依照同樣規則繼續走，直到累計進入11個房間</td></tr></tbody></table></div>
+<p>依照這個規則繼續模擬下去，完整路徑會是「2 4 3 6 3 12 11 9 12 1 2」，總共11個房間編號，和範例輸出一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題的關鍵是把「環狀移動」和「狀態會改變」這兩件事分開處理：</p>
+<ul><li><strong>環狀移動</strong>：房間編號超過12就要繞回1，小於1就要繞回12——這跟其他知識點學過的「取餘數調整環狀編號」是同一招，只是這裡用「超過範圍就加減12」的方式手動處理，效果一樣。</li><li><strong>狀態會改變</strong>：螢幕清單不是固定不變的資料，每離開一個房間，那個房間的數字就要正負交換——這代表螢幕清單本身也是一個會被模擬過程持續修改的「狀態」，不是唯讀的輸入資料。</li><li><strong>兩種終止條件都要檢查</strong>：螢幕數字變0、或是次數滿11，只要符合其中一個就要停止，用「或」連接兩個條件。</li></ul>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>忘記先讀數字，才把螢幕改成相反值</strong>：一定要先用「數字」這個變數把原本的值存起來，再去修改螢幕清單，不然會改到之後要用的值。</li><li><strong>環狀繞圈的方向搞反</strong>：正值是順時針（房間編號增加），負值是逆時針（房間編號減少），容易搞混方向。</li><li><strong>路徑清單少算或多算起始房間</strong>：起始房間本身也要算進輸出路徑的第一個，不是只輸出之後移動到的房間。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（4 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>考試獎勵</h3><span class="lv L3">L3｜挑戰</span><span class="pid">115J-01</span></div><div class="focus"><b>這題多了什麼：</b>這題呼應V4條件判斷（A07/A08）：每次測驗後把「分數除以10無條件捨去」的點數累加到學生的總點數；每週五要檢查兌換資格——第一週全部有資格，第二週起必須「這週五成績」比「上週五成績」高才有資格；有資格而且點數夠才能兌換，每週最多兌換一隻。這題的重點是把「逐週檢查資格」跟「逐日累加點數」兩層迴圈包在一起，按照正確的順序處理。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">強強的老師每週的週一到週五都會進行測驗。每位學生在每次測驗後，可以獲得其測驗分數「除以 10（無條件捨去）」的點數，老師會將點數持續累積。每週五老師會提供娃娃當作獎品讓學生用點數兌換。
+【兌換規則】
+1. 第一週：所有學生都有資格兌換獎品。
+2. 第二週起：學生必須「該週五的成績」比「前一週五的成績」更高，才有資格兌換。
+3. 兌換限制：學生若有資格，且累積的點數足夠兌換該週的獎品，就可以扣除該週規定的點數換取一隻娃娃。每人每週最多只能兌換「一隻」娃娃。
+請撰寫一個程式，輸入強強每週的測驗成績與各週兌換娃娃所需的點數，計算 N 週後，強強總共兌換了幾隻娃娃，以及最後剩餘多少點數。</div><dl class="io"><dt>輸入</dt><dd>• 系統的第一個輸入包含：先是一個整數 N（1 ≤ N ≤ 5），代表測驗總共進行的週數。接著是 N 個整數，依序代表第 1 週到第 N 週兌換獎品所需的點數。
+• 接下來有 N 個輸入（系統的第二至第六個輸入）：每個輸入包含 5 個整數，分別代表強強該週由週一至週五的考試分數（0 ≤ 分數 ≤ 100）。
+• 所有數字之間皆以單一空白隔開。</dd><dt>輸出</dt><dd>• 請輸出兩個整數（中間以空白隔開）：分別代表「總共兌換到的娃娃數量」以及「剩餘點數」。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>1 23
+10 20 30 40 50</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0 15</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4 10 20 80 99
+80 88 60 70 90
+70 71 72 73 74
+89 80 85 83 81
+100 100 100 100 100</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 73</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A12-01-National115&amp;task=115J-01" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>每次測驗後把「分數除以10無條件捨去」的點數累加到該學生的總點數；每週五檢查兌換規則（第一週全部有資格，第二週起要當週成績達到門檻才能用累積點數換獎品）。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>簽唱會門票</h3><span class="lv L4">L4｜精熟</span><span class="pid">115J-02</span></div><div class="focus"><b>這題多了什麼：</b>這題呼應V8貪心（A15/A16）：依積分「由高到低」排序，依序把同分的整群一起邀請；但每群要嘛整群受邀、要嘛整群不邀（不能只邀一部分），所以每次都要先確認「這群人數加上已邀人數」不會超過場地上限，才能把整群收進邀請名單。要留意輸出要依照報名順序，不是依照積分順序。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">知名偶像團體準備舉辦一場限定粉絲簽唱會，粉絲報名時會附上該年度參加各項活動而累積的粉絲積分。
+因簽唱會場地空間有限，最多能邀請的粉絲人數必須有所限制。為求公平起見，相同積分的粉絲們不可以只有部分獲得邀請（必須全部受邀或全部不邀請）。若邀請任一積分的粉絲群時，需注意累計的邀請粉絲人數絕對不能超過場地的總人數限制。
+請依粉絲積分的高低（由高至低）選擇哪幾位粉絲可獲得邀請參加簽唱會。若較高分的群組人數超過剩餘名額而無法邀請，請繼續評估次高分的群組是否有機會受邀。</div><dl class="io"><dt>輸入</dt><dd>• 系統的第一個輸入包含兩個整數 K 與 N（1 ≤ K, N ≤ 100），K 代表簽唱會人數上限，N 代表報名粉絲總數。
+• 系統的第二個輸入包含 N 個整數，依序代表這 N 位粉絲的積分（0 ≤ 積分 ≤ 100）。
+• 所有數字之間皆以單一空白隔開。</dd><dt>輸出</dt><dd>• 請依據報名順序，輸出獲得邀請的粉絲「報名編號（從 1 開始計數）」，編號需由小到大排列，中間以單一空白隔開。
+• 若無法發出任何邀請函，則輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3 6
+90 95 80 95 70 60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 4</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3 5
+10 10 10 10 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A12-01-National115&amp;task=115J-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這是排序/取捨類的選擇問題：依積分排序後，在場地限制下決定哪些粉絲可以入場，讓總積分或人數符合規則。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>火星探測車</h3><span class="lv L5">L5｜大師</span><span class="pid">115J-04</span></div><div class="focus"><b>這題多了什麼：</b>這題呼應V11動態規劃（A21）：每個任務有「電力需求」和「科學價值」，每個任務只能選一次（選或不選），目標是在總電力不超過100的前提下，讓總科學價值最大——這是「選或不選、找最大總和」的決策型DP（跟A21的「不能選相鄰兩個的最大總和」是同一個家族），差別是這題的限制不是「不能選相鄰」，而是「總電力不能超過100」。狀態清單要用「電力上限」當索引：dp[w]代表「電力預算為w時，能拿到的最大科學價值」，依序把每個任務考慮一次，更新dp清單。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">火星探測車「玉山號」是一台專門執行火星上各種探測任務（如氣候觀測、岩石採樣等）的車輛，每個任務都有不同的「電力需求」與「科學價值」。
+探測車出發執行任務前，都會先充滿電力至 100 單位。任務無法部分執行，且每個任務最多只能執行一次。請在電力可負擔的範圍內（總消耗電力 ≤ 100），幫玉山號挑選出能獲得最高總科學價值的任務組合。
+請寫一個程式，計算探測車可獲得的最高總科學價值。</div><dl class="io"><dt>輸入</dt><dd>• 系統的第一個輸入為一個整數 N（1 ≤ N ≤ 20），代表共有 N 個探測任務可供選擇。
+• 系統的第二個輸入包含 2N 個整數。每兩個整數為一組，依序代表第 1 個到第 N 個任務的「電力需求」與「科學價值」。
+  o 電力需求範圍：0 ≤ 電力 ≤ 200
+  o 科學價值範圍：0 ≤ 價值 ≤ 1,000
+• 所有數字之間皆以單一空白隔開。</dd><dt>輸出</dt><dd>• 請輸出一個整數，代表探測車在 100 單位電力限制下，可獲得的最高總科學價值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+20 50 40 60 30 70</pre></div><div class="sample-row"><div class="k">輸出</div><pre>180</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>2
+96 220 51 113</pre></div><div class="sample-row"><div class="k">輸出</div><pre>220</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A12-01-National115&amp;task=115J-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>模擬探測車依序執行任務，每個任務消耗不同電力，電力不足時可能需要中斷或切換策略，要邊模擬邊檢查電力限制。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>熱浪區間</h3><span class="lv L5">L5｜大師</span><span class="pid">115J-05</span></div><div class="focus"><b>這題多了什麼：</b>這題呼應V10/V11的區間技巧：要在一段氣溫資料裡，找出一段「嚴格遞增、且每天都達到門檻」的最長連續天數組合，並且在天數相同時要選起始日最早、結束日最早的那一組。這題不是單純的固定視窗或二分搜尋答案，而是要邊走訪氣溫資料、邊追蹤「目前這段遞增且達標的天數」，一旦某天不符合條件（沒達標或沒有比前一天高），就要重新開始計算這一段的長度，過程中持續記錄最佳的區間。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">氣候變遷使夏季熱浪更加頻繁，自然老師蒐集了各地區一段暑假期間「每日最高氣溫」（以 °C 為單位，且精確至 1 位小數）。
+老師自行定義了「熱浪」為：在一段連續天數內，挑選出 2 天或更多天（必須包含該區間內的第一天及最後一天），這幾天的最高氣溫都必須達到設定的高溫門檻 T，且溫度呈現越來越高（嚴格遞增）的趨勢。
+換句話說，給定連續 n 天的氣溫：temp[1], temp[2], ..., temp[n]，及高溫門檻 T。請找出若干天 i1 2 k （k ≥ 2），使得：
+1. 每一天都達到門檻：temp[i1] ≥ T, temp[i2] ≥ T, ..., temp[ik] ≥ T
+2. 溫度越來越高：temp[i1] 2] k]
+【熱浪區間的最佳化規則】
+請幫老師寫一個程式找出最優的熱浪區間，並依據下列優先順序進行篩選：
+• 優先條件一：最大化符合條件的天數 (k)。
+• 優先條件二：若有多組區間的 k 值相同，優先選擇「起始日最早」的區間。
+• 優先條件三：若起始日也相同，優先選擇「結束日最早（區間總天數最短）」的區間。
+請輸出該最優熱浪區間的「總天數（ik - i1 + 1）」以及「最早的起始日（i1）」。若完全找不到符合條件（至少兩天）的區間，請輸出 0 0。</div><dl class="io"><dt>輸入</dt><dd>• 第一個輸入：包含一個整數 n（2 ≤ n ≤ 100）代表收集溫度的天數，以及一個小數 T（0.0 ≤ T ≤ 50.0）代表高溫門檻。兩者以單一空白隔開。
+• 第二個輸入：包含 n 個小數，依序代表這 n 天的最高溫度，數字間以單一空白隔開。</dd><dt>輸出</dt><dd>• 請輸出兩個整數：最長的熱浪區間總天數、最早的起始日。兩數字以單一空白隔開。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8 32.0
+25.0 32.1 31.9 31.9 32.3 32.5 31.0 32.5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7 34.0
+35.2 36.3 34.0 28.0 34.1 35.0 36.0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A12-01-National115&amp;task=115J-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這是「找出最長的連續區間，滿足某個條件」的題型（跟V10滑動視窗、V11區間最佳化學過的技巧呼應），先想清楚怎麼判斷一段區間算不算「熱浪」。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會把長題目拆解成「規則」「狀態」「終止條件」三部分再動手寫程式。</li><li>我會處理環狀編號的繞圈（超過範圍就加減總數調整回合法範圍）。</li><li>我看得出一道全國賽題目背後其實是用了哪個單元學過的技巧。</li><li>我知道「狀態」有時候不只是單純的輸入資料，也可能是模擬過程中會被持續修改的清單。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a21.html"><div class="dir">← 上一個知識點</div><b>A21 動態規劃暖身</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（blockly-lab），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

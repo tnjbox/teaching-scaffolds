@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A09 狀態追蹤基礎｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="累加、字元對應效果、布林切換、數值clamp、連續次數計數">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#e8536b">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v5.html">V5 模擬與狀態追蹤基礎</a> › A09</div>
+    <div class="tier-badge">🎮 V5 模擬與狀態追蹤基礎・知識點 A09・競賽模式</div>
+    <h1>狀態追蹤基礎</h1>
+    <p class="hero-lead">累加、字元對應效果、布林切換、數值clamp、連續次數計數</p>
+    <div class="hero-actions"><span class="code-chip">A5-01-StateTracking<button type="button" data-copy="A5-01-StateTracking">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用一個變數記錄「目前狀態」，逐回合／逐事件更新它（累加、切換、對應效果）。</li><li>會處理「不同字元/事件對應不同效果」的題目：逐字元走訪字串，依字元決定要做什麼。</li><li>會把狀態限制在合理範圍內（不能低於 0、不能超過上限）。</li><li>分得清楚「單純累加」「字元對應效果」「布林狀態切換」「數值上下限修正」這四種基本的狀態追蹤模式，知道它們可以互相組合。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>很多模擬題都有同一個骨架：<strong>準備一個狀態變數 → 讀到每一筆事件就更新它 → 全部處理完輸出最終狀態</strong>。差別在「怎麼更新」：有時候是單純加總，有時候要看是什麼字元/事件決定加多少，有時候更新完還要檢查有沒有超出合理範圍。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>準備狀態變數的初始值</td><td>將 狀態 設為 0（迴圈開始前，只做一次）</td></tr><tr><td>逐筆讀資料更新狀態</td><td>重複執行＋將 狀態 設為 狀態 + ○○</td></tr><tr><td>逐字元走訪字串</td><td>循環計數 i 從 1 到 字串長度／自字串取得第 i 個字元</td></tr><tr><td>依字元/事件決定效果</td><td>如果 字元 = &quot;G&quot; ... 否則如果 字元 = &quot;B&quot; ...</td></tr><tr><td>開關切換（布林翻轉）</td><td>將 狀態 設為 不是 狀態</td></tr><tr><td>限制數值不超出範圍</td><td>如果 狀態 &amp;lt; 0，將 狀態 設為 0</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 狀態變數只能初始化一次</div><p>狀態變數（總分、血量、金幣數……）要在迴圈<strong>開始之前</strong>設定初始值，迴圈跑的時候只能「更新」它，不能在迴圈裡面又把它重設回初始值，否則前面幾輪的結果會被洗掉。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>分數累加模擬</h3><span class="lv L1">L1｜基礎</span><span class="pid">JSSIM01-D01</span></div><div class="problem-desc" style="white-space:pre-line">第一行輸入一個整數 N，第二行輸入 N 個整數，代表每一回合得到的分數。請計算最後總分。本題用來示範每回合事件如何更新分數狀態</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N。
+第二行：N 個整數，以空白分隔。</dd><dt>輸出</dt><dd>輸出最後總分。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+10 20 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+5 0 5 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>20</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=JSSIM01-D01" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：回合數 N、N 個整數，代表每回合得到的分數。</li><li><strong>輸出</strong>：所有回合分數加總後的總分。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問 &quot;請輸入N&quot; 並等待，把答案存進 N
+將 總分 設為 0
+循環計數 i 從 1 到 N 每次增加 1
+    詢問 &quot;請輸入這回合分數&quot; 並等待，把答案存進 這回合分數
+    將 總分 設為 總分 + 這回合分數
+說出 總分</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>N=3，分數「10 20 30」：總分從 0 開始，第 1 輪變 10，第 2 輪變 30，第 3 輪變 60。輸出 60，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這是狀態追蹤最基礎的型態：「總分」就是要追蹤的狀態，它的初始值（0）只設定一次，放在迴圈<strong>外面</strong>；迴圈裡每讀到一筆資料，就把它加進目前的總分。這個骨架之後幾乎每一題都會用到，差別只在「加的時候要不要先判斷」。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>忘記在迴圈外先把總分設為 0</strong>：如果變數一開始是空的或殘留上一次執行的值，加總會算錯。</li><li><strong>把總分的初始化寫在迴圈裡面</strong>：這樣每一輪總分都會被重設成只剩當輪分數，加總效果就消失了。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（5 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>根據事件改變狀態</h3><span class="lv L2">L2｜進階</span><span class="pid">JSSIM01-D03</span></div><div class="focus"><b>這題多了什麼：</b>這題的狀態更新方式換成「依字元決定效果」：逐字元走訪事件字串，遇到 <code class="inline">G</code> 分數加 10、遇到 <code class="inline">B</code> 分數減 5，寫法是「如果 字元 = &quot;G&quot; ... 否則如果 字元 = &quot;B&quot; ...」，而不是單純加總固定值。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">輸入一串事件字元。字元 G 代表得到 10 分，字元 B 代表扣 5 分。初始分數為 0，請計算所有事件結束後的分數。本題用來示範不同事件對狀態造成不同影響</div><dl class="io"><dt>輸入</dt><dd>第一行：一個只包含 G 與 B 的字串 S。</dd><dt>輸出</dt><dd>輸出最後分數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>GGB</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>BBB</pre></div><div class="sample-row"><div class="k">輸出</div><pre>-15</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=JSSIM01-D03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>逐字元走訪事件字串，遇到字元G就把分數加10，遇到字元B就把分數減5，其他情況不變。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>多條件狀態判斷</h3><span class="lv L2">L2｜進階</span><span class="pid">JSSIM01-P02</span></div><div class="focus"><b>這題多了什麼：</b>這題不是更新狀態，而是<strong>依照目前的兩個狀態值（血量、分數）做最終判斷</strong>：血量 &gt;0 且分數 ≥100 才算 Win；血量 &gt;0 但分數不夠算 Keep；血量 ≤0 算 Lose。重點是想清楚三種情況怎麼分層判斷，「血量是否 &gt;0」要先判斷，再看分數夠不夠，避免條件寫顛倒。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">輸入玩家的血量 H 與分數 S。若 H 大於 0 且 S 大於或等於 100，輸出 Win；若 H 大於 0 但 S 未達 100，輸出 Keep；若 H 小於或等於 0，輸出 Lose。本題用來練習狀態值與條件分支結合</div><dl class="io"><dt>輸入</dt><dd>第一行：兩個整數 H 與 S，以空白分隔。</dd><dt>輸出</dt><dd>依狀態輸出 Win、Keep 或 Lose。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>10 120</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Win</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>10 80</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Keep</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=JSSIM01-P02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>同時檢查兩個條件：血量H&gt;0且分數S≥100才算Win；血量&gt;0但分數不夠是另一種結果，血量≤0又是另一種結果，想清楚三種情況怎麼分。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>開關切換</h3><span class="lv L2">L2｜進階</span><span class="pid">SIM01-005</span></div><div class="focus"><b>這題多了什麼：</b>這題的狀態是一個<strong>布林值</strong>（開/關），每收到一次按下開關的事件，就把狀態翻轉一次（開變關、關變開），不是累加或比較大小。可以用一個 0/1 變數，每次「設為 1 減掉自己」來翻轉，或是直接用邏輯「不是」把 true/false 反過來。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">一盞燈一開始是關閉狀態。給定 N 次按下開關，每按一次，燈的狀態就會切換。請輸出最後燈是開或關。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 N，代表按下開關的次數。</dd><dt>輸出</dt><dd>若最後是開啟，輸出 ON；若最後是關閉，輸出 OFF。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>ON</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=SIM01-005" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用一個布林變數（或0/1）記錄燈目前開或關；每按一次開關，就把這個變數反過來（開變關、關變開）。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>血量不可低於0</h3><span class="lv L3">L3｜挑戰</span><span class="pid">SIM01-003</span></div><div class="focus"><b>這題多了什麼：</b>這題在「單純累加」上多了一條規則：血量更新完之後，要檢查有沒有低於 0，低於 0 就直接修正回 0。這個「更新完再檢查、超出範圍就拉回邊界」的動作叫做 <strong>clamp</strong>，是這個知識點很常出現的修正手法。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">角色初始血量為 H。每次事件會增加或減少血量，但血量低於 0 時要改為 0。請計算最後血量。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 H，第二個整數為 N，接著輸入 N 個整數，代表每次血量變化量。</dd><dt>輸出</dt><dd>輸出一個整數，代表最後血量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>30
+3
+-20 -20 15</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=SIM01-003" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>每次事件後更新血量，但更新完要檢查血量是否變成負數，是負數就直接把血量設回0。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>收集金幣與陷阱</h3><span class="lv L3">L3｜挑戰</span><span class="pid">SIM01-006</span></div><div class="focus"><b>這題多了什麼：</b>這題把「依字元決定效果」（JSSIM01-D03）和「下限 clamp」（SIM01-003）兩招合在一起：逐字元走訪，<code class="inline">C</code> 加 1 枚金幣、<code class="inline">T</code> 減 1 枚金幣，但減完如果低於 0 要修正回 0（金幣不會變成負的）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">角色在地圖上依序遇到事件。C 代表收集 1 枚金幣，T 代表遇到陷阱失去 1 枚金幣，但金幣數量不可低於 0。請計算最後金幣數量。</div><dl class="io"><dt>輸入</dt><dd>輸入一個只包含 C 與 T 的字串 S。</dd><dt>輸出</dt><dd>輸出一個整數，代表最後金幣數量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>CCTTCT</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=SIM01-006" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>逐字元走訪事件，C就把金幣加1，T就把金幣減1但減完要檢查不能低於0（是0的話T事件不生效）。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（7 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 血量變化模擬 <span class="lv L1">L1｜基礎</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟示範題的「單純累加」是同一招，只是情境換成血量變化（正數代表恢復、負數代表受傷），不需要額外判斷。</div><div class="problem-desc" style="white-space:pre-line">第一行輸入初始血量 H，第二行輸入一個整數 N，第三行輸入 N 個整數，代表每一回合血量變化。正數代表恢復，負數代表受傷。請輸出最後血量</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 H，代表初始血量。
+第二行：一個整數 N。
+第三行：N 個整數，以空白分隔。</dd><dt>輸出</dt><dd>輸出最後血量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>100
+3
+-10 5 -20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>75</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>50
+2
+10 -5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>55</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=JSSIM01-D02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟逐回合累加是同一招，只是情境換成血量變化（正數代表恢復、負數代表受傷）。</div></details></details>
+<details class="extension"><summary>🚀 簡單遊戲關卡累計 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>一樣是示範題的累加骨架，只是累加完之後多包一層門檻判斷：總分 ≥100 輸出 Clear，否則輸出 Retry。</div><div class="problem-desc" style="white-space:pre-line">遊戲共有 N 個關卡，每關可得到不同分數。第一行輸入 N，第二行輸入 N 個分數。若最後總分大於或等於 100，輸出 Clear；否則輸出 Retry</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N。
+第二行：N 個整數，以空白分隔。</dd><dt>輸出</dt><dd>若總分大於或等於 100，輸出 Clear；否則輸出 Retry。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+40 30 50</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Clear</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>2
+30 40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Retry</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=JSSIM01-P01" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟逐回合累加是同一招，算完總分後多加一個門檻判斷（≥100輸出Clear）。</div></details></details>
+<details class="extension"><summary>🚀 分數累積 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟示範題完全相同的累加邏輯，只是换了「玩家得分」的敘事，拿掉了詢問 N 這一行（直接一次給完整輸入格式），邏輯不變。</div><div class="problem-desc" style="white-space:pre-line">一場遊戲中，玩家每回合會得到一些分數。給定 N 回合的得分，請計算最後總分。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，代表每回合得分。</dd><dt>輸出</dt><dd>輸出一個整數，代表最後總分。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 5 30 15</pre></div><div class="sample-row"><div class="k">輸出</div><pre>80</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=SIM01-001" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟逐回合累加完全一樣的邏輯，只是換了「玩家得分」的敘事。</div></details></details>
+<details class="extension"><summary>🚀 血量變化 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>一樣是單純累加，情境換成血量變化，跟 JSSIM01-D02 幾乎是同一題的不同包裝。</div><div class="problem-desc" style="white-space:pre-line">角色初始血量為 H。接著有 N 次事件，每次事件可能增加或減少血量。請計算最後血量。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 H，第二個整數為 N，接著輸入 N 個整數，代表每次血量變化量。</dd><dt>輸出</dt><dd>輸出一個整數，代表最後血量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>100
+4
+-20 10 -30 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>65</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=SIM01-002" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟逐回合累加一樣的邏輯，只是換成血量變化的敘事。</div></details></details>
+<details class="extension"><summary>🚀 左右移動位置 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟「依字元決定效果」（JSSIM01-D03）是同一招，只是這次字元代表的是位置的左右移動（<code class="inline">L</code> 代表 -1、<code class="inline">R</code> 代表 +1），不是加減分數。</div><div class="problem-desc" style="white-space:pre-line">角色一開始在位置 0。接著有一串移動指令，L 代表向左移動 1 格，R 代表向右移動 1 格。請計算最後位置。</div><dl class="io"><dt>輸入</dt><dd>輸入一個只包含 L 與 R 的字串 S。</dd><dt>輸出</dt><dd>輸出一個整數，代表最後位置。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>RLRRLLR</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=SIM01-004" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「字元對應效果」是同一招，只是這次字元代表的是左右移動（L/R）而不是加減分。</div></details></details>
+<details class="extension"><summary>🚀 最高連勝次數 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>這招「最長連續次數」在 A08（條件判斷挑戰）的 W9-05 已經練過：用一個計數器記錄目前連續符合條件（這題是連續勝利 <code class="inline">W</code>）的次數，不符合（<code class="inline">L</code>）就把計數器歸 0，過程中另外用一個變數記錄出現過的最大值。拿來這裡當延伸練習，再做一次鞏固印象。</div><div class="problem-desc" style="white-space:pre-line">給定一串比賽結果，W 代表勝利，L 代表失敗。請計算最長連續勝利次數。</div><dl class="io"><dt>輸入</dt><dd>輸入一個只包含 W 與 L 的字串 S。</dd><dt>輸出</dt><dd>輸出一個整數，代表最長連勝次數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>WWLWWWLW</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=SIM01-007" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這招「最長連續次數」在V4條件判斷挑戰已經練過：用一個計數器記錄目前連續幾次符合條件（這題是連續勝利），不符合就把計數器歸0，過程中記錄出現過的最大值。</div></details></details>
+<details class="extension"><summary>🚀 超市採購即時通 <span class="lv L4">L4｜精熟</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟示範題的累加骨架相同，只是每一筆資料在加進總金額之前，要先算一個小計（數量 × 單價），而且每處理完一筆就要立刻輸出一次目前的累積總金額（不是全部讀完才輸出一次）。</div><div class="problem-desc" style="white-space:pre-line">小華在超市幫忙採購，每樣商品他可能會一次買好幾個。
+為了精確掌控錢包裡的錢，他每拿一種商品，
+就會將「該商品的數量」與「單價」相乘，並立刻更新目前的累積總金額。
+請你撰寫一個程式，模擬小華的即時採購計算流程。
+【計算規則】
+1. 每輸入一組商品資料（數量 Q、單價 P），先計算該商品總價 Q×P。
+2. 將該商品總價加入目前的累積總金額。
+3. 每完成一組商品計算後，立即輸出一次目前的累積總金額。</div><dl class="io"><dt>輸入</dt><dd>• 第一行輸入一個整數 N，代表購買的商品種類數。
+• 接下來輸入 N 組資料，每組包含兩個整數 Q 與 P，
+  分別代表商品的數量與單價，資料間以空白隔開。</dd><dt>輸出</dt><dd>• 依照輸入順序，輸出 N 個整數。
+• 每個整數代表當下計算完成後的累積總金額。
+• 數字之間以一個半形空格隔開。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>2
+3 10 2 50</pre></div><div class="sample-row"><div class="k">輸出</div><pre>30 130</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+4 5 3 30 1 100</pre></div><div class="sample-row"><div class="k">輸出</div><pre>20 110 210</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A5-01-StateTracking&amp;task=W2-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟逐回合累加是同一招，只是這題多了「數量×單價」先算出小計再累加的步驟。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會在迴圈外初始化狀態變數，迴圈內只更新它。</li><li>我會寫「依字元/事件決定效果」的條件判斷，逐字元走訪字串。</li><li>我會用布林變數做開關切換。</li><li>我知道什麼時候要把狀態 clamp 在合理範圍內（不能低於 0、不能超過上限）。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a08.html"><div class="dir">← 上一個知識點</div><b>A08 條件判斷挑戰</b></a><a class="next" href="a10.html"><div class="dir">下一個知識點 →</div><b>A10 角色扮演系列</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

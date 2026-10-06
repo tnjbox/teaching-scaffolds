@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A03 排序法實作｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="手刻選擇排序，並處理多個清單需要一起排序的情境">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#c5891a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v2.html">V2 排序思維與數學規則橋接</a> › A03</div>
+    <div class="tier-badge">🧮 V2 排序思維與數學規則橋接・知識點 A03・競賽模式</div>
+    <h1>排序法實作</h1>
+    <p class="hero-lead">手刻選擇排序，並處理多個清單需要一起排序的情境</p>
+    <div class="hero-actions"><span class="code-chip">A2-01-SortingPractice<button type="button" data-copy="A2-01-SortingPractice">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會手刻選擇排序法（selection sort），不依賴平台內建的排序積木。</li><li>知道排序完成後，可以直接利用「位置」去做進一步的查詢（例如第 K 小）。</li><li>會處理<strong>連動排序</strong>：排序一個清單的同時，其他相關的清單也要跟著交換位置。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>選擇排序的想法是：每一輪都從「還沒排好的那一段」裡找出最小值，把它換到正確的位置，排好一個就往右縮小還沒排好的範圍，重複到全部排完為止。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>外層迴圈：決定這一輪要排好第幾個位置</td><td>循環計數 k 從 1 到 (N-1) 每次增加 1</td></tr><tr><td>內層迴圈：在剩下的範圍裡找最小值的位置</td><td>循環計數 j 從 (k+1) 到 N 每次增加 1</td></tr><tr><td>記住目前找到的最小值位置</td><td>將 最小位置 設為 ○○</td></tr><tr><td>交換兩個位置的值</td><td>用暫存變數：存一個、蓋一個、放回去</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 交換一定要用暫存變數</div><p>要交換清單裡兩個位置的值，不能直接「A 設成 B、B 設成 A」——第一步做完 A 已經被蓋掉了，第二步會把錯的值放回去。正確做法是先用一個暫存變數存住其中一個值，再進行交換，見下面示範題的寫法。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>完整選擇排序</h3><span class="lv L3">L3｜挑戰</span><span class="pid">seclect-005</span></div><div class="problem-desc" style="white-space:pre-line">小安已經學會如何在清單中找出最小值，並進行兩數交換。
+現在老師請他完成完整的選擇排序任務。
+桌上有一排固定 5 個整數，請你使用「選擇排序法」，
+將這些數字由小到大排序。
+選擇排序說明：
+1. 從尚未排序的部分中找出最小值。
+2. 將最小值與目前排序位置的數字交換。
+3. 重複上述步驟，直到整個清單排序完成。
+注意事項：
+1. 不可使用排序相關的積木或指令。
+2. 若有相同數字，排序後相對位置不限</div><dl class="io"><dt>輸入</dt><dd>第1行：輸入數字N，N固定為5
+第2行：輸入5 個整數，代表清單中的數字（以空格隔開）。</dd><dt>輸出</dt><dd>輸出 5 個整數，代表排序完成後的結果（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+8 3 5 1 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 6 8</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+2 4 6 8 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 4 6 8 10</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A2-01-SortingPractice&amp;task=seclect-005" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：固定 5 個整數。</li><li><strong>輸出</strong>：用選擇排序法排序後的 5 個整數，由小到大，空白分隔。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">循環計數 k 從 1 到 4 每次增加 1
+    將 最小位置 設為 k
+    循環計數 j 從 (k+1) 到 5 每次增加 1
+        如果 清單的第 j 項 &lt; 清單的第 最小位置 項
+            將 最小位置 設為 j
+    將 暫存 設為 清單的第 k 項
+    將 清單的第 k 項 設為 清單的第 最小位置 項
+    將 清單的第 最小位置 項 設為 暫存
+依序說出清單的5個數字（空白分隔）</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>清單「8 3 5 1 6」：</p>
+<div class="table-scroll"><table><thead><tr><th>回合 k</th><th>在剩下範圍找到的最小位置</th><th>交換後的清單</th></tr></thead><tbody><tr><td>1</td><td>第4項（值1）</td><td>1 3 5 8 6</td></tr><tr><td>2</td><td>第2項（值3，本來就是最小，等於跟自己交換）</td><td>1 3 5 8 6</td></tr><tr><td>3</td><td>第3項（值5，本來就是最小）</td><td>1 3 5 8 6</td></tr><tr><td>4</td><td>第5項（值6）</td><td>1 3 5 6 8</td></tr></tbody></table></div>
+<p>輸出「1 3 5 6 8」，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>外層的 k 代表「這一輪要排好第幾個位置」，從 1 做到 N-1（排好前 N-1 個，最後一個自然就對了，不用再排）。內層的 j 負責在「k 到 N 的剩下範圍」裡找出最小值的<strong>位置</strong>（不是直接記最小值本身，因為交換需要知道位置），每次發現更小的值就更新「最小位置」。內層跑完一圈後，就把 k 位置和找到的最小位置交換——這一步一定要用暫存變數，否則兩個值會互相覆蓋掉。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>內層迴圈記住「最小值」而不是「最小位置」</strong>：交換的時候需要知道位置才能操作清單，只記值沒辦法做交換。</li><li><strong>交換時沒用暫存變數</strong>：直接互相設定會讓其中一個值被蓋掉，排序結果錯亂。</li><li><strong>外層迴圈跑到 N 而不是 N-1</strong>：k 跑到 N 時，內層迴圈的範圍會變成「從 N+1 到 N」，等於沒有要比較的對象，雖然不會出錯但多跑一輪沒意義。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>排序後第K小</h3><span class="lv L3">L3｜挑戰</span><span class="pid">SORT01-007</span></div><div class="focus"><b>這題多了什麼：</b>這題不用自己重新發明排序邏輯——<strong>先把示範題的選擇排序整段搬過來，把清單排好</strong>，排序完成後，答案就是清單的<strong>第 K 項</strong>，直接取出來輸出即可。跟示範題不同的地方只在於：這題排序完不是整段輸出，而是再做一步「取出指定位置」。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與 K，請將數字由小到大排序後，輸出第 K 小的數字。位置從 1 開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 K。保證 1 &lt;= K &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表第 K 小的數字。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+8 3 9 1 5 7
+2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A2-01-SortingPractice&amp;task=SORT01-007" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把整個清單排好（選擇排序或泡泡排序都可以），排序後直接取出第K個位置的數字。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>多清單整合實戰-學生資料分析</h3><span class="lv L3">L3｜挑戰</span><span class="pid">seclect-012</span></div><div class="focus"><b>這題多了什麼：</b>這題要同時排序三個清單（姓名、國文、數學），但實際排序的依據是「總分」（國文+數學）。做法是先算出每個人的總分存進另一個清單，再用選擇排序法排序，<strong>差別是找到要交換的兩個位置後，姓名清單、國文清單、數學清單、總分清單都要分別各自交換一次</strong>，確保同一個位置永遠對應同一個人——如果只排序其中一個清單，其他清單的資料就會跟人對不起來。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在校務系統中，學生的資料常常分散存放在多個清單中。
+小華目前有三個清單，分別記錄：
+學生姓名清單
+國文成績清單
+數學成績清單
+相同位置代表同一位學生。
+老師希望小華能設計一個程式，將這些資料整合分析，
+完成以下任務：
+計算每位學生的「總分」
+依照總分由高到低排序所有學生
+輸出排序後的學生姓名與總分
+所有清單在排序過程中必須保持位置連動。
+注意事項：
+1. 總分 = 國文成績 + 數學成績。
+2. 若總分相同，依原本出現的先後順序排列。
+3. 不可使用內建排序功能。
+4. 總分不會有同分情形</div><dl class="io"><dt>輸入</dt><dd>第1行：5 個學生姓名（以空格隔開）。
+第2行：5 個整數，代表國文成績（以空格隔開）。
+第3行：5 個整數，代表數學成績（以空格隔開）。</dd><dt>輸出</dt><dd>輸出 5 行，每一行依序輸出：
+姓名 總分（以空格隔開）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>Amy Bob Carl Dora Eric
+80 90 70 85 60
+70 85 80 75 65</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Bob 175
+Dora 160
+Amy 150
+Carl 150
+Eric 125</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A2-01-SortingPractice&amp;task=seclect-012" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先決定要依哪個清單的分數排序，排序時其他每個清單（姓名、各科成績）都要跟著一起交換位置，這樣才不會配錯人。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會手刻選擇排序法：外層決定排好第幾個、內層找出剩下範圍的最小值位置。</li><li>我知道交換兩個值一定要用暫存變數，不能直接互相設定。</li><li>我會在排序完成後，利用位置去做進一步的查詢（例如第 K 小）。</li><li>我會處理多個清單連動排序，排序時所有相關清單都要一起交換位置。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a02.html"><div class="dir">← 上一個知識點</div><b>A02 字串進階處理</b></a><a class="next" href="a04.html"><div class="dir">下一個知識點 →</div><b>A04 數學規則應用</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

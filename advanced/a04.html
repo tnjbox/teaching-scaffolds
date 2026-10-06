@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A04 數學規則應用｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="用輾轉相除法求最大公因數、質數判斷、數字反轉">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#c5891a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v2.html">V2 排序思維與數學規則橋接</a> › A04</div>
+    <div class="tier-badge">🧮 V2 排序思維與數學規則橋接・知識點 A04・競賽模式</div>
+    <h1>數學規則應用</h1>
+    <p class="hero-lead">用輾轉相除法求最大公因數、質數判斷、數字反轉</p>
+    <div class="hero-actions"><span class="code-chip">A2-02-MathRules<button type="button" data-copy="A2-02-MathRules">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用輾轉相除法（歐幾里得演算法）快速算出最大公因數，不用窮舉每個因數。</li><li>會寫出判斷質數的方法，並應用在一個範圍內找出所有質數。</li><li>會用「除以 10 取餘數」逐位拆解一個數字的每一位。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>數學規則類的題目通常有一套固定的「招式」可以套用，不需要每次都從頭暴力窮舉。這個知識點練習三招最常用的數學技巧：</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>反覆用餘數縮小問題規模（輾轉相除法）</td><td>重複，當 ○○ ≠ 0</td></tr><tr><td>取出數字的個位數</td><td>○○ 除以 10 的餘數</td></tr><tr><td>去掉數字的個位數</td><td>○○ 除以 10，無條件捨去</td></tr><tr><td>判斷一個數是不是質數</td><td>檢查 2 到該數之間有沒有因數（有就不是質數）</td></tr></tbody></table></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>最大公因數</h3><span class="lv L3">L3｜挑戰</span><span class="pid">MATH01-004</span></div><div class="problem-desc" style="white-space:pre-line">給定兩個正整數 A 與 B，請找出它們的最大公因數。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個正整數 A 與 B。</dd><dt>輸出</dt><dd>輸出一個整數，代表 A 與 B 的最大公因數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A2-02-MathRules&amp;task=MATH01-004" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：兩個正整數 A 與 B。</li><li><strong>輸出</strong>：A 與 B 的最大公因數。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">讀入 A B
+重複，當 B ≠ 0
+    將 餘數 設為 (A 除以 B 的餘數)
+    將 A 設為 B
+    將 B 設為 餘數
+說出 A</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>A=12，B=18：</p>
+<div class="table-scroll"><table><thead><tr><th>回合</th><th>A</th><th>B</th><th>這輪算出的餘數</th><th>更新後 A、B</th></tr></thead><tbody><tr><td>1</td><td>12</td><td>18</td><td>12 % 18 = 12</td><td>A=18，B=12</td></tr><tr><td>2</td><td>18</td><td>12</td><td>18 % 12 = 6</td><td>A=12，B=6</td></tr><tr><td>3</td><td>12</td><td>6</td><td>12 % 6 = 0</td><td>A=6，B=0</td></tr><tr><td>—</td><td>6</td><td>0</td><td>B=0，迴圈結束</td><td>—</td></tr></tbody></table></div>
+<p>輸出 6，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>輾轉相除法的原理是：A 和 B 的最大公因數，跟「B 和（A 除以 B 的餘數）」的最大公因數是一樣的。所以每一輪都把 B 搬到 A 的位置、把餘數搬到 B 的位置，問題規模會越縮越小，直到 B 變成 0 為止——這時候的 A 就是答案。這招不用像暴力解法那樣從 1 試到 A 和 B 裡比較小的那個數字，速度快很多，數字再大也適用。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>停止條件寫成 A ≠ 0</strong>：要檢查的是 B（因為每輪都是把餘數放進 B），檢查錯變數會讓迴圈提早結束或變成無窮迴圈。</li><li><strong>忘記同時更新 A 和 B</strong>：A 要先存成舊的 B、B 再存成餘數，如果用錯順序（例如先改 B 又拿新的 B 去更新 A），會算出錯誤的結果。</li><li><strong>一開始 A 比 B 小以為要先交換</strong>：不用特別處理，輾轉相除法第一輪就會自動把兩個數的角色換過來（見上面的回合 1）。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>質數和</h3><span class="lv L3">L3｜挑戰</span><span class="pid">TYTN-03</span></div><div class="focus"><b>這題多了什麼：</b>這題要先寫一個<strong>判斷單一數字是不是質數</strong>的方法（檢查 2 到該數字之間有沒有可以整除它的因數，只要找到一個就不是質數），再用一層迴圈從 A 掃到 B，每個數字都呼叫這個判斷方法，是質數就累加進總和。跟示範題不同的地方在於，這題是「迴圈裡面包著一次質數判斷」的兩層結構，不是單純的輾轉相除。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請輸入兩個 100 以內的正整數（由小到大），找出這兩個數之間所有的質數，並計算這些質數的總和。
+質數定義：大於 1 的整數，除了 1 與本身外沒有其他因數。
+埃拉托賽尼篩法（示意 100 以內）：
+1. 刪除 1（1 不是質數也不是合數）
+2. 2 是質數，刪除大於 2 的所有 2 的倍數
+3. 3 是質數，刪除大於 3 的所有 3 的倍數
+4. 5 是質數，刪除大於 5 的所有 5 的倍數
+5. 7 是質數，刪除大於 7 的所有 7 的倍數
+最後留下的數即為質數</div><dl class="io"><dt>輸入</dt><dd>第一行：正整數 A（起始值）
+第二行：正整數 B（結束值，且 B ≥ A）</dd><dt>輸出</dt><dd>輸出 A 至 B 之間所有質數的總和（若沒有質數則輸出 0）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>21
+30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>52</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>13
+19</pre></div><div class="sample-row"><div class="k">輸出</div><pre>49</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A2-02-MathRules&amp;task=TYTN-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先寫一個判斷質數的方法（從2到開根號範圍檢查有沒有因數），再用迴圈從小到大依序檢查，是質數就加進總和。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>數字反轉</h3><span class="lv L3">L3｜挑戰</span><span class="pid">MATH01-007</span></div><div class="focus"><b>這題多了什麼：</b>這題要把一個數字的每一位反過來重組。做法是用「除以 10 取餘數」反覆取出最右邊那一位（也就是目前的個位數），每取出一位就把目前的結果乘以 10、再加上這一位，接著用「除以 10 無條件捨去」把這一位從原數字中去掉，重複到數字變成 0 為止。這題跟 A02 練過的「結果 = 結果 × 底數 + 這一位」是同一招，只是這裡的「每一位」是用除以 10 取餘數一位一位拆出來的，不是直接讀字串的字元。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定一個非負整數 N，請將它的數字順序反轉後輸出。反轉後前導 0 不需要保留。</div><dl class="io"><dt>輸入</dt><dd>輸入一個非負整數 N。</dd><dt>輸出</dt><dd>輸出一個整數，代表反轉後的數字。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>12340</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4321</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A2-02-MathRules&amp;task=MATH01-007" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用「除以10取餘數」一位一位取出數字（從個位開始），每取出一位就把目前的結果乘10再加上這一位，注意前導0不保留。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用輾轉相除法（重複用餘數縮小問題）算出最大公因數。</li><li>我會寫出判斷一個數字是不是質數的方法，並用在一個範圍內找出所有質數。</li><li>我會用「除以 10 取餘數」和「除以 10 無條件捨去」逐位拆解數字。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a03.html"><div class="dir">← 上一個知識點</div><b>A03 排序法實作</b></a><a class="next" href="a05.html"><div class="dir">下一個知識點 →</div><b>A05 堆疊與佇列</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

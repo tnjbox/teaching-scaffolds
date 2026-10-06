@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A12 競賽綜合系列｜程式設計進階自主學習地圖（校外師生版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="把應用題規則轉成算式、組合枚舉、環狀移動">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#d9534f">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="edition-tag">校外師生版</div>
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v6.html">V6 模擬與狀態追蹤進階</a> › A12</div>
+    <div class="tier-badge">🕹️ V6 模擬與狀態追蹤進階・知識點 A12・競賽模式</div>
+    <h1>競賽綜合系列</h1>
+    <p class="hero-lead">把應用題規則轉成算式、組合枚舉、環狀移動</p>
+    <div class="hero-actions"><span class="code-chip">A6-03-ContestSim<button type="button" data-copy="A6-03-ContestSim">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會把應用題的規則直接轉換成算式（不一定要迴圈，先想清楚公式）。</li><li>會比較「多種可能的組合方案」，找出最划算或最多種可能的那一個。</li><li>會用「直到回到起點」當作迴圈的結束條件，而不是固定跑幾次。</li><li>會窮舉所有「用或不用」的選擇組合，逐一檢查哪些符合條件。</li><li>會在模擬過程中同時處理「數值 clamp」和「連續事件升級」兩種規則疊加的情況。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個知識點的題目綜合了前面學過的各種技巧，情境更貼近真實競賽現場：公式計算、方案比較、環狀模擬、窮舉組合、連續事件懲罰。拆開故事包裝後，每一題的核心技巧是：</p>
+<div class="table-scroll"><table><thead><tr><th>技巧</th><th>代表題</th></tr></thead><tbody><tr><td>直接代公式計算（不一定要迴圈）</td><td>神箭手</td></tr><tr><td>列出所有購買方案，比較找最便宜</td><td>遊樂場</td></tr><tr><td>環狀位置移動，步長依狀態變化</td><td>變速傳球的特訓</td></tr><tr><td>迴圈條件是「直到回到起點」而不是固定次數</td><td>傳球遊戲</td></tr><tr><td>窮舉所有子集合（用或不用每一個選項）</td><td>歡樂抽獎</td></tr><tr><td>連續事件次數增加、懲罰跟著升級</td><td>智慧手環的健康挑戰</td></tr><tr><td>數值 clamp（上下限修正）＋追蹤歷史最大值</td><td>綠能任務挑戰</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 不是每題都需要迴圈</div><p>示範題「神箭手」完全不需要迴圈，直接用除法公式就能算出答案。看到應用題不用急著想「要跑幾次迴圈」，先想清楚題目給的規則能不能直接寫成一個算式。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>神箭手</h3><span class="lv L1">L1｜基礎</span><span class="pid">W4-04</span></div><div class="problem-desc" style="white-space:pre-line">輸入風速與離箭靶的距離，計算弓箭手應瞄準的位置。箭靶靶心位於直角座標 (0,0) 公分。
+【重力影響（往下掉）】
+每離箭靶 8 公尺，箭就會比原本瞄準點往下掉落 1 公分（未滿 8 公尺不計）。
+【風力影響（水平偏移）】
+風速以正負數表示：正數代表往右吹、負數代表往左吹。
+每離箭靶 10 公尺，箭會受到一次風力偏移，其偏移量即為「風速的數字」（往風吹的方向偏移，未滿 10 公尺不計）。
+例如：風速為 3 → 每 10 公尺箭向右偏 3 公分；風速為 -2 → 每 10 公尺箭向左偏 2 公分。
+【任務】
+請撰寫程式，根據風速與距離計算出弓箭手應瞄準的座標位置 (x,y)，以公分為單位，使箭最終能擊中靶心 (0,0)。</div><dl class="io"><dt>輸入</dt><dd>輸入為 2 行：
+第 1 行為整數 W，代表風速（正代表往右吹，負代表往左吹）。
+第 2 行為整數 D，代表距離（單位：公尺）。</dd><dt>輸出</dt><dd>輸出兩個整數 x y（以半形空白分隔），分別代表瞄準點的水平與垂直座標（單位：公分）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+24</pre></div><div class="sample-row"><div class="k">輸出</div><pre>-6 3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>-20 5</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=W4-04" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：風速 W（正數往右吹、負數往左吹）、距離 D（公尺）。</li><li><strong>輸出</strong>：瞄準點座標 x y，讓箭最終能擊中靶心 (0,0)。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 水平次數 設為 D 除以 10（無條件捨去）
+將 垂直次數 設為 D 除以 8（無條件捨去）
+將 x 設為 0 - (水平次數 × W)
+將 y 設為 垂直次數
+說出 (x 接空白接 y)</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>風速 W=3，距離 D=24：</p>
+<ul><li>水平次數 = 24 除以 10（無條件捨去）= 2 → 箭會被風往右吹偏 2×3=6 公分，瞄準點要往左補償，x = 0-(2×3) = -6。</li><li>垂直次數 = 24 除以 8（無條件捨去）= 3 → 箭會因重力下墜 3 公分，瞄準點要往上補償，y = 3。</li></ul>
+<p>輸出「-6 3」，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題的重點是「補償」的概念：箭最終會因為風和重力偏移，所以瞄準點要<strong>反過來</strong>往偏移的相反方向調整，這樣箭偏移後才會剛好落在靶心。</p>
+<ul><li>水平方向：每 10 公尺偏移一次，偏移量是風速本身；偏移次數用除法無條件捨去（不滿 10 公尺不計）。風往右吹（正數）會讓箭往右偏，所以瞄準點要往左移，因此用 <code class="inline">0 - (水平次數 × W)</code>，負號就是在做「反方向補償」。</li><li>垂直方向：每 8 公尺往下掉 1 公分，瞄準點要往上補償同樣的量，所以 y 直接等於垂直次數（不用加負號，因為「往上」在這題的座標系統裡剛好是正方向）。</li></ul>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>水平方向忘記加負號</strong>：會往風吹的方向瞄準，而不是反方向補償。</li><li><strong>除法沒有無條件捨去</strong>：距離不是 8 或 10 的整數倍時，次數算錯。</li><li><strong>把水平和垂直的除數搞混</strong>（10 公尺一次風力偏移、8 公尺一次重力下墜）。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（6 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>遊樂場</h3><span class="lv L2">L2｜進階</span><span class="pid">TYTN-01</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：要比較不同購票方案，找出最便宜的總價。因為套票組（800元）比單買兒童＋成人（400+500=900元）便宜，所以最優解一定是「盡量湊套票」：套票數＝兒童與成人人數中較小的那個，湊完套票後，剩下的人（兒童或成人其中一種）用單價計算，兩者相加就是答案。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">三六九主題遊樂園的門票分為兒童票與成人票兩種：
+兒童票：每張 400 元
+成人票：每張 500 元
+親子套票組：包含 1 張兒童票 + 1 張成人票，每組 800 元
+請設計一個程式，輸入兒童人數、成人人數，計算最優惠的總票價。可先盡量購買親子套票組，再補足剩餘的兒童或成人個別票</div><dl class="io"><dt>輸入</dt><dd>第一行：兒童人數
+第二行：成人人數</dd><dt>輸出</dt><dd>輸出最優惠價格（整數）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4000</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3600</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=TYTN-01" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先計算各種購票組合（單買兒童票/成人票、套票）的總花費，比較哪種組合的花費最少。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>變速傳球的特訓</h3><span class="lv L3">L3｜挑戰</span><span class="pid">cyjunior-005</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：跟示範題一樣要處理環狀位置，但移動的步長不是固定的——要先判斷<strong>目前持球者編號是奇數還是偶數</strong>，奇數走 1 步、偶數走 2 步，用迴圈跑 K 回合，每回合先判斷奇偶、再移動，位置超過 N 要用餘數繞回 1 號。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">康輔社為了訓練社員的反應速度，社長發明了一種忽快忽慢的「變速傳球」遊戲。N 位社員圍成一圈，編號依序為 1 到 N。遊戲從 1 號社員開始持球。遊戲總共進行 K 回合，每一回合的傳球距離取決於「目前持球者的編號」：如果目前持球者的編號是奇數：他必須向順時針方向傳 1 個人（傳給下一位）。如果目前持球者的編號是偶數：他必須向順時針方向傳 2 個人（跳過一位傳給下下位）。請注意，如果傳球後的位置超過了 N，就會回到 1 號繼續數（例如：在 5 人小組中，5 號傳 1 人會變成 1 號）。請你計算在經過 K回合的傳球後，最後球會落在幾號社員的手上？</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N，代表社員人數。
+第二行：一個整數 K，代表總共進行的回合數。</dd><dt>輸出</dt><dd>第一行：一個整數，一個整數，代表最後拿到球的社員編號。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6
+2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=cyjunior-005" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>傳球速度會變化，每一輪要依照目前的速度移動對應的人數，移動時用取餘數處理環狀座位。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>傳球遊戲</h3><span class="lv L3">L3｜挑戰</span><span class="pid">TYTN-04</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：迴圈的結束條件不是「跑 K 次」，而是「<strong>直到位置再次回到 1 號</strong>」（用「重複，當」或「重複直到」處理，不是計數迴圈）。每傳一次球就把目前的位置記錄下來、輸出，傳球的移動量固定是「隔 K 個人」（也就是往前移動 K+1 格，環狀繞回要用餘數）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">學校運動會舉辦了一個趣味傳球比賽，所有參賽同學圍成一個圓圈，互相傳球。
+每個同學有一個編號（從 1 到 N）。
+遊戲規則如下：	比賽開始時，球在 1 號同學手上。
+傳球方式：每次傳球都固定「隔 K 個人」，把球傳給下一位同學。
+例如：K=1 代表傳給下一個人，K=2 代表跳過 1 人後傳給下一個人。
+傳球會一直持續，直到球再次回到 1 號同學手上，比賽才結束。
+請你模擬這個傳球遊戲，輸出整個過程中，球依序落在誰的手上（包含最初的 1 號）。
+輸入格式：2行，每行1個整數： N：同學人數（2 &gt; N &lt;t 1000） K：每次傳球要隔的人數（1 &lt; K &lt; 1000） 輸出格式：1行，輸出一串整數，用空格間隔開。 輸出結果代表傳球過程中球依序落在誰的手上。
+第一個數字必定是 1（表示起始位置），最後一個數字也會是 1（回到起點）。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 2 4 1</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 4 1</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=TYTN-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用固定的傳球間隔，從起始編號開始，每次往同方向移動固定格數（環狀，超過N要繞回1），依序記錄每一輪傳到誰，直到輸出完整序列。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>歡樂抽獎</h3><span class="lv L3">L3｜挑戰</span><span class="pid">W4-02</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：要<strong>窮舉</strong>3 顆白球「用或不用」的所有組合（總共 2³=8 種：都不用、單用一顆共3種、用兩顆共3種、三顆都用），每一種組合都把選中的白球數字加上紅球數字，檢查總和是不是 7 的倍數。符合的組合裡，用的白球數量越少獎項越大，所以要從「不用白球」開始依序檢查，第一個符合的組合就是答案。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">每位同學會先抽出 1 顆紅球，紅球上寫有一個整數數字（0~9）。
+接著，同學可以從抽獎箱中抽出 3 顆白球，每顆白球上也各有一個整數數字（0~9）。
+同學「一定要使用紅球」，並可選擇使用 0~3 顆白球（每顆白球最多使用一次），將所選球上的數字相加。
+只要總和為 7 的倍數即可中獎。中獎等級依照「使用的白球數量」判定：
+• 不使用白球且紅球本身即為 7 的倍數：特獎
+• 使用 1 顆白球：頭獎
+• 使用 2 顆白球：二獎
+• 使用 3 顆白球：三獎
+• 若無法組成 7 的倍數：未中獎
+請撰寫程式，判斷同學最終可獲得的獎項等級（以使用白球數量最少為優先）。</div><dl class="io"><dt>輸入</dt><dd>輸入為 2 行：
+第 1 行為 1 個整數 R，代表紅球上的數字。
+第 2 行為 3 個以空白分隔的整數，代表三顆白球上的數字。</dd><dt>輸出</dt><dd>輸出一行文字，表示中獎結果，可能的輸出為：特獎、頭獎、二獎、三獎、未中獎。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>2
+6 4 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>三獎</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>8
+3 2 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>未中獎</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=W4-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>3顆白球所有可能的組合都要窮舉出來，分別加上紅球數字後比對是否中獎，統計中獎的組合數。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>智慧手環的健康挑戰</h3><span class="lv L4">L4｜精熟</span><span class="pid">cyjunior-001</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：跟前面學過的「連續事件計數」多了一層<strong>懲罰升級</strong>規則——準備一個「連續靜態時段次數」的計數器，步數低於門檻就讓它加 1、同時依這個計數器決定這次警告算 1 次還是 2 次（連續第 2 次以上才加倍）；只要步數達標，計數器就要歸零重來。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">為了響應教育部推廣的「新世代健康校園」計畫，學校本學期發給每位同學一支「智慧運動手環」。這支手環不僅能顯示時間，還內建了高精度的三軸加速規，能夠以「小時」為單位，記錄使用者的步數活動量。
+主角小華為了爭取期末的「健康小鐵人」獎章，立志要嚴格執行運動計畫。根據手環的說明書，系統設定了一個「活躍門檻值 (K)」。如果某一小時內的步數低於這個門檻，該小時就會被系統判定為「靜態時段」，並記上一筆「久坐警告」。
+然而，為了避免學生長時間維持靜態，系統設計了一套嚴厲的連續懲罰機制：如果手環偵測到使用者連續兩個小時（含）以上都處於「靜態時段」，系統會判定這是極不健康的行為。因此，從連續違規的第二個小時開始，該次警告將會被加倍懲罰（也就是該小時會被記 2 次警告）。只有當某一小時的步數成功達到門檻時，這個連續違規的狀態才會解除，計數器才會重置。
+請你根據小華手環中匯出的 N 小時歷史數據，幫他計算這段時間內，系統累計發出了幾次警告訊號</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N，代表紀錄的總時數。
+第二行：一個整數 K，代表活躍門檻值。
+第三行：N 個整數，代表每小時測得的步數（以半形空格分隔）。</dd><dt>輸出</dt><dd>第一行：一個整數，代表總警告次數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+1000
+800 900 1200 500 400</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+500
+600 700 800 900</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=cyjunior-001" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>逐筆比對每次測量是否違規，連續違規次數增加時懲罰要跟著升級，沒違規時連續次數要歸零。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>綠能任務挑戰</h3><span class="lv L4">L4｜精熟</span><span class="pid">TYTN-08</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：要同時處理<strong>數值 clamp</strong> 和 <strong>追蹤歷史最大值</strong> 兩件事。每到一個地點，先把這一格的能量變化加進總能量，接著檢查：超過 50 就強制設回 50，小於等於 0 就補助成 5；clamp 完之後再跟「目前記錄的最高能量」比較、更新最高值。地圖是環狀的，移動時座標超過 N 要用餘數繞回第 1 格。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">為了推動淨零城市，玩家要在地圖中收集綠能點數（正值）並應對污染事件（負值）。
+地圖共有 N 個地點，每格可能代表「吸收碳」（正值）、「排放碳」（負值）或「無變化」（0）。
+玩家從第 1 格出發（初始能量為 0，不計入第 1 格的能量值）。每次依骰子的點數往前移動，並在抵達的新地點時計算能量變化。
+能量規則：
+1. 若總能量 &gt; 50，觸發「能源過載」，能量強制維持在 50。
+2. 若總能量 ≤ 0，觸發「環境危機」，系統將能量自動補助為 5。
+3. 地圖為環狀，超過第 N 格後會回到第 1 格。
+請計算所有移動結束後的「最終能量值」，並輸出過程中曾達到的「最高能量值」</div><dl class="io"><dt>輸入</dt><dd>第1行：整數 N，地圖格數。
+第2行：N 個整數，每格的能量變化值。
+第3行：整數 M，骰子的次數。
+第4行：M 個整數，每次骰到的點數。</dd><dt>輸出</dt><dd>輸出兩個整數，分別為最終能量值與最高能量值，中間以空格隔開。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
+25 10 30 -5
+4
+1 1 2 1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>50 50</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+10 -5 0 20 -10
+3
+1 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>20 25</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=TYTN-08" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>每到一個地點就更新點數，更新後用clamp讓點數維持在上下限之間，同時持續記錄歷史最高點數。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 歌唱比賽 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟其他知識點教過的「去除最高最低分再平均」是同一招，只是評審人數固定是 5 人。</div><div class="problem-desc" style="white-space:pre-line">金嗓歌唱比賽邀請 5 位評審給予選手分數，評分範圍為 0～10 分。
+請設計一個程式，讀入 5 位評審的分數後，進行以下運算：
+1. 將分數排序
+2. 去除「一個最高分」與「一個最低分」
+3. 計算剩餘 3 個分數的平均值</div><dl class="io"><dt>輸入</dt><dd>第1行：整數 5（評審人數固定為 5）
+第2行：5 個整數，為 5 位評審的分數（以空格隔開）</dd><dt>輸出</dt><dd>輸出計算後的平均成績（整數）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 8 9 9 9</pre></div><div class="sample-row"><div class="k">輸出</div><pre>9</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+10 9 9 6 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>8</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=TYTN-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟V4「去除最高最低分再平均」是同一招，只是評審人數固定是5人。</div></details></details>
+<details class="extension"><summary>🚀 傳球遊戲 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟「傳球遊戲」幾乎是同一題，直接拿來當第二次練習「直到回到起點」這種迴圈寫法。</div><div class="problem-desc" style="white-space:pre-line">學校運動會舉辦了一個趣味傳球比賽，所有參賽同學圍成一個圓圈，互相傳球。
+每個同學有一個編號（從 1 到 N）。
+遊戲規則如下：	比賽開始時，球在 1 號同學手上。
+傳球方式：每次傳球都固定「隔 K 個人」，把球傳給下一位同學。
+例如：K=1 代表傳給下一個人，K=2 代表跳過 1 人後傳給下一個人。
+傳球會一直持續，直到球再次回到 1 號同學手上，比賽才結束。
+請你模擬這個傳球遊戲，輸出整個過程中，球依序落在誰的手上（包含最初的 1 號）</div><dl class="io"><dt>輸入</dt><dd>2行，每行1個整數： N：同學人數（2 &lt; N &lt; 1000） K：每次傳球要隔的人數（1 &lt; K &lt; 1000）</dd><dt>輸出</dt><dd>1行，輸出一串整數，用空格間隔開。 輸出結果代表傳球過程中球依序落在誰的手上。
+第一個數字必定是 1（表示起始位置），最後一個數字也會是 1（回到起點）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 3 5 2 4 1</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 4 1</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=WP-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「固定間隔環狀傳球」幾乎是同一題，直接拿來當第二次練習。</div></details></details>
+<details class="extension"><summary>🚀 大富翁 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟「綠能任務挑戰」是同一招「環狀移動＋數值上下限 clamp」，只是規則簡化成「扣到 0 元就不再往下扣」，不用額外追蹤歷史最大值。</div><div class="problem-desc" style="white-space:pre-line">有一條環形棋盤，共有 N 格，每一格上都標示著金錢變化，可能是「獲得金錢」（正值）、「失去金錢」（負值）或「沒有變化」（0）。
+玩家一開始站在第 1 格，起始金額為 0。
+接著依序輸入骰子點數，代表玩家往前移動的步數。
+每次移動後，落在的新格子會立即結算金錢變化。
+若該格需要失去金錢，但玩家的金額不足，則只會扣到 0 元，不會變成負數。
+棋盤是環形的，當超過第 N 格時，會回到第 1 格繼續往前走。
+注意：玩家剛開始站在第 1 格時，不會結算金額，只有移動後才會結算。
+請計算所有骰子點數執行完畢後，玩家的最終金額</div><dl class="io"><dt>輸入</dt><dd>第一行：整數 N，代表棋盤的格數。
+第二行：輸入 N 個整數的序列，依序代表第 1 格到第 N 格的金錢變化。
+第三行：整數 S，代表骰子的次數。
+第四行：輸入 S 個整數，代表每次骰到的點數。</dd><dt>輸出</dt><dd>輸出一個整數，代表玩家最後的金額。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 -5 0 20 -10
+3
+1 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>15</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+50 -20 10 -5
+4
+4 1 1 1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>35</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-03-ContestSim&amp;task=WP-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「環狀移動+數值上下限clamp」是同一招，只是規則稍微簡化。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會把應用題的規則轉換成算式，不會看到題目就反射性地先想迴圈。</li><li>我會列出所有可能方案來比較，找出最划算的組合。</li><li>我會用「直到回到起點」當迴圈結束條件，跟「固定跑幾次」的計數迴圈分清楚。</li><li>我會窮舉所有「用或不用」的子集合組合，逐一檢查條件。</li><li>我會在模擬時同時處理 clamp 和連續事件升級這兩種規則疊加的情況。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a11.html"><div class="dir">← 上一個知識點</div><b>A11 感測與監控系列</b></a><a class="next" href="a13.html"><div class="dir">下一個知識點 →</div><b>A13 圖論基礎</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（blockly-lab），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

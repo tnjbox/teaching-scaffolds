@@ -1,0 +1,258 @@
+/* ============================================================
+   程式設計進階・自主學習地圖（teaching-scaffolds/advanced/）
+   建立在 ../style.css 之上，只補充這個系列需要的元件。
+   直接沿用basic.css的結構與class名稱（demo/step/practice/extension/
+   checklist等），只是套用在不同的單元內容上；此系列只有Blockly單一
+   平台，沒有.platform-switch的實際用途，但保留規則不影響渲染。
+   ============================================================ */
+
+:root{
+  --unit:var(--brand);
+  --lv1:#2c9a6b; --lv1-bg:#e7f7f0;
+  --lv2:#3f4fc0; --lv2-bg:#eef0ff;
+  --lv3:#b7791f; --lv3-bg:#fbf1de;
+  --lv4:#c5591a; --lv4-bg:#fdeee0;
+  --lv5:#b5172a; --lv5-bg:#fbe3e6;
+}
+
+/* ---------- hero（依單元換色） ---------- */
+.hero.unit-hero{background:linear-gradient(155deg,var(--unit) 0%,color-mix(in srgb,var(--unit) 72%,#1b1f3b) 100%);}
+.hero .hero-lead{font-size:16px;opacity:.95;margin:6px 0 0;max-width:720px;}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:18px;}
+
+/* ---------- 平台切換 ---------- */
+.platform-switch{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(255,255,255,.16);border-radius:999px;padding:4px;
+  font-size:14px;
+}
+.platform-switch .label{padding:0 8px 0 10px;opacity:.9;}
+.platform-switch button{
+  border:0;background:transparent;color:#fff;font:inherit;font-weight:700;
+  padding:5px 14px;border-radius:999px;cursor:pointer;
+}
+.platform-switch button[aria-pressed="true"]{background:#fff;color:var(--unit);}
+
+/* ---------- 如何使用 ---------- */
+.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:8px 0 10px;}
+.howto .step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;box-shadow:var(--shadow);font-size:15px;}
+.howto .step b{display:block;font-size:16px;margin-bottom:4px;}
+.howto .step .n{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;align-items:center;justify-content:center;font-size:14px;font-weight:800;margin-right:6px;}
+
+/* ---------- 課程地圖 ---------- */
+.roadmap{display:flex;flex-direction:column;align-items:stretch;gap:0;margin-top:10px;}
+.roadmap .stage{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.roadmap .stage > .unit-card{flex:1 1 300px;max-width:520px;}
+.roadmap .connector{text-align:center;color:var(--sub);font-size:22px;line-height:1;padding:8px 0;}
+.roadmap .stage-note{text-align:center;font-size:13.5px;color:var(--sub);margin:-2px 0 6px;}
+.unit-card{
+  --unit:var(--brand);
+  display:block;text-decoration:none;color:var(--ink);
+  background:var(--card);border:1px solid var(--line);border-left:8px solid var(--unit);
+  border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);
+  transition:transform .15s,box-shadow .15s;
+}
+.unit-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(40,45,70,.12);}
+.unit-card .unit-top{display:flex;align-items:center;gap:10px;}
+.unit-card .unit-icon{font-size:26px;line-height:1;}
+.unit-card .unit-id{font-size:13px;font-weight:800;color:var(--unit);letter-spacing:.5px;}
+.unit-card h3{margin:0;font-size:19px;font-weight:900;}
+.unit-card p{margin:6px 0 10px;color:var(--sub);font-size:15px;}
+.unit-card .kp-mini{display:flex;flex-wrap:wrap;gap:6px;}
+.unit-card .kp-mini span{font-size:12.5px;background:color-mix(in srgb,var(--unit) 10%,#fff);color:color-mix(in srgb,var(--unit) 80%,#000);border-radius:999px;padding:2px 10px;font-weight:600;}
+.side-branch{margin-top:26px;padding:16px;border:2px dashed var(--line);border-radius:var(--radius);}
+.side-branch .side-head{font-size:14px;color:var(--sub);margin-bottom:10px;}
+
+/* ---------- 單元頁：知識點路徑 ---------- */
+.kp-path{list-style:none;margin:10px 0;padding:0;position:relative;}
+.kp-path::before{content:"";position:absolute;left:23px;top:24px;bottom:24px;width:3px;background:color-mix(in srgb,var(--unit) 25%,#fff);}
+.kp-node{position:relative;display:flex;gap:16px;margin-bottom:18px;}
+.kp-node .kp-dot{
+  flex:none;z-index:1;width:48px;height:48px;border-radius:50%;
+  background:var(--unit);color:#fff;font-weight:900;font-size:15px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px var(--bg);
+}
+.kp-node .kp-body{flex:1;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);}
+.kp-node h3{margin:0 0 4px;font-size:18px;font-weight:800;}
+.kp-node h3 a{color:var(--ink);text-decoration:none;}
+.kp-node h3 a:hover{color:var(--unit);}
+.kp-node .kp-goal{margin:0 0 10px;color:var(--sub);font-size:15px;}
+.kp-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13.5px;}
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 11px;font-weight:700;font-size:13px;background:#f1f2f7;color:var(--sub);}
+.pill.core{background:var(--lv1-bg);color:var(--lv1);}
+.pill.ext{background:var(--lv3-bg);color:var(--lv3);}
+.pill.wip{background:#f3effe;color:#7c4ddb;}
+
+/* ---------- 按鈕與課程代碼 ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;
+  font:inherit;font-size:14.5px;font-weight:700;text-decoration:none;
+  padding:8px 16px;border-radius:10px;background:var(--unit);color:#fff;
+}
+.btn:hover{filter:brightness(1.08);}
+.btn.ghost{background:transparent;color:var(--unit);border:1.5px solid color-mix(in srgb,var(--unit) 45%,#fff);}
+.btn.light{background:#fff;color:var(--unit);}
+.code-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:"JetBrains Mono","Cascadia Code",Consolas,monospace;font-size:13.5px;
+  background:#f1f2f7;border-radius:8px;padding:3px 4px 3px 10px;color:var(--ink);
+}
+.hero .code-chip{background:rgba(255,255,255,.18);color:#fff;}
+.code-chip button{border:0;background:#fff;color:var(--sub);border-radius:6px;padding:2px 8px;font-size:12px;cursor:pointer;font-family:inherit;}
+.code-chip button.done{color:var(--lv1);}
+
+/* ---------- 知識點頁 ---------- */
+ul.goals{list-style:none;padding:0;margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;box-shadow:var(--shadow);}
+ul.goals li{padding-left:30px;position:relative;margin:6px 0;}
+ul.goals li::before{content:"🎯";position:absolute;left:0;}
+.md p{margin:12px 0;}
+main.md > h3,.demo > h3{font-size:18px;font-weight:800;margin:26px 0 8px;color:color-mix(in srgb,var(--unit) 80%,#000);}
+.md table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow);font-size:14.5px;margin:12px 0;}
+.md th{background:var(--unit);color:#fff;text-align:left;padding:10px 14px;font-size:14px;}
+.md td{padding:9px 14px;border-bottom:1px solid var(--line);}
+.md tr:nth-child(even) td{background:#fafbfe;}
+.table-scroll{overflow-x:auto;}
+.note{background:#f3f4fa;border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;margin:14px 0 0;font-size:15px;}
+.note .tag,.tip .tag{display:flex;align-items:center;gap:6px;font-weight:800;margin-bottom:6px;font-size:14px;}
+.tip .tag{color:var(--tip);}
+.note .tag{color:var(--sub);}
+.pitfall ul,.tip ul,.note ul{margin:4px 0 0;padding-left:20px;}
+
+/* 示範題、練習題卡片 */
+.demo{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--unit);border-radius:var(--radius);padding:22px 24px;margin:0 0 28px;box-shadow:var(--shadow);}
+.demo > .demo-label{display:inline-block;font-size:13px;font-weight:800;color:#fff;background:var(--unit);border-radius:999px;padding:3px 12px;margin-bottom:10px;}
+.problem-card{background:#fbfbfe;border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;margin:6px 0 10px;}
+.problem-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-bottom:6px;}
+.problem-head h3,.problem-head h4{margin:0;font-size:18px;font-weight:800;}
+.problem-head .pid{font-family:Consolas,monospace;font-size:13px;color:var(--sub);}
+.lv{font-size:12.5px;font-weight:800;border-radius:999px;padding:2px 10px;}
+.lv.L1{background:var(--lv1-bg);color:var(--lv1);}
+.lv.L2{background:var(--lv2-bg);color:var(--lv2);}
+.lv.L3{background:var(--lv3-bg);color:var(--lv3);}
+.lv.L4{background:var(--lv4-bg);color:var(--lv4);}
+.lv.L5{background:var(--lv5-bg);color:var(--lv5);}
+.problem-desc{margin:4px 0 8px;}
+.io{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14.5px;margin:8px 0;}
+.io dt{font-weight:800;color:var(--sub);}
+.io dd{margin:0;white-space:pre-line;}
+.samples{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0;}
+.sample{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:14px;}
+.sample .sample-row{display:grid;grid-template-columns:52px 1fr;border-bottom:1px solid var(--line);}
+.sample .sample-row:last-child{border-bottom:0;}
+.sample .k{background:#f1f2f7;color:var(--sub);font-weight:700;padding:6px 8px;font-size:13px;}
+.sample pre{margin:0;padding:6px 10px;font-family:Consolas,monospace;white-space:pre-wrap;word-break:break-all;}
+.sample .empty{color:var(--sub);font-style:italic;}
+.card-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px;}
+details.hint{margin-top:10px;background:var(--tip-bg);border:1px solid var(--tip-line);border-radius:8px;padding:8px 14px;font-size:15px;}
+details.hint summary{cursor:pointer;font-weight:800;color:var(--tip);}
+details.hint[open] summary{margin-bottom:4px;}
+.practice-list{display:flex;flex-direction:column;gap:16px;}
+.practice{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);}
+.practice .focus{margin:6px 0 0;font-size:15.5px;}
+.practice .focus b{color:color-mix(in srgb,var(--unit) 80%,#000);}
+details.problem-more{margin-top:8px;font-size:14.5px;}
+details.problem-more summary{cursor:pointer;color:var(--sub);font-weight:700;}
+details.extension{background:var(--card);border:1px dashed var(--lv3);border-radius:var(--radius);padding:14px 20px;margin-bottom:14px;}
+details.extension > summary{cursor:pointer;font-weight:800;font-size:17px;}
+details.extension > summary .lv{margin-left:6px;vertical-align:middle;}
+.checklist{list-style:none;padding:0;margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 22px;box-shadow:var(--shadow);}
+.checklist li{padding:8px 0 8px 32px;position:relative;border-bottom:1px dashed var(--line);}
+.checklist li:last-child{border-bottom:0;}
+.checklist li::before{content:"☐";position:absolute;left:4px;top:6px;font-size:18px;color:var(--unit);}
+.wip-box{background:#f3effe;border:1px solid #d9ccfb;border-radius:var(--radius);padding:18px 22px;color:#5b3fb0;}
+.summary-box{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--unit);border-radius:var(--radius);padding:16px 22px;box-shadow:var(--shadow);}
+.summary-box ul{margin:0;padding-left:20px;}
+.summary-box li{margin:6px 0;}
+.before-box{font-size:15px;color:var(--sub);margin:12px 0 0;}
+.before-box b{color:var(--ink);}
+
+/* ---------- 上一個／下一個 ---------- */
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px;}
+.pager a{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 16px;box-shadow:var(--shadow);}
+.pager a:hover{border-color:var(--unit);}
+.pager .dir{font-size:12.5px;color:var(--sub);}
+.pager .next{text-align:right;grid-column:2;}
+.pager b{font-size:15.5px;}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#242832;color:#fff;padding:8px 16px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;}
+.toast.show{opacity:.92;}
+
+@media (max-width:600px){
+  .kp-path::before{left:19px;}
+  .kp-node .kp-dot{width:40px;height:40px;font-size:13px;}
+  .demo{padding:18px 16px;}
+  .io{grid-template-columns:1fr;}
+}
+
+@media print{
+  .hero{background:none !important;color:var(--ink);border-bottom:2px solid var(--unit);border-radius:0;}
+  .hero .breadcrumb a,.hero .code-chip{color:var(--ink);}
+  .platform-switch,.card-actions,.btn,.code-chip button,.pager,.toast{display:none !important;}
+  details{border:0;}
+  details > summary{list-style:none;}
+  .demo,.practice,.kp-node .kp-body{box-shadow:none;break-inside:avoid;}
+  body{background:#fff;font-size:12pt;}
+}
+
+/* 章節標題跟著單元顏色 */
+h2.section-title{border-left-color:var(--unit);}
+h2.section-title .num{background:var(--unit);}
+p.lead strong,.goals strong,.checklist strong{color:color-mix(in srgb,var(--unit) 80%,#000);}
+
+/* ---------- 可摺疊版本（2026-09-26） ---------- */
+.fold-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px;margin:-8px 0 -20px;font-size:13.5px;color:var(--sub);}
+.fold-bar span{margin-right:auto;}
+.fold-bar .btn{padding:5px 12px;font-size:13.5px;}
+details.fold > summary{list-style:none;cursor:pointer;}
+details.fold > summary::-webkit-details-marker,details.step > summary::-webkit-details-marker{display:none;}
+details.fold > summary h2.section-title{margin:28px 0 12px;}
+details.fold > summary h2.section-title::after{
+  content:"▾";margin-left:auto;font-size:18px;color:var(--unit);
+  transition:transform .2s;transform:rotate(-90deg);
+}
+details.fold[open] > summary h2.section-title::after{transform:rotate(0);}
+details.fold:not([open]) > summary h2.section-title{opacity:.88;}
+details.fold > summary:hover h2.section-title{opacity:1;}
+details.step{border:1px solid var(--line);border-radius:var(--radius-sm);margin:10px 0;background:#fff;}
+details.step > summary{
+  list-style:none;cursor:pointer;padding:11px 16px;font-weight:800;font-size:16px;
+  color:color-mix(in srgb,var(--unit) 80%,#000);display:flex;align-items:center;gap:8px;
+}
+details.step > summary::before{content:"▸";transition:transform .2s;color:var(--unit);}
+details.step[open] > summary::before{transform:rotate(90deg);}
+details.step[open] > summary{border-bottom:1px dashed var(--line);}
+details.step .step-body{padding:4px 18px 14px;}
+@media print{
+  .fold-bar{display:none;}
+  details.fold > summary h2.section-title::after,details.step > summary::before{display:none;}
+}
+
+/* ---------- 首頁：進階挑戰（114 學年縣市題目組） ---------- */
+.adv-modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:10px 0 14px;}
+.adv-mode{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--lv1);border-radius:var(--radius-sm);padding:10px 14px;font-size:14.5px;}
+.adv-mode.contest{border-left-color:#d9534f;}
+.adv-mode b{display:block;font-size:15.5px;margin-bottom:2px;}
+table.adv-table td,table.adv-table th{text-align:center;vertical-align:middle;white-space:nowrap;}
+table.adv-table tbody th{text-align:left;font-weight:800;background:#fafbfe;color:var(--ink);}
+.adv-btn{padding:4px 12px;font-size:13.5px;background:var(--lv1);}
+.adv-btn.contest{background:#d9534f;}
+.adv-none{color:var(--sub);}
+.adv-foot{font-size:13.5px;color:var(--sub);}
+@media print{.adv-btn{display:inline !important;background:none;color:var(--ink);padding:0;}}
+
+/* ---------- 首頁頁首的頁內書籤 ---------- */
+.hero-bookmarks{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.hero-bookmarks a{color:#fff;text-decoration:none;font-size:13.5px;font-weight:700;background:rgba(255,255,255,.16);border-radius:999px;padding:5px 12px;}
+.hero-bookmarks a:hover{background:rgba(255,255,255,.3);}
+.hero-bookmarks a.adv{background:rgba(255,255,255,.92);color:var(--unit);}
+.unit-card,.anchor{scroll-margin-top:16px;}
+
+/* ---------- 頁尾版權宣告 ---------- */
+.copyright{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;line-height:1.75;color:var(--sub);}
+.copyright p{margin:4px 0;}
+.copyright a{color:var(--sub);}
+@media print{.hero-bookmarks{display:none !important;}}
+
+/* ---------- 版本標籤（校外師生版） ---------- */
+.edition-tag{float:right;font-size:13px;font-weight:800;background:#fff;color:var(--unit);border-radius:999px;padding:4px 12px;margin-left:10px;}
+@media print{.edition-tag{float:none;display:inline-block;border:1px solid var(--unit);}}

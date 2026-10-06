@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A13 圖論基礎｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="連線列表的基本操作：算度數、判斷相連、找孤立設備">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#3f4fc0">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v7.html">V7 圖論</a> › A13</div>
+    <div class="tier-badge">🕸️ V7 圖論・知識點 A13・競賽模式</div>
+    <h1>圖論基礎</h1>
+    <p class="hero-lead">連線列表的基本操作：算度數、判斷相連、找孤立設備</p>
+    <div class="hero-actions"><span class="code-chip">A7-01-GraphBasics<button type="button" data-copy="A7-01-GraphBasics">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道這個題庫的「圖」是怎麼描述的：<strong>N 個設備＋M 條連線</strong>，每條連線是一組 (A, B)。</li><li>會用「掃描連線列表」這個基本動作，算出某個設備的<strong>度數</strong>（連到幾個設備）。</li><li>會把「對一個設備算度數」延伸成「對全部設備都算一次」，再做彙總（找最大值、數孤立點等）。</li><li>知道完整網路的連線數公式，以及怎麼判斷兩個設備能不能用「中繼設備」接起來。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個題庫的圖不是正式的鄰接表或鄰接矩陣，而是最直接的<strong>連線列表</strong>：一份清單，每一項是一組 (A, B)，代表設備 A 和 B 之間有一條連線。所有跟圖有關的技巧，幾乎都是從「走訪這份連線列表」開始的。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木／怎麼做</th></tr></thead><tbody><tr><td>算某個設備 X 的度數</td><td>走訪整份連線列表，A=X 或 B=X 就計數加 1</td></tr><tr><td>檢查兩個設備是否直接相連</td><td>走訪整份連線列表，檢查有沒有一條剛好是 (X, Y)</td></tr><tr><td>算完整網路需要的連線數</td><td>N×(N-1)÷2</td></tr><tr><td>對每個設備都做一次度數計算</td><td>外層「循環計數 i 從 1 到 N」，裡面包一次「掃描連線列表」</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 「掃描連線列表」是這個單元最基本的動作</div><p>不管題目問的是度數、有沒有相連、還是孤立設備，第一步幾乎都是「走訪整份連線列表，檢查條件」，差別只在檢查的條件跟最後怎麼彙總結果。先把這個基本動作練熟，後面的題目都是在這個動作上疊一層彙總邏輯。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>指定設備連線數</h3><span class="lv L2">L2｜進階</span><span class="pid">GRAPH01-002</span></div><div class="problem-desc" style="white-space:pre-line">一個網路中有 N 個設備與 M 條連線。給定目標設備 X，請計算 X 連到幾個設備。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 M，第三個整數為 X，接著有 M 組整數 A B，代表設備 A 與設備 B 有一條連線。</dd><dt>輸出</dt><dd>輸出一個整數，代表設備 X 的連線數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4 3 2 1 2 2 3 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A7-01-GraphBasics&amp;task=GRAPH01-002" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：設備數 N、連線數 M、要查詢的設備 X，接著 M 組連線 (A, B)。</li><li><strong>輸出</strong>：設備 X 的度數（連到幾個設備）。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 度數 設為 0
+讀入 N、M、X
+循環計數 i 從 1 到 M
+    讀入這一組連線 (A, B)
+    如果 A = X 或 B = X
+        將 度數 設為 度數 + 1
+說出 度數</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>N=4、M=3、X=2，連線依序是 (1,2)(2,3)(3,4)：</p>
+<div class="table-scroll"><table><thead><tr><th>回合</th><th>連線 (A,B)</th><th>A=X 或 B=X？</th><th>度數</th></tr></thead><tbody><tr><td>1</td><td>(1,2)</td><td>B=2=X，是</td><td>1</td></tr><tr><td>2</td><td>(2,3)</td><td>A=2=X，是</td><td>2</td></tr><tr><td>3</td><td>(3,4)</td><td>都不是</td><td>2</td></tr></tbody></table></div>
+<p>輸出 2，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題的重點是：<strong>連線是「無方向性」的</strong>，X 可能出現在一組連線的 A 位置，也可能出現在 B 位置，兩種都要算。所以判斷條件要寫成「A=X 或 B=X」，不能只檢查 A。度數就是走訪完整份連線列表後，符合條件的次數總和——這個「掃描＋計數」的動作，後面好幾題（找最大度數、數孤立設備）都是直接重複使用這個動作，只是外面多包一層「對每個設備都做一次」或換一下計數條件。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>只檢查 A=X，漏掉 B=X</strong>：連線是雙向的，設備 X 可能是連線的任一端，兩邊都要判斷。</li><li><strong>度數變數忘記在每次查詢前歸零</strong>：如果這個邏輯被包進外層迴圈（像 GRAPH01-004 那樣對每個設備都算一次），忘記歸零會讓度數一直疊加下去。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（4 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>網路連線數</h3><span class="lv L1">L1｜基礎</span><span class="pid">GRAPH01-001</span></div><div class="focus"><b>這題多了什麼：</b>這題不需要掃描連線列表，連線數 M 本來就是輸入的一部分，直接輸出 M 即可——這題的用意是先確認你理解「N 個設備、M 條連線」這種圖的基本描述方式，不是真的要你算什麼。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">一個網路中有 N 個設備與 M 條連線。請輸出連線數 M。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 M，接著有 M 組整數 A B，代表設備 A 與設備 B 有一條連線。</dd><dt>輸出</dt><dd>輸出一個整數，代表連線數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4 3 1 2 2 3 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A7-01-GraphBasics&amp;task=GRAPH01-001" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>連線數M本來就是輸入的一部分，直接輸出M即可，重點是理解「N個設備、M條連線」這個圖的基本描述方式。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>完整網路缺幾條線</h3><span class="lv L1">L1｜基礎</span><span class="pid">GRAPH01-007</span></div><div class="focus"><b>這題多了什麼：</b>這題也不用掃描連線列表，是純公式計算：完整網路需要的連線數是 N×(N-1)÷2（N 個設備兩兩互連），用這個公式減掉目前已有的 M 條，就是還缺的數量。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">若 N 個設備中，每兩個不同設備都直接相連，稱為完整網路。給定目前已有 M 條連線，請計算還缺幾條線才會變成完整網路。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個整數 N 與 M，分別代表設備數與目前連線數。</dd><dt>輸出</dt><dd>輸出一個整數，代表還缺少的連線數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A7-01-GraphBasics&amp;task=GRAPH01-007" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>完整網路需要的連線數公式是 N×(N-1)/2，用這個公式減掉目前已有的M條，就是還缺的數量。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>找連線最多的設備</h3><span class="lv L3">L3｜挑戰</span><span class="pid">GRAPH01-004</span></div><div class="focus"><b>這題多了什麼：</b>跟示範題一樣是「算度數」，但這次要對<strong>每一個設備</strong>都算一次度數（外層再包一層「循環計數 i 從 1 到 N」），然後從這 N 個度數裡找出最大值。如果有多個設備的度數並列最大，要輸出編號最小的那一個——所以找最大值時規則是「嚴格大於才更新」，度數相同不要更新，這樣自然會保留先出現（編號較小）的那個。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">一個網路中有 N 個設備與 M 條連線。請找出連線數最多的設備。若有多個設備並列，輸出編號最小者。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 M，接著有 M 組整數 A B，代表設備 A 與設備 B 有一條連線。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為設備編號與連線數，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4 4 1 2 2 3 2 4 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A7-01-GraphBasics&amp;task=GRAPH01-004" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先對每個設備都做一次「算度數」（跟上一題一樣的掃描動作，但要對N個設備各做一次），再從這些度數中找出最大值；如果有多個設備並列最大，要輸出編號最小的那一個。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>兩段路可到達</h3><span class="lv L3">L3｜挑戰</span><span class="pid">GRAPH01-006</span></div><div class="focus"><b>這題多了什麼：</b>這題問的是「X 能不能經過某個中繼設備 Z 到達 Y」。做法是把示範題的「檢查是否直接相連」動作當成一個小工具，重複用兩次：對每一個可能的中繼設備 Z（從 1 掃到 N），檢查 X 和 Z 是否直接相連、<strong>而且</strong> Z 和 Y 是否直接相連，只要找到一個這樣的 Z 就輸出 YES。這題不算真正的圖走訪演算法，但已經是後面（A14圖論進階）要學的「從一個點一路走到另一個點」的暖身動作。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">一個網路中，若 X 可以先到某個中繼設備，再到 Y，代表 X 和 Y 可以用兩段路到達。請判斷是否存在這樣的中繼設備。若 X 與 Y 直接相連，不算兩段路。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 M，第三與第四個整數為 X 與 Y，接著有 M 組整數 A B，代表設備 A 與設備 B 有一條連線。</dd><dt>輸出</dt><dd>若存在一個中繼設備讓 X 可用兩段路到 Y，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4 3 1 3 1 2 2 3 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>YES</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A7-01-GraphBasics&amp;task=GRAPH01-006" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>檢查是否存在一個中繼設備Z，讓X連到Z、Z又連到Y；要走訪所有設備當作可能的中繼點來測試，是後面圖走訪演算法的暖身。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 是否直接相連 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟示範題「掃描連線列表」是同一招，只是檢查的條件從「算 X 的度數」換成「這條連線是不是剛好是 (X, Y)」，找到就輸出 YES。</div><div class="problem-desc" style="white-space:pre-line">一個網路中有 N 個設備與 M 條連線。給定兩個設備 X 與 Y，請判斷它們是否有直接連線。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 M，第三與第四個整數為 X 與 Y，接著有 M 組整數 A B，代表設備 A 與設備 B 有一條連線。</dd><dt>輸出</dt><dd>若 X 與 Y 直接相連，輸出 YES；否則輸出 NO。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4 3 1 3 1 2 2 3 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>NO</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A7-01-GraphBasics&amp;task=GRAPH01-003" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「掃描邊列表」是同一招，只是檢查的條件換成「這條連線剛好是X和Y」而不是「算X的度數」。</div></details></details>
+<details class="extension"><summary>🚀 孤立設備數量 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟練習「GRAPH01-004 對每個設備算度數」是同一招，只是最後彙總的方式不一樣：不是找最大值，而是數有幾個設備的度數剛好是 0（孤立設備）。</div><div class="problem-desc" style="white-space:pre-line">一個網路中，如果某個設備沒有任何連線，稱為孤立設備。給定網路連線資料，請計算孤立設備數量。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 M，接著有 M 組整數 A B，代表設備 A 與設備 B 有一條連線。</dd><dt>輸出</dt><dd>輸出一個整數，代表孤立設備數量。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5 2 1 2 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A7-01-GraphBasics&amp;task=GRAPH01-005" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「對每個設備算度數、再做一次彙總」是同一招，只是彙總方式從「找最大值」換成「數有幾個度數=0的」。</div></details></details>
+<details class="extension"><summary>🚀 網路狀態分類 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟練習「GRAPH01-007 完整網路公式」是同一招，只是多包一層分類判斷：M=0 輸出 EMPTY、M 等於公式算出來的值輸出 FULL，否則輸出 NORMAL。</div><div class="problem-desc" style="white-space:pre-line">一個網路中有 N 個設備與 M 條連線。若 M 為 0，輸出 EMPTY；若 M 等於完整網路需要的連線數，輸出 FULL；否則輸出 NORMAL。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個整數 N 與 M，分別代表設備數與目前連線數。</dd><dt>輸出</dt><dd>依規則輸出 EMPTY、FULL 或 NORMAL。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>FULL</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A7-01-GraphBasics&amp;task=GRAPH01-008" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「完整網路公式」是同一招，只是多包一層判斷：M=0輸出EMPTY、M=公式值輸出FULL，否則輸出PARTIAL。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我知道這個題庫的圖是用「連線列表」描述，不是正式的圖論資料結構。</li><li>我會寫「掃描連線列表，檢查條件」這個基本動作，並記得連線是雙向的（A、B 都要檢查）。</li><li>我會把「對一個設備做的事」延伸成「對全部設備都做一次」，再彙總結果。</li><li>我會算完整網路需要的連線數公式，並用它判斷網路的狀態。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a12.html"><div class="dir">← 上一個知識點</div><b>A12 競賽綜合系列</b></a><a class="next" href="a14.html"><div class="dir">下一個知識點 →</div><b>A14 圖論進階</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

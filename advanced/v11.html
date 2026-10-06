@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>V11 區間最佳化與動態規劃｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="進階版難度最高的單元：二分搜尋答案、動態規劃">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#8b5cf6">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › V11</div>
+    <div class="tier-badge">🧩 單元 V11</div>
+    <h1>區間最佳化與動態規劃</h1>
+    <p class="hero-lead">進階版難度最高的單元：二分搜尋答案、動態規劃</p>
+  </div>
+</header>
+<main class="page md">
+
+  <h2 class="section-title"><span class="num">1</span>這個單元要學什麼</h2>
+  <p class="lead">這個單元收錄進階版難度最高的技巧。區間最佳化不是單一招式，而是依題目特徵選用「二分搜尋答案」「固定視窗找眾數」「中位數選址」「最大連續子陣列和」這幾種不同方法；動態規劃則是把大問題拆成規模較小的同類問題，把算過的結果存起來不重複計算。</p>
+  <p class="before-box"><b>開始前你需要會：</b>V1~V10，尤其是V9二分搜尋（二分搜尋答案是它的延伸應用）。</p>
+
+  <h2 class="section-title"><span class="num">2</span>知識點路線</h2>
+  <ol class="kp-path">
+<li class="kp-node"><div class="kp-dot">A20</div><div class="kp-body">
+      <h3><a href="a20.html">區間最佳化</a></h3>
+      <p class="kp-goal">二分搜尋答案、固定視窗找眾數、中位數選址、最大連續子陣列和</p>
+      <div class="kp-meta"><span class="pill core">核心 5 題</span><span class="pill ext">延伸 3 題</span><span class="code-chip">A11-01-IntervalOptimize<button type="button" data-copy="A11-01-IntervalOptimize">複製</button></span></div>
+      <div class="card-actions"><a class="btn" href="a20.html">📘 閱讀教材</a><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize" target="_blank" rel="noopener">▶ 直接練習（Blockly）</a></div>
+    </div></li>
+<li class="kp-node"><div class="kp-dot">A21</div><div class="kp-body">
+      <h3><a href="a21.html">動態規劃暖身</a></h3>
+      <p class="kp-goal">計數型、最佳化型、決策型、二維動態規劃</p>
+      <div class="kp-meta"><span class="pill core">核心 6 題</span><span class="pill ext">延伸 1 題</span><span class="code-chip">A11-02-DPWarmup<button type="button" data-copy="A11-02-DPWarmup">複製</button></span></div>
+      <div class="card-actions"><a class="btn" href="a21.html">📘 閱讀教材</a><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-02-DPWarmup" target="_blank" rel="noopener">▶ 直接練習（Blockly）</a></div>
+    </div></li>
+  </ol>
+
+  <h2 class="section-title"><span class="num">3</span>單元小結</h2>
+  <div class="summary-box"><ul><li>二分搜尋答案：猜一個候選答案，寫一個「檢查這個答案可不可行」的方法，再調整猜測範圍——跟V9的精神相同，但這次猜的是答案本身，不是清單裡的數字。</li><li>動態規劃的核心是「狀態清單」：第i項代表「問題規模為i時的答案」，透過遞迴關係從前面已經算好的項推出來。</li><li>同樣的遞迴結構，換一個組合運算子（加總變最小值、一維變二維）就能解決完全不同的問題。</li></ul></div>
+
+  <nav class="pager"><a class="prev" href="v10.html"><div class="dir">← 上一個單元</div><b>V10 前綴和與滑動視窗</b></a><a class="next" href="v12.html"><div class="dir">下一個單元 →</div><b>V12 115全國賽示範題</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

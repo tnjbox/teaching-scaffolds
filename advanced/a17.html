@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A17 二分搜尋｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="存在判斷、找位置、找插入點三種二分搜尋問法">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#0e8a7a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v9.html">V9 二分搜尋</a> › A17</div>
+    <div class="tier-badge">🔍 V9 二分搜尋・知識點 A17・競賽模式</div>
+    <h1>二分搜尋</h1>
+    <p class="hero-lead">存在判斷、找位置、找插入點三種二分搜尋問法</p>
+    <div class="hero-actions"><span class="code-chip">A9-01-BinarySearch<button type="button" data-copy="A9-01-BinarySearch">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道二分搜尋的使用前提：<strong>資料必須先排序好</strong>。</li><li>會用「左指標、右指標、中間位置」三個變數夾出搜尋範圍，每比較一次就刷掉一半。</li><li>分得清楚三種常見問法：<strong>存在判斷</strong>（有沒有）、<strong>找位置</strong>（第幾個）、<strong>找插入點</strong>（邊界搜尋）。</li><li>知道不是所有「猜數字」類的題目都要用二分搜尋——資料沒排序，或規則不是「越猜越窄」時，老老實實依序掃描才是對的做法。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>如果清單沒有排序，想知道某個數字在不在裡面，只能從頭找到尾、一個一個比對。但如果清單<strong>已經排好序</strong>，可以先猜中間：</p>
+<ul><li>中間的數字剛好就是要找的 → 找到了。</li><li>中間的數字比要找的大 → 答案一定在左半邊，右邊直接整段刷掉。</li><li>中間的數字比要找的小 → 答案一定在右半邊，左邊直接整段刷掉。</li></ul>
+<p>每比較一次，搜尋範圍就減半，比「一個一個找」快很多，清單越大優勢越明顯。這個技巧叫<strong>二分搜尋</strong>。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>記錄搜尋範圍的左、右邊界</td><td>將（左／右）設為</td></tr><tr><td>範圍還沒夾完就繼續找</td><td>重複，當 左 ≤ 右</td></tr><tr><td>取中間位置</td><td>(左 + 右) 除以 2，無條件捨去</td></tr><tr><td>看中間位置存的是什麼</td><td>自清單取得 # 中間</td></tr><tr><td>提早結束迴圈</td><td>中斷循環</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 二分搜尋的前提</div><p>只有在資料<strong>已經排序</strong>的情況下，才可以用「比中間大就丟左邊、比中間小就丟右邊」這招。資料沒排序，或是題目規則不是「越猜越收斂」，就只能依序掃描——不是每個「猜數字」類的題目都該硬套二分搜尋，下面練習 M3-00-03 就是一個例子。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>神祕數字找找看</h3><span class="lv L2">L2｜進階</span><span class="pid">M3-00-01</span></div><div class="problem-desc" style="white-space:pre-line">老師心中把候選數字由小到大排好，請你判斷某個目標數字在不在清單裡。
+
+第一行輸入N，代表清單有N個數字
+
+第二行輸入N個數字（已經由小到大排序），數字間以空白間隔
+
+第三行輸入要查詢的目標數字
+
+如果目標數字有在清單裡，輸出「找到了」；否則輸出「沒找到」。</div><dl class="io"><dt>輸入</dt><dd>N、已排序的N個數字、目標數字</dd><dt>輸出</dt><dd>找到了 或 沒找到</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+2 4 6 8 10
+6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>找到了</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+2 4 6 8 10
+7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>沒找到</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A9-01-BinarySearch&amp;task=M3-00-01" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：清單大小 N、已排序的 N 個數字、要查詢的目標數字。</li><li><strong>輸出</strong>：目標數字在清單裡輸出「找到了」，不在輸出「沒找到」。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 左 設為 1
+將 右 設為 N
+將 結果 設為 &quot;沒找到&quot;
+重複，當 左 ≤ 右
+    將 中間 設為 (左 + 右) 除以 2（無條件捨去）
+    如果 清單的第 中間 項 = 目標
+        將 結果 設為 &quot;找到了&quot;
+        中斷循環
+    否則，如果 清單的第 中間 項 &lt; 目標
+        將 左 設為 中間 + 1
+    否則
+        將 右 設為 中間 - 1
+說出 結果</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>清單「2 4 6 8 10」，目標「6」：</p>
+<div class="table-scroll"><table><thead><tr><th>回合</th><th>左</th><th>右</th><th>中間</th><th>清單第中間項</th><th>動作</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>5</td><td>3</td><td>6</td><td>等於目標，結果設為「找到了」，中斷循環</td></tr></tbody></table></div>
+<p>輸出「找到了」，和範例一樣。</p>
+<p>換成目標「7」：</p>
+<div class="table-scroll"><table><thead><tr><th>回合</th><th>左</th><th>右</th><th>中間</th><th>清單第中間項</th><th>動作</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>5</td><td>3</td><td>6</td><td>6 &amp;lt; 7，左設為 4</td></tr><tr><td>2</td><td>4</td><td>5</td><td>4</td><td>8</td><td>8 &amp;gt; 7，右設為 3</td></tr><tr><td>—</td><td>4</td><td>3</td><td>—</td><td>—</td><td>左 &amp;gt; 右，迴圈結束，結果維持「沒找到」</td></tr></tbody></table></div>
+<p>輸出「沒找到」，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題的核心是「左、右、中間」三個變數怎麼移動：</p>
+<ul><li><strong>左、右</strong>代表目前還沒排除的搜尋範圍（一開始是整張清單）。</li><li><strong>中間</strong>永遠取左右的正中央（除以 2 要無條件捨去，否則會算出小數位置）。</li><li>比對中間位置的數字和目標：<strong>相等</strong>就直接把結果設好、中斷循環；<strong>中間值比目標小</strong>代表目標只可能在中間右邊，所以把左移到中間的右一格；<strong>中間值比目標大</strong>同理把右移到中間的左一格。</li><li>什麼時候停止？左比右大的那一刻，代表搜尋範圍已經空了，不管有沒有找到都該結束——用「重複，當 左 ≤ 右」這個條件剛好就是在問「範圍還有沒有東西」。</li></ul>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>中間位置算成小數</strong>：(左+右) 除以 2 如果沒有無條件捨去，中間會變成 3.5 這種清單裡沒有的位置，取值會出錯。</li><li><strong>忘記中斷循環</strong>：找到目標後沒有跳出迴圈，左右指標繼續移動，範圍可能提早被夾到剩 0，但這題不影響結果（因為「結果」已經設好了），不過習慣上找到就該馬上停止，別讓迴圈白跑。</li><li><strong>清單沒有排序就硬用二分搜尋</strong>：這招的大前提是清單已經排好序，如果拿到沒排序的清單直接套用，判斷方向會整個錯掉。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（3 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>神祕數字在第幾個</h3><span class="lv L2">L2｜進階</span><span class="pid">M3-00-02</span></div><div class="focus"><b>這題多了什麼：</b>跟示範題幾乎一樣的二分搜尋流程，但這次要輸出「第幾個位置」而不是「找到了/沒找到」。差別只在：找到時把「結果」設成<strong>中間這個位置的編號</strong>（而不是固定文字），找不到則維持 0（別忘了結果的初始值要改成 0，不是字串）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">承接上一題，這次清單中的數字一樣由小到大排好。請你找出目標數字在清單中的位置（從第1個算起）。
+
+第一行輸入N
+
+第二行輸入N個已排序的數字
+
+第三行輸入要查詢的目標數字
+
+如果找到，輸出目標數字的位置（從1開始算）；如果清單裡沒有這個數字，輸出0。</div><dl class="io"><dt>輸入</dt><dd>N、已排序的N個數字、目標數字</dd><dt>輸出</dt><dd>位置（1起始）或0（找不到）</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+2 4 6 8 10
+6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+2 4 6 8 10
+7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A9-01-BinarySearch&amp;task=M3-00-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟存在判斷一樣用二分搜尋，但找到目標時要記住當時的中間位置（從1開始算）再輸出，而不只是判斷有沒有。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>猜數字裁判</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-00-03</span></div><div class="focus"><b>這題多了什麼：</b><strong>這題不是二分搜尋</strong>，是這個知識點裡刻意放的對照組：猜測序列<strong>沒有排序</strong>（玩家想猜哪個數字都可以，完全沒有「越猜越收斂」的規律），所以只能老老實實從第 1 次依序比對到猜中為止，用一個計數變數邊走訪邊加 1。如果硬是想用左右指標夾出範圍，會發現完全夾不出方向——這正是題目要提醒的事：<strong>判斷能不能用二分搜尋，先看資料有沒有排序、規則有沒有「可以刷掉一半」的性質</strong>，不是看到「猜數字」三個字就反射性地套用左右指標。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">模擬猜數字遊戲的裁判：給一個正確答案secret，跟一串依序猜測的數字。請你算出玩家是第幾次才猜中（保證猜測序列裡一定會猜中一次）。
+
+第一行輸入secret
+
+第二行輸入M，代表猜測次數
+
+第三行輸入M個猜測值，依序排列，空白分隔
+
+輸出玩家第幾次猜中（從第1次算起）。</div><dl class="io"><dt>輸入</dt><dd>secret、M、M個猜測值</dd><dt>輸出</dt><dd>第幾次猜中</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>42
+5
+50 25 40 42 45</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7
+3
+7 1 9</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A9-01-BinarySearch&amp;task=M3-00-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>依序比對每一次的猜測值跟正確答案，記下第幾次猜中（不是二分搜尋，是單純依序掃描計數）。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>新書該插第幾格</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-00-04</span></div><div class="focus"><b>這題多了什麼：</b>這題問的不是「存不存在」，而是<strong>插入點</strong>：新書編號要插在哪裡，插完書架仍然保持排序。這是二分搜尋的另一種用法——找「第一個大於或等於新書編號的位置」。做法是一樣的左右指標夾法，但判斷條件改成：中間位置的編號 <strong>大於或等於</strong>新書編號，就把右移到中間的左一格（這個位置有可能就是答案，先留著）；否則把左移到中間的右一格。迴圈結束時，左指標停留的位置就是答案（即使清單整段都比新書編號小，左最後會停在「N+1」，代表插在最後面）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">書架上的書已經依照編號由小到大排好。請你決定新書該插入第幾個位置（從第1個算起），插入後書架仍維持由小到大排序。如果新書編號跟書架上已有的編號重複，新書要插在第一個相同編號的前面。
+
+第一行輸入N，代表書架現有N本書
+
+第二行輸入N個已排序的書本編號
+
+第三行輸入新書編號
+
+輸出新書應該插入的位置。</div><dl class="io"><dt>輸入</dt><dd>N、已排序的N個書本編號、新書編號</dd><dt>輸出</dt><dd>插入位置（1起始）</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50
+25</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+10 20 30 40 50
+5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A9-01-BinarySearch&amp;task=M3-00-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用二分搜尋找到「第一個大於或等於新書編號」的位置，這個位置就是新書該插入的地方（找插入點，跟找存在不同）。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（2 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 訂單一次查 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟示範題同一招「存在判斷」，差別只是要做 Q 次查詢——把示範題的流程包進一層迴圈，對每個要查詢的編號各自跑一次左右指標夾法，輸出之間用空白隔開。</div><div class="problem-desc" style="white-space:pre-line">已排序的會員編號清單，請你一次查詢多筆會員編號是否存在。
+第一行輸入N，代表會員總數
+第二行輸入N個已排序的會員編號
+第三行輸入Q，代表要查詢的筆數
+第四行輸入Q個要查詢的編號，空白分隔
+依查詢順序，依序輸出每筆查詢的結果「有」或「無」，用空白分隔成一行。</div><dl class="io"><dt>輸入</dt><dd>N、已排序的N個會員編號、Q、Q個查詢編號</dd><dt>輸出</dt><dd>依序輸出「有」或「無」，空白分隔</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+3 8 15 22 30
+3
+8 10 22</pre></div><div class="sample-row"><div class="k">輸出</div><pre>有 無 有</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+3 8 15 22 30
+2
+3 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>有 有</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A9-01-BinarySearch&amp;task=M3-00-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟存在判斷的二分搜尋是同一招，只是要做Q次查詢，每次查詢都重複同一招。</div></details></details>
+<details class="extension"><summary>🚀 打折門檻落點 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟練習 M3-00-04 同一招「邊界搜尋」，只是情境換成「找最大的小於等於消費金額的門檻」，而且找不到要輸出 0（練習 M3-00-04 保證一定插得進去，這題要自己多處理「一個門檻都沒達到」的情況）。</div><div class="problem-desc" style="white-space:pre-line">店家依消費金額設定折扣門檻（門檻清單由小到大排序），請你判斷某筆消費金額達到第幾個門檻（即金額大於等於的最大門檻編號）。如果金額沒有達到任何門檻，輸出0。
+
+第一行輸入N，代表門檻數量
+
+第二行輸入N個已排序的門檻金額
+
+第三行輸入這筆消費金額
+
+輸出達到的門檻編號。</div><dl class="io"><dt>輸入</dt><dd>N、已排序的N個門檻金額、消費金額</dd><dt>輸出</dt><dd>達到的門檻編號，都沒達到輸出0</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+500 1000 2000
+1500</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+500 1000 2000
+300</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A9-01-BinarySearch&amp;task=M3-00-06" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟找插入點（邊界搜尋）是同一招，只是情境換成「找最大的小於等於消費金額的門檻」。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我知道二分搜尋只能用在<strong>已經排序</strong>的資料上。</li><li>我會用左、右、中間三個變數夾出搜尋範圍，並用無條件捨去算出中間位置。</li><li>我分得清楚「存在判斷」「找位置」「找插入點」這三種問法的差異。</li><li>我會判斷一個「猜數字」類的題目到底適不適合用二分搜尋，而不是看到關鍵字就套用。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a16.html"><div class="dir">← 上一個知識點</div><b>A16 貪心進階</b></a><a class="next" href="a18.html"><div class="dir">下一個知識點 →</div><b>A18 前綴和</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

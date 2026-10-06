@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A14 圖論進階｜程式設計進階自主學習地圖（校外師生版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="走訪整張圖：樹狀深度、連通群組">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#3f4fc0">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="edition-tag">校外師生版</div>
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v7.html">V7 圖論</a> › A14</div>
+    <div class="tier-badge">🕸️ V7 圖論・知識點 A14・競賽模式</div>
+    <h1>圖論進階</h1>
+    <p class="hero-lead">走訪整張圖：樹狀深度、連通群組</p>
+    <div class="hero-actions"><span class="code-chip">A7-02-GraphAdvanced<button type="button" data-copy="A7-02-GraphAdvanced">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用「父節點陣列」描述樹狀結構：每個節點記錄自己的上一層（父節點）是誰，0 代表自己就是根。</li><li>會從任一節點「往上走到根節點」，同時算出走了幾步（深度）。</li><li>知道「連通群組」的概念：從任一還沒分組的設備出發，透過連線把同一群組的設備都標記起來，數出總共有幾組。</li><li>會把「邊列表」（上級→下級的連線清單）轉換成「父節點陣列」，再套用同一套往上走的技巧。</li><li>知道 2D 地圖上多個來源同時影響同一格時，要先各自算出影響力，再取最大值彙總。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個知識點的題目都需要「真正的圖走訪」，而不只是像 A13 那樣單純掃描連線列表。核心技巧有兩類：</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木／怎麼做</th></tr></thead><tbody><tr><td>從某節點往上走到根</td><td>重複，當 父節點[目前] ≠ 0：將目前設為父節點[目前]，深度 +1</td></tr><tr><td>找出所有節點裡最大的深度</td><td>對每個節點都做一次「往上走到根」，取深度最大值</td></tr><tr><td>從邊列表建立父節點陣列</td><td>走訪邊列表，對每組「起點→終點」，把父節點[終點] 設為 起點</td></tr><tr><td>數連通群組</td><td>從任一還沒分組的設備出發，透過連線把同一群組的設備都標記起來，標記完換下一個還沒分組的設備</td></tr><tr><td>2D 地圖多個來源影響同一格</td><td>對每一格，分別算出每個來源對它的影響力，取最大值</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 「父節點陣列」和「邊列表」是同一種資料的兩種長相</div><p>父節點陣列是「每個節點直接告訴你它的上一層是誰」，邊列表是「一條一條列出『誰指向誰』」。如果題目給的是邊列表，第一步永遠是先把它轉換成父節點陣列，之後「往上走到根」的技巧完全一樣，不用重新想一遍。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>量子訊號的接力傳輸</h3><span class="lv L4">L4｜精熟</span><span class="pid">W0-03</span></div><div class="problem-desc" style="white-space:pre-line">為了在廣大的星際基地之間建立通訊，
+工程師架設了一套「單向接力」的量子訊號傳輸系統。
+系統中共有 N 個訊號站，編號為 1 到 N。
+其中有一個最重要的「主伺服器」，所有資料最終都必須傳送到這個站點。
+為了節省能源，每一個訊號站（主伺服器除外）都只會設定一個固定的「上游接收站」。
+當某站點收到資料時，會立刻將資料傳送給它的上游站點，
+如此一站接一站，直到資料抵達主伺服器為止。
+若某站點的上游接收站編號為 0，
+則代表該站點本身就是主伺服器，其轉傳次數為 0。
+請根據輸入的系統設定，
+計算整個系統中，從任一站點出發所需的「最大轉傳次數」</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N，代表訊號站的總數。
+第二行：N 個整數，代表第 1 站至第 N 站的上游接收站編號。
+（若數值為 0，代表該站為主伺服器）</dd><dt>輸出</dt><dd>第一行：輸出一個整數，代表整個系統中最大的轉傳次數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+0 1 2 2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+2 3 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A7-02-GraphAdvanced&amp;task=W0-03" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：訊號站總數 N，接著 N 個整數，依序是第 1 站到第 N 站的上游接收站編號（0 代表這站就是主伺服器）。</li><li><strong>輸出</strong>：整個系統中，從任一站出發所需的最大轉傳次數。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 最大深度 設為 0
+循環計數 i 從 1 到 N
+    將 目前 設為 i
+    將 深度 設為 0
+    重複，當 父節點[目前] ≠ 0
+        將 目前 設為 父節點[目前]
+        將 深度 設為 深度 + 1
+    如果 深度 &gt; 最大深度
+        將 最大深度 設為 深度
+說出 最大深度</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>N=5，父節點陣列＝[0, 1, 2, 2, 3]（第1站父節點0、第2站父節點1、第3站父節點2、第4站父節點2、第5站父節點3）：</p>
+<div class="table-scroll"><table><thead><tr><th>i（出發站）</th><th>走訪路徑</th><th>深度</th><th>最大深度</th></tr></thead><tbody><tr><td>1</td><td>父節點[1]=0，不走</td><td>0</td><td>0</td></tr><tr><td>2</td><td>2→1（父節點[1]=0停止）</td><td>1</td><td>1</td></tr><tr><td>3</td><td>3→2→1</td><td>2</td><td>2</td></tr><tr><td>4</td><td>4→2→1</td><td>2</td><td>2</td></tr><tr><td>5</td><td>5→3→2→1</td><td>3</td><td>3</td></tr></tbody></table></div>
+<p>輸出 3，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>外層迴圈讓每個站都當一次「出發站」，內層用一個 while 迴圈不斷往上游走：只要目前站的父節點不是 0，就把「目前」更新成父節點、深度加 1；父節點是 0 代表走到主伺服器了，這一次的走訪結束。走完一輪就跟目前記錄的最大深度比較，比較大就更新。整題的關鍵是<strong>外層跑過全部 N 個起點、內層每次都走到底</strong>，兩層缺一不可。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>內層迴圈忘記更新「目前」</strong>：如果只更新深度不更新目前，會卡在同一個節點變成無窮迴圈。</li><li><strong>把「父節點編號 0」誤判成陣列索引</strong>：0 是代表「這站就是主伺服器」的特殊值，不是真的要去讀「第 0 個」父節點。</li><li><strong>外層迴圈漏掉某個起點</strong>：N 個站都要各自當一次出發點，包括主伺服器本身（它的深度會是 0，不影響最大值）。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（3 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>基地台訊號覆蓋</h3><span class="lv L4">L4｜精熟</span><span class="pid">W9-02</span></div><div class="focus"><b>這題多了什麼：</b>這題不是樹狀結構，而是 2D 地圖上的訊號擴散：每個基地台的訊號強度會隨距離遞減（曼哈頓距離每增加 1 格，強度減 1），而且<strong>同一格可能同時收到多個基地台的訊號，要取最高的那個</strong>。做法是對地圖上每一格，分別算出每個基地台傳到這一格的強度（用曼哈頓距離算），取最大值當作這一格的最終強度，再依強度分四級統計格子數量。跟示範題的「父節點往上走」完全是不同的技巧，但同樣屬於「圖論進階」是因為概念上都在處理「多個節點互相影響的網路／地圖結構」。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在一個 N x N 的城鎮地圖中，佈置了若干個基地台。每個基地台都有其初始的訊號強度，而訊號會隨著距離增加而逐漸減弱。
+【訊號傳播規則】
+1. 距離計算：兩格之間的距離採「曼哈頓距離」。距離 = 行數差距 + 列數差距。
+2. 強度減弱：距離基地台每增加 1 格，訊號強度就會減掉 1。例如：基地台初始強度為 5，距離它 1 格的地方強度為 4，距離 2 格的地方強度為 3，依此類推，強度最低為 0。
+3. 訊號重疊：如果某個格子同時接收到多個基地台的訊號，該格子的最終強度以「最高的那一個」為準。
+【訊號等級分類】
+請根據每一格最終得到的最高訊號強度，統計以下四種等級的格子總數：
+• 訊號好：強度為 4 以上（含 4）。
+• 訊號普通：強度為 2 至 3。
+• 訊號弱：強度為 1。
+• 無訊號：強度為 0。</div><dl class="io"><dt>輸入</dt><dd>• 第 1 個輸入為整數 N，代表地圖大小為 N x N（1 ≤ N ≤ 20）。
+• 接下來有 N x N 個數字（0 或正整數）：
+  o 0 代表該格沒有基地台。
+  o 正整數代表該格設有基地台，且數字為其初始強度。
+  o 讀取順序由左至右、由上至下。</dd><dt>輸出</dt><dd>• 請依序輸出四個整數，中間以單一空格隔開，分別代表：訊號好 訊號普通 訊號弱 無訊號 的格子總數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+0 0 0 0 3 0 0 0 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0 5 4 0</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4 12 0 0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A7-02-GraphAdvanced&amp;task=W9-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>每個基地台的訊號會隨距離遞減，對地圖上每一格，把所有基地台傳到這一格的訊號強度加總，再依總訊號強度分級統計。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>訊號網路的連通群組數</h3><span class="lv L4">L4｜精熟</span><span class="pid">JSG01-009</span></div><div class="focus"><b>這題多了什麼：</b>這題要數「連通群組」：跟示範題「父節點走訪」不同，這題的連線是<strong>無方向性</strong>的（任兩個裝置用連線接起來就算同一組，沒有上下層之分）。做法是：準備一份「是否已分組」的記錄，從任一還沒分組的裝置出發，透過連線把所有能連到的裝置都標記成同一組（這個過程可以想成「連鎖反應」：A連到B，B又連到C，C也要算進同一組），標記完就讓群組數加 1，換下一個還沒分組的裝置重複，直到所有裝置都分組完畢。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">有N個裝置，用M條連線互相連接（無方向性）。請你計算整個網路總共分成幾個獨立的連通群組（同一群組內的裝置都能透過連線互相到達；不同群組之間完全沒有連線路徑）。
+
+第一行輸入N M
+
+第二行輸入2×M個整數，依序是每條連線的兩端裝置編號（裝置編號從1到N；若M=0這行可以是空的）
+
+輸出總共有幾個連通群組。</div><dl class="io"><dt>輸入</dt><dd>N M、2×M個連線端點編號</dd><dt>輸出</dt><dd>連通群組數量</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6 4
+1 2 2 3 4 5 5 6</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A7-02-GraphAdvanced&amp;task=JSG01-009" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用走訪的方式（可以從任一還沒分組的設備出發，透過連線把同一群組的設備都標記起來），數出整個網路分成幾個獨立群組（連通分量）。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>社團聯絡網(6-4)</h3><span class="lv L5">L5｜大師</span><span class="pid">cyjunior-009</span></div><div class="focus"><b>這題多了什麼：</b>這題給的是<strong>邊列表</strong>（兩行清單，分別是每條連線的「起點」跟「終點」），不是像示範題一樣直接給好的父節點陣列。第一步要先走訪整份邊列表，把每組「起點→終點」轉換成「父節點[終點] = 起點」，建好父節點陣列之後，後面的「往上走到根、找最大深度」就跟示範題一模一樣。這題多出來的技巧就是「從邊列表重建父節點陣列」這個資料轉換的步驟。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">來到最後一層，主控電腦顯示了一張複雜的「社團關係網絡圖」。圖上有 N 個社團成員節點與 M 條單向連線（代表上級指揮下級）。系統會以「連線列表」的方式給你資料。每一條連線包含「起點（上級）」與「終點（下級）」。這是一個樹狀的分層結構，每一個人都只會有一個上級指導人，請找出從最高指揮（編號 1）傳到最底層的人，中間經過的層數最大是多少</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N代表社團總人數（編號 1 ~ N）。
+第二行：一個整數 M（代表關係連線總數）。
+第三行：M 個整數，代表每條連線的「起點列表」。
+第四行：M 個整數，代表每條連線的「終點列表」。
+（例：第三行第 i 個數字(起點)與第四行第 i 個數字(終點)構成一條連線）</dd><dt>輸出</dt><dd>第一行：一個整數，輸出一個整數，代表聯絡網的最大層數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+2
+1 2
+2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+3
+1 1 3
+2 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A7-02-GraphAdvanced&amp;task=cyjunior-009" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把輸入的「上級→下級」連線關係轉換成每個節點的上級是誰（跟前一題的父節點陣列結構一樣），再用同樣的方法往上走到根節點，算出每個節點的深度。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 訊號站到主機的轉傳距離查詢 <span class="lv L4">L4｜精熟</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟示範題「父節點往上走」是同一招，但不用對全部 N 個站都做一次，只需要針對<strong>指定要查詢的那一個站</strong>走一次，輸出它到主機的轉傳次數即可，不用找全部站裡的最大值。</div><div class="problem-desc" style="white-space:pre-line">延續『單向接力』傳輸系統：每個訊號站（除了主伺服器）都有一個固定的上游接收站；上游編號為0代表該站本身就是主伺服器。給定一個要查詢的站點編號，請你算出從該站點出發，需要經過幾次轉傳才能到達主伺服器。
+
+第一行輸入N，代表訊號站總數
+
+第二行輸入N個整數，代表第1站到第N站各自的上游接收站編號（0代表主伺服器本身）
+
+第三行輸入要查詢的站點編號
+
+輸出從該站點到主伺服器所需的轉傳次數。</div><dl class="io"><dt>輸入</dt><dd>N、N個上游接收站編號、查詢站點編號</dd><dt>輸出</dt><dd>轉傳次數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+0 1 1 3 3
+4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A7-02-GraphAdvanced&amp;task=JSG01-010" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟父節點陣列結構是同一招，只是這次只需要查詢「某一個節點」到主機的距離，不用找全部站裡的最大值。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會用父節點陣列描述樹狀結構，並從任一節點往上走到根節點。</li><li>我知道「邊列表」跟「父節點陣列」可以互相轉換，而且轉換後的走訪技巧完全一樣。</li><li>我會分辨「有方向的樹狀結構（父節點）」跟「無方向的連通群組」這兩種不同的圖走訪情境。</li><li>我會處理 2D 地圖上多個來源同時影響同一格、取最大值彙總的情境。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a13.html"><div class="dir">← 上一個知識點</div><b>A13 圖論基礎</b></a><a class="next" href="a15.html"><div class="dir">下一個知識點 →</div><b>A15 貪心入門</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（blockly-lab），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

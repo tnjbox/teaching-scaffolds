@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A18 前綴和｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="前綴和陣列建構與區間查詢公式">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#2c9a6b">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v10.html">V10 前綴和與滑動視窗</a> › A18</div>
+    <div class="tier-badge">🪟 V10 前綴和與滑動視窗・知識點 A18・競賽模式</div>
+    <h1>前綴和</h1>
+    <p class="hero-lead">前綴和陣列建構與區間查詢公式</p>
+    <div class="hero-actions"><span class="code-chip">A10-01-PrefixSum<button type="button" data-copy="A10-01-PrefixSum">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道什麼時候該用前綴和：題目要<strong>重複查詢某一段區間的總和</strong>時。</li><li>會建立「累積總額清單」，並用公式直接算出任何一段區間的總和，不用每次重新加總。</li><li>會把前綴和公式套用在平均值、扣除單點、反向搜尋等變化題型上。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>如果題目只問一次「第L天到第R天的總和」，直接用迴圈加總就好。但如果要<strong>重複查詢很多次</strong>，每次都重新加總會很浪費——資料量一大，重複計算的次數也跟著暴增。</p>
+<p>前綴和的做法是：先花一次功夫，把「從第1天累加到第i天」的總額，依序存進一份清單（累積總額清單）。之後不管要查詢哪一段區間，都只要做一次減法：</p>
+<pre class="code">區間[L, R]的總和 = 累積總額清單第R項 − 累積總額清單第(L-1)項</pre>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>建立累積總額清單</td><td>「清單中加入」，每一項＝前一項加上這一天的金額</td></tr><tr><td>查詢區間[L, R]的總和</td><td>清單第R項 − 清單第(L-1)項</td></tr><tr><td>避免L=1時減到第0項</td><td>累積總額清單<strong>第0項先放0</strong>（代表「累加到第0天」什麼都還沒加）</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 第0項是關鍵</div><p>累積總額清單要多存一項「第0項＝0」，這樣查詢L=1開始的區間時，公式「第R項−第(L-1)項」才不會存取到不存在的「第0項之前」。可以把累積總額清單想成「比原始資料多一格，位移一個位置」。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>募款進度累積表</h3><span class="lv L2">L2｜進階</span><span class="pid">M3-02-01</span></div><div class="problem-desc" style="white-space:pre-line">園遊會義賣活動記錄每日募款金額，請你算出每天結束時的累積募款總額（前綴和）。
+
+第一行輸入N，代表有N天
+
+第二行輸入N個數字，代表每天的募款金額
+
+輸出N個數字，代表第1天到第i天為止的累積總額，空白分隔。</div><dl class="io"><dt>輸入</dt><dd>N、N個每日募款金額</dd><dt>輸出</dt><dd>N個累積總額，空白分隔</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
+100 200 150 50</pre></div><div class="sample-row"><div class="k">輸出</div><pre>100 300 450 500</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A10-01-PrefixSum&amp;task=M3-02-01" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：天數N、N個每日募款金額。</li><li><strong>輸出</strong>：N個數字，依序是第1天到第i天的累積總額。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 累積清單 設為空清單
+清單中加入 0（代表累積到第0天）
+循環計數 i 從 1 到 N 每次增加 1
+    將 這天累積 設為 (累積清單的第 i 項) + (募款清單的第 i 項)
+    清單中加入 這天累積
+說出 累積清單（去掉第0項之後的所有內容，用空白接起來）</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入「4」「100 200 150 50」：</p>
+<div class="table-scroll"><table><thead><tr><th>i</th><th>募款清單第i項</th><th>累積清單第i項（＝前一項+這項）</th></tr></thead><tbody><tr><td>0</td><td>—</td><td>0（起始）</td></tr><tr><td>1</td><td>100</td><td>0+100=100</td></tr><tr><td>2</td><td>200</td><td>100+200=300</td></tr><tr><td>3</td><td>150</td><td>300+150=450</td></tr><tr><td>4</td><td>50</td><td>450+50=500</td></tr></tbody></table></div>
+<p>輸出「100 300 450 500」，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題本身就是在建立前綴和的基礎結構，之後所有練習題都是在這份累積清單上做文章：</p>
+<ul><li>累積清單的第i項，代表「第1天到第i天」的總和。</li><li>每一項都是「前一項」加上「這一天新增的金額」——這就是「累積」兩個字的意思，不用每次從頭加總。</li><li>第0項放0，是為了讓之後查詢「從第1天開始」的區間時，公式仍然成立（見下面常見錯誤）。</li></ul>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>忘記放第0項</strong>：直接從第1天開始存，之後查詢區間時公式會對不起來，要特別處理L=1的情況，不如一開始就多放一個0。</li><li><strong>輸出格式少了最後一項或多了第0項</strong>：題目只要輸出N個累積總額（第1項到第N項），不要把第0項也印出來。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（5 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>區間募款查詢</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-02-02</span></div><div class="focus"><b>這題多了什麼：</b>這題才是前綴和真正派上用場的地方：先照示範題的做法建好累積清單，查詢第L到第R天時，直接用「累積清單第R項 − 累積清單第(L-1)項」算出答案，不用再跑一次迴圈重新加總。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">延續募款記錄，這次要查詢「第L天到第R天」（含頭尾）總共募到多少錢。
+
+第一行輸入N
+
+第二行輸入N個每日募款金額
+
+第三行輸入L跟R（空白分隔）
+
+輸出第L天到第R天的募款總額。</div><dl class="io"><dt>輸入</dt><dd>N、N個每日募款金額、L R</dd><dt>輸出</dt><dd>區間總額</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+100 200 150 50 300
+2 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>400</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A10-01-PrefixSum&amp;task=M3-02-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用前綴和公式 prefix[R]-prefix[L-1] 直接算出第L天到第R天的區間總和，不用重新累加一次。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>區間平均氣溫是否達標</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-02-04</span></div><div class="focus"><b>這題多了什麼：</b>在練習M3-02-02的區間查詢公式基礎上，多一步「除以天數(R-L+1)，無條件捨去」算出平均值，再跟門檻threshold比較大小，輸出「達標」或「未達標」。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">記錄N天的氣溫，請你判斷第L天到第R天（含頭尾）的平均氣溫是否達到門檻溫度threshold（大於等於threshold輸出「達標」，否則輸出「未達標」）。平均值用整數除法計算（無條件捨去）。
+
+第一行輸入N
+
+第二行輸入N個氣溫數字
+
+第三行輸入L R threshold（空白分隔）
+
+輸出「達標」或「未達標」。</div><dl class="io"><dt>輸入</dt><dd>N、N個氣溫數字、L R threshold</dd><dt>輸出</dt><dd>達標 或 未達標</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+20 22 25 18 30
+1 3 22</pre></div><div class="sample-row"><div class="k">輸出</div><pre>達標</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A10-01-PrefixSum&amp;task=M3-02-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>用前綴和算出區間總和後，除以天數（R-L+1）得到平均，再跟門檻比較。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>扣除單日的區間總和</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-02-05</span></div><div class="focus"><b>這題多了什麼：</b>一樣先用區間查詢公式算出完整區間[L, R]的總和，再直接減掉exclude那一天的金額（exclude保證在範圍內，不用額外判斷邊界）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定L天到R天的募款範圍，但其中有一天exclude要扣掉不列入計算（exclude保證在L~R範圍內），請你算出扣除那天之後的區間總額。
+
+第一行輸入N
+
+第二行輸入N個每日募款金額
+
+第三行輸入L R exclude（空白分隔）
+
+輸出扣除exclude那天後的區間總額。</div><dl class="io"><dt>輸入</dt><dd>N、N個每日募款金額、L R exclude</dd><dt>輸出</dt><dd>扣除後的區間總額</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+100 200 150 50 300
+1 4 2</pre></div><div class="sample-row"><div class="k">輸出</div><pre>300</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A10-01-PrefixSum&amp;task=M3-02-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先用前綴和算出完整區間[L,R]的總和，再直接減掉要扣除的那一天的金額。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>找出總和等於目標值的區間</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-02-06</span></div><div class="focus"><b>這題多了什麼：</b>這題反過來：不是給你L、R去查總和，而是給你一個目標總和，要你<strong>找出</strong>是哪一段區間。做法是把每一種可能的[L, R]組合都用前綴和公式快速算一次總和（避免每組都重新加總），找到剛好等於target的那一組就輸出L R。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">記錄N天的活動點數，請你找出一組連續區間（第L天到第R天，含頭尾）的點數總和剛好等於目標值target，輸出這組區間的L R（空白分隔）；找不到輸出「0 0」。（測試資料保證答案若存在必定唯一）</div><dl class="io"><dt>輸入</dt><dd>N、N個每日點數、target</dd><dt>輸出</dt><dd>符合的L R，找不到輸出0 0</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+4 2 7 1 3
+9</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A10-01-PrefixSum&amp;task=M3-02-06" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這題要「反過來找」符合條件的區間：可以先算出前綴和，再搭配搜尋找出哪一段[L,R]的區間和剛好等於目標值。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>遊戲關卡的積分計算</h3><span class="lv L4">L4｜精熟</span><span class="pid">W9-06</span></div><div class="focus"><b>這題多了什麼：</b>情境換成遊戲關卡分數，但技巧跟練習M3-02-02完全一樣：建累積清單，查詢時用公式直接算，不用重新加總——這題還特別在題目裡明講「請試著思考如何先將資料整理好」，就是在暗示要用前綴和。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小明在玩一款闖關遊戲，共有 N 個關卡，每個關卡通過後都會獲得對應的分數。
+遊戲結束後，系統會進行多次「回顧分析」，頻繁詢問小明在「第 L 關 到 第 R 關」之間總共獲得了多少分。
+【提示】雖然查詢次數變少了，但依然請試著思考如何「先將資料整理好（例如使用前綴和）」，讓每一次的查詢都能更有效率地給出答案。</div><dl class="io"><dt>輸入</dt><dd>• 系統的第一個輸入包含：先是兩個整數 N、Q（1 ≤ N ≤ 100,000，1 ≤ Q ≤ 3），代表關卡總數與查詢次數。接著是 N 個整數，代表第 1 關到第 N 關的得分（0 ≤ 分數 ≤ 1,000）。所有數字之間皆以單一空白隔開。
+• 接下來有 Q 個輸入（系統的第二至第四個輸入），每個輸入包含兩個整數 L 與 R，代表要查詢「起始關卡」與「結束關卡」的區間（1 ≤ L ≤ R ≤ N）。</dd><dt>輸出</dt><dd>• 針對每一次的區間查詢，請輸出一個整數（該區間的總分），每個答案獨立換一行輸出。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5 3 10 20 30 40 50
+1 3
+2 4
+1 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60
+90
+150</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3 2 1 1 1
+1 1
+2 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1
+2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A10-01-PrefixSum&amp;task=W9-06" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>題目明確要求用前綴和：先建立每關分數的累積總和清單，之後每次「回顧分析」只要用前綴和公式直接查詢，不用每次重新加總。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 募款多筆區間查詢 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟練習M3-02-02的區間查詢公式是同一招，只是要連續做Q組查詢，每組輸入各自的L、R，依序輸出Q個答案。</div><div class="problem-desc" style="white-space:pre-line">同樣是募款記錄，這次一次要查詢多組區間。
+
+第一行輸入N
+
+第二行輸入N個每日募款金額
+
+第三行輸入Q，代表要查詢的組數
+
+第四行輸入2×Q個數字，依序是每組查詢的L R（例如「1 3 2 5」代表第一組查詢L=1,R=3、第二組查詢L=2,R=5）</div><dl class="io"><dt>輸入</dt><dd>N、N個每日募款金額、Q、2×Q個L R數字</dd><dt>輸出</dt><dd>依序輸出每組查詢的區間總額，空白分隔</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+100 200 150 50 300
+2
+1 3 2 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>450 700</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A10-01-PrefixSum&amp;task=M3-02-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟前綴和區間查詢公式是同一招，只是要做Q組查詢，每組都重複同一招。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我知道前綴和適合用在「要重複查詢很多段區間總和」的題目。</li><li>我會建立累積總額清單，並且記得多放一個「第0項＝0」。</li><li>我會用「清單第R項 − 清單第(L-1)項」的公式直接算出任何區間的總和。</li><li>我會在前綴和的基礎上，進一步算平均值、扣除單點、或反向找出符合條件的區間。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a17.html"><div class="dir">← 上一個知識點</div><b>A17 二分搜尋</b></a><a class="next" href="a19.html"><div class="dir">下一個知識點 →</div><b>A19 滑動視窗</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

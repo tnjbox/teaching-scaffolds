@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A01 清單進階操作｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="走訪清單處理邊界情況，並用連續區間找出最大總和">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#2c7a9a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v1.html">V1 清單與字串進階橋接</a> › A01</div>
+    <div class="tier-badge">🧵 V1 清單與字串進階橋接・知識點 A01・競賽模式</div>
+    <h1>清單進階操作</h1>
+    <p class="hero-lead">走訪清單處理邊界情況，並用連續區間找出最大總和</p>
+    <div class="hero-actions"><span class="code-chip">A1-01-ListAdvanced<button type="button" data-copy="A1-01-ListAdvanced">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會處理清單裡「某個位置前後沒有鄰居」這種邊界情況，用 0 當作沒有的那一邊。</li><li>會把一個問題拆成兩段迴圈分開處理（例如先上升再下降）。</li><li>知道「列出所有可能的起點，一一比較」是一種直覺但有效的解法，之後 V10 滑動視窗會學到更有效率的做法。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>處理清單時，常常會遇到「這個位置的左邊／右邊可能根本不存在」的情況，例如第 1 項沒有左鄰居、最後一項沒有右鄰居。遇到這種邊界，要先判斷再處理，不能無條件去讀取不存在的位置。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>取得清單第幾項</td><td>自清單取得 # ○○</td></tr><tr><td>判斷是不是第一項／最後一項</td><td>如果 ○○ = 1 ／ 如果 ○○ = 清單長度</td></tr><tr><td>分段處理（先升後降）</td><td>兩個獨立的「循環計數」迴圈，各自負責一段</td></tr><tr><td>窮舉所有起點比較大小</td><td>外層迴圈列出每個起點，內層迴圈算出該起點對應的結果，再互相比較</td></tr></tbody></table></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>左右鄰居總和</h3><span class="lv L3">L3｜挑戰</span><span class="pid">IDX01-007</span></div><div class="problem-desc" style="white-space:pre-line">給定 N 個整數與位置 P，請計算第 P 個數字左右鄰居的總和。若沒有左鄰居或右鄰居，該側視為 0。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，接著輸入 N 個整數，最後輸入一個整數 P。保證 1 &lt;= P &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表左右鄰居總和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A1-01-ListAdvanced&amp;task=IDX01-007" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：N 個整數、位置 P。</li><li><strong>輸出</strong>：第 P 個數字的左鄰居和右鄰居的總和；如果 P 是第一項，左鄰居視為 0；如果 P 是最後一項，右鄰居視為 0。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">讀入 N 個數字，存進清單
+讀入 P
+如果 P = 1
+    將 左鄰居 設為 0
+否則
+    將 左鄰居 設為 清單的第 (P-1) 項
+如果 P = N
+    將 右鄰居 設為 0
+否則
+    將 右鄰居 設為 清單的第 (P+1) 項
+說出 (左鄰居 + 右鄰居)</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>清單「10 20 30 40 50」，P=3：P 不是 1、也不是 N（5），所以左鄰居＝清單第 2 項＝20，右鄰居＝清單第 4 項＝40，總和 20+40=60，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題的重點不是算總和，是<strong>先判斷邊界再讀取</strong>。P-1 和 P+1 這兩個位置不一定存在：如果 P 是清單的第一項，P-1 會變成 0，清單根本沒有第 0 項，直接去讀會出錯；如果 P 是最後一項，P+1 會超出清單長度，一樣會出錯。所以要先用 <code class="inline">如果 P = 1</code> 和 <code class="inline">如果 P = N</code> 擋下這兩種邊界情況，確定沒有邊界問題才去讀清單。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>沒判斷邊界就直接讀 P-1／P+1</strong>：P 是第一項或最後一項時會讀到不存在的位置，程式出錯或拿到錯誤的值。</li><li><strong>P 同時是第一項又是最後一項</strong>（清單只有 1 個數字）：這題保證 1 ≤ P ≤ N，兩個 <code class="inline">如果</code> 會分別正確判斷，左右鄰居都設成 0，總和是 0。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（2 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>登山冒險</h3><span class="lv L3">L3｜挑戰</span><span class="pid">count-012</span></div><div class="focus"><b>這題多了什麼：</b>這題不是處理邊界，而是要<strong>分兩段迴圈</strong>：第一段讓 i 從 1 數到 N（上山），第二段讓 i 從 N-1 倒數到 1（下山），兩段依序輸出就是完整路徑。跟示範題不同的地方在於，這題沒有要「算」什麼，只是要照順序把兩段數字列出來，重點是想清楚第二段的起點是 N-1（不是 N，因為 N 在第一段已經輸出過一次，不能重複）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">這是一題大魔王關卡！勇者要爬一座高山，然後再下山。
+這座山的高度是 N。勇者必須從 1 爬到 N，到達山頂後，再從 N-1 走回 1。
+請依序列出勇者經過的高度。。
+輸入格式
+第一行：輸入一個整數N
+程式輸出一個序列：1 2 3 ...N N-1 ...1。
+序列數字以空白間隔</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 3 4 5 4 3 2 1</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 3 4 3 2 1</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A1-01-ListAdvanced&amp;task=count-012" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>想成兩段：第一段 i 從 1 到 N 模擬上山所需木材（1+2+...+N），第二段 i 從 N-1 到 1 模擬下山，兩段分開累加再相加。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>校車廣播系統熱血指數統計</h3><span class="lv L4">L4｜精熟</span><span class="pid">cycjunior-004</span></div><div class="focus"><b>這題多了什麼：</b>這題要找「連續 K 項的總和最大是多少」，做法是<strong>窮舉每一個可能的起點</strong>：起點從第 1 項開始，算出連續 K 項的總和，再把起點往後移一項，重新算一次，一直試到最後一個可能的起點為止，過程中隨時記住看過的最大總和。跟前面兩題不同的地方在於，這題沒有固定的計算公式，要靠「每種可能都算一次、互相比較」才能找到答案——這種暴力窮舉的方法在資料量小的時候沒問題，但資料量變大時效率不夠，V10 滑動視窗會學到不用整段重新加總、只移動視窗邊界的更快做法。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">快樂國中一年級的戶外教學日終於到了！全班同學興高采烈地搭上了前往遊樂園的校車。然而，去程的高速公路意外地塞車了，原本歡樂的氣氛隨著車窗外的景色靜止，車內的空氣也開始變得沉悶，同學們一個個開始打哈欠，甚至有人睡著了。
+身為康樂股長的小明，手中掌握著一份班上同學投票選出的「熱門歌曲清單」。這份清單上的每一首歌，根據節奏快慢與受歡迎程度，都有一個對應的「熱血指數」。指數越高，代表這首歌越能讓大家High起來（當然，如果是抒情歌，指數可能就很低，甚至如果是老師愛聽的老歌，指數可能是負的，會讓大家更想睡覺）。
+校車的廣播系統有一個特殊的限制：一次設定只能連續播放 K 首歌曲。一旦開始播放，就必須把這 K 首歌依序播完才能切換模式。小明的任務非常重要，他需要從這份落落長的歌單中，挑選出連續的 K 首歌，使得這段時間內的「熱血指數總和」達到最高，以此來喚醒全班同學的靈魂，把車內的氣氛炒到最高點！
+請你寫一個程式幫助小明，在給定的歌單順序中，找出那一段連續 K 首歌的熱血總和最大是多少</div><dl class="io"><dt>輸入</dt><dd>第一行：整數 K代表廣播系統一次必須連續播放的歌曲數量。
+第二行：整數 N代表歌單中總共有 N首歌。
+第三行：N 個整數依序代表歌單中第 1 首到第 N首歌的「熱血指數」。</dd><dt>輸出</dt><dd>一個整數（最大總和）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+5
+10 20 30 10 50</pre></div><div class="sample-row"><div class="k">輸出</div><pre>90</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>2
+4
+5 100 100 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>200</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A1-01-ListAdvanced&amp;task=cycjunior-004" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先想清楚「連續K天」的總和怎麼算，再把每個可能的起點都算一次，比較哪一段總和最大（之後V10滑動視窗會學到更有效率的算法，這題先用暴力窮舉練手感）。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會判斷清單裡某個位置有沒有左鄰居／右鄰居，沒有的話用 0 處理。</li><li>我會把問題拆成兩段獨立的迴圈分開處理。</li><li>我會用「窮舉每個起點再比較」的方式解決「找出某段區間最大值」這類問題。</li></ul>
+</div></details>
+<nav class="pager"><a class="next" href="a02.html"><div class="dir">下一個知識點 →</div><b>A02 字串進階處理</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A19 滑動視窗｜程式設計進階自主學習地圖（校外師生版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="固定視窗與變動視窗兩種滑動視窗技巧">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#2c9a6b">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="edition-tag">校外師生版</div>
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v10.html">V10 前綴和與滑動視窗</a> › A19</div>
+    <div class="tier-badge">🪟 V10 前綴和與滑動視窗・知識點 A19・競賽模式</div>
+    <h1>滑動視窗</h1>
+    <p class="hero-lead">固定視窗與變動視窗兩種滑動視窗技巧</p>
+    <div class="hero-actions"><span class="code-chip">A10-02-SlidingWindow<button type="button" data-copy="A10-02-SlidingWindow">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道滑動視窗要解決的問題：固定或變動長度的「連續區間」統計，且要<strong>避免每次移動都整段重新計算</strong>。</li><li>會用「扣掉左邊、加上右邊」的方式移動固定大小的視窗。</li><li>會分辨「固定視窗」（K不變）跟「變動視窗」（視窗邊界自己伸縮）這兩種用法的差別。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>題目如果問「所有連續K天的區間，總和/平均怎麼樣」，最笨的做法是對每一個起點都重新加總一次K個數字。但其實相鄰兩個視窗（例如「第1~3天」跟「第2~4天」）幾乎一樣，只差「左邊少一天、右邊多一天」。</p>
+<p><strong>固定視窗</strong>的做法：先算出第一個視窗的總和，之後視窗每往右移一格，就「扣掉離開視窗的那一天、加上新進來的那一天」，不用整段重新加總。</p>
+<p><strong>變動視窗</strong>則用在視窗長度不固定、要找「最長/最短符合條件的連續區間」的題目：讓右邊界一直往右擴張，符合某個條件時嘗試收縮左邊界，邊做邊記錄最佳結果。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>固定視窗往右移一格</td><td>總和 設為 總和 − 左邊離開那項 + 右邊新進那項</td></tr><tr><td>邊移動邊記錄最大/最小值</td><td>如果 目前總和 &gt; 記錄的最大值，就更新</td></tr><tr><td>變動視窗：右邊界擴張</td><td>循環計數／重複，當；每次把新進的一項加進總和</td></tr><tr><td>變動視窗：左邊界收縮</td><td>重複，當（條件符合就收縮），同時扣掉左邊那項、左邊界往右移</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 固定視窗跟前綴和是同一個家族</div><p>固定視窗其實可以用前綴和公式算出每一段的總和（參考A18），但如果只需要「依序移動、順便更新統計值」，滑動視窗的做法更直覺、也不用額外存一份前綴和清單。兩種寫法都對，看哪種想起來比較順手。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>連續K天營收總和一覽</h3><span class="lv L2">L2｜進階</span><span class="pid">M3-03-01</span></div><div class="problem-desc" style="white-space:pre-line">商店記錄每天營收，請你算出所有『連續K天』區間的營收總和，依開始日期順序輸出。
+
+第一行輸入N，代表有N天
+
+第二行輸入N個數字，代表每天營收
+
+第三行輸入K
+
+輸出從第1天開始、第2天開始……一直到最後一個可能的K天區間，各自的總和，空白分隔。</div><dl class="io"><dt>輸入</dt><dd>N、N個每日營收、K</dd><dt>輸出</dt><dd>每個K天區間的總和，空白分隔</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60 90 120</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A10-02-SlidingWindow&amp;task=M3-03-01" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：天數N、N個每日營收、視窗大小K。</li><li><strong>輸出</strong>：所有連續K天區間的總和，依開始日期順序，空白分隔。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 目前總和 設為 0
+循環計數 i 從 1 到 K 每次增加 1
+    將 目前總和 設為 目前總和 + 營收清單的第 i 項
+將 結果清單 設為空清單
+清單中加入 目前總和
+循環計數 i 從 K+1 到 N 每次增加 1
+    將 目前總和 設為 目前總和 − 營收清單的第 (i-K) 項 + 營收清單的第 i 項
+    清單中加入 目前總和
+說出 結果清單（空白接起來）</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入「5」「10 20 30 40 50」「3」：</p>
+<div class="table-scroll"><table><thead><tr><th>階段</th><th>動作</th><th>目前總和</th></tr></thead><tbody><tr><td>初始視窗</td><td>10+20+30</td><td>60</td></tr><tr><td>移到[2,4]</td><td>60 − 10(離開) + 40(新進)</td><td>90</td></tr><tr><td>移到[3,5]</td><td>90 − 20(離開) + 50(新進)</td><td>120</td></tr></tbody></table></div>
+<p>輸出「60 90 120」，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>重點是「不要整段重新加總」：</p>
+<ul><li>先老老實實把第一個視窗（第1到第K項）加總一次，當作起點。</li><li>視窗每往右移一格，離開視窗的永遠是「目前視窗最左邊那項」（也就是第i-K項），新加入的永遠是「目前視窗最右邊那項」（第i項）——用一次加法一次減法，取代重新跑一次K個數字的加總。</li><li>這樣全部做完，加總的次數大約是N次（視窗移動的次數），而不是「視窗數量×K」次，資料量大時差很多。</li></ul>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>索引算錯</strong>：移到第i個視窗時，離開的是第(i-K)項不是第(i-1)項，容易搞混，建議先在紙上畫一次視窗位置對照表。</li><li><strong>忘記先處理第一個視窗</strong>：滑動視窗的公式只適用在「已經有一個視窗總和」之後，第一個視窗一定要老實加總一次當起點。</li><li><strong>視窗比資料還長</strong>：這題保證K不超過N，但如果自己出類似題要留意K&gt;N時根本湊不出一個完整視窗。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（5 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>連續K天最大總營收</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-03-02</span></div><div class="focus"><b>這題多了什麼：</b>跟示範題一樣的固定視窗移動方式，只是不輸出每個視窗的總和，而是邊移動邊比較，記錄目前看過的最大總和，最後輸出這個最大值。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">同樣是每日營收紀錄，請你找出『連續K天』區間中，總營收最高的金額是多少。
+
+第一行輸入N
+
+第二行輸入N個每日營收
+
+第三行輸入K
+
+輸出所有連續K天區間中的最大總營收。</div><dl class="io"><dt>輸入</dt><dd>N、N個每日營收、K</dd><dt>輸出</dt><dd>最大總營收</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>120</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A10-02-SlidingWindow&amp;task=M3-03-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟固定視窗移動一樣，但這次要邊移動邊記住目前出現過的最大總營收。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>連續K天平均是否曾經達標</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-03-04</span></div><div class="focus"><b>這題多了什麼：</b>視窗大小固定K，每個視窗算出總和後除以K（無條件捨去）得到平均，跟門檻threshold比較；只要<strong>任何一個</strong>視窗位置的平均達標，就輸出「有」，全部視窗都掃完還是沒有才輸出「無」。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你判斷是否存在某一段連續K天，平均營收達到門檻threshold以上（整數除法，無條件捨去）。只要存在至少一段就輸出「有」，否則輸出「無」。
+
+第一行輸入N
+
+第二行輸入N個每日營收
+
+第三行輸入K threshold（空白分隔）
+
+輸出「有」或「無」。</div><dl class="io"><dt>輸入</dt><dd>N、N個每日營收、K threshold</dd><dt>輸出</dt><dd>有 或 無</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50
+3 35</pre></div><div class="sample-row"><div class="k">輸出</div><pre>有</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A10-02-SlidingWindow&amp;task=M3-03-04" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>固定大小K的視窗內先算總營收，除以K得到平均，跟門檻比較；只要有任何一個視窗位置達標就輸出是。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>最長連續達標天數</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-03-05</span></div><div class="focus"><b>這題多了什麼：</b>這題視窗長度不固定，是「變動視窗」的典型用法：從左到右逐一檢查每一天，達標（數值≥threshold）就讓目前連續天數加1，不達標就把連續天數歸0重新算，過程中隨時記錄出現過的最大連續天數。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你找出最長一段『連續達標』的天數——只要每天的數值都大於等於門檻threshold，就算是達標；求最長連續達標的天數（如果完全沒有任何一天達標，輸出0）。
+
+第一行輸入N
+
+第二行輸入N個每日數值
+
+第三行輸入threshold</div><dl class="io"><dt>輸入</dt><dd>N、N個每日數值、threshold</dd><dt>輸出</dt><dd>最長連續達標天數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>7
+5 8 9 3 10 12 11
+8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A10-02-SlidingWindow&amp;task=M3-03-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這題視窗長度不固定：從左往右走訪，只要這天達標就讓目前連續天數加1，不達標就歸0，過程中記錄出現過的最大連續天數。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>最少連續幾天達到目標總量</h3><span class="lv L3">L3｜挑戰</span><span class="pid">M3-03-06</span></div><div class="focus"><b>這題多了什麼：</b>同樣是變動視窗，但方向相反：維持一個視窗總和，<strong>右邊界往右擴張</strong>直到總和≥target，這時嘗試收縮左邊界、縮小視窗，看能不能繼續維持總和≥target，藉此找出最短滿足條件的視窗長度。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">請你找出最短的一段連續天數，讓這段天數的總和達到（大於等於）目標值target；如果找不到這樣的連續天數，輸出0。
+
+第一行輸入N
+
+第二行輸入N個每日數值
+
+第三行輸入target
+
+輸出最短的連續天數；找不到輸出0。</div><dl class="io"><dt>輸入</dt><dd>N、N個每日數值、target</dd><dt>輸出</dt><dd>最短連續天數，找不到輸出0</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+2 3 1 2 4 3
+7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A10-02-SlidingWindow&amp;task=M3-03-06" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這題也是變動視窗：維持一個視窗的總和，右邊界往右擴張直到總和≥目標值，這時候可以嘗試收縮左邊界，找出最短滿足總和的視窗長度。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>短片欣賞</h3><span class="lv L4">L4｜精熟</span><span class="pid">WP-08</span></div><div class="focus"><b>這題多了什麼：</b>情境換成短片系列，但技巧回到「固定視窗」：視窗大小是K場，每次移動視窗時更新「視窗內最愛系列出現的次數」這個統計值（扣掉離開視窗那場的次數、加上新進那場的次數），邊移動邊記錄出現過的最大次數。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">圖書館有一間媒體播放室，每週六會連續播放科學系列短片，
+最多播放 20 個短片。每個短片以一個大寫英文字母表示，
+相同字母代表同一系列短片。
+娜娜有特別喜歡的系列短片，但她每天能夠待在圖書館的時間有限，
+只能連續觀看 K 場短片。她可以自由選擇從哪一場開始觀看。
+請你幫娜娜找出，在連續觀看 K 場短片的情況下，
+最多可以看到幾次她最喜歡的系列短片</div><dl class="io"><dt>輸入</dt><dd>第 1 行：整數 N，代表播放的短片總場次。
+第 2 行：N 個大寫英文字母，代表每一場播放的短片系列（以一個半形空格隔開）。
+第 3 行：一個整數 K 與一個大寫英文字母，
+分別代表可連續觀看的場次數，以及娜娜最喜歡的短片系列（以一個半形空格隔開）。</dd><dt>輸出</dt><dd>第 1 行：整數，代表最多可以看到幾次最喜歡的短片系列。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8
+A B C A W A Q A
+5 A</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+X G X
+2 X</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A10-02-SlidingWindow&amp;task=WP-08" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>固定連續K場的視窗，統計視窗內有幾種不同字母，跟其他固定視窗的題目一樣是移動視窗、更新統計值。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 連續K天最小總營收 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟練習M3-03-02的固定視窗找極值是同一招，只是把「找最大」換成「找最小」。</div><div class="problem-desc" style="white-space:pre-line">同樣是每日營收紀錄，請你找出『連續K天』區間中，總營收最低的金額是多少。
+
+第一行輸入N
+
+第二行輸入N個每日營收
+
+第三行輸入K
+
+輸出所有連續K天區間中的最小總營收。</div><dl class="io"><dt>輸入</dt><dd>N、N個每日營收、K</dd><dt>輸出</dt><dd>最小總營收</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10 20 30 40 50
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>60</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A10-02-SlidingWindow&amp;task=M3-03-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟固定視窗大小K找極值是同一招，只是改成找最小總營收。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會判斷題目該用「固定視窗」還是「變動視窗」。</li><li>我會用「扣掉左邊、加上右邊」的方式移動固定大小的視窗，不用整段重新加總。</li><li>我會用變動視窗找出最長或最短符合條件的連續區間。</li><li>我知道固定視窗跟前綴和（A18）其實是同一類問題的兩種解法。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a18.html"><div class="dir">← 上一個知識點</div><b>A18 前綴和</b></a><a class="next" href="a20.html"><div class="dir">下一個知識點 →</div><b>A20 區間最佳化</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（blockly-lab），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

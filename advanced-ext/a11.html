@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A11 感測與監控系列｜程式設計進階自主學習地圖（校外師生版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="週期性計算、複合條件統計、規則比對、座標clamp">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#d9534f">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="edition-tag">校外師生版</div>
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v6.html">V6 模擬與狀態追蹤進階</a> › A11</div>
+    <div class="tier-badge">🕹️ V6 模擬與狀態追蹤進階・知識點 A11・競賽模式</div>
+    <h1>感測與監控系列</h1>
+    <p class="hero-lead">週期性計算、複合條件統計、規則比對、座標clamp</p>
+    <div class="hero-actions"><span class="code-chip">A6-02-SensorMonitor<button type="button" data-copy="A6-02-SensorMonitor">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會用除法和餘數處理「週期性」問題（公車班距、環狀座位移動）。</li><li>會用「且」把多個條件合併成一個判斷，統計同時符合所有條件的次數。</li><li>會用「累加到上限就開新一批」的模式處理容量限制問題。</li><li>會分辨「每筆資料都要判斷一次」和「狀態改變那一刻才算一次」這兩種不同的計數方式。</li><li>會用 clamp（修正回邊界內）處理數值或座標超出範圍的情況。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個知識點收錄的題目情境很多元（公車時刻、溫室監控、無人搬運車、能量方塊、血糖預警、倉儲、機器人座標、巡場令牌），但技巧可以歸成幾類：</p>
+<div class="table-scroll"><table><thead><tr><th>技巧</th><th>代表題</th><th>說明</th></tr></thead><tbody><tr><td>模除法計算週期</td><td>公車時刻表</td><td>用餘數算出距離下一個週期性事件還有多久</td></tr><tr><td>複合條件統計</td><td>智慧溫室監控</td><td>多個條件要同時成立（用「且」）才列入統計</td></tr><tr><td>容量分批累加</td><td>無人搬運車運送計算</td><td>累加到上限就結束這一批、開新的一批，統計共幾批</td></tr><tr><td>多規則比對分類</td><td>數位能量方塊實驗</td><td>把資料跟一張規則表逐一比對，決定屬於哪種情況</td></tr><tr><td>狀態邊緣觸發事件</td><td>血糖趨勢與預警分析</td><td>「進入」異常狀態的那一刻才算一次，不是每筆資料都算</td></tr><tr><td>貪心式容量適配</td><td>智慧倉儲</td><td>優先選「剛好夠用」的最小容器，同時要檢查庫存夠不夠</td></tr><tr><td>座標 clamp</td><td>機器人行走軌跡</td><td>座標更新後若超出邊界，要修正回邊界上，不能真的超出去</td></tr><tr><td>排序配對＋環狀移動</td><td>展演小隊巡場令牌</td><td>先排序後頭尾配對分組，移動時用餘數處理環狀位置</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 「每筆都算」vs「狀態改變才算」</div><p>很多初學者會把「血糖趨勢與預警分析」寫成每一筆落在異常區間就計數一次。但題目要的是<strong>事件次數</strong>：連續好幾筆都在高血糖區，只算「從正常變成高血糖」的那一刻一次，之後持續在高血糖區不重複計次，直到回到正常區間、再次進入才又算一次。這跟單純「符合條件就加 1」的統計方式不一樣，要先判斷「上一筆的狀態」和「這一筆的狀態」是否不同。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>公車時刻表</h3><span class="lv L1">L1｜基礎</span><span class="pid">W9-01</span></div><div class="problem-desc" style="white-space:pre-line">前往學校的公車路線非常準時，每天從早上 06:00 發出首班車，之後每隔 M 分鐘固定發一班車。
+
+現在小明看手錶，時間是 H 點 S 分。請問小明最少還需要等幾分鐘，下一班公車才會來？
+
+【輸入輸出要求】
+
+• 輸入為單行，包含三個整數 H, S, M，中間以單一空白隔開。
+
+• H 代表小時（0 ≤ H ≤ 23），S 代表分鐘（0 ≤ S ≤ 59），M 代表公車班距分鐘數（1 ≤ M ≤ 120）。
+
+• 若小明到達時剛好有車（等待時間為 0），請輸出 0。
+
+• 假設小明到達時間一定在當天末班車之前。
+
+• 輸出一個整數，代表小明需要等待的分鐘數。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6 15 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5 50 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=W9-01" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：目前時刻 H 點 S 分、公車班距 M 分鐘（首班車固定 06:00 發車）。</li><li><strong>輸出</strong>：還要等幾分鐘下一班車才會來（剛好有車就輸出 0）。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 目前分鐘數 設為 H × 60 + S
+如果 目前分鐘數 ≤ 360
+    將 等待 設為 360 - 目前分鐘數
+否則
+    將 經過分鐘 設為 目前分鐘數 - 360
+    將 餘數 設為 經過分鐘 除以 M 的餘數
+    如果 餘數 = 0
+        將 等待 設為 0
+    否則
+        將 等待 設為 M - 餘數
+說出 等待</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>H=6、S=15、M=20：目前分鐘數＝6×60+15＝375，大於 360（06:00），所以經過分鐘＝375-360＝15；15 除以 20 的餘數是 15（還不滿一個班距）；等待＝20-15＝5。和範例一樣。</p>
+<p>換成 H=5、S=50（05:50，還沒到首班車時間）：目前分鐘數＝350，<strong>小於等於 360</strong>，直接等待＝360-350＝10，不用算餘數。和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題的關鍵是<strong>把時間轉換成「從午夜 0 點算起的分鐘數」</strong>，這樣才能用加減乘除處理：</p>
+<ul><li>06:00 换算成分鐘數就是 360（6×60）。</li><li>如果現在的分鐘數還沒到 360，代表連首班車都還沒發，直接算到 360 還有多久。</li><li>如果已經過了 360，代表首班車已經發車，接下來每隔 M 分鐘發一班——這時候用「經過的分鐘數除以 M 的餘數」就能算出「上一班車發車後過了多久」，M 減掉這個餘數就是還要等多久；如果餘數剛好是 0，代表現在這一刻正好發車，等待是 0。</li></ul>
+<p>這種「換算成統一單位、再用除法餘數處理週期」的手法，後面好幾題環狀移動也會用到。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>忘記判斷「還沒到首班車時間」的情況</strong>：直接套餘數公式，05:50 這種案例會算錯。</li><li><strong>餘數剛好是 0 時沒有特別處理</strong>：會誤判成「還要等整個 M 分鐘」而不是 0。</li><li><strong>時與分換算錯誤</strong>：H×60+S 寫反或漏乘 60。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（7 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>智慧溫室的自動監控</h3><span class="lv L2">L2｜進階</span><span class="pid">W0-01</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：不是算週期，是<strong>統計次數</strong>。走訪 N 筆溫度／濕度資料，每一筆都要同時檢查「溫度大於 30」<strong>且</strong>「濕度小於 50」兩個條件，兩個都成立才讓計數器加 1，兩個條件要用「且」積木合併，不能分開各自判斷。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">隨著農業科技的發展，小明在學校的生物實驗室中參與了一項「智慧溫室」計畫。
+這個溫室利用高精度的感測器，每隔一小時會自動記錄一次溫室內的「溫度」與「濕度」。為了讓農作物在最適合的環境下生長，同時落實環境永續與節能減碳的目標，溫室內的自動噴霧灑水系統設定了一套嚴格的啟動規範。
+系統規則定義如下：假設在連續的N小時內，第i小時測得的溫度為T度，濕度為H%。只有當該小時同時滿足「溫度大於30度」且「濕度小於50%」這兩個條件時，噴霧系統才會自動開啟運作1次；若其中任一條件不滿足，系統將保持待機狀態以節省電力與水資源。
+請你編寫程式，根據小明提供的N小時觀測記錄，計算這段時間內噴霧系統總共被觸發了幾次</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數N,代表記錄的總小時數。
+第二行：N個整數，代表每小時測得的溫度數據，(以半形空格分隔)。
+第三行：N個整數，代表每小時測得的濕度數據，(以半形空格分隔)。</dd><dt>輸出</dt><dd>第一行：輸出一個整數，代表在這N小時內系統開啟的總次數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+32 28 35
+45 60 40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>2
+31 32
+40 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=W0-01" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>逐小時檢查溫度/濕度等數值，多個條件要同時成立（用「且」）才算異常，統計異常發生的次數。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>無人搬運車運送計算</h3><span class="lv L2">L2｜進階</span><span class="pid">W1-03</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：是前面知識點教過的「累加到上限就開新一批」模式（準備一個「目前這趟已裝重量」的變數，每來一件零件就檢查加進去會不會超過 200 公斤，超過就讓趟數加 1、重量歸零重新累加），但這題<strong>第一次需要把這個模式用在「算最少需要幾趟」上</strong>，要注意最後一趟就算沒裝滿也要算進趟數裡。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">智慧工廠中使用一輛無人搬運車（AGV），負責將零件從倉庫運送到生產線。
+由於安全與設備限制，每一趟無人搬運車的最大可承載重量為 200 公斤。
+零件會依照完成檢驗的順序排隊裝載，無人搬運車會依序將零件放上車並累加重量。
+若某一件零件放上車後，累計重量超過 200 公斤，
+則該零件不放入本趟車次，無人搬運車立刻出發，該零件改由下一趟車次運送。
+請根據輸入的零件重量資料，計算無人搬運車最少需要出發幾趟，才能將所有零件依序安全運送完成</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N，代表零件的件數。
+第二行：N 個整數，代表每件零件的重量（公斤），資料間以一個半形空格隔開。</dd><dt>輸出</dt><dd>輸出一個整數，代表無人搬運車最少需要出發的趟數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>6
+50 60 40 70 90 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+80 90 60 30 40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=W1-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>準備一個「目前這趟已裝重量/數量」的變數，每來一批零件就檢查加進去會不會超過上限，超過就算一趟結束、開新的一趟。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>數位能量方塊實驗</h3><span class="lv L4">L4｜精熟</span><span class="pid">W2-01</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：規則比對變多、變複雜了。三個骰子的點數組合要依序檢查：是不是三個都一樣（完全同頻）、是不是剛好兩個一樣（穩定配對）、是不是特殊組合 {1,2,3} 或 {4,5,6}，都不符合才是無效。另外多了一個「連續三輪無效就歸零」的規則，需要一個計數器記錄連續無效的次數，只要有一輪不是無效就把這個計數器歸零。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">某實驗室正在測試一種「數位能量方塊」電力系統。
+每一輪實驗會擲出三個能量方塊（點數 1–6），系統根據方塊的點數組合（不限輸入順序）來調整累積能量值。
+【能量調整規則】
+1. 穩定配對（加法）：
+若三個方塊中，恰好有兩個點數相同，則以第三個不同的點數作為增量，加進累積能量中。
+2. 特殊組合（乘除）：
+• 低階共振組合 {1,2,3}：累積能量減半（無條件捨去）。
+• 高階共振組合 {4,5,6}：累積能量乘以 2。
+• 完全同頻（三個相同）：累積能量乘以該點數。
+3. 無效運作與崩潰重置：
+• 不符合上述任何規則時，該輪能量不變。
+• 若連續三輪皆為無效組合，累積能量直接歸零。</div><dl class="io"><dt>輸入</dt><dd>• 第一行輸入整數 N，代表實驗輪數。
+• 接下來輸入 N×3 個整數，每三個一組，代表該輪方塊點數。</dd><dt>輸出</dt><dd>• 輸出一個整數，代表最終累積能量值（初始為 0）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+2 1 3 6 4 5 2 2 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>1
+2 2 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=W2-01" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>三個骰子的點數組合要比對規則表（例如三個都一樣、兩個一樣等），判斷這一輪屬於哪種組合，連續失敗要歸零重新計算連續次數。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>糖尿病血糖趨勢與預警分析</h3><span class="lv L4">L4｜精熟</span><span class="pid">W2-03</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：這題正是概念說明提到的「狀態改變那一刻才算一次」。要先判斷血糖值落在「低血糖／正常／高血糖」哪個區間，並記住「上一筆的區間」；只有當這一筆的區間和上一筆不同、而且新區間是異常區間時，才讓對應的計數器加 1。同時還要追蹤「連續上升」或「連續下降」的最大差值，方向一改變就要重新開始累計這段趨勢的差值。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">糖尿病患者需嚴密監控血糖波動。
+血糖狀態依數值分為三個區間：
+• 低血糖區：血糖值  180
+請設計程式統計異常事件次數，並分析血糖趨勢波動。
+【異常事件判定規則】
+• 低血糖事件：血糖值由「非低血糖區」進入「低血糖區」時計 1 次。
+• 高血糖事件：血糖值由「非高血糖區」進入「高血糖區」時計 1 次。
+• 若血糖持續停留在同一異常區間，則不重複計次。
+• 若血糖由高血糖區直接進入低血糖區（或反之），視為進入新的異常區間，需重新計次。
+【趨勢波動計算】
+• 找出過程中「連續上升」或「連續下降」所造成的最大差值（取絕對值）。
+• 若血糖變化方向改變，該段趨勢即結束，重新開始計算。</div><dl class="io"><dt>輸入</dt><dd>第一行：整數 N，代表觀察次數。
+第二行：整數 S，代表血糖起始值。
+第三行：N 個整數，代表每次的血糖變化量。</dd><dt>輸出</dt><dd>輸出三個整數：
+低血糖事件次數、高血糖事件次數、連續趨勢最大差值。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+100
+110 -160 220</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 2 220</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>6
+100
+40 50 -20 -30 -80 -10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 1 140</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=W2-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>逐筆比對血糖值落在哪個區間，記錄「進入異常區間」的那一刻當作一次異常事件（不是每筆都算，是狀態改變時才算），同時追蹤數值的升降趨勢極值。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>智慧倉儲</h3><span class="lv L4">L4｜精熟</span><span class="pid">W3-01</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：貪心規則變成「優先用剛好夠放的最小容器，同時要檢查這種容器還有沒有庫存」。要先判斷這件貨物的最大邊長落在哪個區間（決定它「至少」要用哪種大小的櫃子以上），再從可用的最小尺寸開始依序檢查庫存夠不夠，不夠就往上一個尺寸找，都沒有就算無法放入。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">螃蟹超商是購物頻道的取貨店，店面有三種尺寸的貨物櫃子：大櫃子、中櫃子、小櫃子，各有一定數量。
+今天店員要把一批貨物放進櫃子中，每個貨物都有「長、寬、高」三個尺寸（單位：公分），並遵守以下規則：
+1. 一個櫃子只能放一個貨物。
+2. 若貨物在長、寬、高任一方向「大於 80」公分，該貨物只能放進「大櫃子」。
+3. 否則，若貨物在長、寬、高任一方向「大於 30」（且不大於 80）公分，該貨物可以放進「中櫃子或大櫃子」。
+4. 其餘貨物（長、寬、高三邊皆「小於等於 30」公分），該貨物可以放進「小櫃子、中櫃子或大櫃子」。
+5. 在貨物可以擺放進去的前提下，必須盡可能選擇尺寸較小的櫃子（優先使用小櫃子，其次中櫃子，最後才使用大櫃子）。
+6. 如果對某件貨物來說，所有可使用的櫃子尺寸都已經用完（沒有空櫃可用），則該貨物無法被放入任何櫃子。
+請你依照上述規則，計算：
+• 各尺寸櫃子實際使用了多少個？
+• 共有幾件貨物無法放進任何櫃子？</div><dl class="io"><dt>輸入</dt><dd>• 第一行輸入三個非負整數 L, M, S，分別代表大、中、小櫃子的數量。
+• 第二行輸入一個正整數 N，代表貨物的件數。
+• 接下來共有 N 行，每行輸入三個正整數，依序為該貨物的長、寬、高（公分）。</dd><dt>輸出</dt><dd>輸出四個整數（以空格分隔），依序為：
+使用的大櫃子數量、使用的中櫃子數量、使用的小櫃子數量、無法放入任何櫃子的貨物件數。
+【注意】
+• 尺寸 30 公分屬於「小櫃子可放」的範圍；尺寸 80 公分屬於「中櫃子可放」的範圍。
+• 每件貨物必須依規則 5 優先使用可容納的最小尺寸櫃子（此規則可能導致後面的大型貨物沒有大櫃可用）。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>2 2 2
+3
+30 30 30 30 30 30 30 30 40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0 1 2 0</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>2 1 1
+3
+30 30 30 30 30 30 30 30 40</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 1 1 0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=W3-01" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>依貨物大小優先選最小能裝的櫃子（貪心式比對規則），同時要檢查該類櫃子還有沒有剩餘數量。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>機器人行走軌跡</h3><span class="lv L4">L4｜精熟</span><span class="pid">W3-03</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：座標更新要分成「一步一步」處理，而不是一次加總移動量。每個指令（例如 U5）要拆成 5 個「往上一步」分開判斷：每一步更新座標後立刻檢查有沒有超出 0~10 的邊界，超出就這一步不移動（但同一個指令剩下的步數還是要繼續嘗試）。這跟單純算完再 clamp 不一樣，clamp 要在每一步都做。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">在未來城市中，你是一名機器人巡邏隊的新人隊長，負責操控一台能在網格城市中移動的巡邏機器人。
+城市為了安全，設定機器人的座標範圍為 (0,0) 到 (10,10) 之間，超過範圍就會被系統擋下。
+你必須自行輸入指令，讓機器人按照 U、D、L、R 行走巡邏並回報座標。
+請依照輸入的指令字串，計算機器人最終位置座標 (x,y)。
+【起點】
+機器人起點為 (0,0)。
+【移動規則】
+U5：向上移動 5 步，Y + 5
+D3：向下移動 3 步，Y - 3
+L2：向左移動 2 步，X - 2
+R4：向右移動 4 步，X + 4
+【邊界限制】
+0 ≤ x ≤ 10，0 ≤ y ≤ 10。
+若某一步會超出邊界，則該「一步」不移動（但同一個指令的其他步仍需照順序嘗試）。</div><dl class="io"><dt>輸入</dt><dd>第一行輸入一個整數 N，代表指令數量。
+第二行輸入 N 個指令（由 U、D、L、R 與數字 1~9 組成），指令之間以空白間隔。</dd><dt>輸出</dt><dd>輸出最終位置座標 (x,y)。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+U2 D3 D4 L5 R3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>(3,0)</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+R3 L2 U3 D1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>(1,2)</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=W3-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>機器人每收到一個移動指令就更新座標，但更新後要檢查有沒有超出網格邊界，超出就要修正回邊界內（clamp）。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>展演小隊巡場令牌</h3><span class="lv L4">L4｜精熟</span><span class="pid">W5-03</span></div><div class="focus"><b>這題多了什麼：</b>這題多了什麼：要先把表現值<strong>排序</strong>，再用頭尾配對（最小配最大、第二小配第二大）分組算出每隊的隊伍能量；接著模擬巡場令牌在環狀隊伍間傳遞，每次移動的距離是「（目前隊伍能量 除以 3 的餘數）+ 1」隊，移動後若超過最後一隊要用餘數繞回第 1 隊。這題把「排序配對」和「環狀位置移動」兩個技巧疊在一起用。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">校慶展演需要把同學分成若干「雙人小隊」巡場。每位同學有一個表現值。分隊規則如下：
+1) 先把 N 位同學的表現值由小到大排序（N 一定是偶數）。
+2) 第 1 小與第 1 大成為第 1 隊，第 2 小與第 2 大成為第 2 隊……依此類推。
+3) 每一隊的「隊伍能量」= 兩位同學表現值的總和。
+分隊完成後，所有小隊依照隊號（第1隊、第2隊……）排成一個圓圈，開始傳遞「巡場令牌」。令牌一開始在第 1 隊。
+總共進行 K 回合，每回合的傳遞距離由「目前持有令牌的小隊」決定：
+令牌要順時針往前傳 (隊伍能量 mod 3) + 1 隊（也就是可能傳 1、2 或 3 隊）。
+超過最後一隊會回到第 1 隊。
+請輸出：
+(1) 所有小隊中「隊伍能量」的最大值
+(2) K 回合後，令牌最後落在哪一隊（隊號）</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N（偶數）。
+第二行：N 個整數，代表各同學表現值（以半形空格分隔）。
+第三行：一個整數 K，代表回合數。</dd><dt>輸出</dt><dd>輸出兩個整數（以半形空白分隔）：最大隊伍能量 最後隊號</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>4
+1 2 3 4
+1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>10
+5 15 25 35 45 55 65 75 85 95
+7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>100 5</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=W5-03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先把表現值排序，再用頭尾配對的方式分組（最高配最低）；移動到巡場位置時用取餘數的方式處理環狀座位。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（1 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 防災臨時屋 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟「無人搬運車運送計算」是同一招「累加到上限就開新一批」，只是情境換成防災臨時屋依序收容災民，上限換成每間臨時屋的容納人數，統計的是開放了幾間臨時屋。</div><div class="problem-desc" style="white-space:pre-line">為了在災害發生時，可以將災民快速送往收容所，防災中心定期舉行防災演習，將災民以運輸車送往收容所。
+
+收容所有多個臨時屋（至少1間，最多12間），每個臨時屋可容納人數不盡相同，當第一個臨時屋滿了以後，就開放第二個臨時屋，滿了之後再開放第三個臨時屋，依此類推。請幫防災中心統計防災演習期間共開放了幾個臨時屋。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>50
+4
+30 20 15 55</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>9
+3
+10 5 15</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A6-02-SensorMonitor&amp;task=WP-02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「累加到上限就開新一批」是同一招，只是情境換成防災臨時屋的容量限制。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會把時間或位置換算成統一的數字單位，再用除法餘數處理週期性問題。</li><li>我會用「且」合併多個條件，正確統計同時符合所有條件的次數。</li><li>我分得清楚「每筆都判斷一次」和「狀態改變那一刻才算一次」的差異。</li><li>我會在每一步移動後就檢查並修正超出邊界的數值（clamp），而不是算完整個移動量才檢查一次。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a10.html"><div class="dir">← 上一個知識點</div><b>A10 角色扮演系列</b></a><a class="next" href="a12.html"><div class="dir">下一個知識點 →</div><b>A12 競賽綜合系列</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（blockly-lab），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

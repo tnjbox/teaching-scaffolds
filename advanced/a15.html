@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A15 貪心入門｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="除法貪心、硬幣找零、排序後填滿額度／取前K名">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#a67c1a">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v8.html">V8 貪心策略</a> › A15</div>
+    <div class="tier-badge">🪙 V8 貪心策略・知識點 A15・競賽模式</div>
+    <h1>貪心入門</h1>
+    <p class="hero-lead">除法貪心、硬幣找零、排序後填滿額度／取前K名</p>
+    <div class="hero-actions"><span class="code-chip">A8-01-GreedyBasics<button type="button" data-copy="A8-01-GreedyBasics">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>知道「貪心策略」是什麼：每一步都先做「目前看起來最好」的選擇，不回頭修改之前的決定。</li><li>會分辨無條件捨去（floor）跟無條件進位（ceiling）這兩種除法，知道什麼情境該用哪一種。</li><li>會用「從大面額到小面額」的方式做硬幣找零。</li><li>會用「排序後依序累加，直到額度用完」的貪心填充模式，計算最多能做幾件事。</li><li>分得清楚「填滿額度數個數」和「固定選 K 個求總和」這兩種問法的差異。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>貪心策略的核心精神是：<strong>不用考慮所有可能的組合，每一步選「目前最好」的那個，最後就會得到最好的結果</strong>。這個單元先練幾個最基本的貪心套路：</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木／怎麼做</th></tr></thead><tbody><tr><td>算最多能買幾瓶（固定單價）</td><td>總錢數 除以 單價，無條件捨去</td></tr><tr><td>算至少需要幾個箱子（固定容量）</td><td>總數量 除以 容量，無條件進位（除不盡要多算一個）</td></tr><tr><td>用最少硬幣數找零</td><td>從最大面額開始，依序用「金額 除以 面額，無條件捨去」決定用幾個，「金額 除以 面額的餘數」決定剩多少繼續處理下一個面額</td></tr><tr><td>排序後盡量多選、選到額度用完為止</td><td>由小到大排序，依序累加，一旦加了會超過上限就停止，數加了幾個</td></tr><tr><td>排序後固定選 K 個、求總和最大</td><td>由大到小排序，直接取前 K 個加總</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 無條件捨去 vs 無條件進位</div><p>兩個都是處理「除不盡」的情況，但方向相反：「最多能買幾瓶」這種問題，多出來的零頭買不了一整瓶，要<strong>捨去</strong>；「至少要幾個箱子」這種問題，多出來的零頭還是需要額外一個箱子裝，要<strong>進位</strong>。拿到類似的除法問題，先想清楚「零頭要不要多算一個」，就知道該用哪一種。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>最少硬幣數</h3><span class="lv L2">L2｜進階</span><span class="pid">GREEDY01-001</span></div><div class="problem-desc" style="white-space:pre-line">商店使用 50 元、10 元、5 元與 1 元硬幣找零。給定找零金額，請用最少硬幣數完成找零。</div><dl class="io"><dt>輸入</dt><dd>輸入一個整數 N，代表找零金額。</dd><dt>輸出</dt><dd>輸出一個整數，代表最少硬幣數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>87</pre></div><div class="sample-row"><div class="k">輸出</div><pre>7</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A8-01-GreedyBasics&amp;task=GREEDY01-001" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個整數，代表要找零的金額。</li><li><strong>輸出</strong>：用 50、10、5、1 元硬幣完成找零所需的最少硬幣數。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">將 剩餘 設為 金額
+將 硬幣數 設為 0
+將 硬幣數 設為 硬幣數 + (剩餘 除以 50，無條件捨去)
+將 剩餘 設為 剩餘 除以 50 的餘數
+將 硬幣數 設為 硬幣數 + (剩餘 除以 10，無條件捨去)
+將 剩餘 設為 剩餘 除以 10 的餘數
+將 硬幣數 設為 硬幣數 + (剩餘 除以 5，無條件捨去)
+將 剩餘 設為 剩餘 除以 5 的餘數
+將 硬幣數 設為 硬幣數 + 剩餘
+說出 硬幣數</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>金額 87：</p>
+<div class="table-scroll"><table><thead><tr><th>面額</th><th>剩餘（處理前）</th><th>用幾個</th><th>剩餘（處理後）</th></tr></thead><tbody><tr><td>50</td><td>87</td><td>87÷50=1</td><td>87%50=37</td></tr><tr><td>10</td><td>37</td><td>37÷10=3</td><td>37%10=7</td></tr><tr><td>5</td><td>7</td><td>7÷5=1</td><td>7%5=2</td></tr><tr><td>1</td><td>2</td><td>2（剩下的直接算1元）</td><td>0</td></tr></tbody></table></div>
+<p>硬幣數 = 1+3+1+2 = 7，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>從最大面額開始處理，每種面額都做同樣的兩件事：<strong>用掉幾個</strong>（剩餘金額除以面額，無條件捨去）和<strong>還剩多少</strong>（剩餘金額除以面額的餘數），把「還剩多少」留給下一個較小的面額繼續處理。因為 1 元是最小面額，最後剩下的金額直接就是 1 元硬幣的數量，不需要再除。先用大面額可以保證硬幣數最少——這是這組面額（50/10/5/1）剛好具備的特性，不是所有面額組合都適用貪心找零，但這個單元的題目都保證可以用這招。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>順序搞反，從小面額開始找</strong>：這樣會用掉太多枚硬幣，不是最少硬幣數。</li><li><strong>忘記更新剩餘金額</strong>：每處理完一個面額，剩餘金額一定要更新成餘數，否則下一個面額會拿原本的金額重算，數字會爆掉。</li><li><strong>最後一個面額（1元）忘記直接加總</strong>：1 元不需要再做除法，剩多少就是幾個 1 元。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（4 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>最多可買幾瓶水</h3><span class="lv L1">L1｜基礎</span><span class="pid">GREEDY01-002</span></div><div class="focus"><b>這題多了什麼：</b>跟示範題一樣是除法技巧，但更簡單：身上的錢整除水的價格，直接就是能買的瓶數（無條件捨去），餘數就是剩下的錢，不需要像硬幣找零那樣處理多種面額。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">每瓶水價格相同。給定身上的錢與每瓶水的價格，請計算最多可以買幾瓶水，以及剩下多少錢。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個整數 M 與 P，分別代表身上的錢與每瓶水的價格。</dd><dt>輸出</dt><dd>輸出兩個整數，依序為最多可買瓶數與剩餘金額，中間以空白分隔。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>100 18</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5 10</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A8-01-GreedyBasics&amp;task=GREEDY01-002" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>身上的錢整除水的價格，就是最多能買的瓶數；整除後的餘數就是剩下的錢。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>最少箱子數</h3><span class="lv L1">L1｜基礎</span><span class="pid">GREEDY01-006</span></div><div class="focus"><b>這題多了什麼：</b>這題用的是無條件<strong>進位</strong>，方向跟上一題相反：物品總數除以箱子容量，如果除不盡（有餘數），還需要多一個箱子裝剩下的——所以箱子數 = (總數 ÷ 容量 無條件捨去) + (有餘數的話再 +1)。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">每個箱子最多可裝 C 件物品。給定物品總數 N，請計算至少需要幾個箱子。</div><dl class="io"><dt>輸入</dt><dd>輸入兩個整數 N 與 C，分別代表物品總數與每箱容量。</dd><dt>輸出</dt><dd>輸出一個整數，代表至少需要的箱子數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>23 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A8-01-GreedyBasics&amp;task=GREEDY01-006" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>物品總數整除箱子容量，如果整除不盡（有餘數）還需要多一個箱子裝剩下的，這叫無條件進位。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>優先完成短任務</h3><span class="lv L3">L3｜挑戰</span><span class="pid">GREEDY01-003</span></div><div class="focus"><b>這題多了什麼：</b>這題是「排序後依序累加，直到額度用完」的貪心填充模式：把所有任務依所需時間由小到大排序，依序把時間加進「已用時間」，只要加完還沒超過可用時間 T，就讓完成數加 1；一旦會超過就停止，直接輸出目前的完成數。排序的理由是：想在有限時間內完成最多任務，優先做短的最划算。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個任務所需時間與可用時間 T。若每次都先做時間最短的任務，請計算最多能完成幾個任務。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 T，接著輸入 N 個整數代表每個任務所需時間。</dd><dt>輸出</dt><dd>輸出一個整數，代表最多可完成任務數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+10
+4 2 8 1 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A8-01-GreedyBasics&amp;task=GREEDY01-003" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把任務依所需時間由小到大排序，依序把時間加進「已用時間」，只要還沒超過可用時間T就算完成一個，數完成了幾個。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>最大總分選擇</h3><span class="lv L3">L3｜挑戰</span><span class="pid">GREEDY01-005</span></div><div class="focus"><b>這題多了什麼：</b>這題問法跟上一題不一樣：不是「填到額度用完、數幾個」，而是<strong>固定要選 K 個</strong>、求這 K 個的總分最大。做法是把分數由大到小排序，直接取前 K 個加總即可，不用像上一題那樣邊加邊檢查會不會超過上限。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">給定 N 個任務分數，請選出分數最高的 K 個任務，計算總分。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 K，接著輸入 N 個整數代表任務分數。保證 1 &lt;= K &lt;= N。</dd><dt>輸出</dt><dd>輸出一個整數，代表最高 K 個分數的總和。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+3
+10 50 20 40 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>120</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A8-01-GreedyBasics&amp;task=GREEDY01-005" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>把分數由大到小排序，直接取前K個加總；這跟「排序後填滿額度」的邏輯不同，這題是固定選K個不是填滿預算。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 補到目標分數 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟練習「GREEDY01-006 無條件進位」是同一招，只是情境換成「還要幾次才達標」：(目標分數 - 目前分數) 除以每次增加的分數，無條件進位。</div><div class="problem-desc" style="white-space:pre-line">目前分數為 S，每次完成一題可增加 P 分。請計算至少還要完成幾題，才能達到或超過目標分數 T。</div><dl class="io"><dt>輸入</dt><dd>輸入三個整數 S、T、P，分別代表目前分數、目標分數與每題增加分數。</dd><dt>輸出</dt><dd>輸出一個整數，代表至少還要完成幾題。若目前已達標，輸出 0。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>65 100 12</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A8-01-GreedyBasics&amp;task=GREEDY01-007" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「無條件進位」除法是同一招，只是情境換成「還要幾次才達標」。</div></details></details>
+<details class="extension"><summary>🚀 買最多便宜商品 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟練習「GREEDY01-003 排序後依序累加直到額度用完」是同一招，只是情境換成買商品：價格由小到大排序，依序累加到預算用完為止，數買了幾件。</div><div class="problem-desc" style="white-space:pre-line">給定 N 個商品價格與預算 B。若想買到最多商品，應優先購買便宜商品。請計算最多可買幾件商品。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 B，接著輸入 N 個整數代表商品價格。</dd><dt>輸出</dt><dd>輸出一個整數，代表最多可買商品數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+100
+60 20 30 80 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A8-01-GreedyBasics&amp;task=GREEDY01-004" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「排序後依序累加直到額度用完、數個數」是同一招，只是換成買商品、額度換成預算。</div></details></details>
+<details class="extension"><summary>🚀 最多裝入背包 <span class="lv L3">L3｜挑戰</span></summary>
+<div class="focus"><b>挑戰重點：</b>這是第三次出現「排序後依序累加到容量上限、數個數」的模式（跟 GREEDY01-003、GREEDY01-004 同一招），這次情境是背包重量限制：物品重量由小到大排序，依序裝入直到會超過容量為止。</div><div class="problem-desc" style="white-space:pre-line">背包容量為 W，給定 N 個物品重量。若想裝入最多物品，應優先選擇重量較輕的物品。請計算最多可裝入幾個物品。</div><dl class="io"><dt>輸入</dt><dd>第一個整數為 N，第二個整數為 W，接著輸入 N 個整數代表物品重量。</dd><dt>輸出</dt><dd>輸出一個整數，代表最多可裝入物品數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+15
+9 2 6 4 8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A8-01-GreedyBasics&amp;task=GREEDY01-008" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>第三次出現「排序後依序累加到容量上限、數個數」的模式，這次情境是背包重量限制。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會分辨無條件捨去跟無條件進位，知道什麼情境該用哪一種。</li><li>我會寫「從大面額到小面額」的找零邏輯，並且知道為什麼要從大面額開始。</li><li>我會用「排序後依序累加直到額度用完」的貪心填充模式，計算最多能完成幾件事。</li><li>我分得清楚「填滿額度數個數」跟「固定選 K 個求總和」這兩種問法的差異，不會搞混解法。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a14.html"><div class="dir">← 上一個知識點</div><b>A14 圖論進階</b></a><a class="next" href="a16.html"><div class="dir">下一個知識點 →</div><b>A16 貪心進階</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

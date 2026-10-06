@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A07 條件判斷綜合｜程式設計進階自主學習地圖（校外師生版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="單一if、if/else、多重範圍判斷、優先順序規則判斷">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#5b6fee">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="edition-tag">校外師生版</div>
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v4.html">V4 條件判斷綜合應用</a> › A07</div>
+    <div class="tier-badge">🧭 V4 條件判斷綜合應用・知識點 A07・競賽模式</div>
+    <h1>條件判斷綜合</h1>
+    <p class="hero-lead">單一if、if/else、多重範圍判斷、優先順序規則判斷</p>
+    <div class="hero-actions"><span class="code-chip">A4-01-CondSynthesis<button type="button" data-copy="A4-01-CondSynthesis">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>會寫單一 if（沒有 else）、if/else 二選一、多重範圍判斷這三種最基本的條件判斷型態。</li><li>會處理「有優先順序」的規則：規則不是單純數字範圍排列，而是要依序檢查、符合其中一條就不用再往下看。</li><li>知道條件判斷常常要搭配別的技巧一起用（例如先找出極值、先查表、先在迴圈裡累加），不是每題都只靠一個 if。</li><li>會把「查表」「迴圈累加」「門檻判斷」組合成一支完整的小程式。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>條件判斷的題目，差別通常不在「if 要怎麼寫」，而在<strong>判斷的依據是什麼</strong>：有時候是單純的數字大小，有時候是好幾條規則要照順序檢查，有時候甚至要先經過別的計算才能拿到判斷用的數字。</p>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木</th></tr></thead><tbody><tr><td>單一條件成立才做事</td><td>如果 ○○</td></tr><tr><td>條件不成立要做另一件事</td><td>如果 ○○ ... 否則 ...</td></tr><tr><td>好幾個門檻由高到低依序判斷</td><td>如果 ○○ ... 否則如果 ○○ ... 否則如果 ○○ ... 否則 ...</td></tr><tr><td>讀入資料、暫存起來</td><td>將 ○○ 設為 ○○</td></tr><tr><td>一邊讀資料一邊累加</td><td>重複執行＋將 總和 設為 (總和 + 這筆資料)</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 多重範圍判斷的順序很重要</div><p>寫「90分以上A、80分以上B、70分以上C」這種多重範圍判斷時，一定要<strong>從最高的門檻開始</strong>依序用「否則如果」往下檢查。如果先判斷「≥70就是C」，95分也會符合，等不到後面判斷A的機會——程式會停在第一個成立的分支，不會繼續往下看。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>通過門檻</h3><span class="lv L1">L1｜基礎</span><span class="pid">JSB02-D01</span></div><div class="problem-desc" style="white-space:pre-line">老師設定一次測驗的通過門檻為 60 分。請輸入一個整數分數，如果分數大於或等於 60，輸出 Pass；否則不輸出任何文字。本題用來示範單一 if 條件成立時才執行輸出的流程</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 S，代表測驗分數。</dd><dt>輸出</dt><dd>若 S 大於或等於 60，輸出 Pass。
+若 S 小於 60，不輸出。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>75</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Pass</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>40</pre></div><div class="sample-row"><div class="k">輸出</div><pre><span class="empty">（不輸出）</span></pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=JSB02-D01" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：一個整數分數 S。</li><li><strong>輸出</strong>：S ≥ 60 就輸出「Pass」；S &lt; 60 則<strong>什麼都不輸出</strong>（不是輸出空字串的意思，是整個「說出」都不要執行）。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><pre class="code">詢問 &quot;請輸入分數&quot; 並等待，把答案存進 分數
+如果 分數 ≥ 60
+    說出 &quot;Pass&quot;</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入 75：75 ≥ 60 成立，執行「說出」，輸出「Pass」。輸入 40：40 ≥ 60 不成立，沒有 else 可以走，整個 if 區塊跳過，什麼都不輸出。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題只需要一個 if，<strong>沒有 else</strong>：題目只要求「及格要印 Pass」，沒有要求「不及格要印什麼」，所以條件不成立時，程式本來就該什麼都不做，不用多寫一個 else 去印空字串或其他東西。這是條件判斷最基本的型態——只在某個條件成立時，才多做一件事。</p>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>自己加了一個 else 印東西</strong>：題目講得很清楚「否則不輸出任何文字」，多印任何字元（包含空白、換行）都會被判錯。</li><li><strong>條件寫成 <code class="inline">&gt;</code> 而不是 <code class="inline">≥</code></strong>：剛好 60 分的人也該算及格，用 <code class="inline">&gt;</code> 會把 60 分漏掉。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（5 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>優惠或原價</h3><span class="lv L1">L1｜基礎</span><span class="pid">JSB02-D02</span></div><div class="focus"><b>這題多了什麼：</b>跟示範題一樣是單一條件判斷，但這題<strong>兩種情況都要輸出東西</strong>，所以要補上 else：金額 ≥ 100 輸出「Discount」，否則輸出「Normal」。寫法是「如果 ○○ ... 否則 ...」，不是兩個獨立的 if。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">商店規定消費金額達到 100 元以上可以獲得優惠。請輸入消費金額，如果金額大於或等於 100，輸出 Discount；否則輸出 Normal。本題用來示範 if / else 的二選一流程</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 M，代表消費金額。</dd><dt>輸出</dt><dd>若 M 大於或等於 100，輸出 Discount。
+否則輸出 Normal。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>120</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Discount</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>80</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Normal</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=JSB02-D02" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>if/else二選一：金額≥100輸出Discount，否則輸出Normal。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>成績等第示範</h3><span class="lv L2">L2｜進階</span><span class="pid">JSB02-D03</span></div><div class="focus"><b>這題多了什麼：</b>這題是多重範圍判斷：90 分以上 A、80～89 B、70～79 C、60～69 D、未滿 60 F。關鍵是用「否則如果」把四個門檻<strong>由高到低</strong>串成一條鏈，最後用 else 接最低的 F，不要寫成四個各自獨立的 if（獨立的 if 每個都要重新檢查一次範圍，容易漏掉邊界或讓多個條件同時成立）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">輸入一個整數成績，請依照分數輸出等第。90 分以上輸出 A，80 到 89 輸出 B，70 到 79 輸出 C，60 到 69 輸出 D，未滿 60 輸出 F。本題用來示範多條件判斷</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 S，代表成績。</dd><dt>輸出</dt><dd>輸出一個英文字母，代表成績等第。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>95</pre></div><div class="sample-row"><div class="k">輸出</div><pre>A</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>72</pre></div><div class="sample-row"><div class="k">輸出</div><pre>C</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=JSB02-D03" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>從最高的等第開始依序判斷（先判斷≥90），用「否則如果」把90/80/70/60四個門檻串起來，最後else接最低等第。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>遊樂園的自動售票機</h3><span class="lv L2">L2｜進階</span><span class="pid">nanto-001</span></div><div class="focus"><b>這題多了什麼：</b>這題的規則<strong>不是單純的數字範圍</strong>，而是四條優先順序不同的規則（縣民卡最優先、再來是敬老票、再來是兒童票、最後才是全票）。寫法還是「如果 ... 否則如果 ... 否則如果 ... 否則 ...」，但判斷用的條件彼此之間沒有數字大小關係（有沒有縣民卡、年齡夠不夠、身高夠不夠都是不同性質的條件），一定要照題目給的順序檢查，自己調換順序可能會算錯（例如先判斷兒童票，縣民卡持有的小孩就不會被判定免費）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">遊樂園引進了一套自動售票機系統，用來快速計算團體遊客的門票總金額。
+每位遊客依據「是否持有縣民卡」、「年齡」、「身高」等條件，適用不同的票價。
+【收費規則（依下列順序判斷）】
+1. 縣民卡免費：持有縣民卡者，門票為 0 元。
+2. 敬老票：年齡大於等於 65 歲者，票價為 150 元。
+3. 兒童票：身高小於 120 公分 或 年齡小於 6 歲者，票價為 180 元。
+4. 全票：不符合以上條件者，票價為 300 元。</div><dl class="io"><dt>輸入</dt><dd>第一行輸入一個整數 N，代表遊客人數。
+第二行輸入 3×N 個整數，每 3 個為一組，依序代表：
+身高（公分）、年齡（歲）、縣民卡（1 表示有，0 表示無），資料間以空白分隔。</dd><dt>輸出</dt><dd>輸出一個整數，代表這一團遊客的門票總金額。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>2
+170 25 1 100 8 0</pre></div><div class="sample-row"><div class="k">輸出</div><pre>180</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+180 30 0 160 70 0 110 5 1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>450</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=nanto-001" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>收費規則有優先順序，要依序判斷：先檢查縣民卡（免費），不符合才檢查敬老票，都不符合才用一般票價，一旦符合某個條件就不用再往下判斷（跟多重範圍判斷不同，這裡的條件不是單純數字大小排列）。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>跳水比賽成績計算</h3><span class="lv L2">L2｜進階</span><span class="pid">nanto-003</span></div><div class="focus"><b>這題多了什麼：</b>這題跟前面幾題不一樣，<strong>重點不是條件判斷</strong>，而是「找出並排除極值」的清單技巧：先走訪一次清單找出最高分和最低分（各一筆，就算有並列也只各扣一筆），再把總分減掉這兩個分數。用到的條件判斷只是「這筆資料是不是目前看過最大/最小」這種找極值時常見的小判斷，跟本知識點前面幾題「依規則分類輸出」的性質不同，放在這裡是因為解題過程中仍然會用到條件判斷做比較。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">跳水比賽為求公平性，會去除評審中較極端的成績。
+比賽共聘用 5～10 位評審，每位評審會給予參賽者 0～10 分的評價。
+參賽者的總成績計算方式如下：
+1. 讀入 N 位評審的分數（未排序）。
+2. 去除一個最高分與一個最低分。
+3. 剩餘評審分數的總和即為該選手的最終得分。
+請撰寫程式，依照輸入的評審分數，計算並輸出參賽者的最終成績</div><dl class="io"><dt>輸入</dt><dd>第一行輸入一個整數 N（5 ≤ N ≤ 10），代表評審人數。
+第二行輸入 N 個整數（0～10），代表每位評審給的分數，資料間以空白隔開。</dd><dt>輸出</dt><dd>輸出一個整數，代表去除最高分與最低分後的總成績。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+9 8 10 6 7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>24</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=nanto-003" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>讀入所有評審分數後，先找出最高分和最低分各一個，從總和中扣掉這兩個分數，剩下的就是最終得分（這題的重點不是條件判斷本身，是「找出並排除極值」這個清單處理技巧）。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>碼易丁飲料店-2</h3><span class="lv L2">L2｜進階</span><span class="pid">nanto-006-2</span></div><div class="focus"><b>這題多了什麼：</b>這題把前面學過的技巧全部組合起來：先用多重 if/else 依飲料編號查出單價（跟 JSB02-D03 查表的概念一樣），再把查價的動作包進一個迴圈，對每一筆訂單重複執行、把金額累加成總金額，最後用一個 if/else 判斷付款夠不夠（夠的話算應找多少、不夠的話印出不足多少）。這是本知識點的收尾題，練習「迴圈＋查表＋累加＋門檻判斷」全部串在一起的完整流程。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">子題二：付款與找零-批次輸入
+
+前一個程式計算金額時，相同飲料也需要一杯一杯分別計價，請修改程式，讓程式可以依序輸入飲料編號及數量，以加快輸入及計算速度！計算總金額後，下一步再處理收錢和找錢的問題了。請你修改剛剛的程式，除輸入方式改變及計算總金額改變外，還要讀取客人支付的金額，並計算應該找給客人多少錢。如果客人付的錢不夠，也要提醒小明喔！
+
+1 號：珍珠奶茶（每杯 45 元）
+
+2 號：伯爵紅茶（每杯 25 元）
+
+3 號：烏龍綠茶（每杯 30 元）
+
+4 號：四季春茶（每杯 40 元）
+
+5 號：黑糖珍珠鮮奶茶（每杯 60 元）
+
+•輸入有三行，第一行輸入整數N，表示有N項飲料訂單要輸入
+
+•第二行輸入2N個數字，依序代表飲料編號(1~5)與數量(1~20)，中間以空白間隔。
+
+•第三行輸入數字M，代表客人支付金額
+
+•輸出請依下列格式，數字間以一個空白隔開
+
+•付款足夠：總金額X 應找錢Y
+
+•付款不足：總金額X 付款不足Y</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>2
+5 2 4 3
+500</pre></div><div class="sample-row"><div class="k">輸出</div><pre>總金額240 應找錢260</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+1 5 3 3 2 2
+350</pre></div><div class="sample-row"><div class="k">輸出</div><pre>總金額365 付款不足15</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=nanto-006-2" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>先學會依飲料編號查出單價（多重if/else對應），再把這個查價方法包進迴圈，依序讀入每筆「飲料編號+數量」，逐筆算出金額並累加成總金額，最後用付款金額減總金額、判斷夠不夠付。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（5 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 判斷奇偶數 <span class="lv L1">L1｜基礎</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟 JSB02-D02 同一招 if/else 二選一，只是情境換成判斷奇偶數：除以 2 餘數為 0 輸出 Even，否則輸出 Odd。</div><div class="problem-desc" style="white-space:pre-line">程式設計中，常常需要根據數字的性質進行分類。
+
+請你寫一個程式，輸入一個整數，如果這個數除以2的餘數為0，表示是偶數，輸出 Even，如果餘數是1，表示是奇數，輸出 Odd。
+
+這樣的練習可以幫助你熟悉條件判斷的應用。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Even</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>Odd</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=A-04-0" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟if/else二選一是同一招，只是換成判斷奇偶數：除以2餘數為0是偶數，否則是奇數。</div></details></details>
+<details class="extension"><summary>🚀 成績等第 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟 JSB02-D03 同一招多重範圍判斷，只是門檻換成 80／70／60／50 這四個分數線，分支結構完全一樣。</div><div class="problem-desc" style="white-space:pre-line">不少學校成績採用等弟制，80~100為A，70~79為B，60~69為C，50~59為D，其餘49分以下為E
+
+請你寫一個程式，輸入一個整數(0~100)，輸出對應的成績等弟。
+
+這樣的練習可以幫助你熟悉條件判斷的應用。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>90</pre></div><div class="sample-row"><div class="k">輸出</div><pre>A</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>45</pre></div><div class="sample-row"><div class="k">輸出</div><pre>E</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=A-04-1" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟多重範圍判斷是同一招，只是等第的分數門檻換成80/70/60/50。</div></details></details>
+<details class="extension"><summary>🚀 三科成績計算 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟 JSB02-D02 的 if/else 二選一是同一招（最後都是判斷「平均 ≥ 60 嗎」），差別是判斷之前要先把三科成績加總、算出平均，多了一段跟條件判斷無關的前置計算。</div><div class="problem-desc" style="white-space:pre-line">小明參加了數學、英文、自然三科的段考，老師希望能快速算出總分與平均分數，並判斷是否及格。
+
+請設計程式，輸入三科的成績，計算總分與平均。
+
+平均成績以四捨五入取到整數
+
+如果平均分數大於等於 60，就輸出「及格」，否則輸出「不及格」。
+
+這題可以訓練你如何處理多筆資料的加總、平均計算，並搭配條件判斷。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+80 70 90</pre></div><div class="sample-row"><div class="k">輸出</div><pre>240
+80
+及格</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+50 42 60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>152
+51
+不及格</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=A-05-0" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟if/else二選一是同一招（判斷平均是否≥60），只是判斷之前多了「三科加總算平均」的步驟。</div></details></details>
+<details class="extension"><summary>🚀 碼易丁飲料店-1 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟 JSB02-D03 的多重分支是同一招的變化版：一樣是「否則如果」串起來的查表邏輯，差別是這題的條件是「飲料編號等於幾號」這種分類編號，不是數字範圍。</div><div class="problem-desc" style="white-space:pre-line">小明家的巷口開了一間名叫「碼易丁」的飲料店，販賣好喝的飲料。身為資訊科技高手的你，決定要寫幾個小程式來幫助小明解決店裡遇到的各種計算問題，從計算單筆訂單金額、找錢，到最後計算每天的營業額。讓我們一步一步跟著小明，用程式解決飲料店的經營問題吧！
+
+請根據下列四個子題，逐步完成整個課飲料店程式系統的設計。
+
+子題一：飲料總金額計算-逐筆輸入
+
+客人上門了！首先，我們要解決最基本的問題：計算客人買了數杯飲料時，總共需要付多少錢。
+
+飲料店販售5種飲料名稱、價格如後，請你設計一個程式，讀取各種飲料購買杯數後，計算出總金額。
+
+1 號：珍珠奶茶（每杯 45 元）
+
+2 號：伯爵紅茶（每杯 25 元）
+
+3 號：烏龍綠茶（每杯 30 元）
+
+4 號：四季春茶（每杯 40 元）
+
+5 號：黑糖珍珠鮮奶茶（每杯 60 元）
+
+第一行同學先輸入數字N，表示總共N杯飲料
+
+第二行依序輸入想購買的飲料編號（1～5），編號以空白間隔
+
+程式需計算並輸出此次訂單的總金額。</div><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+1 3 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>135</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5
+2 2 4 1 3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>165</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=nanto-006-1" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟多重範圍判斷是同一招的變化版：用多重if/else依飲料編號查價格，差別是條件是分類編號而不是數字範圍。</div></details></details>
+<details class="extension"><summary>🚀 超商收銀 <span class="lv L2">L2｜進階</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟 nanto-006-2 最後「判斷付款夠不夠、算應找或不足多少」是同一招，但這題商品價格直接給定，不用像 nanto-006-2 一樣先查表、先用迴圈逐筆累加，單純很多。</div><div class="problem-desc" style="white-space:pre-line">顧客到超商購物，收銀機會依序讀取購買的每樣商品價格。 最後顧客拿出一筆錢付款。
+請你設計程式： 先計算所有商品的總金額。 如果付款金額大於或等於總金額，輸出應找的金額。
+如果付款金額不足，輸出：付款金額不足</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N，代表購買的商品數量。
+第二行：輸入 N 個整數，代表每樣商品的價格。
+第三行：一個整數，代表付款金額。</dd><dt>輸出</dt><dd>如果付款金額足夠，輸出一個整數（應找的金額）。
+如果不足，輸出 付款金額不足。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+50 20 30
+120</pre></div><div class="sample-row"><div class="k">輸出</div><pre>20</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>2
+40 35
+60</pre></div><div class="sample-row"><div class="k">輸出</div><pre>付款金額不足</pre></div></div></div><div class="card-actions"><a class="btn" href="https://tnjbox.github.io/blockly-lab/?course=A4-01-CondSynthesis&amp;task=WP-01" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「算總金額、判斷付款夠不夠」是同一招，但這題不用查價格表，商品價格直接輸入，比較單純。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會分辨什麼時候只需要單一 if、什麼時候需要 if/else、什麼時候需要多重分支。</li><li>我知道多重範圍判斷要從最高門檻開始由高到低依序檢查。</li><li>我能處理「依優先順序檢查、規則不是單純數字排列」的題目。</li><li>我會把查表、迴圈累加、門檻判斷組合成一支完整的程式。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a06.html"><div class="dir">← 上一個知識點</div><b>A06 除錯與格式控制</b></a><a class="next" href="a08.html"><div class="dir">下一個知識點 →</div><b>A08 條件判斷挑戰</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（blockly-lab），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>A20 區間最佳化｜程式設計進階自主學習地圖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="二分搜尋答案、固定視窗找眾數、中位數選址、最大連續子陣列和">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="advanced.css?v=3f23ed4e">
+</head>
+<body style="--unit:#8b5cf6">
+<header class="hero unit-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">課程地圖</a> › <a href="v11.html">V11 區間最佳化與動態規劃</a> › A20</div>
+    <div class="tier-badge">🧩 V11 區間最佳化與動態規劃・知識點 A20・競賽模式</div>
+    <h1>區間最佳化</h1>
+    <p class="hero-lead">二分搜尋答案、固定視窗找眾數、中位數選址、最大連續子陣列和</p>
+    <div class="hero-actions"><span class="code-chip">A11-01-IntervalOptimize<button type="button" data-copy="A11-01-IntervalOptimize">複製</button></span></div>
+  </div>
+</header>
+<main class="page md">
+<div class="fold-bar"><span>點標題可以展開或收合</span><button type="button" class="btn ghost" data-fold="open">全部展開</button><button type="button" class="btn ghost" data-fold="close">全部收合</button></div>
+<details class="fold" open><summary><h2 class="section-title"><span class="num">1</span>學習目標</h2></summary><div class="fold-body">
+<ul class="goals"><li>認識「二分搜尋答案」：題目問「最小化最大值」或「最大化某個量」時，用猜答案＋檢查可不可行的方式逼近正解。</li><li>會用固定視窗技巧找出「連續K天內某個條件出現最多次」的區間。</li><li>知道區間最佳化不是只有一招：這個知識點收錄了二分搜尋答案、固定視窗找眾數、中位數選址、最大連續子陣列和四種不同技巧，要看題目特徵選對招式，不是套同一個公式。</li></ul>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
+<p>這個知識點的題目共同點是「在一堆數字裡找出某種最佳的切法或選法」，但背後用的技巧不只一種：</p>
+<div class="table-scroll"><table><thead><tr><th>題目特徵</th><th>該用的技巧</th></tr></thead><tbody><tr><td>「切成幾段，讓最大的那段盡量小」或「最多能切出幾段」</td><td><strong>二分搜尋答案</strong>：猜一個候選答案，寫一個「檢查這個答案可不可行」的方法，再調整猜測範圍</td></tr><tr><td>「固定連續K天內，某個條件出現最多/最少次」</td><td>固定視窗（跟A19滑動視窗同一招）</td></tr><tr><td>「找一個點，讓所有點到它的距離總和最小」</td><td>排序後取<strong>中位數</strong></td></tr><tr><td>「找一段連續區間，總和最大」（允許負數）</td><td>最大連續子陣列和：目前總和變負就歸零重算</td></tr></tbody></table></div>
+<div class="tip"><div class="tag">💡 二分搜尋答案 vs. 一般二分搜尋（A17/A9-01）</div><p>A17學過的二分搜尋，是在<strong>已排序的清單</strong>裡夾出目標值的位置。這裡的「二分搜尋答案」是在<strong>候選答案的範圍</strong>裡夾出最佳答案——猜的不是清單裡的某個數字，而是「最終答案可能是多少」，每猜一次就要另外寫一個檢查方法，確認這個猜測是否可行，再決定要往上猜還是往下猜。兩者的「夾範圍、每次刷掉一半」的精神是一樣的。</p></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">3</span>示範題：跟著一步一步做（1 題）</h2></summary><div class="fold-body">
+<p>先讀題，再一步一步點開來看。建議每看完一步，就先自己在平台上試著寫寫看——這是競賽模式，沒有範例答案可以載入對照，「解法詳解」就是你確認思路的地方。</p>
+<section class="demo"><span class="demo-label">示範題 </span>
+<div class="problem-card"><div class="problem-head"><h3>園遊會場地復原大作戰</h3><span class="lv L4">L4｜精熟</span><span class="pid">cycjunior-006-4-園遊會場地復原大作戰</span></div><div class="problem-desc" style="white-space:pre-line">熱鬧的園遊會終於圓滿落幕了！現在是最後的場地復原時間。雖然大家都累壞了，但幾位熱心的志工同學自願留下來幫忙清理最後的垃圾。
+現在在操場的跑道旁，整齊地排列著 N 堆分類好的垃圾包。因為垃圾已經打包好了，而且按照順序排成一列，為了避免混亂，每位志工必須負責清理「連續」的幾堆垃圾，不能跳著拿（例如：小明不能拿了第 1 堆又跑去拿第 3 堆，他必須拿第 1、2、3 堆這樣連續的一段）。你是衛生組長，你有 M 位志工可以調度。為了公平起見，你不希望任何一位志工累壞，所以你的目標是：「讓工作量最重的那位志工，搬運的重量越輕越好」。
+換句話說，你要把這一列垃圾切成 M段，分配給 M 個人，請你計算出在最完美的分配策略下，那個「搬最多重量的人」，他最少只需要搬多少公斤？</div><dl class="io"><dt>輸入</dt><dd>第一行：整數 M (志工人數)。
+第二行：整數 N (垃圾堆數)。
+第三行：N 個整數 (垃圾重量)。</dd><dt>輸出</dt><dd>一個整數 (最小化的最大工作量)。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>2
+5
+2 4 3 6 5</pre></div><div class="sample-row"><div class="k">輸出</div><pre>11</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+3
+10 20 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>30</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize&amp;task=cycjunior-006-4-%E5%9C%92%E9%81%8A%E6%9C%83%E5%A0%B4%E5%9C%B0%E5%BE%A9%E5%8E%9F%E5%A4%A7%E4%BD%9C%E6%88%B0" target="_blank" rel="noopener">▶ 在平台上打開這一題（Blockly）</a></div></div>
+<details class="step"><summary>第 1 步：讀題，找出輸入和輸出</summary><div class="step-body"><ul><li><strong>輸入</strong>：志工人數M、垃圾堆數N、N堆垃圾各自的重量。</li><li><strong>輸出</strong>：把這N堆垃圾切成連續的M段分給M個志工，「扛最重的那位志工」最少要扛多少公斤。</li></ul></div></details>
+<details class="step"><summary>第 2 步：把問題拆成步驟</summary><div class="step-body"><p>先寫一個「檢查方法」：給定一個上限值，看看用這個上限能不能把垃圾切成M段以內。</p>
+<pre class="code">檢查(上限值)：
+    將 段數 設為 1
+    將 這段目前重量 設為 0
+    循環走訪清單每一堆 重量
+        如果 這段目前重量 + 重量 &gt; 上限值
+            將 段數 設為 段數 + 1（開新的一段）
+            將 這段目前重量 設為 重量
+        否則
+            將 這段目前重量 設為 這段目前重量 + 重量
+    回傳 段數 ≤ M</pre>
+<p>再用二分搜尋答案夾出最小的可行上限：</p>
+<pre class="code">將 下限 設為 清單中最重的那一堆（因為每段至少要裝得下最重的那堆）
+將 上限 設為 全部重量總和（極端情況：一個人扛全部）
+重複，當 下限 &lt; 上限
+    將 中間 設為 (下限 + 上限) 除以 2（無條件捨去）
+    如果 檢查(中間) 成立
+        將 上限 設為 中間（這個上限可行，試著找更小的）
+        否則
+        將 下限 設為 中間 + 1（這個上限不可行，答案要更大）
+說出 下限</pre></div></details>
+<details class="step"><summary>第 3 步：用範例走一次</summary><div class="step-body"><p>輸入 M=2，重量「2 4 3 6 5」：</p>
+<div class="table-scroll"><table><thead><tr><th>回合</th><th>下限</th><th>上限</th><th>中間</th><th>檢查(中間)的結果</th><th>動作</th></tr></thead><tbody><tr><td>初始</td><td>6</td><td>20</td><td>—</td><td>—</td><td>下限＝最重的一堆(6)，上限＝總和(20)</td></tr><tr><td>1</td><td>6</td><td>20</td><td>13</td><td>分成[2+4+3=9]\</td><td>[6+5=11]，共2段，可行</td><td>上限設為13</td></tr><tr><td>2</td><td>6</td><td>13</td><td>9</td><td>分成[2+4+3=9]\</td><td>[6]\</td><td>[5]，共3段，不可行</td><td>下限設為10</td></tr><tr><td>3</td><td>10</td><td>13</td><td>11</td><td>分成[2+4+3=9]\</td><td>[6+5=11]，共2段，可行</td><td>上限設為11</td></tr><tr><td>4</td><td>10</td><td>11</td><td>10</td><td>分成[2+4+3=9]\</td><td>[6]\</td><td>[5]，共3段，不可行</td><td>下限設為11</td></tr><tr><td>—</td><td>11</td><td>11</td><td>—</td><td>下限=上限，迴圈結束</td><td>輸出11</td></tr></tbody></table></div>
+<p>輸出「11」，和範例一樣。</p></div></details>
+<details class="step"><summary>第 4 步：解法詳解</summary><div class="step-body"><p>這題沒辦法直接算出答案，只能用「猜測＋驗證」的方式逼近：</p>
+<ul><li><strong>下限、上限的起始值怎麼訂</strong>：下限至少要能裝得下「最重的那一堆」（不然這堆永遠切不進任何一段），上限則是「全部都給一個人扛」的極端情況，正確答案一定落在這個範圍內。</li><li><strong>檢查方法在做什麼</strong>：用貪心的方式模擬切段——沿著清單累加重量，一旦加下去會超過目前猜測的上限，就另外開一段，數一數總共要開幾段，跟允許的人數M比較。</li><li><strong>可行就往小猜，不可行就往大猜</strong>：這就是二分搜尋答案的核心——不是在清單裡找值，是在「答案可能的範圍」裡找值。</li></ul>
+<div class="pitfall"><div class="tag">⚠️ 常見錯誤</div><ul><li><strong>下限設錯</strong>：如果下限沒有設成「最重的那一堆」，而是設成0或1，檢查方法在某些情況下會誤判成可行，實際上切不出合法的分法。</li><li><strong>檢查方法裡的段數算錯</strong>：一開始要先把第一堆放進第一段（段數從1開始，不是從0開始）。</li><li><strong>忘記這是對答案做二分搜尋</strong>：容易誤以為要對「垃圾清單」做二分搜尋，但垃圾清單根本沒有排序、也不是在找某個垃圾的位置，真正在夾範圍的是「答案的數值」。</li></ul></div></div></details>
+</section>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">4</span>練習題（4 題）</h2></summary><div class="fold-body">
+<p>照順序完成這些題目。寫完之後按「系統評分」檢查結果。</p>
+<div class="practice-list"><article class="practice"><div class="problem-head"><h3>挑選喜歡的午餐區間</h3><span class="lv L4">L4｜精熟</span><span class="pid">TYTN-07</span></div><div class="focus"><b>這題多了什麼：</b>這題換成固定視窗技巧（呼應A19滑動視窗）：視窗大小固定K天，每個視窗內數一數「最愛餐點」出現幾次，邊移動視窗邊記錄最多次數與對應的最早起始天。如果多個視窗次數並列最多，要記得保留<strong>最早</strong>出現的那個起始點（比較時用「嚴格大於」才更新記錄，次數相同不更新）。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">小虎最愛挑午餐，他對多種主餐都有特別喜歡的類別，以字母表示（如 A=雞肉、B=豬排…）。
+學校提供 N 天午餐菜單，每天的主餐以字母表示。小虎想挑出連續 K 天的午餐，使「最愛餐點」在這段期間出現最多次。
+若有多段連續 K 天的午餐其最愛餐點出現次數相同，小虎會選擇「最早」出現的那一段。
+請輸出：
+1. 最愛餐點在最佳區間中出現的總次數
+2. 該區間的起始天數（第一天為 1）</div><dl class="io"><dt>輸入</dt><dd>第1行：整數 N（天數）
+第2行：長度為 N 的字母字串，每個字母代表一天主餐，以空格隔開
+第3行：整數 K（連續天數）
+第4行：小虎最愛的餐點，可包含多個字母，以空格隔開</dd><dt>輸出</dt><dd>輸出兩個整數：最愛餐點出現次數、最佳區間起始天數，中間以空格隔開。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>7
+A B A C A B A
+3
+A</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 1</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>10
+A B C D A B C C B A
+4
+A C</pre></div><div class="sample-row"><div class="k">輸出</div><pre>3 5</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize&amp;task=TYTN-07" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>固定連續K天的視窗內，數某個喜歡的字母出現幾次，找出最多次的視窗；如果有多個視窗並列最多，要輸出最早開始的那一個。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>星際物資運補-物流中心選址</h3><span class="lv L4">L4｜精熟</span><span class="pid">W0-04-3-星際物資運補任務-物流中心選址</span></div><div class="focus"><b>這題多了什麼：</b>這題不是搜尋也不是視窗，是數學性質：要找一個位置P讓所有基地到P的距離總和最小，排序後選<strong>中位數</strong>（清單排序後正中間的值）就是最佳解；如果資料筆數是偶數，中位數範圍內的任何值效果一樣，題目規定要取「數值較小」的那個。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">火星的所有基地目前都分布在「奧林帕斯峽谷」的一條筆直公路上。
+為了降低整體油耗，物流中心決定選擇一個最優的位置 P 來建立「中央配送倉庫」。
+已知共有 N 個基地，其座標分別為 X1, X2, …, XN。
+請找出一個「整數座標點 P」，使得所有基地到該點的距離總和：
+|X1 − P| + |X2 − P| + ⋯ + |XN − P| 達到最小。
+【特別規定】
+• 若有兩個以上的座標點 P 能得到相同且最小的距離總和，請輸出「座標數值較小」的那一個。
+• 可以證明，最佳解一定會落在某一個既有基地的位置上。</div><dl class="io"><dt>輸入</dt><dd>• 第一行輸入一個整數 N，代表基地數量。
+• 第二行輸入 N 個整數，代表各基地的座標（已排序）。</dd><dt>輸出</dt><dd>• 輸出一個整數，代表最佳物流中心的座標位置 P。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+1 3 5 10 20</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+1 2 100 200</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize&amp;task=W0-04-3-%E6%98%9F%E9%9A%9B%E7%89%A9%E8%B3%87%E9%81%8B%E8%A3%9C%E4%BB%BB%E5%8B%99-%E7%89%A9%E6%B5%81%E4%B8%AD%E5%BF%83%E9%81%B8%E5%9D%80" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>要找一個位置P讓所有基地到P的距離總和最小，這跟「中位數」的性質有關：排序後選中間位置的值通常是最佳解。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>校園密室逃脫-書架修繕工程</h3><span class="lv L5">L5｜大師</span><span class="pid">cyjunior-008</span></div><div class="focus"><b>這題多了什麼：</b>跟示範題同樣是「二分搜尋答案」，但方向相反：示範題是找「最小化最大段和」（上限越小越好，檢查條件是「段數≤M就可行」），這題是找「最大化等長段數」（長度越大越好，檢查條件是「能切出的段數加總≥K就可行」）。檢查方法要改成：每根木材可以切出「這根長度除以候選長度（無條件捨去）」段，把所有木材能切出的段數加總，看有沒有達到需要的K段。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">終於來到最後一關，只要修復好眼前倒塌的古老書架，就能拿到智慧之鑰。書架的結構需要 K 根長度完全相同的木條來支撐，才能維持平衡。倉庫角落堆放著 N 根長短不一的備用木材。你可以使用鋸子將一根長木材切成多段短木材，但為了結構強度，嚴禁將兩根短木材拼接使用。
+為了讓修復後的書架越穩固越好，這 K 根支撐木條的長度應該要越長越好。請根據現有木材的庫存狀況，計算出這 K 根木條的最大可能長度是多少？</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N（現有木材數量）。
+第二行：一個整數 K（需要木條數量）。
+第三行：N 個整數，代表現有每根木材的長度。</dd><dt>輸出</dt><dd>第一行： 一個整數，代表最大可能長度。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+4
+10 20 30</pre></div><div class="sample-row"><div class="k">輸出</div><pre>10</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>3
+7
+21 15 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>5</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize&amp;task=cyjunior-008" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「切段最小化最大段和」是同一種「猜答案再檢查可行性」的二分搜尋策略，但這題是反過來找「最多能切出幾段等長的木條」（找最大可行值，不是最小上限）。</div></details></article>
+<article class="practice"><div class="problem-head"><h3>園遊會人潮高峰期</h3><span class="lv L4">L4｜精熟</span><span class="pid">cycjunior-006-3-園遊會人潮高峰期</span></div><div class="focus"><b>這題多了什麼：</b>這題是「最大連續子陣列和」的經典應用：用一個變數記錄「目前這段的總和」，每走到一個新數字就加進去；一旦目前總和變成負數，代表這段已經在扯後腿，直接歸零重新從下一個數字開始算；過程中隨時記錄出現過的最大值。題目特別規定如果全部都是負數（最大值會是負的），要輸出0。</div>
+<details class="problem-more"><summary>看題目內容</summary><div class="problem-desc" style="white-space:pre-line">一年一度的校慶園遊會順利落幕了！今年學生會為了讓明年的活動辦得更好，決定用數據來說話。他們在校門口和各個攤位區安裝了「人流感測器」。感測器每隔一段時間（例如每 10 分鐘）就會記錄一次數據，這個數據稱為「人潮淨流量」：
+•	如果是 正數 (例如 +50)：代表進來的人比出去的人多，人潮正在累積。
+•	如果是 負數 (例如 -30)：代表離開的人比進來的人多，人潮正在消散。
+學生會會長小華拿到了一長串的數據清單，他想要找出一段連續的時間區間，這段時間內的「淨流量總和」是最大的。這個最大的數值就代表了今年園遊會最「盛況空前」時累積的人氣指數。請注意，如果算出來的最大總和是負數（代表整場活動人都一直在變少，或是沒人來），為了報表好看，請直接將結果歸零，輸出 0。
+請你幫忙寫一個程式，找出這個傳說中的「最大熱門指數」！</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N代表總共記錄了 N 筆時段的數據。
+第二行：N 個整數，依序代表第 1 個時段到第 N 個時段的人潮淨流量（有正有負）。</dd><dt>輸出</dt><dd>第一行：一個整數 (最大和)。
+特別規則：如果所有可能的區間總和都是負數，請輸出 0</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3
+-1 2 -1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+-5 -2 -9 -1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>0</pre></div></div></div></details>
+<div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize&amp;task=cycjunior-006-3-%E5%9C%92%E9%81%8A%E6%9C%83%E4%BA%BA%E6%BD%AE%E9%AB%98%E5%B3%B0%E6%9C%9F" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這是「最大連續子陣列和」的經典技巧：用一個變數記錄「目前這段的總和」，總和變成負的就歸零重新開始算，過程中記錄出現過的最大值。</div></details></article></div>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">5</span>延伸挑戰（3 題）</h2></summary><div class="fold-body">
+<p>核心題都會了嗎？這些題目跟核心題概念重複或更進一步，想加深印象或挑戰的話可以試試看。</p>
+<details class="extension"><summary>🚀 星際物資運補-防禦塔的能量負載 <span class="lv L5">L5｜大師</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟示範題cycjunior-006-4是完全相同的題型（切成M段、最小化最大段和），只是數字規模更大、情境換成防禦塔配電，當作二分搜尋答案這招的進階挑戰。</div><div class="problem-desc" style="white-space:pre-line">基地外圍有 N 座依序排列的雷射防禦塔，其能量需求分別為 E1, E2, …, EN。現有 M 台發電機需負責供電，配置規則如下：每台發電機必須負責供應「連續區間」的防禦塔（不可跳號）。所有防禦塔都必須被供電，且每座塔僅由一台發電機負責。請規劃 M 台發電機的負責範圍，使得所有發電機中「負擔最重（能量總和最大）」的那一台，其數值盡可能小。即：求出一組劃分方式，讓「各區段和的最大值」最小化 (Minimize the Maximum Sum)。
+【範例說明】假設 N=3（能量需求：2, 5, 8），M=2（2 台發電機）。
+分法一：第一台負責第 1 座（能量 2）；第二台負責第 2~3 座（能量 5+8=13）。
+這時兩台的負荷分別是 2 和 13，其中負擔最重的是 13。
+分法二：第一台負責第 1~2 座（能量 2+5=7）；第二台負責第 3 座（能量 8）。
+這時兩台的負荷分別是 7 和 8，其中負擔最重的是 8。
+結果：分法二的最大負荷較小，故最佳解為 8</div><dl class="io"><dt>輸入</dt><dd>第一行：一個整數 N，代表防禦塔數量。
+第二行：一個整數 M，代表發電機數量。
+第三行：N 個整數，依序代表第 1 座到第 N 座防禦塔的能量需求</dd><dt>輸出</dt><dd>第一行： 一個整數，經過最佳規劃後，「最小化的最大負荷值」</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>5
+2
+7 2 5 10 8</pre></div><div class="sample-row"><div class="k">輸出</div><pre>18</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>4
+4
+1 2 3 4</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize&amp;task=nantoJS-006-4" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>跟「切成M段、最小化最大段和」是完全相同的題型，只是數字更大、敘事換成防禦塔，當作同類型的進階挑戰。</div></details></details>
+<details class="extension"><summary>🚀 衛星佈署計畫 <span class="lv L4">L4｜精熟</span></summary>
+<div class="focus"><b>挑戰重點：</b>跟其他題目的技巧不太一樣，偏向區間/除法規則的應用：依路徑總長度、固定間隔，算出沿途要佈署幾個點，再依照4種不同的佈署模式（頭尾都算/只算起點/頭尾都不算/首尾相接的環狀）調整公式。當作區間概念的延伸練習。</div><div class="problem-desc" style="white-space:pre-line">台灣正致力於研發自主低軌衛星通訊系統「T-Starlink」，以確保在特殊情況下通訊不中斷。
+TASA 國家太空中心預計在特定的軌道高度上，沿著預定路徑佈署通訊衛星。根據衛星的訊號覆蓋半徑與任務需求，不同路徑段有不同的佈署模式。
+請寫一個程式，根據路徑總長度、衛星間的固定間隔，以及指定的「佈署模式」，計算該路段總共需要佈署多少顆衛星。
+【基本定義】
+• 衛星之間的間隔必須為整數。
+• 若路段長度無法被間隔整除，剩餘不足一個間隔的距離將不佈署衛星（即：計算間隔數時請取整數商）。
+【佈署模式】（依輸入模式編號 M 計算衛星數量）
+1. 模式 1（全線覆蓋）：可佈署段的「起點」與「終點」都必須佈署衛星。
+2. 模式 2（銜接佈署）：僅在「起點」佈署衛星，「終點」不佈署。
+3. 模式 3（受限區域）：起點與終點都不佈署衛星（只佈署中間點）。
+4. 模式 4（全球環繞軌道）：首尾相接的圓形封閉軌道。</div><dl class="io"><dt>輸入</dt><dd>第一行輸入整數 L，代表路段總長度（公里）。
+第二行輸入整數 D，代表衛星與衛星間的固定間隔（公里）。
+第三行輸入整數 M，代表佈署模式（1、2、3 或 4）。</dd><dt>輸出</dt><dd>輸出一個整數，代表該路段所需的衛星總數。</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>1000
+200
+1</pre></div><div class="sample-row"><div class="k">輸出</div><pre>6</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>1000
+200
+3</pre></div><div class="sample-row"><div class="k">輸出</div><pre>4</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize&amp;task=W4-05" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>沿著固定長度的路徑，依固定間隔決定哪些路段要佈署，計算方式偏向區間/除法規則的應用，當作區間概念的延伸練習。</div></details></details>
+<details class="extension"><summary>🚀 山區備援工程 <span class="lv L4">L4｜精熟</span></summary>
+<div class="focus"><b>挑戰重點：</b>這是三合一綜合題：⑴樹狀深度（跟V7圖論的技巧相同，往上走到根節點數幾步）⑵用除法找最大可行的切割長度（跟cyjunior-008同樣是二分搜尋答案的精神）⑶爬樓梯方法數（跟A21動態規劃暖身的核心教學題同招）。三個小題做過一輪，等於把前面好幾個單元學過的技巧都複習一次。</div><div class="problem-desc" style="white-space:pre-line">颱風季將至，市府要在山區架設備援通訊設備。現有的基地台連線關係是一棵樹狀結構，編號 1 為主控站，每條連線代表「上級站 → 下級站」。你需要完成三個計算：
+(1) 風險層數：從 1 號站走到最遠的下級站，最多會經過幾條連線（最大層數）。
+(2) 纜線切段：你有 P 條纜線，每條長度為整數。你要把纜線切成「等長」的小段（長度為 L，且 L 必須是正整數），每條纜線最多可切出 ⌊纜線長度 ÷ L⌋ 段，且不能拼接。
+你需要至少「最大層數」段小纜線來完成架設，請找出最大的 L。
+（題目保證：當 L=1 時一定切得出足夠段數。）
+(3) 攀登方式：工程人員要爬上「最大層數」階的梯子，每一步可以爬 1 階或 2 階。請計算走到頂端共有幾種不同走法</div><dl class="io"><dt>輸入</dt><dd>第一行：兩個整數 N P（基地台數量、纜線數量）。
+第二行：N-1 個整數，代表連線起點列表（上級站）。
+第三行：N-1 個整數，代表連線終點列表（下級站）。
+第四行：P 個整數，代表每條纜線長度。</dd><dt>輸出</dt><dd>輸出三個整數（以半形空白分隔）：最大層數 最大L 走法數</dd></dl><div class="samples"><div class="sample"><div class="sample-row"><div class="k">範例1<br>輸入</div><pre>3 2
+1 2
+2 3
+10 10</pre></div><div class="sample-row"><div class="k">輸出</div><pre>2 10 2</pre></div></div><div class="sample"><div class="sample-row"><div class="k">範例2<br>輸入</div><pre>5 3
+1 1 1 1
+2 3 4 5
+5 6 7</pre></div><div class="sample-row"><div class="k">輸出</div><pre>1 7 1</pre></div></div></div><div class="card-actions"><a class="btn" href="https://p2766602-beep.github.io/BlocklyYdws/?course=A11-01-IntervalOptimize&amp;task=W5-06" target="_blank" rel="noopener">▶ 前往練習（Blockly）</a></div><details class="hint"><summary>💡 需要提示嗎？</summary><div>這是三合一綜合題：(1)樹狀深度（跟V7圖論概念相同）(2)除法運算優化 (3)爬樓梯DP（跟A11-02的核心教學題同招）。當作綜合挑戰，三個小題做過一輪能複習前面好幾個單元學過的技巧。</div></details></details>
+</div></details>
+
+<details class="fold"><summary><h2 class="section-title"><span class="num">6</span>自我檢核</h2></summary><div class="fold-body">
+<p>學完之後，檢查看看你能不能做到這些事。有做不到的，就回到上面對應的地方再看一次。</p>
+<ul class="checklist"><li>我會判斷一道「區間最佳化」的題目該用二分搜尋答案、固定視窗、中位數、還是最大子陣列和。</li><li>我會寫出二分搜尋答案的「檢查方法」，判斷某個候選答案是否可行。</li><li>我知道中位數可以讓「到所有點距離總和」最小。</li><li>我會用「總和變負就歸零重算」的方式找出最大連續子陣列和。</li></ul>
+</div></details>
+<nav class="pager"><a class="prev" href="a19.html"><div class="dir">← 上一個知識點</div><b>A19 滑動視窗</b></a><a class="next" href="a21.html"><div class="dir">下一個知識點 →</div><b>A21 動態規劃暖身</b></a></nav>
+
+  <div class="footer">
+    <div>進階版自主學習地圖｜題目取自 M1~M3 系列重組（課程代碼 A1-01 ～ A12-01），全部為競賽模式</div>
+    <div class="source">練習平台：Blockly（BlocklyYdws），不提供Scratch版本｜<a href="index.html">自主學習地圖首頁</a></div>
+    <div class="copyright"><p>© 2026 Younger Yang／Younger Dream Workshop（YDWS）</p><p>本網站的教材內容（文字說明、虛擬碼、解法詳解）與 A 系列練習題，採用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">創用 CC 姓名標示－非商業性－相同方式分享 4.0 國際（CC BY-NC-SA 4.0）</a>授權：在標示出處的前提下，可以為非商業目的使用、修改和分享；修改後的作品也要用相同授權釋出。</p><p>「進階挑戰」的 114 學年度縣市程式解題題目，著作權屬於各縣市教育主管機關或原承辦單位，不適用上述 CC 授權；經縣市代表會議決定，授權全國各縣市學校師生基於教育目的非商業使用，請勿將題目內容轉載至其他公開網站。</p><p>練習平台使用的 Blockly 程式碼（Apache License 2.0），依其原本的授權釋出。</p><p>部分教材內容由 AI（Claude）協助撰寫，並經維護者審閱、在平台上實測後發布。</p></div>
+  </div>
+</main>
+<script src="advanced.js?v=31fcc4f2"></script>
+</body>
+</html>
