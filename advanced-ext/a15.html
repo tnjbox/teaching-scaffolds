@@ -27,7 +27,7 @@
 
 <details class="fold"><summary><h2 class="section-title"><span class="num">2</span>概念說明</h2></summary><div class="fold-body">
 <p>貪心策略的核心精神是：<strong>不用考慮所有可能的組合，每一步選「目前最好」的那個，最後就會得到最好的結果</strong>。這個單元先練幾個最基本的貪心套路：</p>
-<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木／怎麼做</th></tr></thead><tbody><tr><td>算最多能買幾瓶（固定單價）</td><td><img class="block-img" src="assets/blocks/div_floor.png" alt="總錢數 除以 單價，無條件捨去" loading="lazy"></td></tr><tr><td>算至少需要幾個箱子（固定容量）</td><td><img class="block-img" src="assets/blocks/div_ceil.png" alt="總數量 除以 容量，無條件進位" loading="lazy">（除不盡要多算一個）</td></tr><tr><td>用最少硬幣數找零</td><td>從最大面額開始，依序用「金額 除以 面額，無條件捨去」決定用幾個，「金額 除以 面額的餘數」決定剩多少繼續處理下一個面額</td></tr><tr><td>排序後盡量多選、選到額度用完為止</td><td>由小到大排序，依序累加，一旦加了會超過上限就停止，數加了幾個</td></tr><tr><td>排序後固定選 K 個、求總和最大</td><td>由大到小排序，直接取前 K 個加總</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>你想做的事</th><th>用哪個積木／怎麼做</th></tr></thead><tbody><tr><td>算最多能買幾瓶（固定單價）</td><td>總錢數 除以 單價，無條件捨去</td></tr><tr><td>算至少需要幾個箱子（固定容量）</td><td>總數量 除以 容量，無條件進位（除不盡要多算一個）</td></tr><tr><td>用最少硬幣數找零</td><td>從最大面額開始，依序用「金額 除以 面額，無條件捨去」決定用幾個，「金額 除以 面額的餘數」決定剩多少繼續處理下一個面額</td></tr><tr><td>排序後盡量多選、選到額度用完為止</td><td>由小到大排序，依序累加，一旦加了會超過上限就停止，數加了幾個</td></tr><tr><td>排序後固定選 K 個、求總和最大</td><td>由大到小排序，直接取前 K 個加總</td></tr></tbody></table></div>
 <div class="tip"><div class="tag">💡 無條件捨去 vs 無條件進位</div><p>兩個都是處理「除不盡」的情況，但方向相反：「最多能買幾瓶」這種問題，多出來的零頭買不了一整瓶，要<strong>捨去</strong>；「至少要幾個箱子」這種問題，多出來的零頭還是需要額外一個箱子裝，要<strong>進位</strong>。拿到類似的除法問題，先想清楚「零頭要不要多算一個」，就知道該用哪一種。</p></div>
 </div></details>
 
