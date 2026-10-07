@@ -59,6 +59,12 @@
     document.querySelectorAll('[data-platform-name]').forEach(function (el) {
       el.textContent = cfg.label;
     });
+    // 積木截圖跟著平台切換：有data-scratch-src的圖，Scratch平台顯示Scratch版截圖，
+    // 沒有Scratch版（還沒補齊）的圖維持原本的Blockly截圖，不會壞掉或空白。
+    document.querySelectorAll('img.block-img[data-blockly-src]').forEach(function (img) {
+      var src = (p === 'scratch' && img.dataset.scratchSrc) ? img.dataset.scratchSrc : img.dataset.blocklySrc;
+      if (src && img.getAttribute('src') !== src) img.src = src;
+    });
   }
 
   document.addEventListener('click', function (ev) {
